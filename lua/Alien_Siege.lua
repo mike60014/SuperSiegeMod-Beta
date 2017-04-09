@@ -20,8 +20,6 @@ function Alien:OnCreate()
 
 end
 
-
-
 function Alien:UpdateWeapons()
      local lasttime = 1
      if Server then

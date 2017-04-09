@@ -1,7 +1,8 @@
 --'Avoca'
 Shotgun.kStartOffset = 0
-local kBulletSize = 0.016
-local kSpreadDistance = 16
+local kBulletSize = gShotgunBulletSize
+local kPrimarySpreadDistance = gShotgunPrimarySpreadDistance
+local kSecondarySpreadDistance = gShotgunSecondarySpreadDistance
 
 local originit = Shotgun.OnInitialized
 function Shotgun:OnInitialized()
@@ -10,36 +11,34 @@ originit(self)
 
 Shotgun.kSecondarySpreadVectors =  --Sven-Coop !
 {
-    GetNormalizedVector(Vector(-0.25, 0.01, kSpreadDistance)),
-    GetNormalizedVector(Vector(-0.5, 0.01, kSpreadDistance)),
-    GetNormalizedVector(Vector(-1, 0.01, kSpreadDistance)),
-    GetNormalizedVector(Vector(0.5, 0.01, kSpreadDistance)),
-    GetNormalizedVector(Vector(1, 0.01, kSpreadDistance)),
-    GetNormalizedVector(Vector(-1.25, 0.01, kSpreadDistance)),
-    GetNormalizedVector(Vector(-1.5, 0.02, kSpreadDistance)),
-    GetNormalizedVector(Vector(-2, 0.01, kSpreadDistance)),
-    GetNormalizedVector(Vector(1.5, 0.01, kSpreadDistance)),
-    GetNormalizedVector(Vector(2, 0.01, kSpreadDistance)),
-    
-
+    GetNormalizedVector(Vector(-0.25, 0.01, kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(-0.5, 0.01, kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(-1, 0.01, kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(0.5, 0.01, kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(1, 0.01, kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(-1.25, 0.01, kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(-1.5, 0.02, kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(-2, 0.01, kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(1.5, 0.01, kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(2, 0.01, kSecondarySpreadDistance)),
     
 }
 
 
 end
 
+local origanim = Shotgun.OnUpdateAnimationInput
+function Shotgun:OnUpdateAnimationInput(modelMixin)
+origanim(self, modelMixin)
+local activity = "none"
+if self.secondaryAttacking then
+	activity = "primary"
+   modelMixin:SetAnimationInput("activity", activity)
+ end
+end
 
+local origprimary = Shotgun.FirePrimary
 
-    local origanim = Shotgun.OnUpdateAnimationInput
-    function Shotgun:OnUpdateAnimationInput(modelMixin)
-    origanim(self, modelMixin)
-        local activity = "none"
-        if self.secondaryAttacking then
-            activity = "primary"
-           modelMixin:SetAnimationInput("activity", activity)
-         end
-    end
-    local origprimary = Shotgun.FirePrimary
 function Shotgun:FirePrimary(player)
               --Jerry rig so i can have secondary fire acting as primary without firing primary. So I don't have to modify animations :)
   if not self.secondaryAttacking  then
@@ -47,6 +46,7 @@ function Shotgun:FirePrimary(player)
   end
 
 end
+
 function Shotgun:GetHasSecondary(player)
     return true
 end
@@ -54,6 +54,9 @@ function Shotgun:GetSecondaryCanInterruptReload()
     return true
 end
 
+
+local kShotgunSecondaryEffectRange = gShotgunSecondaryEffectRange
+local kShotgunClipSize = gShotgunClipSize
 function Shotgun:SecondaryFire(player)
   local viewAngles = player:GetViewAngles()
 
@@ -64,10 +67,10 @@ function Shotgun:SecondaryFire(player)
     local range = self:GetRange()
     
     if GetIsVortexed(player) then
-        range = 5
+        range = kShotgunSecondaryEffectRange
     end
     
-    local numberBullets = 10
+    local numberBullets = kShotgunClipSize
     local startPoint = player:GetEyePos()
     
     self:TriggerEffects("shotgun_attack_sound")
@@ -125,36 +128,26 @@ function Shotgun:SecondaryFire(player)
 
 end
 local function CancelReload(self)
-
     if self:GetIsReloading() then
-    
         self.reloading = false
-        if Client then
-            self:TriggerEffects("reload_cancel")
-        end
-        if Server then
-            self:TriggerEffects("reload_cancel")
-        end
+		self:TriggerEffects("reload_cancel")
+		self:TriggerEffects("reload_cancel")
     end
     
 end
 
 
-kShotgunSecondaryAttackSpeed = gShotgunSecondaryAttackSpeed
+local kShotgunSecondaryAttackSpeed = gShotgunSecondaryAttackSpeed
 function Shotgun:OnSecondaryAttack(player)
     local sprintedRecently = (Shared.GetTime() - self.lastTimeSprinted) < kMaxTimeToSprintAfterAttack
     local attackAllowed = not sprintedRecently and (not self:GetIsReloading() or self:GetSecondaryCanInterruptReload()) and (not self:GetSecondaryAttackRequiresPress() or not player:GetSecondaryAttackLastFrame())
     local attackedRecently = (Shared.GetTime() - self.attackLastRequested) < kShotgunSecondaryAttackSpeed
-    
-    
-    if self.clip >= 1 and not player:GetIsSprinting() and self:GetIsDeployed() and attackAllowed and not self.primaryAttacking and not attackedRecently then
-    
+     if self.clip >= 1 and not player:GetIsSprinting() and self:GetIsDeployed() and attackAllowed and not self.primaryAttacking and not attackedRecently then
         self.secondaryAttacking = true
         self.attackLastRequested = Shared.GetTime()
-          CancelReload(self)
-          
-          self:AddTimedCallback(player,self:SecondaryFire(player),gShotgunSecondaryAttackSpeed)
-          
+		CancelReload(self)
+		self:SecondaryFire(player)
+
          -- self.clip = self.clip - 1
     else
         self:OnSecondaryAttackEnd(player)

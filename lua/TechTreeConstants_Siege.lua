@@ -31,7 +31,7 @@ local kSiege_TechIds =
     'ArcSpawnOff',
     'PrimalScream',
     'BackupLight',
-   -- 'AdvBeacTech',
+    'AdvBeacTech',
     'AdvancedBeacon',
     'EggBeacon',
     'StructureBeacon',
@@ -51,7 +51,7 @@ local kSiege_TechIds =
     'Onocide',
     'DualWelderExosuit',
     'DualFlamerExosuit',
-    'LerkBileBomb',
+    --'LerkBileBomb',
 
 
     

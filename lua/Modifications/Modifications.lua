@@ -267,18 +267,11 @@ end
 SetCachedTechData(kTechId.Sentry, kStructureBuildNearClass, false)
 SetCachedTechData(kTechId.Sentry, kStructureAttachRange, 999)
 
-
-
 SetCachedTechData(kTechId.SentryBattery,kVisualRange, kBatteryPowerRange)
 SetCachedTechData(kTechId.SentryBattery,kTechDataDisplayName, "Backup Battery")
 SetCachedTechData(kTechId.SentryBattery, kTechDataHint, "Powers structures without power!")
 
-
 SetCachedTechData(kTechId.Sentry, kTechDataBuildMethodFailedMessage, "4 per room")
-
-
-
-
 
 
 --------------------------------------------------------------------

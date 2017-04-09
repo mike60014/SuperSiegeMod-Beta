@@ -1,3 +1,4 @@
+/*
 kNumWebsPerGorge = 6
 kChargeEnergyCost = 20 --def 20
 
@@ -21,3 +22,4 @@ kMACSupply = 5
 kJetpackReplenishFuelRate = .14 -- .11 to .14 %30 increase
 kJetpackUseFuelRate = 0.147 -- 30% decrease from .21
 kSentrySupply = 2
+*/

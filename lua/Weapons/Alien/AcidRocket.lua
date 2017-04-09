@@ -15,6 +15,11 @@ local kRocketVelocity = gAcidRocketVelocity
 
 local kAnimationGraph = PrecacheAsset("models/alien/fade/fade_view.animation_graph")
 
+local kAcidRocketHUDSlot = gAcidRocketHUDSlot
+local kAcidRocketFireDelay = gAcidRocketFireDelay
+local kAcidRocketEnergyCost = gAcidRocketEnergyCost
+
+
 AcidRocket.networkVars =
 {
     lastPrimaryAttackTime = "private time"
@@ -32,11 +37,11 @@ function AcidRocket:GetAnimationGraphName()
 end
 
 function AcidRocket:GetEnergyCost(player)
-    return gAcidRocketEnergyCost
+    return kAcidRocketEnergyCost
 end
 
 function AcidRocket:GetPrimaryAttackDelay()
-    return gAcidRocketFireDelay
+    return kAcidRocketFireDelay
 end
 
 function AcidRocket:GetDeathIconIndex()
@@ -44,7 +49,7 @@ function AcidRocket:GetDeathIconIndex()
 end
 
 function AcidRocket:GetHUDSlot()
-    return gAcidRocketHUDSlot
+    return kAcidRocketHUDSlot
 end
 
 function AcidRocket:OnPrimaryAttack(player)

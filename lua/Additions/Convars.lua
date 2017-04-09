@@ -1,5 +1,212 @@
 --Global Variables for everything
 
+
+/////////////Begin Other Configs
+
+
+--BalanceMisc_Siege.lua
+kNumWebsPerGorge = 6
+kChargeEnergyCost = 20 --def 20
+kLerkFlapEnergyCost = 2
+kHallucinationHealthFraction = 0.25 --default 0.20
+kHallucinationArmorFraction = 0.10 -- default 0
+kHallucinationMaxHealth = 725 -- default 700
+kHeavyMachineGunWeight = 0.20 -- default 0.26
+--kNumMines 3 -- default 2
+--kEggsPerHatch = 4 -- default 2
+kDrifterSupply = 3 --default 10
+kHiveInfestationRadius = 8 --8
+kMACSupply = 3
+
+
+kJetpackReplenishFuelRate = .14 -- .11 to .14 %30 increase
+kJetpackUseFuelRate = 0.147 -- 30% decrease from .21
+kJetpackFuelReplenishDelay = 0.1
+--kJetpackWeightLiftForce = 
+--kMinWeightJetpackFuelFactor = 
+
+
+--kXenocideDamageType = kDamageType.Structural
+kSwipeDamageType = kDamageType.Normal
+kGoreDamage = 100
+
+
+kUmbraEnergyCost = 23
+
+kGorgeCost = 10
+kLerkCost = 20
+kFadeCost = 40
+kOnosCost = 65
+
+kCommEggOnosCost = 90 --default 100
+kSkulkUpgradeCost = 0
+kGorgeUpgradeCost = 0
+kLerkUpgradeCost = 1
+kFadeUpgradeCost = 1
+kOnosUpgradeCost = 1
+
+
+kUmbraShotgunModifier = 0.70
+kUmbraBulletModifier = 0.70
+kUmbraMinigunModifier = 0.70
+kUmbraRailgunModifier = 0.70
+kUmbraGrenadeModifer = 0.70
+
+
+kNumBabblerEggsPerGorge = 3
+kRebirthHpBuffTriggered = 1.10
+kRebirthHpBuffNew = 1.10
+kOnocideDamage = 779
+kPrimalScreamROFIncrease = .3
+kVortexLifeSpan = 8
+
+kPrimalScreamEnergyCost = 25
+kPrimalScreamRange = 10
+kPrimalScreamDamageModifier = 1.3
+kPrimalScreamDuration = 4
+kPrimalScreamEnergyGain = 60
+kPrimalScreamROF = 3
+
+kRedemptionCost = 2
+kRebirthCost = 2
+kRedemptionCooldown = 45
+kRedemptionCooldown = 45
+kRedemptionEHPThresholdMin = 15
+kRedemptionEHPThresholdMax = 30
+
+kBabblerDamage = 9 --default 8 
+kExosuitDropCost = 35 -- default 50
+kHeavyMachineGunDropCost = 25 --default = 40
+kSentryBuildTime = 4 --default 3
+kPlayerHallucinationNumFraction = 0.38 --default 0.34
+
+kShotgunFireRate = 0.75 --default 0.88
+--kXenocideDamage = 220
+--kXenocideDamageType = kDamageType.Structural
+
+
+kDualRailgunExosuitCost = 35 --default 45
+kDualExosuitCost = 35 -- default 45
+
+
+--kMarineRespawnTime = 8 --default 9
+
+kFlameThrowerEnergyDamage = 1 
+kBlinkEnergyCost = 27 -- default 32
+kStartBlinkEnergyCost = 13 --default 14
+kBoneShieldArmorPerSecond = 95 --default 112
+kMucousShieldPercent = 0.20 --default 0.15
+
+
+kEggGenerationRate = 9 --default 13
+kAlienEggsPerHive = 4 --default 3
+--kAlienSpawnTime = 9 --default 10
+kHydrasPerHive = 4 --default 3
+
+
+
+
+--kEnzymeCloudDuration = 4 --default 3
+
+kGorgeGestateTime = 5 -- default 7
+kLerkGestateTime = 8 -- default 15
+kFadeGestateTime = 8 -- default 25
+kOnosGestateTime = 8-- default 30
+
+
+
+kBioMassOneTime = 20 --default 25
+kBioMassTwoTime = 35 --default 40
+
+kHiveMaturationTime = 32 -- default 220
+kHarvesterMaturationTime = 16 --default 150
+kWhipMaturationTime = 8 -- default 120
+kCragMaturationTime = 4 -- default 120
+kShiftMaturationTime = 8 -- default 90
+kShadeMaturationTime = 4 -- default 120
+kCystMaturationTime = 4 --default 45balancehea
+kHydraMaturationTime = 8 -- default 140
+kEggMaturationTime = 8 -- default 100
+
+
+kCystBuildTime = 4 --default 5
+
+
+kChargeResearchTime = 35 --default 40
+kLeapResearchTime = 35 --default 40
+kBileBombResearchTime = 35 --default 40
+kUmbraResearchTime = 38 --default 45
+kBoneShieldResearchTime = 35 --default 40
+kSporesResearchTime = 28 --default 60
+kStompResearchTime = 45 --default 60
+
+
+kMetabolizeEnergyResearchTime = 35 --default 40
+kMetabolizeHealthResearchTime = 35 --default 45
+kXenocideResearchTime = 35 --default 60
+
+kSentryHealth = 650
+kSentryArmor = 125
+kSentryPointValue = 3
+
+kExosuitArmorPerUpgradeLevel = 20
+ kExosuitArmor = 360
+
+kSentryBatteryHealth = 780 --30% increase from 600
+kSentryBatteryArmor = 230 --30% increase from 200
+
+kMinMatureCystHealth = 250 --default 200
+kCystHealth = 150 --default 30
+kMatureCystArmor = 30 --default 0
+kMatureCystHealth = 500 --default 450
+
+kBabblerHealth = 15 --default 10
+kOnosHealtPerBioMass = 31
+
+
+kEggBeaconMaxHealth = 715
+kEggBeaconMaxArmor = 200
+
+
+kEggHealth = 500
+kEggArmor = 0
+kEggPointValue = 2
+kMatureEggHealth = 650
+kMatureEggArmor = 0
+
+
+kArmoryHealth = 2000
+kArmoryArmor = 500
+kArmoryPointValue = 6
+kAdvancedArmoryHealth = 3500
+kAdvancedArmoryArmor = 750
+kAdvancedArmoryPointValue = 11
+
+kNumWebsPerGorge = 6
+kChargeEnergyCost = 20 --def 20
+
+
+kLerkFlapEnergyCost = 1
+
+kHallucinationHealthFraction = 0.25 --default 0.20
+kHallucinationArmorFraction = 0.10 -- default 0
+kHallucinationMaxHealth = 725 -- default 700
+kHeavyMachineGunWeight = 0.20 -- default 0.26
+--kNumMines 3 -- default 2
+--kEggsPerHatch = 4 -- default 2
+
+
+kDrifterSupply = 5 --default 10
+
+
+kHiveInfestationRadius = 8
+
+kMACSupply = 5
+kJetpackReplenishFuelRate = .14 -- .11 to .14 %30 increase
+kJetpackUseFuelRate = 0.147 -- 30% decrease from .21
+kSentrySupply = 2
+
+////Final Configs
 --Other
 
 
@@ -124,8 +331,8 @@ kCreditCommReward = 10
 
 --Credits End
 
-kMaxEntitiesInRadius = 300
-kMaxEntityRadius = 100
+gMaxEntitiesInRadius = 300
+gMaxEntityRadius = 100
 
 --Doors
 kDoorMoveUpVect = 40
@@ -196,6 +403,7 @@ kPrimalScreamPlayerPointBonus = 0.3
 gLerkBileBombResearchCost = 10
 gLerkBileBombResearchTime = 10
 --Lerk End
+
 --Fade Settings
 
 gFadePrimaryAttackSpeedMultipler = 1 --Increase to slow attack
@@ -204,21 +412,25 @@ kFadeArmor = 104 --30% increase from 80
 kFadeArmorFullyUpgradedAmount = 156 --30% increase from 120
 gFadeRedemptionCooldown = 20
 gFadeRebirthLength = 4
+gFadeXZExtents = 0.4
+gFadeYExtents = 1.05
 
 --Fade abilities
 gStabResearchTime = 20 --default 60
 gStabResearchCost = 20 --default 60
+
+gRocketRadius = 0.15
 
 gAcidRocketDamage = 20 --25
 gAcidRocketDamageType = kDamageType.Structural
 gAcidRocketEnergyCost = 17 --10
 gAcidRocketFireDelay = 0.5
 gAcidRocketRadius = 4 --6
+gAcidRocketLifeTime = 0.5
 gAcidRocketResearchTime = 20
 gAcidRocketResearchCost = 20
 gAcidRocketVelocity = 45
 gAcidRocketPlayerVelocityFraction = 0.5
---1gAcidRocket
 gAcidRocketHUDSlot = 4
 
 --Fade End
@@ -236,6 +448,18 @@ gOnosStompBoneWallDuration = 2 --4
 
 kGorgeRedemptionCooldown = 15
 kGorgeRebirthLength = 3
+
+
+
+
+
+--Marine Settings
+kMarineDefAddXp = 0.5
+kMarineDefLvl = 25
+
+--kMaxTimeToSprintAfterAttack = 1?
+
+kMarineStunImmuneTime = 2
 
 --Marine Upgrades
 
@@ -273,12 +497,29 @@ kInfantryPortalMaxLevel = 25
 kInfantryPortalXPGain = 0.5
 kMacMaxLevel = 50
 gMacMaxAmount = 12
+
+--Arc
 gArcMaxAmount = 12
 
-kMarineDefAddXp = 0.5
-kMarineDefLvl = 25
+gArcTurnSpeed = math.pi / 2 -- an ARC turns slowly
+gArcMaxSpeedLimitAngle = math.pi / 36 -- 5 degrees
+gArcNoSpeedLimitAngle = math.pi / 4 -- 24 degrees
+gArcHealth                 = kARCHealth
+gArcStartDistance          = 4
+gArcAttackDamage           = kARCDamage
+gArcFireRange              = kARCRange         -- From NS1
+gArcMinFireRange           = kARCMinRange
+gArcAttackSplashRadius     = 7
+gArcUpgradedSplashRadius   = 13
+gArcMoveSpeed              = 2.0
+gArcCombatMoveSpeed        = 0.8
+gArcFov                    = 360
+gArcBarrelMoveRate         = 100
+gArcMaxPitch               = 45
+gArcMaxYaw                 = 180
+gArcCapsuleHeight = .05
+gArcCapsuleRadius = .5
 
-kMarineStunImmuneTime = 2
 
 --kJumpPackCost = 7
 
@@ -298,12 +539,19 @@ gRifleClipSize = kRifleClipSize + gRifleAddClipSize
 
 --Shotgun
 
-kShotgunBulletSize = 0.05 --0.016
-kShotgunClipSize = 10 --default 6
+gShotgunBulletSize = 0.05 --0.016
+gShotgunClipSize = 10 --default 6
 gShotgunPrimaryAttackSpeed = 0.88
 gShotgunPrimaryBulletClipCost = 1
+gShotgunPrimaryBulletFiredCount = 10
+gShotgunPrimaryEffectRange = 5
+gShotgunPrimarySpreadDistance = 16
 gShotgunSecondaryAttackSpeed = 0.88
 gShotgunSecondaryBulletClipCost = 1
+gShotgunSecondaryBulletFiredCount = 10
+gShotgunSecondaryEffectRange = 5
+gShotgunSecondarySpreadDistance = 1
+
 
 --ExoFlamer
 kExoFlamerConeWidth = 0.25 --0.17
@@ -453,148 +701,4 @@ gNanoArmorHealPerSecond = 5 --2
 kObsAdvBeaconPowerOff = 16 --12 w/ lvl 25
 --kAdvBeacTechCost = 15
 --kAdvBeacTechTime = 30
-
-/////////////Begin Other Configs
-
-
---BalanceMisc_Siege.lua
-kNumWebsPerGorge = 6
-kChargeEnergyCost = 20 --def 20
-kLerkFlapEnergyCost = 2
-kHallucinationHealthFraction = 0.25 --default 0.20
-kHallucinationArmorFraction = 0.10 -- default 0
-kHallucinationMaxHealth = 725 -- default 700
-kHeavyMachineGunWeight = 0.20 -- default 0.26
---kNumMines 3 -- default 2
---kEggsPerHatch = 4 -- default 2
-kDrifterSupply = 3 --default 10
-kHiveInfestationRadius = 8 --8
-kMACSupply = 3
-
-
-kJetpackReplenishFuelRate = .14 -- .11 to .14 %30 increase
-kJetpackUseFuelRate = 0.147 -- 30% decrease from .21
-kJetpackFuelReplenishDelay = 0.1
---kJetpackWeightLiftForce = 
---kMinWeightJetpackFuelFactor = 
-
-
---kXenocideDamageType = kDamageType.Structural
-kSwipeDamageType = kDamageType.Normal
-kGoreDamage = 100
-
-
-kUmbraEnergyCost = 23
-
-kGorgeCost = 10
-kLerkCost = 20
-kFadeCost = 40
-kOnosCost = 65
-
-kCommEggOnosCost = 90 --default 100
-kSkulkUpgradeCost = 0
-kGorgeUpgradeCost = 0
-kLerkUpgradeCost = 1
-kFadeUpgradeCost = 1
-kOnosUpgradeCost = 1
-
-
-kUmbraShotgunModifier = 0.70
-kUmbraBulletModifier = 0.70
-kUmbraMinigunModifier = 0.70
-kUmbraRailgunModifier = 0.70
-kUmbraGrenadeModifer = 0.70
-
-
-kNumBabblerEggsPerGorge = 3
-kRebirthHpBuffTriggered = 1.10
-kRebirthHpBuffNew = 1.10
-kOnocideDamage = 779
-kPrimalScreamROFIncrease = .3
-kVortexLifeSpan = 8
-
-kPrimalScreamEnergyCost = 25
-kPrimalScreamRange = 10
-kPrimalScreamDamageModifier = 1.3
-kPrimalScreamDuration = 4
-kPrimalScreamEnergyGain = 60
-kPrimalScreamROF = 3
-
-kRedemptionCost = 2
-kRebirthCost = 2
-kRedemptionCooldown = 45
-kRedemptionCooldown = 45
-kRedemptionEHPThresholdMin = 15
-kRedemptionEHPThresholdMax = 30
-
-kBabblerDamage = 9 --default 8 
-kExosuitDropCost = 35 -- default 50
-kHeavyMachineGunDropCost = 25 --default = 40
-kSentryBuildTime = 4 --default 3
-kPlayerHallucinationNumFraction = 0.38 --default 0.34
-
-kShotgunFireRate = 0.75 --default 0.88
---kXenocideDamage = 220
---kXenocideDamageType = kDamageType.Structural
-
-
-kDualRailgunExosuitCost = 35 --default 45
-kDualExosuitCost = 35 -- default 45
-
-
---kMarineRespawnTime = 8 --default 9
-
-kFlameThrowerEnergyDamage = 1 
-kBlinkEnergyCost = 27 -- default 32
-kStartBlinkEnergyCost = 13 --default 14
-kBoneShieldArmorPerSecond = 95 --default 112
-kMucousShieldPercent = 0.20 --default 0.15
-
-
-kEggGenerationRate = 9 --default 13
-kAlienEggsPerHive = 4 --default 3
---kAlienSpawnTime = 9 --default 10
-kHydrasPerHive = 4 --default 3
-
-
-
-
---kEnzymeCloudDuration = 4 --default 3
-
-kGorgeGestateTime = 5 -- default 7
-kLerkGestateTime = 8 -- default 15
-kFadeGestateTime = 8 -- default 25
-kOnosGestateTime = 8-- default 30
-
-
-
-kBioMassOneTime = 20 --default 25
-kBioMassTwoTime = 35 --default 40
-
-kHiveMaturationTime = 32 -- default 220
-kHarvesterMaturationTime = 16 --default 150
-kWhipMaturationTime = 8 -- default 120
-kCragMaturationTime = 4 -- default 120
-kShiftMaturationTime = 8 -- default 90
-kShadeMaturationTime = 4 -- default 120
-kCystMaturationTime = 4 --default 45balancehea
-kHydraMaturationTime = 8 -- default 140
-kEggMaturationTime = 8 -- default 100
-
-
-kCystBuildTime = 4 --default 5
-
-
-kChargeResearchTime = 35 --default 40
-kLeapResearchTime = 35 --default 40
-kBileBombResearchTime = 35 --default 40
-kUmbraResearchTime = 38 --default 45
-kBoneShieldResearchTime = 35 --default 40
-kSporesResearchTime = 28 --default 60
-kStompResearchTime = 45 --default 60
-
-
-kMetabolizeEnergyResearchTime = 35 --default 40
-kMetabolizeHealthResearchTime = 35 --default 45
-kXenocideResearchTime = 35 --default 60
 

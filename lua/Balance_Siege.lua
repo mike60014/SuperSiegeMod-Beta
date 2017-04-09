@@ -90,8 +90,6 @@ kFadeGestateTime = 8 -- default 25
 kOnosGestateTime = 8-- default 30
 
 
-kShotgunClipSize = 8 --default 6
-
 kBioMassOneTime = 20 --default 25
 kBioMassTwoTime = 35 --default 40
 

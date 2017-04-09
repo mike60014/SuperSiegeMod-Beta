@@ -14,9 +14,11 @@ Rocket.kModelName          = PrecacheAsset("models/alien/babbler/babbler.model")
 // The max amount of time a Rocket can last for
 Rocket.kClearOnImpact = true
 Rocket.kClearOnEnemyImpact = true
-Rocket.kRadius = 0.15
+Rocket.kRadius = gRocketRadius
 
-local kRocketLifetime = 0.5
+local kRocketLifetime = gAcidRocketLifeTime
+kAcidRocketDamage = gAcidRocketDamage
+kAcidRocketRadius = gAcidRocketRadius
 
 local networkVars = { }
 

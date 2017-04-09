@@ -3,8 +3,8 @@ Script.Load("lua/Weapons/Alien/AcidRocket.lua")
 Script.Load("lua/PhaseGateUserMixin.lua")
 
 
-Fade.XZExtents = 0.4
-Fade.YExtents = 1.05
+Fade.XZExtents = gFadeXZExtents
+Fade.YExtents = gFadeYExtents
 
 local networkVars = {}
 
