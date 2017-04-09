@@ -46,11 +46,11 @@ local function CheckPrimalScream(self)
 end
 if Server then
 function Alien:GetTierFourTechId()
-    --return kTechId.None
+    return kTechId.None
 end
 
 function Alien:GetTierFiveTechId()
-    --return kTechId.None
+    return kTechId.None
 end
 
 function Alien:PrimalScream(duration)

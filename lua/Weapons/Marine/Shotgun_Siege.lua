@@ -54,7 +54,7 @@ function Shotgun:GetSecondaryCanInterruptReload()
     return true
 end
 
-function Shotgun:SecondaryHere(player)
+function Shotgun:SecondaryFire(player)
   local viewAngles = player:GetViewAngles()
 
     local shootCoords = viewAngles:GetCoords()
@@ -153,7 +153,7 @@ function Shotgun:OnSecondaryAttack(player)
         self.attackLastRequested = Shared.GetTime()
           CancelReload(self)
           
-          self:AddTimedCallback(self:SecondaryHere(player),gShotgunSecondaryAttackSpeed)
+          self:AddTimedCallback(player,self:SecondaryFire(player),gShotgunSecondaryAttackSpeed)
           
          -- self.clip = self.clip - 1
     else
