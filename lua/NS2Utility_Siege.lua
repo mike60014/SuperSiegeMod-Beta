@@ -1,12 +1,7 @@
 if Server then
-
-
-
-    function UpdateAbilityAvailability(forAlien, tierOneTechId, tierTwoTechId, tierThreeTechId)
- return false
+function UpdateAbilityAvailability(forAlien, tierOneTechId, tierTwoTechId, tierThreeTechId)
+	return false
 end
-
-
 local function UnlockAbility(forAlien, mapName)
      --   Print("Unlocking ability") 
    -- Print("mapName is %s", mapName)

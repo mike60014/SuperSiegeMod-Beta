@@ -99,6 +99,7 @@ end
 function Onos:GetHasMovementSpecial()
     return GetHasTech(self, kTechId.Charge)
 end
+
 function Onos:GetIsPoopGrowing()
 
     local activeWeapon = self:GetActiveWeapon()

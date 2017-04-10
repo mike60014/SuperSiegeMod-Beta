@@ -28,7 +28,7 @@ local kSurfaceName = {
                     }
 
 -- Breakable entities may have a LOT of health for various reasons
-kMaxBreakableHealth = 200000
+kMaxBreakableHealth = 100000
 
 local networkVars =
 {

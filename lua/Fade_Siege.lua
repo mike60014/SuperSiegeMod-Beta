@@ -36,9 +36,9 @@ function Fade:GetBallFlagAttatchPoint(player)
 end
 
 function Fade:GetMaxSpeed(possible)
-     local speed = origspeed(self) * gFadePrimaryAttackSpeedMultipler
+     local speed = origspeed(self)  * gFadePrimaryAttackSpeedMultipler
   --return speed * 1.10
-  return not self:GetIsOnFire() and speed * gFadePrimaryAttackSpeedOnFireMultipler or speed
+  return not self:GetIsOnFire() and speed * gFadePrimaryAttackSpeedOnFireMultipler or speed 
 end
 function Fade:GetCanMetabolizeHealth()
     return GetHasTech(self, kTechId.MetabolizeHealth)

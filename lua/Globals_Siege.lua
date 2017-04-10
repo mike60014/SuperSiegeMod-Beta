@@ -1,4 +1,2 @@
-/*
-kMaxEntitiesInRadius = 99
-kMaxEntityRadius = 99
-*/
+kMaxEntitiesInRadius = gMaxEntitiesInRadius
+kMaxEntityRadius = gMaxEntityRadius
