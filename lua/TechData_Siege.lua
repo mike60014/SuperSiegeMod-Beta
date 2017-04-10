@@ -16,6 +16,14 @@ Script.Load("lua/Additions/LayStructures.lua")
 Script.Load("lua/Additions/ExoWelder.lua")
 Script.Load("lua/Additions/ExoFlamer.lua")
 
+kEggBeaconArmor = gEggBeaconArmor
+kEggBeaconBuildTime = gEggBeaconBuildTime
+kEggBeaconCost = gEggBeaconCost
+kEggBeaconCoolDown = gEggBeaconCoolDown
+kEggBeaconHealth = gEggBeaconHealth
+kEggBeaconMaxHealth = gEggBeaconMaxHealth
+kEggBeaconMaxArmor = gEggBeaconMaxArmor
+
 
 function CheckCommTunnelReq(techId, origin, normal, commander)
 local tunnelEntrances = 0 
@@ -24,54 +32,35 @@ tunnelEntrances = tunnelEntrances + 1
 end
 
    local cyst = GetEntitiesWithinRange("Cyst", origin, 7)
-   
    if #cyst >= 1 then 
-   
          for i = 1, #cyst do
             local cysty = cyst[i]
                 if cysty:GetCurrentInfestationRadius() == kInfestationRadius then
                 return tunnelEntrances < 2
                  end
          end
-   
-
    end
-   
                 return false
-
-
 end
 
 function GetCheckEggBeacon(techId, origin, normal, commander)
     local num = 0
-
-        
         for index, shell in ientitylist(Shared.GetEntitiesWithClassname("EggBeacon")) do
-        
            -- if not spur:isa("StructureBeacon") then 
                 num = num + 1
           --  end
-            
     end
-    
     return num < 1
-    
 end
 
 function GetCheckStructureBeacon(techId, origin, normal, commander)
     local num = 0
-
-        
         for index, shell in ientitylist(Shared.GetEntitiesWithClassname("EggBeacon")) do
-        
            -- if not spur:isa("StructureBeacon") then 
                 num = num + 1
           --  end
-            
     end
-    
     return num < 1
-    
 end
 
 local kAcidRocketResearchCost = gAcidRocketResearchCost
@@ -79,8 +68,7 @@ local kAcidRocketResearchTime = gAcidRocketResearchTime
 
 
 local kSiege_TechData =
-{        
-
+{
 
 { [kTechDataId] = kTechId.LayStructures,   
 [kTechDataMaxHealth] = kMarineWeaponHealth,  
@@ -98,7 +86,7 @@ local kSiege_TechData =
 [kTechDataDisplayName] = "Thickened Skin", 
 [kTechDataSponitorCode] = "A",  
 [kTechDataCostKey] = kThickenedSkinCost,
-[kTechDataTooltipInfo] = "+10% max hp", },
+[kTechDataTooltipInfo] = "+10% max hp per Hive", },
 
 { [kTechDataId] = kTechId.Hunger, 
 [kTechDataCategory] = kTechId.CragHiveTwo,   
@@ -217,7 +205,8 @@ local kSiege_TechData =
 [kTechDataModel] = EggBeacon.kModelName,   
 [kTechDataBuildMethodFailedMessage] = "1 at a time",
 [kVisualRange] = 8,
-[kTechDataMaxHealth] = kEggBeaconHealth, [kTechDataMaxArmor] = kEggBeaconArmor},
+[kTechDataMaxHealth] = kEggBeaconHealth,
+[kTechDataMaxArmor] = kEggBeaconArmor},
 
 
 { [kTechDataId] = kTechId.StructureBeacon, 

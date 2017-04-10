@@ -5,6 +5,25 @@ Alien.kEnergyRecuperationRate = gAlienEnergyRecuperationRate
 Alien.kWalkBackwardSpeedScalar = gAlienWalkBackwardSpeedScalar
 Alien.kEnergyAdrenalineRecuperationRate = gAlienEnergyAdrenalineRecuperationRate
 
+Babbler.kMass = gBabblerMass
+Babbler.kRadius = gBabblerRadius
+Babbler.kLinearDamping = gBabblerLinearDamping
+Babbler.kRestitution = gBabblerRestitution
+Babbler.kFov = gBabblerFov
+kBabblerHealth = gBabblerHealth
+kTargetSearchRange = gBabblerTargetSearchRange
+kAttackRate = gBabblerAttackRate
+kLifeTime = gBabblerLifeTime
+kUpdateMoveInterval = gBabblerUpdateMoveInterval
+kUpdateAttackInterval = gBabblerUpdateAttackInterval
+kMinJumpDistance = gBabblerMinJumpDistance
+kBabblerRunSpeed = gBabblerRunSpeed    --7
+kVerticalJumpForce = gBabblerVerticalJumpForce
+kMaxJumpForce = gBabblerMaxJumpForce
+kMinJumpForce = gBabblerMinJumpForce
+kTurnSpeed = gBabblerTurnSpeed
+kBabblerClingDuration = gBabblerClingDuration
+
 function Alien:SlapPlayer()
  self:SetVelocity(  self:GetVelocity() + Vector(math.random(100,900),math.random(100,900),math.random(100,900)  ) )
 end
@@ -21,9 +40,9 @@ function Alien:OnCreate()
 end
 
 function Alien:UpdateWeapons()
-     local lasttime = 1
+     --local lasttime = 1
      if Server then
-        self:AddTimedCallback(function() UpdateAvailability(self, self:GetTierOneTechId(), self:GetTierTwoTechId(), self:GetTierThreeTechId(), self:GetTierFourTechId(), self:GetTierFiveTechId()) end, 0.4) 
+        self:AddTimedCallback(function() UpdateAvailability(self, self:GetTierOneTechId(), self:GetTierTwoTechId(), self:GetTierThreeTechId(), self:GetTierFourTechId(), self:GetTierFiveTechId()) end, 0.6) 
      end
 end
 
@@ -42,14 +61,15 @@ local function CheckPrimalScream(self)
 	self.primaled = self.primalGiveTime - Shared.GetTime() > 0
 	return self.primaled
 end
+
 if Server then
 function Alien:GetTierFourTechId()
-	UpdateAliensWeaponsManually()
+	--UpdateAliensWeaponsManually()
     return kTechId.None
 end
 
 function Alien:GetTierFiveTechId()
-	UpdateAliensWeaponsManually()
+	--UpdateAliensWeaponsManually()
     return kTechId.None
 end
 

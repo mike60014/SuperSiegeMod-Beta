@@ -19,7 +19,7 @@ kHiveInfestationRadius = 8 --8
 kMACSupply = 3
 
 
-kJetpackReplenishFuelRate = .14 -- .11 to .14 %30 increase
+kJetpackReplenishFuelRate = 0.14 -- .11 to .14 %30 increase
 kJetpackUseFuelRate = 0.147 -- 30% decrease from .21
 kJetpackFuelReplenishDelay = 0.1
 --kJetpackWeightLiftForce = 
@@ -33,10 +33,10 @@ kGoreDamage = 100
 
 kUmbraEnergyCost = 23
 
-kGorgeCost = 10
-kLerkCost = 20
-kFadeCost = 40
-kOnosCost = 65
+kGorgeCost = 8
+kLerkCost = 16
+kFadeCost = 32
+kOnosCost = 64
 
 kCommEggOnosCost = 90 --default 100
 kSkulkUpgradeCost = 0
@@ -54,10 +54,14 @@ kUmbraGrenadeModifer = 0.70
 
 
 kNumBabblerEggsPerGorge = 3
+
 kRebirthHpBuffTriggered = 1.10
 kRebirthHpBuffNew = 1.10
-kOnocideDamage = 779
+
+kOnocideDamage = 400
+
 kPrimalScreamROFIncrease = .3
+
 kVortexLifeSpan = 8
 
 kPrimalScreamEnergyCost = 25
@@ -94,7 +98,7 @@ kDualExosuitCost = 35 -- default 45
 kFlameThrowerEnergyDamage = 1 
 kBlinkEnergyCost = 27 -- default 32
 kStartBlinkEnergyCost = 13 --default 14
-kBoneShieldArmorPerSecond = 95 --default 112
+kBoneShieldArmorPerSecond = 65 --default 112
 kMucousShieldPercent = 0.20 --default 0.15
 
 
@@ -108,18 +112,18 @@ kHydrasPerHive = 4 --default 3
 
 --kEnzymeCloudDuration = 4 --default 3
 
-kGorgeGestateTime = 5 -- default 7
+kGorgeGestateTime = 7 -- default 7
 kLerkGestateTime = 8 -- default 15
-kFadeGestateTime = 8 -- default 25
-kOnosGestateTime = 8-- default 30
+kFadeGestateTime = 9 -- default 25
+kOnosGestateTime = 10-- default 30
 
 
 
 kBioMassOneTime = 20 --default 25
-kBioMassTwoTime = 35 --default 40
+kBioMassTwoTime = 20 --default 40
 
 kHiveMaturationTime = 32 -- default 220
-kHarvesterMaturationTime = 16 --default 150
+kHarvesterMaturationTime = 12 --default 150
 kWhipMaturationTime = 8 -- default 120
 kCragMaturationTime = 4 -- default 120
 kShiftMaturationTime = 8 -- default 90
@@ -128,41 +132,37 @@ kCystMaturationTime = 4 --default 45balancehea
 kHydraMaturationTime = 8 -- default 140
 kEggMaturationTime = 8 -- default 100
 
-
 kCystBuildTime = 4 --default 5
 
+kChargeResearchTime = 20 --35 --default 40
+kLeapResearchTime = 20 --35 --default 40
+kBileBombResearchTime = 20 --35 --default 40
+kUmbraResearchTime = 20 --38 --default 45
+kBoneShieldResearchTime = 20 --35 --default 40
+kSporesResearchTime = 20 --28 --default 60
+kStompResearchTime = 20 --45 --default 60
 
-kChargeResearchTime = 35 --default 40
-kLeapResearchTime = 35 --default 40
-kBileBombResearchTime = 35 --default 40
-kUmbraResearchTime = 38 --default 45
-kBoneShieldResearchTime = 35 --default 40
-kSporesResearchTime = 28 --default 60
-kStompResearchTime = 45 --default 60
-
-
-kMetabolizeEnergyResearchTime = 35 --default 40
-kMetabolizeHealthResearchTime = 35 --default 45
-kXenocideResearchTime = 35 --default 60
+kMetabolizeEnergyResearchTime = 20 --35 --default 40
+kMetabolizeHealthResearchTime = 20 --35 --default 45
+kXenocideResearchTime = 20 --35 --default 60
 
 kSentryHealth = 650
 kSentryArmor = 125
 kSentryPointValue = 3
 
-kExosuitArmorPerUpgradeLevel = 20
- kExosuitArmor = 360
+kExosuitArmorPerUpgradeLevel = 35
+kExosuitArmor = 385
 
 kSentryBatteryHealth = 780 --30% increase from 600
 kSentryBatteryArmor = 230 --30% increase from 200
 
-kMinMatureCystHealth = 250 --default 200
-kCystHealth = 150 --default 30
-kMatureCystArmor = 30 --default 0
-kMatureCystHealth = 500 --default 450
+kMinMatureCystHealth = 200 --250 --default 200
+kCystHealth = 100 --150 --default 30
+kMatureCystArmor = 150 --30 --default 0
+kMatureCystHealth = 350 --500 --default 450
 
-kBabblerHealth = 15 --default 10
-kOnosHealtPerBioMass = 31
-
+kBabblerHealth = 10 --15 --default 10
+kOnosHealtPerBioMass = 31 //Investigate typo
 
 kEggBeaconMaxHealth = 715
 kEggBeaconMaxArmor = 200
@@ -353,13 +353,13 @@ gAliennewMaxHealthMultipler = 1.10
 
 
 --Alien Upgrades
-kEggBeaconArmor = 150
-kEggBeaconBuildTime = 8
-kEggBeaconCost = 10
-kEggBeaconCoolDown = 12
-kEggBeaconHealth = 480
-kEggBeaconMaxHealth = 715
-kEggBeaconMaxArmor = 200
+gEggBeaconArmor = 150
+gEggBeaconBuildTime = 8
+gEggBeaconCost = 10
+gEggBeaconCoolDown = 12
+gEggBeaconHealth = 480
+gEggBeaconMaxHealth = 715
+gEggBeaconMaxArmor = 200
 
 kMatureEggHealth = 400
 kMatureEggArmor = 250
@@ -368,7 +368,28 @@ kEggArmor = 150
 kEggPointValue = 2
 
 
-kBabblerHealth = 15 --default 10
+gBabblerHealth = 15 --default 10
+
+gBabblerMass = 15
+gBabblerRadius = 0.25
+gBabblerLinearDamping = 0
+gBabblerRestitution = 0.65
+gBabblerFov = 200
+
+gBabblerTargetSearchRange = 12
+gBabblerAttackRate = 0.37
+gBabblerLifeTime = 60
+
+gBabblerUpdateMoveInterval = 0.5
+gBabblerUpdateAttackInterval = 1
+gBabblerMinJumpDistance = 6
+gBabblerRunSpeed = 7.5    --7
+gBabblerVerticalJumpForce = 6
+gBabblerMaxJumpForce = 15
+gBabblerMinJumpForce = 5
+gBabblerTurnSpeed = math.pi
+gBabblerClingDuration = -1
+
 
 gCommVortexCoolDown = 20
 gCommVortexCost = 8

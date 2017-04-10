@@ -1,7 +1,9 @@
 if Server then
+
 function UpdateAbilityAvailability(forAlien, tierOneTechId, tierTwoTechId, tierThreeTechId)
 	return false
 end
+
 local function UnlockAbility(forAlien, mapName)
      --   Print("Unlocking ability") 
    -- Print("mapName is %s", mapName)
@@ -18,11 +20,8 @@ local function UnlockAbility(forAlien, mapName)
             if activeWeapon then
                 forAlien:SetActiveWeapon(activeWeapon:GetMapName())
             end
-            
         end
-    
     end
-
 end
 
 function UpdateAvailability(forAlien, tierOneTechId, tierTwoTechId, tierThreeTechId, tierFourTechId, tierFiveTechId)

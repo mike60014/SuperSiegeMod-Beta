@@ -39,12 +39,13 @@ function AlienCommander:GetQuickMenuTechButtons(techId)
     return alienTechButtons
     
 end
-/*
+
 if Server then
 
 function AlienCommander:HiveCompleteSoRefreshTechsManually()
    UpdateAbilityAvailability(self, self.GetTierOneTechId, self.GetTierTwoTechId, self.GetTierThreeTechId, self.GetTierFourTechId)
+   --UpdateAbilityAvailability(self, self.GetTierOneTechId, self.GetTierTwoTechId, self.GetTierThreeTechId, self.GetTierFourTechId, self.GetTierFiveTechId)
+   
 end
 
 end
-*/
