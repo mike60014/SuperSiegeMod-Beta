@@ -12,15 +12,21 @@ Rocket.kMapName            = "rocket"
 Rocket.kModelName          = PrecacheAsset("models/alien/babbler/babbler.model")
 
 // The max amount of time a Rocket can last for
-Rocket.kClearOnImpact = true
-Rocket.kClearOnEnemyImpact = true
-Rocket.kRadius = gRocketRadius
 
-local kRocketLifetime = gAcidRocketLifeTime
-kAcidRocketDamage = gAcidRocketDamage
-kAcidRocketRadius = gAcidRocketRadius
+
+local kAcidRocketHUDSlot = gAcidRocketHUDSlot
+local kAcidRocketFireDelay = gAcidRocketFireDelay
+local kAcidRocketEnergyCost = gAcidRocketEnergyCost
+local kAcidRocketDamage = gAcidRocketDamage
+local kAcidRocketRadius = gAcidRocketRadius
+local kRocketRadius = gRocketRadius
+local kRocketLifetime = gRocketLifeTime
 
 local networkVars = { }
+
+Rocket.kClearOnImpact = true
+Rocket.kClearOnEnemyImpact = true
+Rocket.kRadius = kRocketRadius
 
 AddMixinNetworkVars(BaseModelMixin, networkVars)
 AddMixinNetworkVars(ModelMixin, networkVars)

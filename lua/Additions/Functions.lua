@@ -47,6 +47,7 @@ function GetIsRoomPowerDown(who)
  if powernode and powernode:GetIsDisabled()  then return true end
  return false
 end
+
 function GetIsOriginInHiveRoom(point)  
  local location = GetLocationForPoint(point)
  local hivelocation = nil
@@ -64,6 +65,7 @@ function GetIsOriginInHiveRoom(point)
      return false
      
 end
+
 function GetIsPointWithinHiveRadius(point)     
 
    local hive = GetEntitiesWithinRange("Hive", point, ARC.kFireRange)
@@ -72,11 +74,12 @@ function GetIsPointWithinHiveRadius(point)
    return false
 end
 
-function UpdateAliensWeaponsManually() 
- for _, alien in ientitylist(Shared.GetEntitiesWithClassname("Alien")) do 
-        alien:UpdateWeapons() 
+function UpdateAliensWeaponsManually()
+	for _, alien in ientitylist(Shared.GetEntitiesWithClassname("Alien")) do 
+		alien:UpdateWeapons() 
+	end
 end
-end
+
 function FindFreeSpace(where, mindistance, maxdistance)    
      if not mindistance then mindistance = .5 end
      if not maxdistance then maxdistance = 24 end
@@ -121,6 +124,7 @@ function GetGameStarted()
    if GetGamerules():GetGameState() == kGameState.Started or GetGamerules():GetGameState() == kGameState.Countdown then gamestarted = true end
    return gamestarted
 end
+
 function ExploitCheck(who)
 local gamestarted = false
 if GetSiegeDoorOpen() then return end

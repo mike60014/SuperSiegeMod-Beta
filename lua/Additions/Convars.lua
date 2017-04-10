@@ -313,14 +313,14 @@ gCreditPlayerNotePlayersInterval = 60
 gCreditPlayerEndRndDisplayTime = 5
 
 --Credit Team 1
-gCreditPlayerTeamOneBuyDelay = 4
+gCreditPlayerTeamOneBuyDelay = 10
 gCreditPlayerTeamOneCreditCost = 1
 gCreditPlayerTeamOneLimit = 3
 
 gCreditPlayerEnergyCost = 0
 
 --Credit Team 2
-gCreditPlayerTeamTwoBuyDelay = 4
+gCreditPlayerTeamTwoBuyDelay = 10
 gCreditPlayerTeamTwoCreditCost = 2
 gCreditPlayerTeamTwoLimit = 3
 --KPlayerCreditTeamOne
@@ -349,7 +349,7 @@ gAlienEnergyRecuperationRate = 10.0
 gAlienWalkBackwardSpeedScalar = 1
 gAlienEnergyAdrenalineRecuperationRate = 15
 
-
+gAliennewMaxHealthMultipler = 1.10
 
 
 --Alien Upgrades
@@ -420,13 +420,14 @@ gStabResearchTime = 20 --default 60
 gStabResearchCost = 20 --default 60
 
 gRocketRadius = 0.15
+gRocketLifeTime = 0.5
 
 gAcidRocketDamage = 20 --25
 gAcidRocketDamageType = kDamageType.Structural
 gAcidRocketEnergyCost = 17 --10
 gAcidRocketFireDelay = 0.5
 gAcidRocketRadius = 4 --6
-gAcidRocketLifeTime = 0.5
+gAcidRocketLifeTime = 3
 gAcidRocketResearchTime = 20
 gAcidRocketResearchCost = 20
 gAcidRocketVelocity = 45
@@ -550,7 +551,7 @@ gShotgunSecondaryAttackSpeed = 0.88
 gShotgunSecondaryBulletClipCost = 1
 gShotgunSecondaryBulletFiredCount = 10
 gShotgunSecondaryEffectRange = 5
-gShotgunSecondarySpreadDistance = 1
+gShotgunSecondarySpreadDistance = 32
 
 
 --ExoFlamer

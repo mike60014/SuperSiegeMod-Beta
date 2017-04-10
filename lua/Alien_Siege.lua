@@ -23,7 +23,7 @@ end
 function Alien:UpdateWeapons()
      local lasttime = 1
      if Server then
-        self:AddTimedCallback(function() UpdateAvailability(self, self:GetTierOneTechId(), self:GetTierTwoTechId(), self:GetTierThreeTechId(), self:GetTierFourTechId(), self:GetTierFiveTechId()) end, 0.6) 
+        self:AddTimedCallback(function() UpdateAvailability(self, self:GetTierOneTechId(), self:GetTierTwoTechId(), self:GetTierThreeTechId(), self:GetTierFourTechId(), self:GetTierFiveTechId()) end, 0.4) 
      end
 end
 
@@ -44,10 +44,12 @@ local function CheckPrimalScream(self)
 end
 if Server then
 function Alien:GetTierFourTechId()
+	UpdateAliensWeaponsManually()
     return kTechId.None
 end
 
 function Alien:GetTierFiveTechId()
+	UpdateAliensWeaponsManually()
     return kTechId.None
 end
 
@@ -60,9 +62,11 @@ function Alien:PrimalScream(duration)
 end
 
 end
+
 function Alien:GetHasPrimalScream()
     return self.primaled
 end
+
 function Alien:CancelPrimal()
 
     if self.primalGiveTime > Shared.GetTime() or self:GetIsOnFire() then 
@@ -90,6 +94,7 @@ function Alien:OnUpdateAnimationInput(modelMixin)
     modelMixin:SetAnimationInput("attack_speed", attackSpeed)
     
 end
+
 function Alien:CheckRedemptionTimer()
     if  GetHasRedemptionUpgrade(self) then 
         if Server then
@@ -122,11 +127,12 @@ function Alien:UpdateArmorAmountManual(carapaceLevel)
         self.maxArmor = newMaxArmor
         self:SetArmor(newMaxArmor)
         --self:SetArmor(self.maxArmor * armorPercent)
-    
     --end
     end
   return false
 end
+
+local knewMaxHealthMultipler = gAliennewMaxHealthMultipler --1.10
 
 function Alien:UpdateHealthAmountManual(bioMassLevel, maxLevel)
     local teamInfo = GetTeamInfoEntity(2)
@@ -135,7 +141,7 @@ function Alien:UpdateHealthAmountManual(bioMassLevel, maxLevel)
  ---default w/ mod of thick skin. I know this is not perfect because the orig can be modified and make this one outdated. But im not worried. 
     local level = math.max(0, bioMassLevel - 1)
     local newMaxHealth = self:GetBaseHealth() + level * self:GetHealthPerBioMass()
-    newMaxHealth =  ConditionalValue(self:GetHasUpgrade(kTechId.ThickenedSkin), newMaxHealth * 1.10, newMaxHealth)
+    newMaxHealth =  ConditionalValue(self:GetHasUpgrade(kTechId.ThickenedSkin), newMaxHealth * knewMaxHealthMultipler, newMaxHealth)
    -- Print(" newMaxHealth is %s", newMaxHealth)
         self:AdjustMaxHealth(newMaxHealth)
         self:SetMaxHealth(newMaxHealth)
@@ -143,33 +149,100 @@ function Alien:UpdateHealthAmountManual(bioMassLevel, maxLevel)
    return false
 end
 
-function Alien:UpdateArmorAmount(carapaceLevel)
-
-return
---why onupdate? 
-
-end
-
-function Alien:UpdateHealthAmount(bioMassLevel, maxLevel)
-
-return
---why onupdate?
-
-end
 if Server then
+/*
+function Alien:GiveGorge(spawnPoint)
+    local random = math.random(1,2)
+    if random == 1 then 
+        local rGorge = self:Replace(Gorge.kMapName, self:GetTeamNumber(), false, spawnPoint, { layout = "MinigunMinigun" })
+		return rGorge
+    else
+        local rGorge = self:Replace(Gorge.kMapName, self:GetTeamNumber(), false, spawnPoint, { layout = "RailgunRailgun" })
+		return rGorge
+    end
+end
 
+function Alien:GiveLerk(spawnPoint)
+    local random = math.random(1,2)
+    if random == 1 then 
+        local rLerk = self:Replace(Lerk.kMapName, self:GetTeamNumber(), false, spawnPoint, { layout = "MinigunMinigun" })
+		return rLerk
+    else
+        local rLerk = self:Replace(Lerk.kMapName, self:GetTeamNumber(), false, spawnPoint, { layout = "RailgunRailgun" })
+		return rLerk
+    end
+end
+
+function Alien:GiveFade(spawnPoint)
+    local random = math.random(1,2)
+    if random == 1 then 
+        local rFade = self:Replace(Fade.kMapName, self:GetTeamNumber(), false, spawnPoint, { layout = "MinigunMinigun" })
+    return rFade
+    else
+        local rFade = self:Replace(Fade.kMapName, self:GetTeamNumber(), false, spawnPoint, { layout = "RailgunRailgun" })
+    return rFade
+    end
+end
+
+function Alien:GiveOnos(spawnPoint)
+    local random = math.random(1,2)
+    if random == 1 then 
+        local rOnos = self:Replace(Onos.kMapName, self:GetTeamNumber(), false, spawnPoint, { layout = "MinigunMinigun" })
+    return rOnos
+    else
+        local rOnos = self:Replace(Onos.kMapName, self:GetTeamNumber(), false, spawnPoint, { layout = "RailgunRailgun" })
+    return rOnos
+    end
+end
+*/
 function Alien:CreditBuy(techId)
-        local cost = LookupTechData(techId, kTechDataCostKey, 0)
-        self:AddResources(-cost)
-        local upgradetable = {}
-        local upgrades = Player.lastUpgradeList
-        if upgrades and #upgrades > 0 then
-            table.insert(upgradetable, upgrades)
-        end
-        
-        table.insert(upgradetable, techId)
-        self:ProcessBuyAction(upgradetable, true)
-        self:AddResources(-cost)
+
+	--local eggExtents = LookupTechData(kTechId.Embryo, kTechDataMaxExtents)
+	--local newLifeFormTechId = techId
+	--local newAlienExtents = LookupTechData(newLifeFormTechId, kTechDataMaxExtents)
+	--local physicsMask = PhysicsMask.Evolve
+	local cost = LookupTechData(techId, kTechDataCostKey, 0)
+	--self:AddResources(cost)
+	
+	--local position = self:GetOrigin()
+	--local trace = Shared.TraceRay(position, position + Vector(0, -0.5, 0), CollisionRep.Move, PhysicsMask.AllButPCs, EntityFilterOne(self))
+
+	local upgradetable = {}
+	local upgrades = Player.lastUpgradeList
+	if upgrades and #upgrades > 0 then
+		table.insert(upgradetable, upgrades)
+	else
+		table.insert(upgradetable, techId)
+	end
+
+	--table.insert(upgradetable, techId)
+	--self:ProcessBuyAction(upgradetable, true)
+	
+	--local newPlayer = self:Replace(Embryo.kMapName)
+	--position.y = position.y + Embryo.kEvolveSpawnOffset
+	--newPlayer:SetOrigin(position)
+
+	-- Clear angles, in case we were wall-walking or doing some crazy alien thing
+	--local angles = Angles(self:GetViewAngles())
+	--angles.roll = 0.0
+	--angles.pitch = 0.0
+	--newPlayer:SetOriginalAngles(angles)
+	--newPlayer:SetValidSpawnPoint(roomAfter)
+
+	-- Eliminate velocity so that we don't slide or jump as an egg
+	--newPlayer:SetVelocity(Vector(0, 0, 0))                
+	--newPlayer:DropToFloor()
+
+	--newPlayer:AddResources(-cost)
+	--self:AddResources(-cost)
+	--newPlayer:SetGestationData(upgradetable, techId, self:GetHealthFraction(), self:GetArmorScalar())
+	
+    self:ProcessBuyAction(upgradetable, true)
+
+	
+end
+
+
 end
 
 function Alien:RefreshTechsManually()
@@ -177,7 +250,7 @@ function Alien:RefreshTechsManually()
 end
  
 
-end
+
 
 if Server then
 
@@ -598,6 +671,7 @@ function Alien:UpdatePrimalEffect(isLocal)
 end
 
 local origcupdate = Alien.UpdateClientEffects
+
 function Alien:UpdateClientEffects(deltaTime, isLocal)
      self:UpdatePrimalEffect(isLocal)
      if self:isa("Onos") then self:UpdateOnocideEffect(isLocal) end

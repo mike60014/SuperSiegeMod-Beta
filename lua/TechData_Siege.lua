@@ -9,6 +9,7 @@ Script.Load("lua/Additions/Onocide.lua")
 Script.Load("lua/Additions/CragUmbra.lua")
 Script.Load("lua/Additions/CommVortex.lua")
 Script.Load("lua/Weapons/Alien/AcidRocket.lua")
+Script.Load("lua/Weapons/Alien/Rocket.lua")
 Script.Load("lua/Additions/LerkBileBomb.lua")
 Script.Load("lua/MAC_Siege.lua")
 Script.Load("lua/Additions/LayStructures.lua")
@@ -73,6 +74,10 @@ function GetCheckStructureBeacon(techId, origin, normal, commander)
     
 end
 
+local kAcidRocketResearchCost = gAcidRocketResearchCost
+local kAcidRocketResearchTime = gAcidRocketResearchTime
+
+
 local kSiege_TechData =
 {        
 
@@ -120,12 +125,13 @@ local kSiege_TechData =
 
 { [kTechDataId] = kTechId.AcidRocket,        
 [kTechDataCategory] = kTechId.Fade,   
-[kTechDataMapName] = AcidRocket.kMapName,  
-[kTechDataCostKey] = gAcidRocketResearchCost,
-[kTechDataResearchTimeKey] = gAcidRocketResearchTime, 
+[kTechDataMapName] = AcidRocket.kMapName,  -- "acidrocket"
+[kTechDataCostKey] = kStabResearchCost,  --kStabResearchCost, kAcidRocketResearchCost
+[kTechDataResearchTimeKey] = kStabResearchTime, --kStabResearchTime, kAcidRocketResearchTime
 [kTechDataDamageType] = kDamageType.Corrode,  
 [kTechDataDisplayName] = "AcidRocket",
 [kTechDataTooltipInfo] = "Ranged Projectile dealing damage only to armor and structures"},
+  
 /*
 { [kTechDataId] = kTechId.LerkBileBomb,        
 [kTechDataCategory] = kTechId.Lerk,   
