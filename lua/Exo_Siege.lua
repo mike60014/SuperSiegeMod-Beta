@@ -16,20 +16,19 @@ local kDualWelderAnimationGraph = PrecacheAsset("models/marine/exosuit/exosuit_r
 
 local kHoloMarineMaterialname = PrecacheAsset("cinematics/vfx_materials/marine_ip_spawn.material")
 
-local kAtomReconstructionTime = 3
-local kGetStunnedCooldown = 3
-local kThrusterUpwardsAcceleration = 2
-local kThrusterHorizontalAcceleration = 23 
-local kHorizontalThrusterAddSpeed = 2.5 -- added to max speed when using thrusters
-local kWalkMaxSpeed = 3.7
-local kMaxSpeed = 5.75
-local kViewOffsetHeight = 2.3
-local kAcceleration = 20
-local kSmashEggRange = 1.5
-Exo.kXZExtents = 0.55
-Exo.kYExtents = 1.2
+local kAtomReconstructionTime = gExoWelderAtomReconstructionTime
+local kGetStunnedCooldown = gExoWelderGetStunnedCooldown
+local kThrusterUpwardsAcceleration = gAllExoThrusterUpwardsAcceleration
+local kThrusterHorizontalAcceleration = gThrusterHorizontalAcceleration 
+local kHorizontalThrusterAddSpeed = gAllExoThrusterUpwardsAcceleration
+local kWalkMaxSpeed = gAllExoWalkMaxSpeed
+local kMaxSpeed = gAllExoMaxSpeed
+local kViewOffsetHeight = gAllExoViewOffsetHeight
+local kAcceleration = gExoWelderAcceleration
+local kSmashEggRange = gAllExoSmashEggRange
+Exo.kXZExtents = gExoWelderXZExtents
+Exo.kYExtents = gExoWelderYExtents
 local kWelderFireDelay = kExoWelderFireDelay
-local kExoWelderGetStunnedCooldown = gExoWelderGetStunnedCooldown
 
 local kCrouchShrinkAmount = gAllExoCrouchShrinkAmount
 local kExtentsCrouchShrinkAmount = gAllExoExtentsCrouchShrinkAmount
@@ -108,7 +107,6 @@ function ExoSiege:InitExoModel()
     else
 		origmodel(self)
     end
-
 end
 
 function ExoSiege:InitWeapons()
@@ -117,7 +115,6 @@ function ExoSiege:InitWeapons()
 		weaponHolder = self:GiveItem(ExoWeaponHolder.kMapName, false)   
     end    
     
-  
         if self.layout == "WelderWelder" then
         weaponHolder:SetWelderWeapons()
         self:SetHUDSlotActive(1)
@@ -127,16 +124,9 @@ function ExoSiege:InitWeapons()
         self:SetHUDSlotActive(1)
         return
         end
-        
-        
-
         Exo.InitWeapons(self)
-
-    
 end
 local function HealSelf(self)
-
-
 	local toheal = true
 	kPrototypeLabBonusHealAuraAmounttoAdd = 0
 	
@@ -146,18 +136,18 @@ local function HealSelf(self)
 			kPrototypeLabBonusHealAuraAmounttoAdd = kPrototypeLabBonusHealAuraAmount
 			break
 		end
-		
 	end
-	
 	--  Print("toheal is %s", toheal)
     if toheal then
 		self:SetArmor(self:GetArmor() + kNanoArmorHealPerSecond + kPrototypeLabBonusHealAuraAmounttoAdd, true) 
     end
     
 end
+
 function ExoSiege:GetCanControl()
     return not self.isLockedEjecting and not self.isMoveBlocked and self:GetIsAlive() and  not self.countingDown and not self.concedeSequenceActive
 end
+
 local oninit = Exo.OnInitialized
 function ExoSiege:OnInitialized()
 
@@ -167,12 +157,13 @@ oninit(self)
    self:SetTechId(kTechId.Exo)
    self:AddTimedCallback(function() HealSelf(self) return true end, 1) 
 end
-        function ExoSiege:GetTechId()
-         return kTechId.Exo
-    end
+
+function ExoSiege:GetTechId()
+	return kTechId.Exo
+end
 
 function ExoSiege:GetIsStunAllowed()
-    return not self.timeLastStun or self.timeLastStun + kExoWelderGetStunnedCooldown < Shared.GetTime() 
+    return not self.timeLastStun or self.timeLastStun + kGetStunnedCooldown < Shared.GetTime() 
 end
 
 function ExoSiege:OnGetMapBlipInfo()
