@@ -51,20 +51,9 @@ local kExoWelderStructureWeldRate = gExoWelderStructureWeldRate
 local kSelfWeldAmount = gExoWelderSelfWeldAmount
 local kWelderEffectRate = gExoWelderEffectRate
 local kExoPlayerWeldRate = gExoWelderPlayerWeldAmount
---local kExoPlayerWeldRate = gExoWelderStructureWeldAmount
 
-/*
-local kWeldRange = kExoWelderWeldRange
-local kWelderEffectRate = kExoWelderWelderEffectRate
-kWelderFireDelay = 0.2
-kExoPlayerWeldRate = 100
-*/
+
 local kFireLoopingSound = PrecacheAsset("sound/NS2.fev/marine/welder/weld")
-
-local kHealScoreAdded = kExoWelderHealScoreAdded
--- Every kAmountHealedForPoints points of damage healed, the player gets
--- kHealScoreAdded points to their score.
-local kAmountHealedForPoints = kExoWelderAmountHealedForPoints
 
 function ExoWelder:OnCreate()
 
@@ -149,7 +138,7 @@ function ExoWelder:OnPrimaryAttack(player)
     if self.timeLastWeld + kWelderFireDelay < Shared.GetTime () then
     
       hitPoint = self:PerformWeld(player)
-        self.timeLastWeld = Shared.GetTime()
+      self.timeLastWeld = Shared.GetTime()
         
     end
     
@@ -232,7 +221,8 @@ function ExoWelder:PerformWeld(player)
     if didHit and target and HasMixin(target, "Live") then
         
         if HasMixin(target, "Team")and GetAreEnemies(player, target) then
-           self:DoDamage(kExoWelderDamagePerSecond * kWelderFireDelay, target, endPoint, attackDirection)
+           --self:DoDamage(kExoWelderDamagePerSecond * kWelderFireDelay, target, endPoint, attackDirection)
+           self:DoDamage(kExoWelderDamagePerSecond, target, endPoint, attackDirection)
            success = true
 		   
         elseif HasMixin(target, "Team") and player:GetTeamNumber() == target:GetTeamNumber() and HasMixin(target, "Weldable") then
@@ -245,7 +235,9 @@ function ExoWelder:PerformWeld(player)
                     if target.OnWeldOverride then
                         target:OnWeldOverride(player, kWelderFireDelay)
                     else
-                        target:AddHealth(self:GetRepairRate(target) * kWelderFireDelay)
+						--rework to not multiple Amount healed * Attack Speed
+                        --target:AddHealth(self:GetRepairRate(target) * kWelderFireDelay)
+                        target:AddHealth(self:GetRepairRate(target))
 
                     end
 					
