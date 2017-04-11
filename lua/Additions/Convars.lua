@@ -781,8 +781,8 @@ gWelderStructureWeldRateBreakableDoor = gWelderPlayerArmorRate * 1.8 --1.2
 gWelderPowerRepairRate = 250 --220
 gBuilderPowerRepairRate = 450 --220
 gWelderSentryRepairRate = 200 --150
-gPlayerWeldRate = 25 --30
-gStructureWeldRate = 60 --90
+gPlayerWeldRate = 250 --30
+gStructureWeldRate = 250 --90
 gDoorWeldTime = 100 --15
 
 
@@ -804,8 +804,6 @@ kWelderScoreAddedPerPoints = gWelderScoreAddedPerPoints
 kWelderDamagePerSecond = gWelderDamagePerSecond
 kWelderDamageType = gWelderDamageType
 kSelfWeldAmount = gWelderSelfWeldAmount
-kLevelScoreAdded = gLevelScoreAdded
-kExoWelderStructureWeldRateBreakableDoor = gWelderStructureWeldRateBreakableDoor
 
 */
 --Marine Weapons End
@@ -907,12 +905,12 @@ gExoFlamerThrusterHorizontalAcceleration = 23
 
 
 --ExoWelder
-gExoWelderDamagePerSecond = 50
+gExoWelderDamagePerSecond = 50 --30
 --gExoWelderFireAmount = 0
 gExoWelderPlayerWeldAmount = 15 --15
-gExoWelderStructureWeldAmount = 65 --65
+gExoWelderStructureWeldAmount = 100 --65
 gExoWelderStructureWeldRateBreakableDoor = gExoWelderStructureWeldAmount * 1.8 --65
-gExoWelderWeldRange = 10 --4
+gExoWelderWeldRange = 2 --4
 gExoWelderEffectRate = 0.45 --0.45
 gExoWelderFireDelay = 0.2 --0.2
 gExoWelderHealScoreAdded = 1
@@ -924,33 +922,32 @@ gExoWelderGetStunnedCooldown = 3
 
 gExoWelderMoveSpeedWhileFiringMultipler = 1  --1 = no change in speed. 1.25 = slow by 25% still need to implement
 gExoWelderThrusterHorizontalAcceleration = 23 * 3 --23
-gExoWelderAcceleration = 20
+gExoWelderAcceleration = 30 --20
 gExoWelderThrustersMinimumFuel = 0.35 -- 0.99
 gExoWelderThrustersDuration = 2.0 -- 1.5
 gExoWelderThrustersCooldownTime = 2.0 -- 2.5
 gExoWelderThrustersDuration = 2.0 -- 1.5
-gExoWelderXZExtents = 0.55 -- 0.55
-gExoWelderYExtents = 1.2 -- 1.2
+gExoWelderXZExtents = 0.35 -- 0.55
+gExoWelderYExtents = 1.0 -- 1.2
 gExoWelderUseCatPackCooldown = 6 -- 6
-gExoWelderAtomReconstructionTime = 1 --3
+
+kExoWelderWeldRange = gExoWelderWeldRange
 kExoWelderWelderEffectRate = gExoWelderEffectRate
-kExoWelderStructureWeldAmount = gExoWelderStructureWeldAmount
+kExoWelderFireRate = gExoWelderFireAmount
+kExoWelderEffectRate = gExoWelderEffectRate
 kExoWelderFireDelay = gExoWelderFireDelay
+kExoWelderStructureWeldAmount = gExoWelderStructureWeldAmount
 kExoWelderPlayerWeldAmount = gExoWelderPlayerWeldAmount
 kExoWelderPlayerWeldRate = gExoWelderPlayerWeldAmount --gExoWelderPlayerWeldRate
 kExoWelderStructureWeldRate = gExoWelderStructureWeldAmount
+kExoWelderSelfWeldAmount = gExoWelderSelfWeldAmount
+kExoWelderStructureWeldRateBreakableDoor = gExoWelderStructureWeldRateBreakableDoor
 
 kAcceleration = gExoWelderAcceleration
-kExoWelderFireRate = gExoWelderFireAmount
-kExoWelderEffectRate = gExoWelderEffectRate
-kExoWelderSelfWeldAmount = gExoWelderSelfWeldAmount
 kExoWelderDamagePerSecond = gExoWelderDamagePerSecond
-kExoWelderStructureWeldRateBreakableDoor = gExoWelderStructureWeldRateBreakableDoor
-kExoWelderWeldRange = gExoWelderWeldRange
 kExoWelderHealScoreAdded = gExoWelderHealScoreAdded
 kExoWelderAmountHealedForPoints = gExoWelderAmountHealedForPoints
 kExoWelderMoveSpeedWhileFiringMultipler = gExoWelderMoveSpeedWhileFiringMultipler
-kAtomReconstructionTime = gAtomReconstructionTime
 kExoThrusterHorizontalAcceleration = gExoWelderThrusterHorizontalAcceleration
 --Exo.kXZExtents = gExoWelderXZExtents
 --Exo.kYExtents = gExoWelderYExtents
@@ -972,6 +969,7 @@ kRailgunDamageType = kDamageType.Structural
 
 --AllExo Settings
 
+
 gAllExoSmashEggRange = 1.5
 gAllExoWalkMaxSpeed = 3.7
 gAllExoMaxSpeed = 5.75
@@ -979,31 +977,36 @@ gAllExoViewOffsetHeight = 2.3
 gAllExoThrusterUpwardsAcceleration = 2
 gHorizontalThrusterAddSpeed = 2.5
 gThrusterHorizontalAcceleration = 23
+gAllExoPlayerWeldRate = 15
 
+gAllExoAtomReconstructionTime = 3
+
+kAtomReconstructionTime = gAllExoAtomReconstructionTime
+
+kExoPlayerWeldRate = kExoPlayerWeldRate
 kSmashEggRange = gAllExoSmashEggRange
+
+--kHorizontalThrusterAddSpeed = gHorizontalThrusterAddSpeed
 --kThrusterUpwardsAcceleration = gAllExoThrusterUpwardsAcceleration
 --kWalkMaxSpeed = gAllExoWalkMaxSpeed
 --kViewOffsetHeight = gAllExoViewOffsetHeight
 --kMaxSpeed = gAllExoMaxSpeed
 --kThrusterHorizontalAcceleration = gThrusterHorizontalAcceleration
 
-gPrototypeLabBonusHealAuraRange = 4 --def 4
-gPrototypeLabBonusHealAuraAmount = 75
-
-kHorizontalThrusterAddSpeed = kHorizontalThrusterAddSpeed
-kDualRailgunExosuitCost = 35 --default 45
-kDualExosuitCost = 35 -- default 45
-
-
-
+gPrototypeLabBonusHealAuraRange = 2 --def 4
+gPrototypeLabBonusHealAuraAmount = 40
 kPrototypeLabBonusHealAuraRange = gPrototypeLabBonusHealAuraRange
 kPrototypeLabBonusHealAuraAmount = gPrototypeLabBonusHealAuraAmount
+
+kDualExosuitCost = 35 -- default 45
+
 gExoClawDamage = 50
 gClawDamageType = kDamageType.Structural
 
 kClawDamage = gExoClawDamage
 kClawDamageType = gClawDamageType
 
+kDualRailgunExosuitCost = 35 --default 45
 gExoMinigunAcceleration = 20 -- 20
 gExoRailgunAcceleration = 20 -- 20
 gExoFlamerAcceleration = 20 -- 20
@@ -1069,7 +1072,7 @@ gAllExoDeployDuration = 1.0
 gAllExoEjectDuration = 1.0
 gAllExoCloseDuration = 1.0
 kAllExoArmorPerUpgradeLevel = 35
-kAllExoArmor = 385
+kAllExoArmor = 395
 --gAllExoThrusterHorizontalAcceleration =
 gNanoArmorHealPerSecond = 5 --2
 

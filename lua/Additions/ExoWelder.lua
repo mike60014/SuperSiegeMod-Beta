@@ -24,10 +24,8 @@ ExoWelder.kModelName = PrecacheAsset("models/marine/welder/welder.model")
 local kAnimationGraph = PrecacheAsset("models/marine/welder/welder_view.animation_graph")
 local kWelderViewCinemeatic = PrecacheAsset("cinematics/marine/welder/exowelder_muzzle.cinematic")
 local kWelderModelCinematic = PrecacheAsset("cinematics/marine/welder/exowelder_muzzle.cinematic")
-local kFireLoopingSound = PrecacheAsset("sound/NS2.fev/marine/welder/weld")
 
 local kWelderTraceExtents = Vector(0.4, 0.4, 0.4)
-
 
 
 local networkVars =
@@ -39,24 +37,34 @@ local networkVars =
 
 AddMixinNetworkVars(ExoWeaponSlotMixin, networkVars)
 AddMixinNetworkVars(LiveMixin, networkVars)
-
-local kWelderEffectRate = 0.45 --gExoWelderEffectRate
 local kWeldRange = gExoWelderWeldRange
 --local kWelderFireRate = gExoWelderFireRate
 local kAmountHealedForPoints = gExoWelderAmountHealedForPoints
 local kHealScoreAdded = gExoWelderHealScoreAdded
 
-local kExoWelderPlayerWeldAmount = gExoWelderPlayerWeldAmount
-local kExoWelderStructureWeldAmount = gExoWelderStructureWeldAmount
+local kExoWelderPlayerWeldAmount = gExoWelderPlayerWeldAmount --implement someday
+local kExoWelderStructureWeldAmount = gExoWelderStructureWeldAmount --implement someday
 
 local kWelderFireDelay = gExoWelderFireDelay
 local kExoWelderPlayerWeldRate = gExoWelderPlayerWeldRate
 local kExoWelderStructureWeldRate = gExoWelderStructureWeldRate
 local kSelfWeldAmount = gExoWelderSelfWeldAmount
+local kWelderEffectRate = gExoWelderEffectRate
+local kExoPlayerWeldRate = gExoWelderPlayerWeldAmount
+--local kExoPlayerWeldRate = gExoWelderStructureWeldAmount
 
+/*
+local kWeldRange = kExoWelderWeldRange
+local kWelderEffectRate = kExoWelderWelderEffectRate
+kWelderFireDelay = 0.2
+kExoPlayerWeldRate = 100
+*/
+local kFireLoopingSound = PrecacheAsset("sound/NS2.fev/marine/welder/weld")
 
+local kHealScoreAdded = kExoWelderHealScoreAdded
 -- Every kAmountHealedForPoints points of damage healed, the player gets
 -- kHealScoreAdded points to their score.
+local kAmountHealedForPoints = kExoWelderAmountHealedForPoints
 
 function ExoWelder:OnCreate()
 
@@ -137,7 +145,7 @@ function ExoWelder:OnPrimaryAttack(player)
     
     self.welding = true
     local hitPoint = nil
-	
+    
     if self.timeLastWeld + kWelderFireDelay < Shared.GetTime () then
     
       hitPoint = self:PerformWeld(player)
@@ -195,16 +203,6 @@ function ExoWelder:GetRange()
     return kWeldRange
 end	
 
---function ExoWelder:GetRepairRate(repairedEntity)
-
-  --  local repairRate = kPlayerWeldRate
- --   if repairedEntity.GetReceivesStructuralDamage and repairedEntity:GetReceivesStructuralDamage() then
-    --    repairRate = kStructureWeldRate
-  --  end
-    
-   -- return repairRate
-    
---end
 
 function ExoWelder:GetMeleeBase()
     return 2, 2
@@ -235,12 +233,10 @@ function ExoWelder:PerformWeld(player)
         
         if HasMixin(target, "Team")and GetAreEnemies(player, target) then
            self:DoDamage(kExoWelderDamagePerSecond * kWelderFireDelay, target, endPoint, attackDirection)
-           success = true     
-         elseif HasMixin(target, "Team") and player:GetTeamNumber() == target:GetTeamNumber() and HasMixin(target, "Weldable") then
-
-        
+           success = true
+		   
+        elseif HasMixin(target, "Team") and player:GetTeamNumber() == target:GetTeamNumber() and HasMixin(target, "Weldable") then
             if target:GetHealthScalar() < 1 then
-                
                 local prevHealthScalar = target:GetHealthScalar()
                 local prevHealth = target:GetHealth()
                 local prevArmor = target:GetArmor()
@@ -249,13 +245,14 @@ function ExoWelder:PerformWeld(player)
                     if target.OnWeldOverride then
                         target:OnWeldOverride(player, kWelderFireDelay)
                     else
-						target:AddHealth(self:GetRepairRate(target) * kWelderFireDelay)
-						
+                        target:AddHealth(self:GetRepairRate(target) * kWelderFireDelay)
+
                     end
+					
                     if player and player.OnWeldTarget then
                         player:OnWeldTarget(target)
                     end
-                  end
+                end
 
 
                 success = prevHealthScalar ~= target:GetHealthScalar()
@@ -263,8 +260,8 @@ function ExoWelder:PerformWeld(player)
                 if success then
                     local pointsHealth = kAmountHealedForPoints
                     local scoreToAdd = kHealScoreAdded
-                    local addAmount = ((target:GetHealth() - prevHealth) + (target:GetArmor() - prevArmor)) * ConditionalValue(target:isa("Player"),  3, 1)
-                          
+                    local addAmount = (target:GetHealth() - prevHealth) + (target:GetArmor() - prevArmor)
+                          addAmount = addAmount * ConditionalValue(target:isa("Player"),  3, 1)
                     player:AddContinuousScore("WeldHealth", addAmount, pointsHealth, scoreToAdd)
                     
                     -- weld owner as well
@@ -275,7 +272,7 @@ function ExoWelder:PerformWeld(player)
             end
             
             if HasMixin(target, "Construct")  then
-                target:Construct(kExoWelderStructureWeldRate, player)
+                target:Construct(kWelderFireDelay, player)
             end
             
         end
@@ -290,9 +287,9 @@ end
 
 function ExoWelder:GetRepairRate(repairedEntity)
 
-    local repairRate = kExoWelderPlayerWeldRate
+    local repairRate = kExoPlayerWeldRate
     if repairedEntity.GetReceivesStructuralDamage and repairedEntity:GetReceivesStructuralDamage() then
-        repairRate = kExoWelderStructureWeldRate
+        repairRate = kExoPlayerWeldRate * 1.20
     end
     
     return repairRate

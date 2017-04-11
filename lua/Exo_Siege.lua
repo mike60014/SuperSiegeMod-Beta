@@ -16,9 +16,11 @@ local kDualWelderAnimationGraph = PrecacheAsset("models/marine/exosuit/exosuit_r
 
 local kHoloMarineMaterialname = PrecacheAsset("cinematics/vfx_materials/marine_ip_spawn.material")
 
-local kAtomReconstructionTime = 3
+local kAtomReconstructionTime = gExoWelderAtomReconstructionTime
 
-local kExoEjectTime = kAllExoEjectTime
+local kPrototypeLabBonusHealAuraRange = gPrototypeLabBonusHealAuraRange
+
+local kExoEjectTime = gAllExoEjectDuration
 
 local function DestroySpinEffect(self) 
     if self.fakeMarineModel then    
@@ -99,13 +101,13 @@ function ExoSiege:InitWeapons()
     
   
         if self.layout == "WelderWelder" then
-        weaponHolder:SetWelderWeapons()
-        self:SetHUDSlotActive(1)
-        return
+			weaponHolder:SetWelderWeapons()
+			self:SetHUDSlotActive(1)
+			return
         elseif self.layout == "FlamerFlamer" then
-        weaponHolder:SetFlamerWeapons()
-        self:SetHUDSlotActive(1)
-        return
+			weaponHolder:SetFlamerWeapons()
+			self:SetHUDSlotActive(1)
+			return
         end
         
         
@@ -118,19 +120,27 @@ local function HealSelf(self)
 
 
   local toheal = true
-                for _, proto in ipairs(GetEntitiesForTeamWithinRange("PrototypeLab", 1, self:GetOrigin(), 4)) do
+  kProtolabextraArmor = 0
+                for _, proto in ipairs(GetEntitiesForTeamWithinRange("PrototypeLab", 1, self:GetOrigin(), kPrototypeLabBonusHealAuraRange)) do
                     
                     if GetIsUnitActive(proto) then
+                        --toheal = true
+						kProtolabextraArmor = kPrototypeLabBonusHealAuraAmount
+						--kProtolabextraArmor = 25
+                        break
+                    end
+                    
+                end
+           
+          --  Print("toheal is %s", toheal)
     if toheal then
-		self:SetArmor(self:GetArmor() + kNanoArmorHealPerSecond + kPrototypeLabBonusHealAuraAmounttoAdd, true) 
+    self:SetArmor(self:GetArmor() + kNanoArmorHealPerSecond + kProtolabextraArmor, true) 
     end
     
 end
-
 function ExoSiege:GetCanControl()
     return not self.isLockedEjecting and not self.isMoveBlocked and self:GetIsAlive() and  not self.countingDown and not self.concedeSequenceActive
 end
-
 local oninit = Exo.OnInitialized
 function ExoSiege:OnInitialized()
 
@@ -140,13 +150,12 @@ oninit(self)
    self:SetTechId(kTechId.Exo)
    self:AddTimedCallback(function() HealSelf(self) return true end, 1) 
 end
-
-function ExoSiege:GetTechId()
-	return kTechId.Exo
-end
+        function ExoSiege:GetTechId()
+         return kTechId.Exo
+    end
 
 function ExoSiege:GetIsStunAllowed()
-    return not self.timeLastStun or self.timeLastStun + kGetStunnedCooldown < Shared.GetTime() 
+    return not self.timeLastStun or self.timeLastStun + 8 < Shared.GetTime() 
 end
 
 function ExoSiege:OnGetMapBlipInfo()
@@ -203,7 +212,7 @@ end
         
     end
   end
-
+    
 function ExoSiege:EjectExo()
 
     if self:GetCanEject() then
@@ -216,23 +225,20 @@ function ExoSiege:EjectExo()
 
 end
 
+Shared.LinkClassToMap("ExoSiege", ExoSiege.kMapName, networkVars)
 
 if Server then
 
     function ExoSiege:PerformEject()
-	if kExoEjectDuration >= 1.00 then
-		self:SetCameraDistance(3)
-		if Client then CreateSpinEffect(self) end
-		self.isLockedEjecting = true
-		--self:AddTimedCallback(function() DestroySpinEffect(self) self.isLockedEjecting = false self:SetCameraDistance(0) Exo.EjectExo(self)  end, kExoEjectDuration)
-		self:AddTimedCallback(function() DestroySpinEffect(self) self.isLockedEjecting = false self:SetCameraDistance(0) Exo.PerformEject(self)  end, kExoEjectDuration)
-	elseif kExoEjectDuration < 0.99 then
-		--self:AddTimedCallback(function() DestroySpinEffect(self) self.isLockedEjecting = false self:SetCameraDistance(0) Exo.EjectExo(self)  end, kExoEjectDuration)
-		self:AddTimedCallback(function() DestroySpinEffect(self) self.isLockedEjecting = false self:SetCameraDistance(0) Exo.PerformEject(self)  end, kExoEjectDuration)
-	end
+        if kExoEjectTime >= 1.00 then
+			self:SetCameraDistance(3)
+			if Client then CreateSpinEffect(self) end
+			self.isLockedEjecting = true
+			self:AddTimedCallback(function() DestroySpinEffect(self) self.isLockedEjecting = false self:SetCameraDistance(0) Exo.EjectExo(self)  end, kExoEjectTime)
+		elseif kExoEjectTime < 0.99 then
+			self:SetCameraDistance(0)
+			Exo.EjectExo(self)
+			self.isLockedEjecting = false
+		end
+    end
 end
-end
-
-
-
-Shared.LinkClassToMap("ExoSiege", ExoSiege.kMapName, networkVars)
