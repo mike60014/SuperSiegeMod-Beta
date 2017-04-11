@@ -33,10 +33,10 @@ kGoreDamage = 100
 
 kUmbraEnergyCost = 23
 
-kGorgeCost = 8
-kLerkCost = 16
-kFadeCost = 32
-kOnosCost = 64
+kGorgeCost = 8 --10
+kLerkCost = 16 --20
+kFadeCost = 32 --40
+kOnosCost = 64 --65
 
 kCommEggOnosCost = 90 --default 100
 kSkulkUpgradeCost = 0
@@ -84,18 +84,9 @@ kHeavyMachineGunDropCost = 25 --default = 40
 kSentryBuildTime = 4 --default 3
 kPlayerHallucinationNumFraction = 0.38 --default 0.34
 
-kShotgunFireRate = 0.75 --default 0.88
 --kXenocideDamage = 220
 --kXenocideDamageType = kDamageType.Structural
 
-
-kDualRailgunExosuitCost = 35 --default 45
-kDualExosuitCost = 35 -- default 45
-
-
---kMarineRespawnTime = 8 --default 9
-
-kFlameThrowerEnergyDamage = 1 
 kBlinkEnergyCost = 27 -- default 32
 kStartBlinkEnergyCost = 13 --default 14
 kBoneShieldArmorPerSecond = 65 --default 112
@@ -191,7 +182,7 @@ kLerkFlapEnergyCost = 1
 kHallucinationHealthFraction = 0.25 --default 0.20
 kHallucinationArmorFraction = 0.10 -- default 0
 kHallucinationMaxHealth = 725 -- default 700
-kHeavyMachineGunWeight = 0.20 -- default 0.26
+
 --kNumMines 3 -- default 2
 --kEggsPerHatch = 4 -- default 2
 
@@ -202,8 +193,6 @@ kDrifterSupply = 5 --default 10
 kHiveInfestationRadius = 8
 
 kMACSupply = 5
-kJetpackReplenishFuelRate = .14 -- .11 to .14 %30 increase
-kJetpackUseFuelRate = 0.147 -- 30% decrease from .21
 kSentrySupply = 2
 
 ////Final Configs
@@ -283,12 +272,13 @@ gCreditWeaponCostGrenadeLauncher = 3
 
 
 
---Alien Abilties
+--Alien Abilities
 gCreditAbilityCostInk = 1.5
 gCreditAbilityCostNutrientMist = 1
 gCreditAbilityCostHallucination = 1.75
 gCreditAbilityCostEnzymeCloud = 1.5
 gCreditAbilityCostContamination = 1
+
 --Alien Credit Structures
 gCreditStructureCostHydra = 1
 gCreditStructureCostSaltyEgg = 15
@@ -411,7 +401,7 @@ gTunnelEntranceArmor = kTunnelEntranceArmor
 gTunnelEntranceHealth = kTunnelEntranceHealth
 gTunnelEntrancePointValue = kTunnelEntrancePointValue
 gTunnelEntranceMaturationTime = 4 -- 135
---Gorge Abilties
+--Gorge Abilities
 
 
 --Gorge End
@@ -448,7 +438,7 @@ gAcidRocketDamageType = kDamageType.Structural
 gAcidRocketEnergyCost = 17 --10
 gAcidRocketFireDelay = 0.5
 gAcidRocketRadius = 4 --6
-gAcidRocketLifeTime = 3
+gAcidRocketLifeTime = 0.5
 gAcidRocketResearchTime = 20
 gAcidRocketResearchCost = 20
 gAcidRocketVelocity = 45
@@ -457,6 +447,9 @@ gAcidRocketHUDSlot = 4
 
 --Fade End
 
+
+--Onos Settings
+
 --Onos abilities
 kOnocideDetonateTime = 2.0
 kOnocideDetonateRange = 1
@@ -464,65 +457,210 @@ kOnosStunWallLifeSpan = 3
 kOnosStunWallHealth = 200
 kOnosHealtPerBioMass = 31
 gOnosStompBoneWallDuration = 2 --4
+
 --Onos abilities End
 
 
+--Onos End
 
+--Gorge Settings
+
+--Gorge Abilities
 kGorgeRedemptionCooldown = 15
 kGorgeRebirthLength = 3
 
 
 
+--Gorge Aiblity End
 
 
+
+--Gorge End
+
+
+//////////////Marines Settings Start
 --Marine Settings
+
 kMarineDefAddXp = 0.5
 kMarineDefLvl = 25
 
---kMaxTimeToSprintAfterAttack = 1?
-
 kMarineStunImmuneTime = 2
 
---Marine Upgrades
+--kMaxTimeToSprintAfterAttack = 1?
 
+
+kShotgunFireRate = 0.75 --default 0.88
+
+
+
+
+--kMarineRespawnTime = 8 --default 9
+
+
+--Marine Weapons
+
+--Rifle
+
+gRifleAddClipSize = 25
+gRifleClipSize = kRifleClipSize + gRifleAddClipSize
+
+--HMG
+kHeavyMachineGunWeight = 0.20 -- default 0.26
+
+
+--Axe
+kAxeDamage = 25
+kAxeDamageType = kDamageType.Structural
 gAxeHUDSlot = 3 --6
 gAxeRange = 1.5
 gAxeFloorRange = 1
 --gAxePrimaryAttackDelay = 
 gAxeSecondaryAttackDelay = 1
-gAxe = 0
-gAxe = 0
-gAxe = 0
+--gAxe = 0
+--gAxe = 0
+--gAxe = 0
+
+--GrenadeLauncher
+kGrenadeLauncherGrenadeDamage = 165
+kGrenadeLauncherGrenadeDamageType = kDamageType.GrenadeLauncher
+kGrenadeLauncherClipSize = 4
+kGrenadeLauncherGrenadeDamageRadius = 4.8
+kGrenadeLifetime = 2.0
+kGrenadeUpgradedLifetime = 1.5
 
 
 
+--Flame
 
+gFlameUpdateTime = 0.5 --0.6
+gBurnDamagePerSecond = 5--2
+gBurnDamagePerStackPerSecond = 5 --3
+gCompoundFireDamageDelay = 1 --2
+gCompundFireDamageScalar = 1 --
+gFlameRadius = 1.8
+
+
+kFlameUpdateTime = gFlameUpdateTime
+kBurnDamagePerSecond = gBurnDamagePerSecond
+kBurnDamagePerStackPerSecond = gBurnDamagePerStackPerSecond
+kCompoundFireDamageDelay = gCompoundFireDamageDelay
+kCompundFireDamageScalar = gCompundFireDamageScalar
+kFlameRadius = gFlameRadius
+
+--FlameThrower
+
+gFlamethrowerDamage = 8
+gFlameThrowerEnergyDamage = 2 --3
+gFlamethrowerDamageType = kDamageType.Flame
+gFlamethrowerClipSize = 75 --50
+gFlamethrowerRange = 9
+gFlamethrowerUpgradedRange = 11.5
+gFlamethrowerMaxStacks = 30
+gFlamethrowerBurnDuration = 4 --6
+gFlamethrowerStackRate = 0.5 --0.4
+
+kFlamethrowerDamage = gFlamethrowerDamage
+kFlameThrowerEnergyDamage = gFlameThrowerEnergyDamage
+kFlamethrowerDamageType = gFlamethrowerDamageType
+kFlamethrowerClipSize = gFlamethrowerClipSize
+kFlamethrowerRange = gFlamethrowerRange
+kFlamethrowerUpgradedRange = gFlamethrowerUpgradedRange
+kFlamethrowerMaxStacks = gFlamethrowerMaxStacks
+kFlamethrowerBurnDuration = gFlamethrowerBurnDuration
+kFlamethrowerStackRate = gFlamethrowerStackRate
+--kFlameDamageStackWeight = 0.5
+
+Flame.kDamageRadius = 1.8
+Flame.kLifeTime = 5.6
+Flame.kDamage = 8
+
+
+
+--Shotgun
+
+gShotgunBulletSize = 0.05 --0.016
+gShotgunClipSize = 10 --default 6
+
+gShotgunPrimaryBulletSize = 0.016
+kShotgunPrimaryDamage = 10
+gShotgunPrimaryAttackSpeed = 0.88
+gShotgunPrimaryBulletClipCost = 1
+gShotgunPrimaryBulletFiredCount = 17
+gShotgunPrimaryDamageType = kDamageType.Normal
+gShotgunPrimaryEffectRange = 5
+gShotgunPrimarySpreadDistance = 16
+
+gShotgunSecondaryBulletSize = 0.016
+gShotgunSecondaryDamage = 10
+gShotgunSecondaryAttackSpeed = 0.88
+gShotgunSecondaryBulletClipCost = 1
+gShotgunSecondaryBulletFiredCount = 17
+gShotgunSecondaryDamageType = kDamageType.Normal
+gShotgunSecondaryEffectRange = 5
+gShotgunSecondarySpreadDistance = 32 --Higher number means closer spread
+
+
+kShotgunFireRate = gShotgunPrimaryAttackSpeed
+kShotgunDamage = kShotgunPrimaryDamage
+kShotgunDamageType = gShotgunPrimaryDamageType
+kShotgunClipSize = gShotgunClipSize
+kShotgunBulletsPerShot = gShotgunPrimaryBulletFiredCount
+kShotgunSpreadDistance = 8.5 --Gets used as z-axis value for spread vectors before normalization
+
+--Welder
+
+kWelderPointsPerScore = 10
+kWelderScoreAddedPerPoints = 1
+
+
+
+--Marine Weapons End
+--Marine Classes
+
+--JetPack
+kJetpackReplenishFuelRate = .14 -- .11 to .14 %30 increase
+kJetpackUseFuelRate = 0.147 -- 30% decrease from .21
+
+--JumpPack
+--kJumpPackCost = 7
+
+--Marine Classes End
+//Marine Buildings --Marine Buildings  
+--AdvBeacon
 kAdvancedBeaconCost = 13
 
+--Armory
 kArmoryHealth = 2000
 kArmoryArmor = 500
 kArmoryPointValue = 6
 kArmoryLvl = 75
 kArmoryAddXp = 1
+
+--Adv Armory
 kAdvancedArmoryHealth = 3500
 kAdvancedArmoryArmor = 750
 kAdvancedArmoryPointValue = 11
 
+--Sentry
 kSentrySupply = 2
 kSentryHealth = 650
 kSentryArmor = 125
 kSentryPointValue = 3
-
-kBatteryPowerRange = 4
 kCommSentryPerRoom = 6
+
+--Battery
+kBatteryPowerRange = 4
+
+--InfrantryPortal
 kInfantryPortalMaxLevel = 25
 kInfantryPortalXPGain = 0.5
+
+--Mac
 kMacMaxLevel = 50
 gMacMaxAmount = 12
 
 --Arc
 gArcMaxAmount = 12
-
 gArcTurnSpeed = math.pi / 2 -- an ARC turns slowly
 gArcMaxSpeedLimitAngle = math.pi / 36 -- 5 degrees
 gArcNoSpeedLimitAngle = math.pi / 4 -- 24 degrees
@@ -543,37 +681,16 @@ gArcCapsuleHeight = .05
 gArcCapsuleRadius = .5
 
 
---kJumpPackCost = 7
+////Exosuit Settings
+--Exos
 
---Welder
+kHorizontalThrusterAddSpeed = 2.5
+kDualRailgunExosuitCost = 35 --default 45
+kDualExosuitCost = 35 -- default 45
 
-kWelderPointsPerScore = 10
-kWelderScoreAddedPerPoints = 1
-
-
-
-
---Rifle
-
-gRifleAddClipSize = 25
-gRifleClipSize = kRifleClipSize + gRifleAddClipSize
-
-
---Shotgun
-
-gShotgunBulletSize = 0.05 --0.016
-gShotgunClipSize = 10 --default 6
-gShotgunPrimaryAttackSpeed = 0.88
-gShotgunPrimaryBulletClipCost = 1
-gShotgunPrimaryBulletFiredCount = 10
-gShotgunPrimaryEffectRange = 5
-gShotgunPrimarySpreadDistance = 16
-gShotgunSecondaryAttackSpeed = 0.88
-gShotgunSecondaryBulletClipCost = 1
-gShotgunSecondaryBulletFiredCount = 10
-gShotgunSecondaryEffectRange = 5
-gShotgunSecondarySpreadDistance = 32
-
+gAllExoWalkMaxSpeed = 3.7
+gAllExoMaxSpeed = 5.75
+gAllExoViewOffsetHeight = 2.3
 
 --ExoFlamer
 kExoFlamerConeWidth = 0.25 --0.17
@@ -615,18 +732,15 @@ kExoWelderMoveSpeedWhileFiringMultipler = 1  --1 = no change in speed. 1.25 = sl
 gExoWelderThrusterHorizontalAcceleration = 23
 
 
+--ExoDualMinigun
 gExoMinigunThrusterHorizontalAcceleration = 23
 kExoMinigunMoveSpeedWhileFiringMultipler = 1  --1 = no change in speed. 1.25 = slow by 25%
 
+--ExoDualRailgun
 gExoRailgunThrusterHorizontalAcceleration = 23
 kExoRailgunMoveSpeedWhileFiringMultipler = 1  --1 = no change in speed. 1.25 = slow by 25%
 
-kHorizontalThrusterAddSpeed = 2.5
 
-
-gAllExoWalkMaxSpeed = 3.7
-gAllExoMaxSpeed = 5.75
-gAllExoViewOffsetHeight = 2.3
 
 gExoMinigunAcceleration = 20 -- 20
 gExoRailgunAcceleration = 20 -- 20

@@ -106,26 +106,22 @@ function LiveMixin:Kill(attacker, doer, point, direction)
    end     
 return origkill(self, attacker, doer, point, direction)
 end
-          ---DirectorBot
-    function ForceEvenTeams_AssignPlayer( player, team )
-      if not player:isa("AvocaSpectator") then
-        player:SetCameraDistance(0)
-        GetGamerules():JoinTeam(player, team, true)
-        end
-    end
+
+  ---DirectorBot
+function ForceEvenTeams_AssignPlayer( player, team )
+	if not player:isa("AvocaSpectator") then
+		player:SetCameraDistance(0)
+		GetGamerules():JoinTeam(player, team, true)
+	end
+end
 
 
 if Server then
-
-
-
 local origscore = ScoringMixin.AddScore
-
 function ScoringMixin:AddScore(points, res, wasKill)
    if points ~= nil and wasKill and self:isa("Alien") then points = math.round(points * 1.30 + points, 1) end
    origscore(self, points, res, wasKill)
 end
-
 end
 
 function Gamerules_GetDamageMultiplier()
@@ -135,7 +131,6 @@ function Gamerules_GetDamageMultiplier()
     end
 
     return 1
-    
 end
 
 function LeapMixin:GetHasSecondary(player)
@@ -192,6 +187,7 @@ local function GetHiveReq(techId, origin, normal, commander)
     
     return true
 end
+
 local function GetCheckExoDropLimit(techId, origin, normal, commander)
     local num = 0
                  for index, exosuit in ientitylist(Shared.GetEntitiesWithClassname("ExoSuit")) do
@@ -200,20 +196,19 @@ local function GetCheckExoDropLimit(techId, origin, normal, commander)
     
     return num < 10
 end
+
 SetCachedTechData(kTechId.Door, kTechDataModel, BreakableDoor.kModelName)
+
 SetCachedTechData(kTechId.DropExosuit, kTechDataBuildMethodFailedMessage, "Trying to crash the server?")
+SetCachedTechData(kTechId.DropExosuit, kTechDataBuildRequiresMethod, GetCheckExoDropLimit)
 
 SetCachedTechData(kTechId.Hive, kTechDataBuildRequiresMethod, GetHiveReq)
 SetCachedTechData(kTechId.Hive, kTechDataBuildMethodFailedMessage, "Techpoint is occupied")
 
-
 SetCachedTechData(kTechId.CommandStation, kTechDataAttachOptional, true)
-
 SetCachedTechData(kTechId.CommandStation, kTechDataBuildRequiresMethod, GetCheckCommandStationLimit)
-
 SetCachedTechData(kTechId.CommandStation, kTechDataIgnorePathingMesh, false)
 
-SetCachedTechData(kTechId.DropExosuit, kTechDataBuildRequiresMethod, GetCheckExoDropLimit)
 
 SetCachedTechData(kTechId.RoboticsFactory, kTechDataMapName, RoboSiege.kMapName)
 
@@ -226,13 +221,7 @@ SetCachedTechData(kTechId.ARC, kTechDataMapName, ARCSiege.kMapName)
 SetCachedTechData(kTechId.Observatory, kTechDataMapName, ObservatorySiege.kMapName)
 SetCachedTechData(kTechId.Exo, kTechDataMapName,ExoSiege.kMapName)
 
-
-
 SetCachedTechData(kTechId.Hydra, kTechDataMapName,HydraSiege.kMapName)
-
-
-
-
 
 ------------------
 
