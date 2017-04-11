@@ -28,6 +28,7 @@ local kAcceleration = 20
 local kSmashEggRange = 1.5
 Exo.kXZExtents = 0.55
 Exo.kYExtents = 1.2
+
 local kCrouchShrinkAmount = gAllExoCrouchShrinkAmount
 local kExtentsCrouchShrinkAmount = gAllExoExtentsCrouchShrinkAmount
 local kThrustersCooldownTime = gAllExoThrustersCooldownTime

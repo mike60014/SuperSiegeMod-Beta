@@ -120,7 +120,7 @@ local kSiege_TechData =
 [kTechDataDisplayName] = "AcidRocket",
 [kTechDataTooltipInfo] = "Ranged Projectile dealing damage only to armor and structures",
 [kTechDataModel] = Babbler.kModelName,
-}
+},
   
 /*
 { [kTechDataId] = kTechId.LerkBileBomb,        
@@ -130,8 +130,9 @@ local kSiege_TechData =
 [kTechDataResearchTimeKey] = gLerkBileBombResearchTime, 
 [kTechDataDamageType] = kDamageType.Corrode,  
 [kTechDataDisplayName] = "LerkBileBomb",
-[kTechDataTooltipInfo] = "Derp"},
-[kTechDataModel] = "",
+[kTechDataTooltipInfo] = "Derp",
+[kTechDataModel] = LerkBileBomb.kModelName,
+},
 */
  { [kTechDataId] = kTechId.CommVortex, 
 [kTechDataMapName] = CommVortex.kMapName, 
@@ -142,6 +143,7 @@ local kSiege_TechData =
 [kTechDataDisplayName] = "Etheral Gate", 
 [kTechDataCostKey] = gCommVortexCost, 
 [kTechDataCooldown] = gCommVortexCoolDown, 
+[kTechDataModel] = "",
 [kTechDataTooltipInfo] =  "Temporarily places marine structures/macs/arcs in another dimension rendering them unable to function correctly. "},
 
 { [kTechDataId] = kTechId.CragUmbra,
@@ -174,23 +176,27 @@ local kSiege_TechData =
 [kTechDataMapName] =  Primal.kMapName,
 --[kTechDataCostKey] = kPrimalScreamCostKey, 
 -- [kTechDataResearchTimeKey] = kPrimalScreamTimeKey, 
-[kTechDataTooltipInfo] = "+Energy to teammates, enzyme cloud"},
+[kTechDataModel] = "",
+[kTechDataTooltipInfo] = "+Energy to teammates, enzyme cloud"
+},
 
 { [kTechDataId] = kTechId.OnoGrow,        
 [kTechDataCategory] = kTechId.Onos,   
 [kTechDataMapName] = OnoGrow.kMapName,  
 [kTechDataCostKey] = kStabResearchCost,
+[kTechDataModel] = Egg.kModelName,
 [kTechDataResearchTimeKey] = kStabResearchTime, 
 --   [kTechDataDamageType] = kStabDamageType,  
 [kTechDataDisplayName] = "OnoGrow",
 [kTechDataTooltipInfo] = ""},
 
-{ [kTechDataId] = kTechId.Onocide,        
-[kTechDataCategory] = kTechId.Onos,   
-[kTechDataMapName] = Onocide.kMapName,  
+{ [kTechDataId] = kTechId.Onocide,
+[kTechDataCategory] = kTechId.Onos,
+[kTechDataMapName] = Onocide.kMapName,
 [kTechDataCostKey] = 10,
-[kTechDataResearchTimeKey] = 10, 
---   [kTechDataDamageType] = kStabDamageType,  
+[kTechDataModel] = Onos.kModelName,
+[kTechDataResearchTimeKey] = 10,
+--   [kTechDataDamageType] = kStabDamageType,
 [kTechDataDisplayName] = "Onicide",
 [kTechDataTooltipInfo] = "Onicide"},
 
@@ -230,8 +236,6 @@ local kSiege_TechData =
 --Marines
 
 
---AdvBeacTech
-/*
 {
 [kTechDataId] = kTechId.AdvBeacTech,
 [kTechDataCostKey] = kAdvBeacTechChost,
@@ -239,7 +243,8 @@ local kSiege_TechData =
 [kTechDataResearchTimeKey] = kAdvBeacTechTime,
 [kTechDataTooltipInfo] = "Unlocks Advanced Beacon (of which revives dead players and teleports exos)"
 },
-*/
+
+
 { [kTechDataId] = kTechId.AdvancedBeacon,   
 [kTechDataBuildTime] = 0.1,   
 [kTechDataCooldown] = kAdvancedBeaconCoolDown,
@@ -255,6 +260,7 @@ local kSiege_TechData =
 [kTechDataMapName] = "exosiege",         
 [kTechDataCostKey] = gCreditClassCostWelder, 
 [kTechDataHotkey] = Move.E,
+[kTechDataModel] = ExoWelder.kModelName,
 [kTechDataTooltipInfo] = "Dual Welders", 
 [kTechDataSpawnHeightOffset] = kCommanderEquipmentDropSpawnHeight},
 
@@ -262,19 +268,21 @@ local kSiege_TechData =
 { [kTechDataId] = kTechId.DualFlamerExosuit,    
 [kTechIDShowEnables] = false,     
 [kTechDataDisplayName] = "Dual Flame Exo", 
-[kTechDataMapName] = "exosiege",         
+[kTechDataMapName] = "exosiege",
+[kTechDataModel] = ExoFlamer.kModelName,
 [kTechDataCostKey] = gCreditClassCostFlamer, 
 [kTechDataHotkey] = Move.E,
 [kTechDataTooltipInfo] = "Dual Flame Exo", 
 [kTechDataSpawnHeightOffset] = kCommanderEquipmentDropSpawnHeight},
 
-/*
+
 { [kTechDataId] = kTechId.JumpPack,
 [kTechDataCostKey] = kJumpPackCost,
 [kTechDataDisplayName] = "Jump Pack", 
 [kTechDataHotkey] = Move.Z, 
+[kTechDataModel] = JetpackMarine.kModelName,
 [kTechDataTooltipInfo] = "Mimics the NS1/HL1 JumpPack (With Attempted Balance Modifications WIP) - Press DUCK + Jump @ the same time to mindfuck the alien team."},
-*/
+
 
 { [kTechDataId] = kTechId.DropMAC,  
 [kTechDataMapName] = DropMAC.kMapName, 
