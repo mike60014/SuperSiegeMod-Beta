@@ -152,7 +152,6 @@ kCystHealth = 100 --150 --default 30
 kMatureCystArmor = 150 --30 --default 0
 kMatureCystHealth = 350 --500 --default 450
 
-kBabblerHealth = 10 --15 --default 10
 kOnosHealtPerBioMass = 31 //Investigate typo
 
 kEggBeaconMaxHealth = 715
@@ -343,6 +342,7 @@ gAliennewMaxHealthMultipler = 1.10
 
 
 --Alien Upgrades
+
 gEggBeaconArmor = 150
 gEggBeaconBuildTime = 8
 gEggBeaconCost = 10
@@ -358,8 +358,24 @@ kEggArmor = 150
 kEggPointValue = 2
 
 
-gBabblerHealth = 15 --default 10
 
+gCommVortexCoolDown = 20
+gCommVortexCost = 8
+
+gCragUmbraCooldown = 10
+gCragUmbraCost = 5
+gCragUmbraRadius = 12
+
+gAlienStructureBeaconArmor = 175
+gAlienStructureBeaconBuildTime = 8
+gAlienStructureBeaconCost = 10
+gAlienStructureBeaconCoolDown = 12
+gAlienStructureBeaconHealth = 675
+gAlienStructureBeaconVisualRange = 8
+
+
+--Babbler
+gBabblerHealth = 15 --default 10
 gBabblerMass = 15
 gBabblerRadius = 0.25
 gBabblerLinearDamping = 0
@@ -380,39 +396,116 @@ gBabblerMinJumpForce = 5
 gBabblerTurnSpeed = math.pi
 gBabblerClingDuration = -1
 
+kBabblerPheromoneEnergyCost = 7
+kBabblerDamage = 8
+kBabblerDamageType = kDamageType.Structural
 
-gCommVortexCoolDown = 20
-gCommVortexCost = 8
+kBabblerHealth = gBabblerHealth
 
-gCragUmbraCooldown = 10
-gCragUmbraCost = 5
-gCragUmbraRadius = 12
+kBabblerCost = 1
+kBabblerEggBuildTime = 6
+kNumBabblerEggsPerGorge = 1
+kNumBabblersPerEgg = 6
 
-gAlienStructureBeaconArmor = 175
-gAlienStructureBeaconBuildTime = 8
-gAlienStructureBeaconCost = 10
-gAlienStructureBeaconCoolDown = 12
-gAlienStructureBeaconHealth = 675
-gAlienStructureBeaconVisualRange = 8
+--Babbler End
 
 
+--Skulk Settings
+
+
+--Skulk Abilities
+
+
+
+--Skulk End
 --Gorge Settings
+
+
+gGorgeArmorTunnelDamagePerSecond = 10
 gTunnelEntranceArmor = kTunnelEntranceArmor
 gTunnelEntranceHealth = kTunnelEntranceHealth
 gTunnelEntrancePointValue = kTunnelEntrancePointValue
 gTunnelEntranceMaturationTime = 4 -- 135
+
+
+kGorgeArmorTunnelDamagePerSecond = gGorgeArmorTunnelDamagePerSecond
+kTunnelEntranceArmor = gTunnelEntranceArmor
+kTunnelEntranceHealth = gTunnelEntranceHealth
+kTunnelEntrancePointValue = gTunnelEntrancePointValue
+kTunnelEntranceMaturationTime = gTunnelEntranceMaturationTime
+
 --Gorge Abilities
 
+gSpitDamage = 30
+gSpitDamageType = kDamageType.Light
+gSpitEnergyCost = 7
 
+
+kSpitDamage = gSpitDamage
+kSpitDamageType = gSpitDamageType
+kSpitEnergyCost = gSpitEnergyCost
+
+
+kHealsprayDamage = 8
+kHealsprayDamageType = kDamageType.Biological
+kHealsprayFireDelay = 0.8
+kHealsprayEnergyCost = 12
+kHealsprayRadius = 3.5
+
+kBileBombDamage = 55 -- per second
+kBileBombDamageType = kDamageType.Corrode
+kBileBombEnergyCost = 20
+kBileBombDuration = 5
+-- 200 inches in NS1 = 5 meters
+kBileBombSplashRadius = 6
+kBileBombDotInterval = 0.4
+
+kWebBuildCost = 0
+kWebbedDuration = 1.5
+kWebbedParasiteDuration = 10
+kWebSlowVelocityScalar = 0.75 --Note: Exos override this
 --Gorge End
 --Lerk Settings
---Lerk Abiltiies
+
+
+kUmbraEnergyCost = 27
+kUmbraMaxRange = 17
+kUmbraDuration = 4
+kUmbraRadius = 4
+
+kUmbraShotgunModifier = 0.75
+kUmbraBulletModifier = 0.75
+kUmbraMinigunModifier = 0.75
+kUmbraRailgunModifier = 0.75
+
+--Lerk Abilities
+
+gLerkBileBombResearchCost = 10
+gLerkBileBombResearchTime = 10
+
+kSpikeMaxDamage = 7
+kSpikeMinDamage = 7
+kSpikeDamageType = kDamageType.Puncture
+kSpikeEnergyCost = 1.4
+kSpikesAttackDelay = 0.07
+kSpikeMinDamageRange = 9
+kSpikeMaxDamageRange = 2
+kSpikesRange = 50
+kSpikesPerShot = 1
+
+kSporesDamageType = kDamageType.Gas
+kSporesDustDamagePerSecond = 15
+kSporesDustFireDelay = 0.36
+kSporesMaxRange = 17
+kSporesDustEnergyCost = 27
+kSporesDustCloudRadius = 4
+kSporesDustCloudLifetime = 4
+
+
 kPrimalScreamEnergyCost = 20
 kPrimalScreamROF = 1
 kPrimalScreamPlayerPointBonus = 0.3
 
-gLerkBileBombResearchCost = 10
-gLerkBileBombResearchTime = 10
 --Lerk End
 
 --Fade Settings
@@ -445,21 +538,88 @@ gAcidRocketVelocity = 45
 gAcidRocketPlayerVelocityFraction = 0.5
 gAcidRocketHUDSlot = 4
 
+kSwipeDamageType = kDamageType.StructuresOnlyLight
+kSwipeDamage = 75
+kSwipeEnergyCost = 7
+kMetabolizeEnergyCost = 25
+
+kStabDamage = 160
+kStabDamageType = kDamageType.Normal
+kStabEnergyCost = 30
+
+kVortexEnergyCost = 20
+kVortexDuration = 3
+
+kStartBlinkEnergyCost = 14
+kBlinkEnergyCost = 32
+kHealthOnBlink = 0
+
+
 --Fade End
 
 
 --Onos Settings
 
+
 --Onos abilities
-kOnocideDetonateTime = 2.0
-kOnocideDetonateRange = 1
-kOnosStunWallLifeSpan = 3
-kOnosStunWallHealth = 200
-kOnosHealtPerBioMass = 31
-gOnosStompBoneWallDuration = 2 --4
+--gOnosStompBoneWallDuration = 2 --4
+gOnocideDetonateTime = 2.0
+gOnocideDetonateRange = 10
+gOnosStunWallLifeSpan = 3
+gOnosStunWallHealth = 200
+gOnosHealtPerBioMass = 31
 
---Onos abilities End
+gGoreDamage = 100 --90
+gGoreDamageType = kDamageType.Structural
+gGoreEnergyCost = 10
 
+gBoneShieldDamageReduction = 0.5
+gBoneShieldCooldown = 12.5
+gBoneShieldInitialEnergyCost = 20
+gBoneShieldSustainCost = 0 -- not yet implemented
+gBoneShieldHealPerSecond = 0
+gBoneShieldArmorPerSecond = 112.25
+gBoneShieldMaxDuration = 4
+gBoneShieldMoveFraction = 0
+gBoneShieldMinimumFuel = 0.9 -- otherwise you can trigger it for a frame and it feels bad
+gBoneShieldPreventEnergize = false
+gBoneShieldPreventRecuperation = false
+
+gStompEnergyCost = 30
+gStompDamageType = kDamageType.Heavy
+gStompDamage = 40
+gStompRange = 12
+gDisruptMarineTime = 2
+gDisruptMarineTimeout = 4
+
+kOnocideDetonateTime = gOnocideDetonateTime
+kOnocideDetonateRange = gOnocideDetonateRange
+kOnosStunWallLifeSpan = gOnosStunWallLifeSpan
+kOnosStunWallHealth = gOnosStunWallHealth
+kOnosHealtPerBioMass = gOnosHealtPerBioMass
+
+kGoreDamage = gGoreDamage
+kGoreDamageType = gGoreDamageType
+kGoreEnergyCost = gGoreEnergyCost
+
+kBoneShieldDamageReduction = gBoneShieldDamageReduction
+kBoneShieldCooldown = gBoneShieldCooldown
+kBoneShieldInitialEnergyCost = gBoneShieldInitialEnergyCost
+kBoneShieldSustainCost = gBoneShieldSustainCost -- not yet implemented
+kBoneShieldHealPerSecond = gBoneShieldHealPerSecond
+kBoneShieldArmorPerSecond = gBoneShieldArmorPerSecond
+kBoneShieldMaxDuration = gBoneShieldMaxDuration
+kBoneShieldMoveFraction = gBoneShieldMoveFraction
+kBoneShieldMinimumFuel = gBoneShieldMinimumFuel
+kBoneShieldPreventEnergize = gBoneShieldPreventEnergize
+kBoneShieldPreventRecuperation = gBoneShieldPreventRecuperation
+
+kStompEnergyCost = gStompEnergyCost
+kStompDamageType = gStompDamageType
+kStompDamage = gStompDamage
+kStompRange = gStompRange
+kDisruptMarineTime = gDisruptMarineTime
+kDisruptMarineTimeout = gDisruptMarineTimeout
 
 --Onos End
 
@@ -570,9 +730,9 @@ kFlamethrowerBurnDuration = gFlamethrowerBurnDuration
 kFlamethrowerStackRate = gFlamethrowerStackRate
 --kFlameDamageStackWeight = 0.5
 
-Flame.kDamageRadius = 1.8
-Flame.kLifeTime = 5.6
-Flame.kDamage = 8
+--Flame.kDamageRadius = 1.8
+--Flame.kLifeTime = 5.6
+--Flame.kDamage = 8
 
 
 
@@ -609,9 +769,21 @@ kShotgunSpreadDistance = 8.5 --Gets used as z-axis value for spread vectors befo
 
 --Welder
 
-kWelderPointsPerScore = 10
-kWelderScoreAddedPerPoints = 1
+gWelderPointsPerScore = 10
+gWelderScoreAddedPerPoints = 1
+gWelderDamagePerSecond = 30
+gWelderDamageType = kDamageType.Flame
+gWelderFireDelay = 0.2
+gWelderSelfWeldAmount = 5
+gPlayerArmorWeldRate = 20
 
+kWelderPointsPerScore = gWelderPointsPerScore
+kWelderScoreAddedPerPoints = gWelderScoreAddedPerPoints
+kWelderDamagePerSecond = gWelderDamagePerSecond
+kWelderDamageType = gWelderDamageType
+kWelderFireDelay = gWelderFireDelay
+kSelfWeldAmount = gSelfWeldAmount
+kPlayerArmorWeldRate = gPlayerArmorWeldRate
 
 
 --Marine Weapons End
@@ -720,16 +892,32 @@ gExoFlamerThrusterHorizontalAcceleration = 23
 
 
 --ExoWelder
-kExoWelderDamagePerSecond = 28
-kExoWelderPlayerWeldRate = 20 --15
-kExoWelderStructureWeldRate = 75 --65
-kExoWelderStructureWeldRateBreakableDoor = kExoWelderStructureWeldRate * 1.2--65
-kExoWelderWeldRange = 4
-kExoWelderWelderEffectRate = 0.45
-kExoWelderHealScoreAdded = 2
-kExoWelderAmountHealedForPoints = 175
-kExoWelderMoveSpeedWhileFiringMultipler = 1  --1 = no change in speed. 1.25 = slow by 25%
+gExoWelderDamagePerSecond = 35
+gExoWelderPlayerWeldRate = 20 --15
+gExoWelderStructureWeldRate = 75 --65
+gExoWelderStructureWeldRateBreakableDoor = gExoWelderStructureWeldRate * 1.2--65
+gExoWelderWeldRange = 4
+gExoWelderEffectRate = 0.45
+gExoWelderFireDelay = 0.2
+gExoWelderHealScoreAdded = 1
+gExoWelderAmountHealedForPoints = 10
+gExoWelderMoveSpeedWhileFiringMultipler = 1  --1 = no change in speed. 1.25 = slow by 25% still need to implement
 gExoWelderThrusterHorizontalAcceleration = 23
+gExoWelderSelfWeldAmount = 5
+
+kExoWelderFireRate = gExoWelderFireDelay
+kExoWelderEffectRate = gExoWelderEffectRate
+kExoWelderSelfWeldAmount = gExoWelderSelfWeldAmount
+kExoWelderDamagePerSecond = gExoWelderDamagePerSecond
+kExoWelderPlayerWeldRate = gExoWelderPlayerWeldRate
+kExoWelderStructureWeldRate = gExoWelderStructureWeldRate
+kExoWelderStructureWeldRateBreakableDoor = gExoWelderStructureWeldRateBreakableDoor
+kExoWelderWeldRange = gExoWelderWeldRange
+kExoWelderHealScoreAdded = gExoWelderHealScoreAdded
+kExoWelderAmountHealedForPoints = gExoWelderAmountHealedForPoints
+kExoWelderMoveSpeedWhileFiringMultipler = gExoWelderMoveSpeedWhileFiringMultipler
+kExoThrusterHorizontalAcceleration = gExoWelderThrusterHorizontalAcceleration
+
 
 
 --ExoDualMinigun
@@ -738,9 +926,21 @@ kExoMinigunMoveSpeedWhileFiringMultipler = 1  --1 = no change in speed. 1.25 = s
 
 --ExoDualRailgun
 gExoRailgunThrusterHorizontalAcceleration = 23
-kExoRailgunMoveSpeedWhileFiringMultipler = 1  --1 = no change in speed. 1.25 = slow by 25%
+gExoRailgunMoveSpeedWhileFiringMultipler = 1  --1 = no change in speed. 1.25 = slow by 25%
 
 
+kExoRailgunMoveSpeedWhileFiringMultipler = gExoRailgunMoveSpeedWhileFiringMultipler
+kRailgunDamage = 33
+kRailgunChargeDamage = 140
+kRailgunDamageType = kDamageType.Structural
+
+--AllExo Settings
+
+gExoClawDamage = 50
+gClawDamageType = kDamageType.Structural
+
+kClawDamage = gExoClawDamage
+kClawDamageType = gClawDamageType
 
 gExoMinigunAcceleration = 20 -- 20
 gExoRailgunAcceleration = 20 -- 20
@@ -756,6 +956,8 @@ gExoMinigunUseCatPackCooldown = 6 -- 6
 gExoRailgunUseCatPackCooldown = 6 -- 6
 gExoFlamerUseCatPackCooldown = 6 -- 6
 gExoWelderUseCatPackCooldown = 6 -- 6
+
+
 /*
 
 gExoMinigun
@@ -763,21 +965,8 @@ gExoRailgun
 gExoFlamer
 gExoWelder
 
-gExoMinigun
-gExoRailgun
-gExoFlamer
-gExoWelder
-
-gExoMinigun
-gExoRailgun
-gExoFlamer
-gExoWelder
-
-gExoMinigun
-gExoRailgun
-gExoFlamer
-gExoWelder
 */
+
 gExoMinigunXZExtents = 0.55 -- 0.55
 gExoRailgunXZExtents = 0.55 -- 0.55
 gExoFlamerXZExtents = 0.55 -- 0.55

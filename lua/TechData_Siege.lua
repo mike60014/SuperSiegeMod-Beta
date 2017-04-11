@@ -15,6 +15,11 @@ Script.Load("lua/MAC_Siege.lua")
 Script.Load("lua/Additions/LayStructures.lua")
 Script.Load("lua/Additions/ExoWelder.lua")
 Script.Load("lua/Additions/ExoFlamer.lua")
+Script.Load("lua/Babbler.lua")
+Script.Load("lua/Onos.lua")
+Script.Load("lua/Jetpack.lua")
+
+
 
 kEggBeaconArmor = gEggBeaconArmor
 kEggBeaconBuildTime = gEggBeaconBuildTime
@@ -76,7 +81,8 @@ local kSiege_TechData =
 [kTechDataDisplayName] = "LayStructures",  
 [kTechDataModel] = LayStructures.kModelName,
 --[kTechDataDamageType] = kWelderDamageType,
-[kTechDataCostKey] = kWelderCost  },
+[kTechDataCostKey] = kWelderCost
+},
 
 
 --Aliens
@@ -86,14 +92,16 @@ local kSiege_TechData =
 [kTechDataDisplayName] = "Thickened Skin", 
 [kTechDataSponitorCode] = "A",  
 [kTechDataCostKey] = kThickenedSkinCost,
-[kTechDataTooltipInfo] = "+10% max hp per Hive", },
+[kTechDataTooltipInfo] = "+10% max hp per Hive",
+},
 
 { [kTechDataId] = kTechId.Hunger, 
 [kTechDataCategory] = kTechId.CragHiveTwo,   
 [kTechDataDisplayName] = "Hunger", 
 [kTechDataSponitorCode] = "B",  
 [kTechDataCostKey] = kHungerCost, 
-[kTechDataTooltipInfo] = "10% health / energy gain, and effects of Enzyme on player kill (if gorge then structures not players) ", },
+[kTechDataTooltipInfo] = "10% health / energy gain, and effects of Enzyme on player kill (if gorge then structures not players) ",
+},
 
 
 { [kTechDataId] = kTechId.Rebirth, 
@@ -101,7 +109,8 @@ local kSiege_TechData =
 [kTechDataDisplayName] = "Rebirth", 
 [kTechDataSponitorCode] = "A",  
 [kTechDataCostKey] = kRebirthCost, 
-[kTechDataTooltipInfo] = "Replaces death with egg gestation", },
+[kTechDataTooltipInfo] = "Replaces death with egg gestation",
+},
 
 // Lifeform purchases
 { [kTechDataId] = kTechId.Redemption, 
@@ -109,7 +118,8 @@ local kSiege_TechData =
 [kTechDataDisplayName] = "Redemption", 
 [kTechDataSponitorCode] = "B",  
 [kTechDataCostKey] = kRedemptionCost, 
-[kTechDataTooltipInfo] = "Check every 3 secs if (HP = 15%-30%) then randomly tp to a spawn egg after (1-4) secs", },
+[kTechDataTooltipInfo] = "Check every 3 secs if (HP = 15%-30%) then randomly tp to a spawn egg after (1-4) secs",
+},
 
 { [kTechDataId] = kTechId.AcidRocket,        
 [kTechDataCategory] = kTechId.Fade,   
@@ -122,7 +132,6 @@ local kSiege_TechData =
 [kTechDataModel] = Babbler.kModelName,
 },
   
-/*
 { [kTechDataId] = kTechId.LerkBileBomb,        
 [kTechDataCategory] = kTechId.Lerk,   
 [kTechDataMapName] = LerkBileBomb.kMapName,  
@@ -133,7 +142,7 @@ local kSiege_TechData =
 [kTechDataTooltipInfo] = "Derp",
 [kTechDataModel] = LerkBileBomb.kModelName,
 },
-*/
+
  { [kTechDataId] = kTechId.CommVortex, 
 [kTechDataMapName] = CommVortex.kMapName, 
 [kTechDataAllowStacking] = true,
@@ -143,15 +152,17 @@ local kSiege_TechData =
 [kTechDataDisplayName] = "Etheral Gate", 
 [kTechDataCostKey] = gCommVortexCost, 
 [kTechDataCooldown] = gCommVortexCoolDown, 
-[kTechDataModel] = "",
-[kTechDataTooltipInfo] =  "Temporarily places marine structures/macs/arcs in another dimension rendering them unable to function correctly. "},
+--[kTechDataModel] = "",
+[kTechDataTooltipInfo] =  "Temporarily places marine structures/macs/arcs in another dimension rendering them unable to function correctly. ",
+},
 
 { [kTechDataId] = kTechId.CragUmbra,
 [kTechDataDisplayName] = "UMBRA",
 --[kVisualRange] = Crag.kHealRadius, 
 [kTechDataCooldown] = gCragUmbraCooldown, 
 [kTechDataCostKey] = gCragUmbraCost,  
-[kTechDataTooltipInfo] = "CRAG_UMBRA_TOOLTIP"},
+[kTechDataTooltipInfo] = "CRAG_UMBRA_TOOLTIP",
+},
 
 
 { [kTechDataId] = kTechId.CommTunnel,  
@@ -168,7 +179,8 @@ local kSiege_TechData =
 [kTechDataDisplayName] = "Commander Tunnel", 
 [kTechDataCostKey] = 4, 
 [kTechDataRequiresInfestation] = false,
-[kTechDataTooltipInfo] =  "GORGE_TUNNEL_TOOLTIP"}, 
+[kTechDataTooltipInfo] =  "GORGE_TUNNEL_TOOLTIP",
+}, 
 
 { [kTechDataId] = kTechId.PrimalScream,  
 [kTechDataCategory] = kTechId.Lerk,
@@ -176,29 +188,31 @@ local kSiege_TechData =
 [kTechDataMapName] =  Primal.kMapName,
 --[kTechDataCostKey] = kPrimalScreamCostKey, 
 -- [kTechDataResearchTimeKey] = kPrimalScreamTimeKey, 
-[kTechDataModel] = "",
-[kTechDataTooltipInfo] = "+Energy to teammates, enzyme cloud"
+--[kTechDataModel] = "",
+[kTechDataTooltipInfo] = "+Energy to teammates, enzyme cloud",
 },
 
 { [kTechDataId] = kTechId.OnoGrow,        
 [kTechDataCategory] = kTechId.Onos,   
 [kTechDataMapName] = OnoGrow.kMapName,  
 [kTechDataCostKey] = kStabResearchCost,
-[kTechDataModel] = Egg.kModelName,
+--[kTechDataModel] = Egg.kModelName,
 [kTechDataResearchTimeKey] = kStabResearchTime, 
 --   [kTechDataDamageType] = kStabDamageType,  
 [kTechDataDisplayName] = "OnoGrow",
-[kTechDataTooltipInfo] = ""},
+[kTechDataTooltipInfo] = "",
+},
 
 { [kTechDataId] = kTechId.Onocide,
 [kTechDataCategory] = kTechId.Onos,
 [kTechDataMapName] = Onocide.kMapName,
 [kTechDataCostKey] = 10,
-[kTechDataModel] = Onos.kModelName,
+--[kTechDataModel] = Onos.kModelName,
 [kTechDataResearchTimeKey] = 10,
 --   [kTechDataDamageType] = kStabDamageType,
 [kTechDataDisplayName] = "Onicide",
-[kTechDataTooltipInfo] = "Onicide"},
+[kTechDataTooltipInfo] = "Onicide",
+},
 
 { [kTechDataId] = kTechId.EggBeacon, 
 [kTechDataCooldown] = kEggBeaconCoolDown, 
@@ -215,7 +229,8 @@ local kSiege_TechData =
 [kTechDataBuildMethodFailedMessage] = "1 at a time",
 [kVisualRange] = 8,
 [kTechDataMaxHealth] = kEggBeaconHealth,
-[kTechDataMaxArmor] = kEggBeaconArmor},
+[kTechDataMaxArmor] = kEggBeaconArmor,
+},
 
 
 { [kTechDataId] = kTechId.StructureBeacon, 
@@ -229,7 +244,8 @@ local kSiege_TechData =
 [kTechDataModel] = StructureBeacon.kModelName,   
 [kVisualRange] = gAlienStructureBeaconVisualRange,
 [kTechDataMaxHealth] = gAlienStructureBeaconHealth,
-[kTechDataMaxArmor] = gAlienStructureBeaconArmor },
+[kTechDataMaxArmor] = gAlienStructureBeaconArmor,
+},
 
 
 
@@ -251,7 +267,8 @@ local kSiege_TechData =
 [kTechDataDisplayName] = "Advanced Beacon",   
 [kTechDataHotkey] = Move.B, 
 [kTechDataCostKey] = kAdvancedBeaconCost, 
-[kTechDataTooltipInfo] = "Revives Dead Players as well. Powers off Observatory for a short duration after beaconing."},
+[kTechDataTooltipInfo] = "Revives Dead Players as well. Powers off Observatory for a short duration after beaconing.",
+},
 
 
 { [kTechDataId] = kTechId.DualWelderExosuit,    
@@ -260,28 +277,31 @@ local kSiege_TechData =
 [kTechDataMapName] = "exosiege",         
 [kTechDataCostKey] = gCreditClassCostWelder, 
 [kTechDataHotkey] = Move.E,
-[kTechDataModel] = ExoWelder.kModelName,
+--[kTechDataModel] = ExoWelder.kModelName,
 [kTechDataTooltipInfo] = "Dual Welders", 
-[kTechDataSpawnHeightOffset] = kCommanderEquipmentDropSpawnHeight},
+[kTechDataSpawnHeightOffset] = kCommanderEquipmentDropSpawnHeight,
+},
 
 
 { [kTechDataId] = kTechId.DualFlamerExosuit,    
 [kTechIDShowEnables] = false,     
 [kTechDataDisplayName] = "Dual Flame Exo", 
 [kTechDataMapName] = "exosiege",
-[kTechDataModel] = ExoFlamer.kModelName,
+--[kTechDataModel] = ExoFlamer.kModelName,
 [kTechDataCostKey] = gCreditClassCostFlamer, 
 [kTechDataHotkey] = Move.E,
 [kTechDataTooltipInfo] = "Dual Flame Exo", 
-[kTechDataSpawnHeightOffset] = kCommanderEquipmentDropSpawnHeight},
+[kTechDataSpawnHeightOffset] = kCommanderEquipmentDropSpawnHeight,
+},
 
 
 { [kTechDataId] = kTechId.JumpPack,
 [kTechDataCostKey] = kJumpPackCost,
 [kTechDataDisplayName] = "Jump Pack", 
 [kTechDataHotkey] = Move.Z, 
-[kTechDataModel] = JetpackMarine.kModelName,
-[kTechDataTooltipInfo] = "Mimics the NS1/HL1 JumpPack (With Attempted Balance Modifications WIP) - Press DUCK + Jump @ the same time to mindfuck the alien team."},
+[kTechDataModel] = Jetpack.kModelName,
+[kTechDataTooltipInfo] = "Mimics the NS1/HL1 JumpPack (With Attempted Balance Modifications WIP) - Press DUCK + Jump @ the same time to mindfuck the alien team.",
+},
 
 
 { [kTechDataId] = kTechId.DropMAC,  
@@ -295,7 +315,8 @@ local kSiege_TechData =
 [kStructureAttachRange] = 8,
 [kTechDataSupply] = kMACSupply,
 [kStructureAttachId] = { kTechId.RoboticsFactory, kTechId.ARCRoboticsFactory },
-[kStructureAttachRequiresPower] = true },
+[kStructureAttachRequiresPower] = true,
+},
 
 { [kTechDataId] = kTechId.BackupLight, 
 [kTechDataHint] = "Powered by thought!", 
@@ -318,7 +339,8 @@ local kSiege_TechData =
 [kTechDataHotkey] = Move.O, 
 [kTechDataNotOnInfestation] = false, 
 [kTechDataTooltipInfo] = "This bad boy right here has the potential to blind anyone standing in its way.. or just.. you know.. help brighten the mood wherever it's placed.",
-[kTechDataObstacleRadius] = gCreditStructureBackupLightObstacleRadius},
+[kTechDataObstacleRadius] = gCreditStructureBackupLightObstacleRadius,
+},
 
 
 
@@ -326,25 +348,29 @@ local kSiege_TechData =
 [kTechDataCooldown] = 5,    
 [kTechDataDisplayName] = "Automatically spawn up to 12 macs for you",       
 [kTechDataCostKey] = 0, 
-[kTechDataTooltipInfo] = " 12 Macs Maximum. Turning this on will automatically spawn up to this many for you"},
+[kTechDataTooltipInfo] = " 12 Macs Maximum. Turning this on will automatically spawn up to this many for you",
+},
 
 { [kTechDataId] = kTechId.MacSpawnOff,    
 [kTechDataCooldown] = 5,    
 [kTechDataDisplayName] = "Disables automatic small mac spawning",       
 [kTechDataCostKey] = 0, 
-[kTechDataTooltipInfo] = "For those who prefer micro management"},
+[kTechDataTooltipInfo] = "For those who prefer micro management",
+},
 
 { [kTechDataId] = kTechId.ArcSpawnOn,    
 [kTechDataCooldown] = 5,    
 [kTechDataDisplayName] = "Automatically spawn up to 12 arcs for you",       
 [kTechDataCostKey] = 0, 
-[kTechDataTooltipInfo] = "12 Arcs Maximum. Turning this on will automatically spawn up to this many for you"},
+[kTechDataTooltipInfo] = "12 Arcs Maximum. Turning this on will automatically spawn up to this many for you",
+},
 
 { [kTechDataId] = kTechId.ArcSpawnOff,    
 [kTechDataCooldown] = 5,    
 [kTechDataDisplayName] = "Disables automatic arc spawning",       
 [kTechDataCostKey] = 0, 
-[kTechDataTooltipInfo] = "For those who prefer micro management"},
+[kTechDataTooltipInfo] = "For those who prefer micro management",
+},
 
 
 }   

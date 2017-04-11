@@ -1,4 +1,7 @@
 -- buffed speed on doors
+kWelderPointsPerScore = gWelderPointsPerScore
+kWelderScoreAddedPerPoints = gWelderScoreAddedPerPoints
+
 local originit = Welder.GetRepairRate
 function Welder:GetRepairRate(repairedEntity)
 

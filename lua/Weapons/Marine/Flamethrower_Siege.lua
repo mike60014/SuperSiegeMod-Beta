@@ -1,7 +1,20 @@
 Script.Load("lua/Additions/FireGrenade.lua")
+
+kFlamethrowerDamage = gFlamethrowerDamage
+kFlameThrowerEnergyDamage = gFlameThrowerEnergyDamage
+kFlamethrowerDamageType = gFlamethrowerDamageType
+kFlamethrowerClipSize = gFlamethrowerClipSize
+kFlamethrowerRange = gFlamethrowerRange
+kFlamethrowerUpgradedRange = gFlamethrowerUpgradedRange
+kFlamethrowerMaxStacks = gFlamethrowerMaxStacks
+kFlamethrowerBurnDuration = gFlamethrowerBurnDuration
+kFlamethrowerStackRate = gFlamethrowerStackRate
+
+
 function Flamethrower:GetHasSecondary(player)
     return true
 end
+
 
 function Flamethrower:GetSecondaryCanInterruptReload()
 return true
