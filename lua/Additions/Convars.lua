@@ -956,6 +956,12 @@ kRailgunDamageType = kDamageType.Structural
 
 --AllExo Settings
 
+
+gPrototypeLabBonusHealAura = 2--4
+gPrototypeLabBonusHealAuraAmount = 75
+
+kPrototypeLabBonusHealAura = gPrototypeLabBonusHealAura
+kPrototypeLabBonusHealAuraAmount = gPrototypeLabBonusHealAuraAmount
 gExoClawDamage = 50
 gClawDamageType = kDamageType.Structural
 

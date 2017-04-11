@@ -40,6 +40,9 @@ kHealthWarningTrigger = gExoHealthWarningTrigger
 kHealthCriticalTrigger = gExoHealthCriticalTrigger
 local kExoEjectDuration = gAllExoEjectDuration
 local kExoDeployDuration = gAllExoDeployDuration
+local kPrototypeLabBonusHealAura = gPrototypeLabBonusHealAura
+local kPrototypeLabBonusHealAuraAmount = gPrototypeLabBonusHealAuraAmount
+
 
 
 local function DestroySpinEffect(self) 
@@ -93,30 +96,25 @@ function ExoSiege:InitExoModel()
     local modelName = kDualWelderModelName
     local graphName = kDualWelderAnimationGraph
     
-  if self.layout == "WelderWelder" or self.layout == "FlamerFlamer" then
-         modelName = kDualWelderModelName
-        graphName = kDualWelderAnimationGraph
-        self.hasDualGuns = true
-        hasWelders = true
-        self:SetModel(modelName, graphName)
-    end
-    
-    
+	if self.layout == "WelderWelder" or self.layout == "FlamerFlamer" then
+		modelName = kDualWelderModelName
+		graphName = kDualWelderAnimationGraph
+		self.hasDualGuns = true
+		hasWelders = true
+		self:SetModel(modelName, graphName)
+	end
+	
     if hasWelders then 
     else
-    origmodel(self)
+		origmodel(self)
     end
 
-     
-  
-
-  
 end
 
 function ExoSiege:InitWeapons()
     local weaponHolder = self:GetWeapon(ExoWeaponHolder.kMapName)
     if not weaponHolder then
-        weaponHolder = self:GiveItem(ExoWeaponHolder.kMapName, false)   
+		weaponHolder = self:GiveItem(ExoWeaponHolder.kMapName, false)   
     end    
     
   
@@ -139,20 +137,21 @@ end
 local function HealSelf(self)
 
 
-  local toheal = true
-  /*
-                for _, proto in ipairs(GetEntitiesForTeamWithinRange("PrototypeLab", 1, self:GetOrigin(), 4)) do
-                    
-                    if GetIsUnitActive(proto) then
-                        toheal = true
-                        break
-                    end
-                    
-                end
-           */
-          --  Print("toheal is %s", toheal)
+	local toheal = true
+	kPrototypeLabBonusHealAuraAmounttoAdd = 0
+	
+	for _, proto in ipairs(GetEntitiesForTeamWithinRange("PrototypeLab", 1, self:GetOrigin(), kPrototypeLabBonusHealAura)) do
+		
+		if GetIsUnitActive(proto) then
+			kPrototypeLabBonusHealAuraAmounttoAdd = kPrototypeLabBonusHealAuraAmount
+			break
+		end
+		
+	end
+	
+	--  Print("toheal is %s", toheal)
     if toheal then
-    self:SetArmor(self:GetArmor() + kNanoArmorHealPerSecond, true) 
+		self:SetArmor(self:GetArmor() + kNanoArmorHealPerSecond + kPrototypeLabBonusHealAuraAmounttoAdd, true) 
     end
     
 end
