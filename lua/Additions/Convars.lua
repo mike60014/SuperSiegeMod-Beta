@@ -774,9 +774,9 @@ gWelderPointsPerScore = 10
 gWelderScoreAddedPerPoints = 1
 gWelderDamagePerSecond = 30
 gWelderDamageType = kDamageType.Flame
-gWelderFireDelay = .45 ----0.2
+gWelderFireDelay = 0.2 --0.45
 gWelderSelfWeldAmount = 5
-gWelderPlayerArmorRate = 100 --30
+gWelderPlayerArmorRate = 40 --30
 gWelderStructureWeldRateBreakableDoor = gWelderPlayerArmorRate
 
 kWelderEffectRate = gWelderFireDelay
@@ -900,7 +900,7 @@ gExoFlamerThrusterHorizontalAcceleration = 23
 gExoWelderDamagePerSecond = 35
 --gExoWelderFireAmount = 0
 gExoWelderPlayerWeldAmount = 50 --15
-gExoWelderStructureWeldAmount = 50 --65
+gExoWelderStructureWeldAmount = 150 --65
 gExoWelderStructureWeldRateBreakableDoor = gExoWelderStructureWeldAmount * 1.2 --65
 gExoWelderWeldRange = 2 --4
 gExoWelderEffectRate = 0.05 --0.45
@@ -912,6 +912,14 @@ gExoWelderThrusterHorizontalAcceleration = 23 * 3 --23
 gExoWelderSelfWeldAmount = 5
 gExoWelderPlayerWeldRate = 0.05 --0.45
 gExoWelderStructureWeldRate = 0.05 --0.2
+gExoWelderGetStunnedCooldown = 3
+
+gExoWelderThrustersMinimumFuel = 0.35 -- 0.99
+gExoWelderThrustersDuration = 2.0 -- 1.5
+gExoWelderThrustersCooldownTime = 2.0 -- 2.5
+gExoWelderThrustersDuration = 2.0 -- 1.5
+gExoWelderXZExtents = 0.55 -- 0.55
+gExoWelderUseCatPackCooldown = 6 -- 6
 
 kExoWelderFireDelay = gExoWelderFireDelay
 kExoWelderPlayerWeldAmount = gExoWelderPlayerWeldAmount
@@ -927,6 +935,7 @@ kExoWelderWeldRange = gExoWelderWeldRange
 kExoWelderHealScoreAdded = gExoWelderHealScoreAdded
 kExoWelderAmountHealedForPoints = gExoWelderAmountHealedForPoints
 kExoWelderMoveSpeedWhileFiringMultipler = gExoWelderMoveSpeedWhileFiringMultipler
+
 kExoThrusterHorizontalAcceleration = gExoWelderThrusterHorizontalAcceleration
 
 
@@ -961,12 +970,10 @@ gExoWelderAcceleration = 20 -- 20
 gExoMinigunGetStunnedCooldown = 3
 gExoRailgunGetStunnedCooldown = 3
 gExoFlamerGetStunnedCooldown = 3
-gExoWelderGetStunnedCooldown = 3
 
 gExoMinigunUseCatPackCooldown = 6 -- 6
 gExoRailgunUseCatPackCooldown = 6 -- 6
 gExoFlamerUseCatPackCooldown = 6 -- 6
-gExoWelderUseCatPackCooldown = 6 -- 6
 
 
 /*
@@ -981,27 +988,22 @@ gExoWelder
 gExoMinigunXZExtents = 0.55 -- 0.55
 gExoRailgunXZExtents = 0.55 -- 0.55
 gExoFlamerXZExtents = 0.55 -- 0.55
-gExoWelderXZExtents = 0.55 -- 0.55
 
 gExoMinigunYExtents = 1.2 -- 1.20
 gExoRailgunYExtents = 1.2 -- 1.20
 gExoFlamerYExtents = 1.2 -- 1.20
-gExoWelderYExtents = 1.2 -- 1.20
 
 gExoMinigunThrustersCooldownTime = 2.0 -- 2.5
 gExoRailgunThrustersCooldownTime = 2.0 -- 2.5
 gExoFlamerThrustersCooldownTime = 2.0 -- 2.5
-gExoWelderThrustersCooldownTime = 2.0 -- 2.5
 
 gExoMinigunThrustersDuration = 2.0 -- 1.5
 gExoRailgunThrustersDuration = 2.0 -- 1.5
 gExoFlamerThrustersDuration = 2.0 -- 1.5
-gExoWelderThrustersDuration = 2.0 -- 1.5
 
 gExoMinigunThrustersMinimumFuel = 0.50 -- 0.99
 gExoRailgunThrustersMinimumFuel = 0.50 -- 0.99
 gExoFlamerThrustersMinimumFuel = 0.50 -- 0.99
-gExoWelderThrustersMinimumFuel = 0.50 -- 0.99
 
 gExoMinigunCrouchShrinkAmount = 0 -- 0
 gExoRailgunCrouchShrinkAmount = 0 -- 0

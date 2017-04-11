@@ -28,6 +28,8 @@ local kAcceleration = 20
 local kSmashEggRange = 1.5
 Exo.kXZExtents = 0.55
 Exo.kYExtents = 1.2
+local kWelderFireDelay = kExoWelderFireDelay
+local kExoWelderGetStunnedCooldown = gExoWelderGetStunnedCooldown
 
 local kCrouchShrinkAmount = gAllExoCrouchShrinkAmount
 local kExtentsCrouchShrinkAmount = gAllExoExtentsCrouchShrinkAmount
@@ -171,7 +173,7 @@ end
     end
 
 function ExoSiege:GetIsStunAllowed()
-    return not self.timeLastStun or self.timeLastStun + 8 < Shared.GetTime() 
+    return not self.timeLastStun or self.timeLastStun + kExoWelderGetStunnedCooldown < Shared.GetTime() 
 end
 
 function ExoSiege:OnGetMapBlipInfo()
