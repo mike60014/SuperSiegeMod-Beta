@@ -24,8 +24,10 @@ ExoWelder.kModelName = PrecacheAsset("models/marine/welder/welder.model")
 local kAnimationGraph = PrecacheAsset("models/marine/welder/welder_view.animation_graph")
 local kWelderViewCinemeatic = PrecacheAsset("cinematics/marine/welder/exowelder_muzzle.cinematic")
 local kWelderModelCinematic = PrecacheAsset("cinematics/marine/welder/exowelder_muzzle.cinematic")
+local kFireLoopingSound = PrecacheAsset("sound/NS2.fev/marine/welder/weld")
 
 local kWelderTraceExtents = Vector(0.4, 0.4, 0.4)
+
 
 
 local networkVars =
@@ -38,15 +40,15 @@ local networkVars =
 AddMixinNetworkVars(ExoWeaponSlotMixin, networkVars)
 AddMixinNetworkVars(LiveMixin, networkVars)
 
-local kWeldRange = kExoWelderWeldRange
-local kWelderEffectRate = kExoWelderWelderEffectRate
-
-local kFireLoopingSound = PrecacheAsset("sound/NS2.fev/marine/welder/weld")
-
+local kWeldRange = gExoWelderWeldRange
+local kWelderFireRate = gExoWelderFireRate
+local kAmountHealedForPoints = kExoWelderAmountHealedForPoints
 local kHealScoreAdded = kExoWelderHealScoreAdded
+kWelderFireDelay = gExoWelderFireDelay
+
+
 -- Every kAmountHealedForPoints points of damage healed, the player gets
 -- kHealScoreAdded points to their score.
-local kAmountHealedForPoints = kExoWelderAmountHealedForPoints
 
 function ExoWelder:OnCreate()
 
@@ -127,7 +129,7 @@ function ExoWelder:OnPrimaryAttack(player)
     
     self.welding = true
     local hitPoint = nil
-    
+	
     if self.timeLastWeld + kWelderFireDelay < Shared.GetTime () then
     
       hitPoint = self:PerformWeld(player)
@@ -135,7 +137,7 @@ function ExoWelder:OnPrimaryAttack(player)
         
     end
     
-    if not self.timeLastWeldEffect or self.timeLastWeldEffect + kWelderEffectRate < Shared.GetTime() then
+    if not self.timeLastWeldEffect or self.timeLastWeldEffect + kWelderFireDelay < Shared.GetTime() then
 
 		if self:GetIsLeftSlot() then
         
@@ -239,8 +241,8 @@ function ExoWelder:PerformWeld(player)
                     if target.OnWeldOverride then
                         target:OnWeldOverride(player, kWelderFireDelay)
                     else
-                        target:AddHealth(self:GetRepairRate(target) * kWelderFireDelay)
-
+						target:AddHealth(self:GetRepairRate(target) * kWelderFireDelay)
+						
                     end
                     if player and player.OnWeldTarget then
                         player:OnWeldTarget(target)
@@ -258,14 +260,14 @@ function ExoWelder:PerformWeld(player)
                     player:AddContinuousScore("WeldHealth", addAmount, pointsHealth, scoreToAdd)
                     
                     -- weld owner as well
-                    player:SetArmor(player:GetArmor() + kWelderFireDelay * kSelfWeldAmount)
+                    player:SetArmor(player:GetArmor() + kExoWelderFireRate * kSelfWeldAmount)
                     
                 end
                 
             end
             
             if HasMixin(target, "Construct")  then
-                target:Construct(kWelderFireDelay, player)
+                target:Construct(kExoWelderFireRate, player)
             end
             
         end

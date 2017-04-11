@@ -782,7 +782,7 @@ kWelderScoreAddedPerPoints = gWelderScoreAddedPerPoints
 kWelderDamagePerSecond = gWelderDamagePerSecond
 kWelderDamageType = gWelderDamageType
 kWelderFireDelay = gWelderFireDelay
-kSelfWeldAmount = gSelfWeldAmount
+kSelfWeldAmount = gWelderSelfWeldAmount
 kPlayerArmorWeldRate = gPlayerArmorWeldRate
 
 
@@ -904,7 +904,11 @@ gExoWelderAmountHealedForPoints = 10
 gExoWelderMoveSpeedWhileFiringMultipler = 1  --1 = no change in speed. 1.25 = slow by 25% still need to implement
 gExoWelderThrusterHorizontalAcceleration = 23
 gExoWelderSelfWeldAmount = 5
+gExoPlayerWeldRate = 0.45
+gExoStructureWeldRate = 
 
+kExoPlayerWeldRate = gExoPlayerWeldRate
+kExoStructureWeldRate = gExoStructureWeldRate
 kExoWelderFireRate = gExoWelderFireDelay
 kExoWelderEffectRate = gExoWelderEffectRate
 kExoWelderSelfWeldAmount = gExoWelderSelfWeldAmount
