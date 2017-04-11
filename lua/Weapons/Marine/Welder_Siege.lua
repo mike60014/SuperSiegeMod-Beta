@@ -4,7 +4,7 @@ local kWelderScoreAddedPerPoints = gWelderScoreAddedPerPoints
 kExoWelderStructureWeldRateBreakableDoor = gExoWelderStructureWeldRateBreakableDoor
 local kPlayerWeldRate = gWelderPlayerArmorRate
 local kLevelScoreAdded = gLevelScoreAdded
-kWelderEffectRate
+kWelderEffectRate = gWelderFireDelay
 
 local originit = Welder.GetRepairRate
 function Welder:GetRepairRate(repairedEntity)
