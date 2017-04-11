@@ -40,11 +40,18 @@ local networkVars =
 AddMixinNetworkVars(ExoWeaponSlotMixin, networkVars)
 AddMixinNetworkVars(LiveMixin, networkVars)
 
+local kWelderEffectRate = kExoWelderEffectRate
 local kWeldRange = gExoWelderWeldRange
 local kWelderFireRate = gExoWelderFireRate
 local kAmountHealedForPoints = kExoWelderAmountHealedForPoints
 local kHealScoreAdded = kExoWelderHealScoreAdded
-kWelderFireDelay = gExoWelderFireDelay
+
+local kExoWelderPlayerWeldAmount = gExoWelderPlayerWeldAmount
+local kExoWelderStructureWeldAmount = gExoWelderStructureWeldAmount
+
+local kWelderFireDelay = gExoWelderFireDelay
+local kExoWelderPlayerWeldRate = gExoWelderPlayerWeldRate
+local kExoWelderStructureWeldRate = gExoWelderStructureWeldRate
 
 
 -- Every kAmountHealedForPoints points of damage healed, the player gets
@@ -137,7 +144,7 @@ function ExoWelder:OnPrimaryAttack(player)
         
     end
     
-    if not self.timeLastWeldEffect or self.timeLastWeldEffect + kWelderFireDelay < Shared.GetTime() then
+    if not self.timeLastWeldEffect or self.timeLastWeldEffect + kWelderEffectRate < Shared.GetTime() then
 
 		if self:GetIsLeftSlot() then
         
@@ -260,14 +267,14 @@ function ExoWelder:PerformWeld(player)
                     player:AddContinuousScore("WeldHealth", addAmount, pointsHealth, scoreToAdd)
                     
                     -- weld owner as well
-                    player:SetArmor(player:GetArmor() + kExoWelderFireRate * kSelfWeldAmount)
+                    player:SetArmor(player:GetArmor() + kWelderFireDelay * kSelfWeldAmount)
                     
                 end
                 
             end
             
             if HasMixin(target, "Construct")  then
-                target:Construct(kExoWelderFireRate, player)
+                target:Construct(kWelderFireDelay, player)
             end
             
         end
@@ -282,9 +289,9 @@ end
 
 function ExoWelder:GetRepairRate(repairedEntity)
 
-    local repairRate = kExoPlayerWeldRate
+    local repairRate = kExoWelderPlayerWeldRate
     if repairedEntity.GetReceivesStructuralDamage and repairedEntity:GetReceivesStructuralDamage() then
-        repairRate = kExoStructureWeldRate
+        repairRate = kExoWelderStructureWeldRate
     end
     
     return repairRate

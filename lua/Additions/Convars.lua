@@ -769,22 +769,27 @@ kShotgunSpreadDistance = 8.5 --Gets used as z-axis value for spread vectors befo
 
 --Welder
 
+gLevelScoreAdded = 1
 gWelderPointsPerScore = 10
 gWelderScoreAddedPerPoints = 1
 gWelderDamagePerSecond = 30
 gWelderDamageType = kDamageType.Flame
-gWelderFireDelay = 0.2
+gWelderFireDelay = .45 ----0.2
 gWelderSelfWeldAmount = 5
-gPlayerArmorWeldRate = 20
+gWelderPlayerArmorRate = 100 --30
+gWelderStructureWeldRateBreakableDoor = gWelderPlayerArmorRate
 
+kWelderEffectRate = gWelderFireDelay
 kWelderPointsPerScore = gWelderPointsPerScore
 kWelderScoreAddedPerPoints = gWelderScoreAddedPerPoints
 kWelderDamagePerSecond = gWelderDamagePerSecond
 kWelderDamageType = gWelderDamageType
 kWelderFireDelay = gWelderFireDelay
 kSelfWeldAmount = gWelderSelfWeldAmount
-kPlayerArmorWeldRate = gPlayerArmorWeldRate
-
+kPlayerWeldRate = gWelderPlayerArmorRate
+kLevelScoreAdded = gLevelScoreAdded
+kExoWelderStructureWeldRateBreakableDoor = gWelderStructureWeldRateBreakableDoor
+kPlayerArmorWeldRate = gWelderPlayerArmorRate
 
 --Marine Weapons End
 --Marine Classes
@@ -893,28 +898,30 @@ gExoFlamerThrusterHorizontalAcceleration = 23
 
 --ExoWelder
 gExoWelderDamagePerSecond = 35
-gExoWelderPlayerWeldRate = 20 --15
-gExoWelderStructureWeldRate = 75 --65
-gExoWelderStructureWeldRateBreakableDoor = gExoWelderStructureWeldRate * 1.2--65
-gExoWelderWeldRange = 4
-gExoWelderEffectRate = 0.45
-gExoWelderFireDelay = 0.2
+--gExoWelderFireAmount = 0
+gExoWelderPlayerWeldAmount = 50 --15
+gExoWelderStructureWeldAmount = 50 --65
+gExoWelderStructureWeldRateBreakableDoor = gExoWelderStructureWeldAmount * 1.2 --65
+gExoWelderWeldRange = 2 --4
+gExoWelderEffectRate = 0.05 --0.45
+gExoWelderFireDelay = 0.05 --0.2
 gExoWelderHealScoreAdded = 1
 gExoWelderAmountHealedForPoints = 10
 gExoWelderMoveSpeedWhileFiringMultipler = 1  --1 = no change in speed. 1.25 = slow by 25% still need to implement
-gExoWelderThrusterHorizontalAcceleration = 23
+gExoWelderThrusterHorizontalAcceleration = 23 * 3 --23
 gExoWelderSelfWeldAmount = 5
-gExoPlayerWeldRate = 0.45
-gExoStructureWeldRate = 
+gExoWelderPlayerWeldRate = 0.05 --0.45
+gExoWelderStructureWeldRate = 0.05 --0.2
 
-kExoPlayerWeldRate = gExoPlayerWeldRate
-kExoStructureWeldRate = gExoStructureWeldRate
-kExoWelderFireRate = gExoWelderFireDelay
+kExoWelderFireDelay = gExoWelderFireDelay
+kExoWelderPlayerWeldAmount = gExoWelderPlayerWeldAmount
+kExoWelderStructureWeldAmount = gExoWelderStructureWeldAmount
+kExoWelderPlayerWeldRate = gExoWelderPlayerWeldRate
+kExoWelderStructureWeldRate = gExoWelderStructureWeldRate
+--kExoWelderFireRate = gExoWelderFireAmount
 kExoWelderEffectRate = gExoWelderEffectRate
 kExoWelderSelfWeldAmount = gExoWelderSelfWeldAmount
 kExoWelderDamagePerSecond = gExoWelderDamagePerSecond
-kExoWelderPlayerWeldRate = gExoWelderPlayerWeldRate
-kExoWelderStructureWeldRate = gExoWelderStructureWeldRate
 kExoWelderStructureWeldRateBreakableDoor = gExoWelderStructureWeldRateBreakableDoor
 kExoWelderWeldRange = gExoWelderWeldRange
 kExoWelderHealScoreAdded = gExoWelderHealScoreAdded
@@ -1020,6 +1027,7 @@ gAllExoHealthCriticalTrigger = 0.2
 
 gAllExoDeployDuration = 1.0
 gAllExoEjectDuration = 1.0
+gAllExoCloseDuration = 1.0
 kAllExoArmorPerUpgradeLevel = 35
 kAllExoArmor = 385
 --gAllExoThrusterHorizontalAcceleration =

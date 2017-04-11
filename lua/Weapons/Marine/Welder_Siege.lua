@@ -1,6 +1,10 @@
 -- buffed speed on doors
-kWelderPointsPerScore = gWelderPointsPerScore
-kWelderScoreAddedPerPoints = gWelderScoreAddedPerPoints
+local kWelderPointsPerScore = gWelderPointsPerScore
+local kWelderScoreAddedPerPoints = gWelderScoreAddedPerPoints
+kExoWelderStructureWeldRateBreakableDoor = gExoWelderStructureWeldRateBreakableDoor
+local kPlayerWeldRate = gWelderPlayerArmorRate
+local kLevelScoreAdded = gLevelScoreAdded
+kWelderEffectRate
 
 local originit = Welder.GetRepairRate
 function Welder:GetRepairRate(repairedEntity)
@@ -36,5 +40,43 @@ function Welder:PerformWeld(player)
        end
     end
         return origweld(self, player)
+    
+end
+
+function Welder:OnPrimaryAttack(player)
+
+    if GetIsVortexed(player) or not self.deployed then
+        //return
+    end
+    
+    PROFILE("Welder:OnPrimaryAttack")
+    
+    if not self.welding then
+    
+        self:TriggerEffects("welder_start")
+        self.timeWeldStarted = Shared.GetTime()
+        
+        if Server then
+            //self.loopingFireSound:Start()
+        end
+        
+    end
+    
+    self.welding = true
+    local hitPoint = nil
+    
+    if self.timeLastWeld + kWelderFireDelay < Shared.GetTime () then
+    
+        hitPoint = self:PerformWeld(player)
+        self.timeLastWeld = Shared.GetTime()
+        
+    end
+    
+    if not self.timeLastWeldEffect or self.timeLastWeldEffect + kWelderEffectRate < Shared.GetTime() then
+    
+        self:TriggerEffects("welder_muzzle")
+        self.timeLastWeldEffect = Shared.GetTime()
+        
+    end
     
 end
