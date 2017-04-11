@@ -118,7 +118,9 @@ local kSiege_TechData =
 [kTechDataResearchTimeKey] = kStabResearchTime, --kStabResearchTime, kAcidRocketResearchTime
 [kTechDataDamageType] = kDamageType.Corrode,  
 [kTechDataDisplayName] = "AcidRocket",
-[kTechDataTooltipInfo] = "Ranged Projectile dealing damage only to armor and structures"},
+[kTechDataTooltipInfo] = "Ranged Projectile dealing damage only to armor and structures",
+[kTechDataModel] = Babbler.kModelName,
+}
   
 /*
 { [kTechDataId] = kTechId.LerkBileBomb,        
@@ -129,6 +131,7 @@ local kSiege_TechData =
 [kTechDataDamageType] = kDamageType.Corrode,  
 [kTechDataDisplayName] = "LerkBileBomb",
 [kTechDataTooltipInfo] = "Derp"},
+[kTechDataModel] = "",
 */
  { [kTechDataId] = kTechId.CommVortex, 
 [kTechDataMapName] = CommVortex.kMapName, 
