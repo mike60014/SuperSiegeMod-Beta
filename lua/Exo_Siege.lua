@@ -16,33 +16,9 @@ local kDualWelderAnimationGraph = PrecacheAsset("models/marine/exosuit/exosuit_r
 
 local kHoloMarineMaterialname = PrecacheAsset("cinematics/vfx_materials/marine_ip_spawn.material")
 
-local kAtomReconstructionTime = gExoWelderAtomReconstructionTime
-local kGetStunnedCooldown = gExoWelderGetStunnedCooldown
-local kThrusterUpwardsAcceleration = gAllExoThrusterUpwardsAcceleration
-local kThrusterHorizontalAcceleration = gThrusterHorizontalAcceleration 
-local kHorizontalThrusterAddSpeed = gAllExoThrusterUpwardsAcceleration
-local kWalkMaxSpeed = gAllExoWalkMaxSpeed
-local kMaxSpeed = gAllExoMaxSpeed
-local kViewOffsetHeight = gAllExoViewOffsetHeight
-local kAcceleration = gExoWelderAcceleration
-local kSmashEggRange = gAllExoSmashEggRange
-Exo.kXZExtents = gExoWelderXZExtents
-Exo.kYExtents = gExoWelderYExtents
-local kWelderFireDelay = kExoWelderFireDelay
+local kAtomReconstructionTime = 3
 
-local kCrouchShrinkAmount = gAllExoCrouchShrinkAmount
-local kExtentsCrouchShrinkAmount = gAllExoExtentsCrouchShrinkAmount
-local kThrustersCooldownTime = gAllExoThrustersCooldownTime
-local kThrusterDuration = gAllExoThrusterDuration
-local kThrusterMinimumFuel = gAllExoThrusterMinimumFuel
-kHealthWarningTrigger = gExoHealthWarningTrigger
-kHealthCriticalTrigger = gExoHealthCriticalTrigger
-local kExoEjectDuration = gAllExoEjectDuration
-local kExoDeployDuration = gAllExoDeployDuration
-local kPrototypeLabBonusHealAura = gPrototypeLabBonusHealAura
-local kPrototypeLabBonusHealAuraAmount = gPrototypeLabBonusHealAuraAmount
-
-
+local kExoEjectTime = kAllExoEjectTime
 
 local function DestroySpinEffect(self) 
     if self.fakeMarineModel then    
@@ -95,26 +71,33 @@ function ExoSiege:InitExoModel()
     local modelName = kDualWelderModelName
     local graphName = kDualWelderAnimationGraph
     
-	if self.layout == "WelderWelder" or self.layout == "FlamerFlamer" then
-		modelName = kDualWelderModelName
-		graphName = kDualWelderAnimationGraph
-		self.hasDualGuns = true
-		hasWelders = true
-		self:SetModel(modelName, graphName)
-	end
-	
+  if self.layout == "WelderWelder" or self.layout == "FlamerFlamer" then
+         modelName = kDualWelderModelName
+        graphName = kDualWelderAnimationGraph
+        self.hasDualGuns = true
+        hasWelders = true
+        self:SetModel(modelName, graphName)
+    end
+    
+    
     if hasWelders then 
     else
-		origmodel(self)
+    origmodel(self)
     end
+
+     
+  
+
+  
 end
 
 function ExoSiege:InitWeapons()
     local weaponHolder = self:GetWeapon(ExoWeaponHolder.kMapName)
     if not weaponHolder then
-		weaponHolder = self:GiveItem(ExoWeaponHolder.kMapName, false)   
+        weaponHolder = self:GiveItem(ExoWeaponHolder.kMapName, false)   
     end    
     
+  
         if self.layout == "WelderWelder" then
         weaponHolder:SetWelderWeapons()
         self:SetHUDSlotActive(1)
@@ -124,20 +107,20 @@ function ExoSiege:InitWeapons()
         self:SetHUDSlotActive(1)
         return
         end
+        
+        
+
         Exo.InitWeapons(self)
+
+    
 end
 local function HealSelf(self)
-	local toheal = true
-	kPrototypeLabBonusHealAuraAmounttoAdd = 0
-	
-	for _, proto in ipairs(GetEntitiesForTeamWithinRange("PrototypeLab", 1, self:GetOrigin(), kPrototypeLabBonusHealAura)) do
-		
-		if GetIsUnitActive(proto) then
-			kPrototypeLabBonusHealAuraAmounttoAdd = kPrototypeLabBonusHealAuraAmount
-			break
-		end
-	end
-	--  Print("toheal is %s", toheal)
+
+
+  local toheal = true
+                for _, proto in ipairs(GetEntitiesForTeamWithinRange("PrototypeLab", 1, self:GetOrigin(), 4)) do
+                    
+                    if GetIsUnitActive(proto) then
     if toheal then
 		self:SetArmor(self:GetArmor() + kNanoArmorHealPerSecond + kPrototypeLabBonusHealAuraAmounttoAdd, true) 
     end

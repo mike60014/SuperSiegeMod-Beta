@@ -40,11 +40,11 @@ local networkVars =
 AddMixinNetworkVars(ExoWeaponSlotMixin, networkVars)
 AddMixinNetworkVars(LiveMixin, networkVars)
 
-local kWelderEffectRate = kExoWelderEffectRate
+local kWelderEffectRate = 0.45 --gExoWelderEffectRate
 local kWeldRange = gExoWelderWeldRange
-local kWelderFireRate = gExoWelderFireRate
-local kAmountHealedForPoints = kExoWelderAmountHealedForPoints
-local kHealScoreAdded = kExoWelderHealScoreAdded
+--local kWelderFireRate = gExoWelderFireRate
+local kAmountHealedForPoints = gExoWelderAmountHealedForPoints
+local kHealScoreAdded = gExoWelderHealScoreAdded
 
 local kExoWelderPlayerWeldAmount = gExoWelderPlayerWeldAmount
 local kExoWelderStructureWeldAmount = gExoWelderStructureWeldAmount
@@ -52,6 +52,7 @@ local kExoWelderStructureWeldAmount = gExoWelderStructureWeldAmount
 local kWelderFireDelay = gExoWelderFireDelay
 local kExoWelderPlayerWeldRate = gExoWelderPlayerWeldRate
 local kExoWelderStructureWeldRate = gExoWelderStructureWeldRate
+local kSelfWeldAmount = gExoWelderSelfWeldAmount
 
 
 -- Every kAmountHealedForPoints points of damage healed, the player gets
@@ -262,8 +263,8 @@ function ExoWelder:PerformWeld(player)
                 if success then
                     local pointsHealth = kAmountHealedForPoints
                     local scoreToAdd = kHealScoreAdded
-                    local addAmount = (target:GetHealth() - prevHealth) + (target:GetArmor() - prevArmor)
-                          addAmount = addAmount * ConditionalValue(target:isa("Player"),  3, 1)
+                    local addAmount = ((target:GetHealth() - prevHealth) + (target:GetArmor() - prevArmor)) * ConditionalValue(target:isa("Player"),  3, 1)
+                          
                     player:AddContinuousScore("WeldHealth", addAmount, pointsHealth, scoreToAdd)
                     
                     -- weld owner as well
@@ -274,7 +275,7 @@ function ExoWelder:PerformWeld(player)
             end
             
             if HasMixin(target, "Construct")  then
-                target:Construct(kWelderFireDelay, player)
+                target:Construct(kExoWelderStructureWeldRate, player)
             end
             
         end

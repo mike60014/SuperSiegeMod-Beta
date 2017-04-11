@@ -1,3 +1,5 @@
+kStartHealthScalar = 1 --0.3
+
 /*
 kSentryHealth = 650
 kSentryArmor = 125
