@@ -1,5 +1,6 @@
 if Server then
 
+
 function UpdateAbilityAvailability(forAlien, tierOneTechId, tierTwoTechId, tierThreeTechId)
 	return false
 end
@@ -44,9 +45,11 @@ if team and team.GetTechTree then
 
 	if t1 then UnlockAbility(forAlien, LookupTechData(tierOneTechId, kTechDataMapName)) end
 	if t2 then UnlockAbility(forAlien, LookupTechData(tierTwoTechId, kTechDataMapName)) end
-	if t3 then UnlockAbility(forAlien, LookupTechData(tierThreeTechId, kTechDataMapName)) end
-	if t4 then UnlockAbility(forAlien, LookupTechData(tierFourTechId, kTechDataMapName)) end
-	if t5 then UnlockAbility(forAlien, LookupTechData(tierFiveTechId, kTechDataMapName)) end
+	if t3 then
+		UnlockAbility(forAlien, LookupTechData(tierThreeTechId, kTechDataMapName))
+		UnlockAbility(forAlien, LookupTechData(tierFourTechId, kTechDataMapName))
+		UnlockAbility(forAlien, LookupTechData(tierFiveTechId, kTechDataMapName))
+	end
 
 		--Print("t1 is %s", t1)
 		--Print("t2 is %s", t2)

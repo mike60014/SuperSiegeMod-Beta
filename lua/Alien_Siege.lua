@@ -64,13 +64,11 @@ end
 
 if Server then
 function Alien:GetTierFourTechId()
-	--UpdateAliensWeaponsManually()
-    return --kTechId.None
+    return kTechId.None
 end
 
 function Alien:GetTierFiveTechId()
-	--UpdateAliensWeaponsManually()
-    return --kTechId.None
+    return kTechId.None
 end
 
 function Alien:PrimalScream(duration)
@@ -398,10 +396,11 @@ end
 
 function Alien:OnRedeem(player)
 
-   --self:GiveItem(HallucinationCloud.kMapName)
-   SingleHallucination(self, player)
-self:AddScore(1, 0, false)
-   self:TriggerRedeemCountDown(player)
+	--self:GiveItem(HallucinationCloud.kMapName)
+	SingleHallucination(self, player)
+	self:AddScore(1, 0, false)
+	self:TriggerRedeemCountDown(player)
+	self:TriggerRebirthCountDown(player)
 end
 
 function Alien:TriggerRedeemCountDown(player)
@@ -661,7 +660,7 @@ function Alien:UpdateClientEffects(deltaTime, isLocal)
      origcupdate(self, deltaTime,isLocal)
 end
 
-end//client
+end //client
 
 Shared.LinkClassToMap("Alien", Alien.kMapName, networkVars)
 

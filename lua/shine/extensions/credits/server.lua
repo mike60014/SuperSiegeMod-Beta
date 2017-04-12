@@ -978,22 +978,29 @@ if not Player then return end
               --elseif cost == gCreditClassCostOnos then DeductBuy(self, Player, cost, delayafter) Player:GiveOnos(Player:GetOrigin())
 			  --end
 			if cost == gCreditClassCostGorge then
-				if delayafter >
-				AliendelayedBuy = Shared.GetTime() + delayafter
-				DeductBuy(self, Player, cost, delayafter)
-				Player:CreditBuy(kTechId.Gorge)
+				if delayafter < Shared.GetTime() then
+					AliendelayedBuy = Shared.GetTime() + delayafter
+					DeductBuy(self, Player, cost, delayafter)
+					Player:CreditBuy(kTechId.Gorge)
+				end
 			elseif cost == gCreditClassCostLerk then
-				AliendelayedBuy = Shared.GetTime() + delayafter
-				DeductBuy(self, Player, cost, delayafter)
-				Player:CreditBuy(kTechId.Lerk)
+				if delayafter < Shared.GetTime() then
+					AliendelayedBuy = Shared.GetTime() + delayafter
+					DeductBuy(self, Player, cost, delayafter)
+					Player:CreditBuy(kTechId.Lerk)
+				end
 			elseif cost == gCreditClassCostFade then
-				AliendelayedBuy = Shared.GetTime() + delayafter
-				DeductBuy(self, Player, cost, delayafter)
-				Player:CreditBuy(kTechId.Fade)
+				if delayafter < Shared.GetTime() then
+					AliendelayedBuy = Shared.GetTime() + delayafter
+					DeductBuy(self, Player, cost, delayafter)
+					Player:CreditBuy(kTechId.Fade)
+				end
 			elseif cost == gCreditClassCostOnos then
-				AliendelayedBuy = Shared.GetTime() + delayafter
-				DeductBuy(self, Player, cost, delayafter)
-				Player:CreditBuy(kTechId.Onos)
+				if delayafter < Shared.GetTime() then
+					AliendelayedBuy = Shared.GetTime() + delayafter
+					DeductBuy(self, Player, cost, delayafter)
+					Player:CreditBuy(kTechId.Onos)
+				end
 			end
          end
    

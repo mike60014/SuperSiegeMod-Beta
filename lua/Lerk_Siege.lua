@@ -1,8 +1,8 @@
 
-Script.Load("lua/ADditions/LerkBomb.lua")
+--Script.Load("lua/ADditions/LerkBomb.lua")
 Script.Load("lua/Weapons/PredictedProjectile.lua")
 
-local kBallFlagAttachPoint = "fxnode_bilebomb"
+--local kBallFlagAttachPoint = "fxnode_bilebomb"
 
 local origcreate = Lerk.OnCreate
 
@@ -17,7 +17,7 @@ function Lerk:GetTierFourTechId()
 end
 
 function Lerk:GetTierFiveTechId()
-    return false--kTechId.LerkBileBomb
+    return kTechId.None
 end
 
 end
@@ -46,7 +46,7 @@ end
 local origspeed = Lerk.GetMaxSpeed
 
 function Lerk:GetMaxSpeed(possible)
-     local speed = origspeed(self) * 1.20
+     local speed = origspeed(self)
   --return speed * 1.10
   return not self:GetIsOnFire() and speed * 1.25 or speed
 end

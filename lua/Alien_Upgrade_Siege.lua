@@ -17,6 +17,7 @@ end
 function GetHasRedemptionUpgrade(callingEntity)
     return HasUpgrade(callingEntity, kTechId.Redemption) //or callingEntity.RTDRedemption
 end
+
 function GetHasRebirthUpgrade(callingEntity)
     return HasUpgrade(callingEntity, kTechId.Rebirth) //or callingEntity.RTDRedemption
 end
