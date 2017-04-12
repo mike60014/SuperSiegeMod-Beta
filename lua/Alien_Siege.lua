@@ -4,7 +4,26 @@ local orig_Alien_OnCreate = Alien.OnCreate
 Alien.kEnergyRecuperationRate = gAlienEnergyRecuperationRate
 Alien.kWalkBackwardSpeedScalar = gAlienWalkBackwardSpeedScalar
 Alien.kEnergyAdrenalineRecuperationRate = gAlienEnergyAdrenalineRecuperationRate
-local knewMaxHealthMultipler = gnewMaxHealthMultipler
+knewMaxHealthMultipler = gAliennewMaxHealthMultipler
+
+Babbler.kMass = gBabblerMass
+Babbler.kRadius = gBabblerRadius
+Babbler.kLinearDamping = gBabblerLinearDamping
+Babbler.kRestitution = gBabblerRestitution
+Babbler.kFov = gBabblerFov
+kBabblerHealth = gBabblerHealth
+kTargetSearchRange = gBabblerTargetSearchRange
+kAttackRate = gBabblerAttackRate
+kLifeTime = gBabblerLifeTime
+kUpdateMoveInterval = gBabblerUpdateMoveInterval
+kUpdateAttackInterval = gBabblerUpdateAttackInterval
+kMinJumpDistance = gBabblerMinJumpDistance
+kBabblerRunSpeed = gBabblerRunSpeed    --7
+kVerticalJumpForce = gBabblerVerticalJumpForce
+kMaxJumpForce = gBabblerMaxJumpForce
+kMinJumpForce = gBabblerMinJumpForce
+kTurnSpeed = gBabblerTurnSpeed
+kBabblerClingDuration = gBabblerClingDuration
 
 function Alien:SlapPlayer()
  self:SetVelocity(  self:GetVelocity() + Vector(math.random(100,900),math.random(100,900),math.random(100,900)  ) )
@@ -43,6 +62,7 @@ local function CheckPrimalScream(self)
 	self.primaled = self.primalGiveTime - Shared.GetTime() > 0
 	return self.primaled
 end
+
 if Server then
 function Alien:GetTierFourTechId()
     return kTechId.None
@@ -111,6 +131,13 @@ function Alien:GetRedemptionCoolDown()
 return 0
 end
 
+function Alien:UpdateArmorAmount(carapaceLevel)
+return
+end
+function Alien:UpdateHealthAmount(bioMassLevel, maxLevel)
+return
+end
+
 function Alien:UpdateArmorAmountManual(carapaceLevel)
     local teamInfo = GetTeamInfoEntity(2)
           if teamInfo then
@@ -126,7 +153,6 @@ function Alien:UpdateArmorAmountManual(carapaceLevel)
         self.maxArmor = newMaxArmor
         self:SetArmor(newMaxArmor)
         --self:SetArmor(self.maxArmor * armorPercent)
-    
     --end
     end
   return false
@@ -147,114 +173,55 @@ function Alien:UpdateHealthAmountManual(bioMassLevel, maxLevel)
    return false
 end
 
-function Alien:UpdateArmorAmount(carapaceLevel)
-
-	return
-	--why onupdate? 
-
-end
-
-function Alien:UpdateHealthAmount(bioMassLevel, maxLevel)
-
-	return
-	--why onupdate?
-
-end
 if Server then
-
-function Alien:GiveGorge(spawnPoint)
-    local random = math.random(1,2)
-    if random == 1 then 
-        local rGorge = self:Replace(Gorge.kMapName, self:GetTeamNumber(), false, spawnPoint, { layout = "MinigunMinigun" })
-		return rGorge
-    else
-        local rGorge = self:Replace(Gorge.kMapName, self:GetTeamNumber(), false, spawnPoint, { layout = "RailgunRailgun" })
-		return rGorge
-    end
-end
-
-function Alien:GiveLerk(spawnPoint)
-    local random = math.random(1,2)
-    if random == 1 then 
-        local rLerk = self:Replace(Lerk.kMapName, self:GetTeamNumber(), false, spawnPoint, { layout = "MinigunMinigun" })
-    return rLerk
-    else
-        local rLerk = self:Replace(Lerk.kMapName, self:GetTeamNumber(), false, spawnPoint, { layout = "RailgunRailgun" })
-    return rLerk
-    end
-end
-
-function Alien:GiveFade(spawnPoint)
-    local random = math.random(1,2)
-    if random == 1 then 
-        local rFade = self:Replace(Fade.kMapName, self:GetTeamNumber(), false, spawnPoint, { layout = "MinigunMinigun" })
-    return rFade
-    else
-        local rFade = self:Replace(Fade.kMapName, self:GetTeamNumber(), false, spawnPoint, { layout = "RailgunRailgun" })
-    return rFade
-    end
-end
-
-function Alien:GiveOnos(spawnPoint)
-    local random = math.random(1,2)
-    if random == 1 then 
-        local rOnos = self:Replace(Onos.kMapName, self:GetTeamNumber(), false, spawnPoint, { layout = "MinigunMinigun" })
-    return rOnos
-    else
-        local rOnos = self:Replace(Onos.kMapName, self:GetTeamNumber(), false, spawnPoint, { layout = "RailgunRailgun" })
-    return rOnos
-    end
-end
 
 function Alien:CreditBuy(techId)
 
-	--local eggExtents = LookupTechData(kTechId.Embryo, kTechDataMaxExtents)
-	--local newLifeFormTechId = techId
-	--local newAlienExtents = LookupTechData(newLifeFormTechId, kTechDataMaxExtents)
-	--local physicsMask = PhysicsMask.Evolve
+	local eggExtents = LookupTechData(kTechId.Embryo, kTechDataMaxExtents)
+	local newLifeFormTechId = techId
+	local newAlienExtents = LookupTechData(newLifeFormTechId, kTechDataMaxExtents)
+	local physicsMask = PhysicsMask.Evolve
 	local cost = LookupTechData(techId, kTechDataCostKey, 0)
 	--self:AddResources(cost)
 	
-	--local position = self:GetOrigin()
-	--local trace = Shared.TraceRay(position, position + Vector(0, -0.5, 0), CollisionRep.Move, PhysicsMask.AllButPCs, EntityFilterOne(self))
+	local position = self:GetOrigin()
+	local trace = Shared.TraceRay(position, position + Vector(0, -0.5, 0), CollisionRep.Move, PhysicsMask.AllButPCs, EntityFilterOne(self))
 
 	local upgradetable = {}
 	local upgrades = Player.lastUpgradeList
 	if upgrades and #upgrades > 0 then
-	table.insert(upgradetable, upgrades)
+		table.insert(upgradetable, upgrades)
+	else
+		table.insert(upgradetable, techId)
 	end
 
-	table.insert(upgradetable, techId)
+	--table.insert(upgradetable, techId)
 	--self:ProcessBuyAction(upgradetable, true)
 	
-	--local newPlayer = self:Replace(Embryo.kMapName)
-	--position.y = position.y + Embryo.kEvolveSpawnOffset
-	--newPlayer:SetOrigin(position)
+	local newPlayer = self:Replace(Embryo.kMapName)
+	position.y = position.y + Embryo.kEvolveSpawnOffset
+	newPlayer:SetOrigin(position)
 
 	-- Clear angles, in case we were wall-walking or doing some crazy alien thing
-	--local angles = Angles(self:GetViewAngles())
-	--angles.roll = 0.0
-	--angles.pitch = 0.0
-	--newPlayer:SetOriginalAngles(angles)
-	--newPlayer:SetValidSpawnPoint(roomAfter)
+	local angles = Angles(self:GetViewAngles())
+	angles.roll = 0.0
+	angles.pitch = 0.0
+	newPlayer:SetOriginalAngles(angles)
+	newPlayer:SetValidSpawnPoint(roomAfter)
 
 	-- Eliminate velocity so that we don't slide or jump as an egg
-	--newPlayer:SetVelocity(Vector(0, 0, 0))                
-	--newPlayer:DropToFloor()
+	newPlayer:SetVelocity(Vector(0, 0, 0))                
+	newPlayer:DropToFloor()
 
 	--newPlayer:AddResources(-cost)
 	self:AddResources(cost)
-	--newPlayer:SetGestationData(upgradetable, techId, self:GetHealthFraction(), self:GetArmorScalar())
+	newPlayer:SetGestationData(upgradetable, techId, self:GetHealthFraction(), self:GetArmorScalar())
 	
-    self:ProcessBuyAction(upgradetable, true)
+    --self:ProcessBuyAction(upgradetable, true)
 
 	
 end
 
-function Alien:RefreshTechsManually()
-        UpdateAvailability(self, self:GetTierOneTechId(), self:GetTierTwoTechId(), self:GetTierThreeTechId(), self:GetTierFourTechId(), self:GetTierFiveTechId() )
-end
- 
 
 end
 
@@ -428,10 +395,11 @@ end
 
 function Alien:OnRedeem(player)
 
-   --self:GiveItem(HallucinationCloud.kMapName)
-   SingleHallucination(self, player)
-self:AddScore(1, 0, false)
-   self:TriggerRedeemCountDown(player)
+	--self:GiveItem(HallucinationCloud.kMapName)
+	SingleHallucination(self, player)
+	self:AddScore(1, 0, false)
+	self:TriggerRedeemCountDown(player)
+	self:TriggerRebirthCountDown(player)
 end
 
 function Alien:TriggerRedeemCountDown(player)
@@ -684,13 +652,14 @@ function Alien:UpdatePrimalEffect(isLocal)
 end
 
 local origcupdate = Alien.UpdateClientEffects
+
 function Alien:UpdateClientEffects(deltaTime, isLocal)
      self:UpdatePrimalEffect(isLocal)
      if self:isa("Onos") then self:UpdateOnocideEffect(isLocal) end
      origcupdate(self, deltaTime,isLocal)
 end
 
-end//client
+end //client
 
 Shared.LinkClassToMap("Alien", Alien.kMapName, networkVars)
 
