@@ -511,7 +511,7 @@ gRocketLifeTime = 0.5
 
 gAcidRocketDamage = 20 --25
 gAcidRocketDamageType = kDamageType.Structural
-gAcidRocketEnergyCost = 17 --10
+gAcidRocketEnergyCost = 15 --10
 gAcidRocketFireDelay = 0.5
 gAcidRocketRadius = 4 --6
 gAcidRocketLifeTime = 0.5
@@ -520,6 +520,8 @@ gAcidRocketResearchCost = 20
 gAcidRocketVelocity = 45
 gAcidRocketPlayerVelocityFraction = 0.5
 gAcidRocketHUDSlot = 4
+
+kAcidRocketDamage = gAcidRocketDamage
 
 kSwipeDamageType = kDamageType.StructuresOnlyLight
 kSwipeDamage = 75

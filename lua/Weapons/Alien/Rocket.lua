@@ -13,6 +13,9 @@ Rocket.kModelName          = PrecacheAsset("models/alien/babbler/babbler.model")
 
 // The max amount of time a Rocket can last for
 
+Rocket.kClearOnImpact = true
+Rocket.kClearOnEnemyImpact = true
+Rocket.kRadius = kRocketRadius
 
 local kAcidRocketHUDSlot = gAcidRocketHUDSlot
 local kAcidRocketFireDelay = gAcidRocketFireDelay
@@ -24,9 +27,6 @@ local kRocketLifetime = gRocketLifeTime
 
 local networkVars = { }
 
-Rocket.kClearOnImpact = true
-Rocket.kClearOnEnemyImpact = true
-Rocket.kRadius = kRocketRadius
 
 AddMixinNetworkVars(BaseModelMixin, networkVars)
 AddMixinNetworkVars(ModelMixin, networkVars)
@@ -63,7 +63,8 @@ function Rocket:OnCreate()
     InitMixin(self, DamageMixin)
     
     if Server then
-        self:AddTimedCallback(UpdateLifetime, 0.1)
+        --self:AddTimedCallback(UpdateLifetime, 0.1)
+		UpdateLifetime(self)
         self.endOfLife = nil
     end
 

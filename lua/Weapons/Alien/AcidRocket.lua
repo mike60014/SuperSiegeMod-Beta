@@ -10,18 +10,18 @@ class 'AcidRocket' (Blink)
 
 AcidRocket.kMapName = "acidrocket"
 
-local kPlayerVelocityFraction = gAcidRocketPlayerVelocityFraction
-local kRocketVelocity = gAcidRocketVelocity
+kPlayerVelocityFraction = gAcidRocketPlayerVelocityFraction
+kRocketVelocity = gAcidRocketVelocity
 
 local kAnimationGraph = PrecacheAsset("models/alien/fade/fade_view.animation_graph")
 
-local kAcidRocketHUDSlot = gAcidRocketHUDSlot
-local kAcidRocketFireDelay = gAcidRocketFireDelay
-local kAcidRocketEnergyCost = gAcidRocketEnergyCost
-local kAcidRocketDamage = gAcidRocketDamage
-local kAcidRocketRadius = gAcidRocketRadius
-local kRocketRadius = gRocketRadius
-local kRocketLifetime = gRocketLifeTime
+kAcidRocketHUDSlot = gAcidRocketHUDSlot
+kAcidRocketFireDelay = gAcidRocketFireDelay
+kAcidRocketEnergyCost = gAcidRocketEnergyCost
+kAcidRocketDamage = gAcidRocketDamage
+kAcidRocketRadius = gAcidRocketRadius
+kRocketRadius = gRocketRadius
+kRocketLifetime = gRocketLifeTime
 
 AcidRocket.networkVars =
 {
