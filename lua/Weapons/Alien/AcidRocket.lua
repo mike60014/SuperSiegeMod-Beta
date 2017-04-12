@@ -13,15 +13,14 @@ AcidRocket.kMapName = "acidrocket"
 local kPlayerVelocityFraction = gAcidRocketPlayerVelocityFraction
 local kRocketVelocity = gAcidRocketVelocity
 
-local kAnimationGraph = PrecacheAsset("models/alien/fade/fade_view.animation_graph")
+kAcidRocketDamage = gAcidRocketDamage
+kAcidRocketFireDelay = gAcidRocketFireDelay
+kAcidRocketEnergyCost = gAcidRocketEnergyCost
+kAcidRocketHUDSlot = gAcidRocketHUDSlot
 
-local kAcidRocketHUDSlot = gAcidRocketHUDSlot
-local kAcidRocketFireDelay = gAcidRocketFireDelay
-local kAcidRocketEnergyCost = gAcidRocketEnergyCost
-local kAcidRocketDamage = gAcidRocketDamage
-local kAcidRocketRadius = gAcidRocketRadius
-local kRocketRadius = gRocketRadius
-local kRocketLifetime = gRocketLifeTime
+
+
+local kAnimationGraph = PrecacheAsset("models/alien/fade/fade_view.animation_graph")
 
 AcidRocket.networkVars =
 {
