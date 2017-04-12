@@ -978,6 +978,7 @@ if not Player then return end
               --elseif cost == gCreditClassCostOnos then DeductBuy(self, Player, cost, delayafter) Player:GiveOnos(Player:GetOrigin())
 			  --end
 			if cost == gCreditClassCostGorge then
+				if delayafter >
 				AliendelayedBuy = Shared.GetTime() + delayafter
 				DeductBuy(self, Player, cost, delayafter)
 				Player:CreditBuy(kTechId.Gorge)
