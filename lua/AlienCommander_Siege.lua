@@ -18,7 +18,6 @@ function AlienCommander:GetButtonTable()
     return gAlienMenuButtons
 end
 
-
 -- Top row always the same. Alien commander can override to replace.
 function AlienCommander:GetQuickMenuTechButtons(techId)
 
@@ -39,13 +38,13 @@ function AlienCommander:GetQuickMenuTechButtons(techId)
     return alienTechButtons
     
 end
-
+/*
 if Server then
 
 function AlienCommander:HiveCompleteSoRefreshTechsManually()
    UpdateAbilityAvailability(self, self.GetTierOneTechId, self.GetTierTwoTechId, self.GetTierThreeTechId, self.GetTierFourTechId)
-   --UpdateAbilityAvailability(self, self.GetTierOneTechId, self.GetTierTwoTechId, self.GetTierThreeTechId, self.GetTierFourTechId, self.GetTierFiveTechId)
-   
+   SharedInitializeButtons(settingsTable)
 end
 
 end
+*/
