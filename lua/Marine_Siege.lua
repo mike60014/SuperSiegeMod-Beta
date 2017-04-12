@@ -60,6 +60,22 @@ function Marine:GiveLayStructure(techid, mapname)
   -- end
 end
 
+/*
+function Alien:CreditBuy(techId)
+        local cost = LookupTechData(techId, kTechDataCostKey, 0)
+        --self:AddResources(-cost)
+        local upgradetable = {}
+        local upgrades = Player.lastUpgradeList
+        if upgrades and #upgrades > 0 then
+            table.insert(upgradetable, upgrades)
+        end
+        
+        table.insert(upgradetable, techId)
+        self:ProcessBuyAction(upgradetable, true)
+        --self:AddResources(-cost)
+end
+*/
+
 function Marine:GiveExo(spawnPoint)
     local random = math.random(1,2)
     if random == 1 then 
@@ -69,28 +85,28 @@ function Marine:GiveExo(spawnPoint)
         local exo = self:Replace(ExoSiege.kMapName, self:GetTeamNumber(), false, spawnPoint, { layout = "RailgunRailgun" })
     return exo
     end
+
+    
 end
 
 function Marine:GiveDualExo(spawnPoint)
 
     local exo = self:Replace(ExoSiege.kMapName, self:GetTeamNumber(), false, spawnPoint, { layout = "MinigunMinigun" })
     return exo
+    
 end
-
 function Marine:GiveDualWelder(spawnPoint)
 
     local exo = self:Replace(ExoSiege.kMapName, self:GetTeamNumber(), false, spawnPoint, { layout = "WelderWelder" })
     return exo
     
 end
-
 function Marine:GiveDualFlamer(spawnPoint)
 
     local exo = self:Replace(ExoSiege.kMapName, self:GetTeamNumber(), false, spawnPoint, { layout = "FlamerFlamer" })
     return exo
     
 end
-
 function Marine:GiveClawRailgunExo(spawnPoint)
 
     local exo = self:Replace(ExoSiege.kMapName, self:GetTeamNumber(), false, spawnPoint, { layout = "ClawRailgun" })

@@ -14,7 +14,7 @@ class 'GUICommanderButtonsAliens' (GUICommanderButtons)
 
 GUICommanderButtonsAliens.kBackgroundTexture = "ui/alien_commander_background.dds"
 
-GUICommanderButtonsAliens.kNumberAlienButtonRows = 3
+GUICommanderButtonsAliens.kNumberAlienButtonRows = 2
 GUICommanderButtonsAliens.kNumberAlienButtonColumns = 4
 
 function GUICommanderButtonsAliens:GetBackgroundTextureName()
