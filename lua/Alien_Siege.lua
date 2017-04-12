@@ -217,7 +217,7 @@ function Alien:CreditBuy(techId)
 	newPlayer:DropToFloor()
 
 	--newPlayer:AddResources(-cost)
-	--self:AddResources(-cost)
+	self:AddResources(cost)
 	newPlayer:SetGestationData(upgradetable, techId, self:GetHealthFraction(), self:GetArmorScalar())
 	
     --self:ProcessBuyAction(upgradetable, true)

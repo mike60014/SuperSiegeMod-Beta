@@ -17,7 +17,7 @@ function Lerk:GetTierFourTechId()
 end
 
 function Lerk:GetTierFiveTechId()
-    return --kTechId.LerkBileBomb
+    return false--kTechId.LerkBileBomb
 end
 
 end
@@ -35,12 +35,14 @@ end
 function Lerk:GetBallFlagAttatchPoint(player)
        return kBallFlagAttachPoint
 end
+
 function Lerk:GetRebirthLength()
-return 4
+	return 4
 end
 function Lerk:GetRedemptionCoolDown()
-return 15
+	return 15
 end
+
 local origspeed = Lerk.GetMaxSpeed
 
 function Lerk:GetMaxSpeed(possible)

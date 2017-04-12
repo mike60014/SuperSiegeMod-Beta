@@ -10,7 +10,7 @@ Script.Load("lua/Additions/CragUmbra.lua")
 Script.Load("lua/Additions/CommVortex.lua")
 Script.Load("lua/Weapons/Alien/AcidRocket.lua")
 Script.Load("lua/Weapons/Alien/Rocket.lua")
-Script.Load("lua/Additions/LerkBileBomb.lua")
+--Script.Load("lua/Additions/LerkBileBomb.lua")
 Script.Load("lua/MAC_Siege.lua")
 Script.Load("lua/Additions/LayStructures.lua")
 Script.Load("lua/Additions/ExoWelder.lua")
@@ -131,7 +131,7 @@ local kSiege_TechData =
 [kTechDataTooltipInfo] = "Ranged Projectile dealing damage only to armor and structures",
 [kTechDataModel] = Babbler.kModelName,
 },
-  
+/*
 { [kTechDataId] = kTechId.LerkBileBomb,        
 [kTechDataCategory] = kTechId.Lerk,   
 [kTechDataMapName] = LerkBileBomb.kMapName,  
@@ -142,6 +142,7 @@ local kSiege_TechData =
 [kTechDataTooltipInfo] = "Derp",
 [kTechDataModel] = LerkBileBomb.kModelName,
 },
+*/
 
  { [kTechDataId] = kTechId.CommVortex, 
 [kTechDataMapName] = CommVortex.kMapName, 

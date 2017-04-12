@@ -84,23 +84,26 @@ if not GetGamerules():GetGameStarted() then return end
  self:SimpleTimer(4, function() self:SpawnIt(player, MedPack.kMapName)  end)
 
 end
- function Plugin:SpawnIt(player, entity)
- if not player or not player:GetIsAlive() then return end
- local CreditCost = 1
- local client = player:GetClient()
-local controlling = client:GetControllingPlayer()
-local Client = controlling:GetClient()
-if self:GetPlayerSaltInfo(Client) < CreditCost then
-self:NotifySalt( Client, "%s costs %s salt, you have %s salt. Purchase invalid.", true, String, CreditCost, self:GetPlayerSaltInfo(Client))
-return
+function Plugin:SpawnIt(player, entity)
+	if not player or not player:GetIsAlive() then return end
+	local CreditCost = 1
+	local client = player:GetClient()
+	local controlling = client:GetControllingPlayer()
+	local Client = controlling:GetClient()
+
+	if self:GetPlayerSaltInfo(Client) < CreditCost then
+		self:NotifySalt( Client, "%s costs %s salt, you have %s salt. Purchase invalid.", true, String, CreditCost, self:GetPlayerSaltInfo(Client))
+		return
+	end
+
+	self.CreditUsers[ Client ] = self:GetPlayerSaltInfo(Client) - CreditCost
+	Shine.ScreenText.SetText("Salt", string.format( "%s Salt", self:GetPlayerSaltInfo(Client) ), Client) 
+	self.BuyUsersTimer[Client] = Shared.GetTime() + 3 
+	self.PlayerSpentAmount[Client] = self.PlayerSpentAmount[Client]  + CreditCost
+	return
+	CreateEntity( entity, FindFreeSpace(player:GetOrigin(), 1, 4), 1) 
 end
-self.CreditUsers[ Client ] = self:GetPlayerSaltInfo(Client) - CreditCost
-   Shine.ScreenText.SetText("Salt", string.format( "%s Salt", self:GetPlayerSaltInfo(Client) ), Client) 
-   self.BuyUsersTimer[Client] = Shared.GetTime() + 3 
-     self.PlayerSpentAmount[Client] = self.PlayerSpentAmount[Client]  + CreditCost
-return
-    CreateEntity( entity, FindFreeSpace(player:GetOrigin(), 1, 4), 1) 
-end
+
 function Plugin:InTheButt(player)
 if not player or not player:GetIsAlive() then return end
 if not GetGamerules():GetGameStarted() then return end
@@ -547,14 +550,16 @@ function Plugin:SetGameState( Gamerules, State, OldState )
 end
 
 function Plugin:NotifyGeneric( Player, String, Format, ... )
-Shine:NotifyDualColour( Player, 255, 165, 0,  "[Admin Abuse]",  math.random(0,255), math.random(0,255), math.random(0,255), String, Format, ... )
-end
-function Plugin:NotifySalt( Player, String, Format, ... )
-Shine:NotifyDualColour( Player, 255, 165, 0,  "[Salt]",  math.random(0,255), math.random(0,255), math.random(0,255), String, Format, ... )
+	Shine:NotifyDualColour( Player, 255, 165, 0,  "[Admin Abuse]",  math.random(0,255), math.random(0,255), math.random(0,255), String, Format, ... )
 end
 
- function Plugin:TunnelExistsNearHiveFor(who)
-  self:NotifySalt( who:GetClient(), "You already have a tunnelentrance at hive", true)end
+function Plugin:NotifySalt( Player, String, Format, ... )
+	Shine:NotifyDualColour( Player, 255, 165, 0,  "[Salt]",  math.random(0,255), math.random(0,255), math.random(0,255), String, Format, ... )
+end
+
+function Plugin:TunnelExistsNearHiveFor(who)
+	self:NotifySalt( who:GetClient(), "You already have a tunnelentrance at hive", true)
+end
 
 function Plugin:Cleanup()
 	self:Disable()
@@ -563,11 +568,11 @@ function Plugin:Cleanup()
 end
 
 local function GetIsAlienInSiege(Player)
-   if  Player.GetLocationName and 
-   string.find(Player:GetLocationName(), "siege") or string.find(Player:GetLocationName(), "Siege") then
-   return true
-    end
-    return false
+	if Player.GetLocationName and 
+	string.find(Player:GetLocationName(), "siege") or string.find(Player:GetLocationName(), "Siege") then
+	return true
+	end
+	return false
  end
  
 local function PerformBuy(self, who, String, whoagain, cost, reqlimit, reqground,reqpathing, setowner, delayafter, mapname, limitof, techid)
@@ -652,7 +657,8 @@ if NextUse and NextUse > Time and not Shared.GetCheatsEnabled() then
 self:NotifySalt( Client, "Please wait %s seconds before purchasing %s. Thanks.", true, string.TimeToString( NextUse - Time ), String)
 return true
 end
-   if isastructure then 
+
+if isastructure then 
 if ( not GetGamerules():GetGameStarted() and self:PregameLimit(Player:GetTeamNumber()) ) then
 self:NotifySalt( Client, "live count reached for pregame", true)
 return true
@@ -704,7 +710,7 @@ local techid = nil
 if String == "Scan" then
 mapnameof = Scan.kMapName
 techid = kTechId.Scan
-delay = 0
+delay = 5
 elseif String == "Medpack" then
 mapnameof = MedPack.kMapName
 techid = kTechId.MedPack
@@ -971,24 +977,23 @@ if not Player then return end
               --elseif cost == gCreditClassCostFade then DeductBuy(self, Player, cost, delayafter) Player:GiveFade(Player:GetOrigin())
               --elseif cost == gCreditClassCostOnos then DeductBuy(self, Player, cost, delayafter) Player:GiveOnos(Player:GetOrigin())
 			  --end
-              if cost == gCreditClassCostGorge then
-				  AliendelayedBuy = Shared.GetTime() + delayafter + 10
-				  DeductBuy(self, Player, cost, delayafter)
-				  Player:CreditBuy(kTechId.Gorge)
-              elseif cost == gCreditClassCostLerk then
-				  AliendelayedBuy = Shared.GetTime() + delayafter
-				  DeductBuy(self, Player, cost, delayafter)
-				  
-				  Player:CreditBuy(kTechId.Lerk)
-              elseif cost == gCreditClassCostFade then
-				  AliendelayedBuy = Shared.GetTime() + delayafter
-				  DeductBuy(self, Player, cost, delayafter)
-				  Player:CreditBuy(kTechId.Fade)
-              elseif cost == gCreditClassCostOnos then
-				  AliendelayedBuy = Shared.GetTime() + delayafter
-				  DeductBuy(self, Player, cost, delayafter)
-				  Player:CreditBuy(kTechId.Onos)
-			  end
+			if cost == gCreditClassCostGorge then
+				AliendelayedBuy = Shared.GetTime() + delayafter
+				DeductBuy(self, Player, cost, delayafter)
+				Player:CreditBuy(kTechId.Gorge)
+			elseif cost == gCreditClassCostLerk then
+				AliendelayedBuy = Shared.GetTime() + delayafter
+				DeductBuy(self, Player, cost, delayafter)
+				Player:CreditBuy(kTechId.Lerk)
+			elseif cost == gCreditClassCostFade then
+				AliendelayedBuy = Shared.GetTime() + delayafter
+				DeductBuy(self, Player, cost, delayafter)
+				Player:CreditBuy(kTechId.Fade)
+			elseif cost == gCreditClassCostOnos then
+				AliendelayedBuy = Shared.GetTime() + delayafter
+				DeductBuy(self, Player, cost, delayafter)
+				Player:CreditBuy(kTechId.Onos)
+			end
          end
    
 end
