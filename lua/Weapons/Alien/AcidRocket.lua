@@ -2,6 +2,10 @@
 // lua\Weapons\Alien\AcidRocket.lua
 // Created by:   Dragon
 
+//DoDamage(damage, target, point, direction, surface, altMode, showtracer)
+//TakeDamage(damage, attacker, doer, point, direction, armorUsed, healthUsed, damageType, preventAlert)
+//RadiusDamage(entities, centerOrigin, radius, fullDamage, doer, ignoreLOS, fallOffFunc)
+
 Script.Load("lua/Weapons/Alien/Ability.lua")
 Script.Load("lua/Weapons/Alien/Rocket.lua")
 Script.Load("lua/Weapons/Alien/Blink.lua")
@@ -10,18 +14,14 @@ class 'AcidRocket' (Blink)
 
 AcidRocket.kMapName = "acidrocket"
 
-kPlayerVelocityFraction = gAcidRocketPlayerVelocityFraction
-kRocketVelocity = gAcidRocketVelocity
 
 local kAnimationGraph = PrecacheAsset("models/alien/fade/fade_view.animation_graph")
 
-kAcidRocketHUDSlot = gAcidRocketHUDSlot
-kAcidRocketFireDelay = gAcidRocketFireDelay
-kAcidRocketEnergyCost = gAcidRocketEnergyCost
-kAcidRocketDamage = gAcidRocketDamage
-kAcidRocketRadius = gAcidRocketRadius
-kRocketRadius = gRocketRadius
-kRocketLifetime = gRocketLifeTime
+local kAcidRocketHUDSlot = gAcidRocketHUDSlot
+local kAcidRocketFireDelay = gAcidRocketFireDelay
+local kAcidRocketEnergyCost = gAcidRocketEnergyCost
+local kPlayerVelocityFraction = gAcidRocketPlayerVelocityFraction
+local kRocketVelocity = gAcidRocketVelocity
 
 AcidRocket.networkVars =
 {

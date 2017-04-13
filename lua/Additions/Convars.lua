@@ -10,8 +10,6 @@
 --kJetpackWeightLiftForce =
 --kMinWeightJetpackFuelFactor =
 
-
---kXenocideDamageType = kDamageType.Structural
 kSwipeDamageType = kDamageType.Normal
 kGoreDamage = 100
 
@@ -24,7 +22,6 @@ kFadeCost = 32 --40
 kOnosCost = 64 --65
 
 kCommEggOnosCost = 90 --default 100
-kSkulkUpgradeCost = 0
 kGorgeUpgradeCost = 0
 kLerkUpgradeCost = 1
 kFadeUpgradeCost = 1
@@ -67,9 +64,6 @@ kExosuitDropCost = 35 -- default 50
 kHeavyMachineGunDropCost = 25 --default = 40
 kSentryBuildTime = 4 --default 3
 kPlayerHallucinationNumFraction = 0.38 --default 0.34
-
---kXenocideDamage = 220
---kXenocideDamageType = kDamageType.Structural
 
 kStartBlinkEnergyCost = 13 --default 14
 kBoneShieldArmorPerSecond = 65 --default 112
@@ -118,7 +112,6 @@ kStompResearchTime = 20 --45 --default 60
 
 kMetabolizeEnergyResearchTime = 20 --35 --default 40
 kMetabolizeHealthResearchTime = 20 --35 --default 45
-kXenocideResearchTime = 20 --35 --default 60
 
 kSentryHealth = 650
 kSentryArmor = 125
@@ -449,10 +442,42 @@ gSkulkMinWallJumpForce = 0.1
 gSkulkVerticalWallJumpForce = 6 --4.3
 gSkulkWallJumpMaxSpeed = 16 --11
 gSkulkWallJumpMaxSpeedCelerityBonus = 1.8 --1.2
+gSkulkCrouchSpeedScalar = 0
+gSkulkHealthPerBioMass = 10
+
+gSkulkAcceleration = 13
+gSkulkAirAcceleration =  9
+gSkulkAirControl = 27
+gSkulkGroundTransistionTime = 0.1
+--gSkulkAirFriction = 0.055 - (GetHasCelerityUpgrade(self) and GetSpurLevel(self:GetTeamNumber()) or 0) * 0.009
+gSkulkGroundFriction = 11
+gSkulkIsSmallTarget = true
+
+
+
+gSkulkUpgradeCost = 0
+gXenocideResearchTime = 5 --35 --default 60
+
+kXenocideResearchTime = gXenocideResearchTime
+kSkulkUpgradeCost = gSkulkUpgradeCost
+kSkulkHealthPerBioMass = gSkulkHealthPerBioMass
 
 
 --Skulk Abilities
 
+gSkulkXenocidePlayerDamage = 75
+gSkulkXenocideStructureDamage = 220
+gSkulkXenocideLeapGetHUDSlot = 3
+gSkulkXenocideDetonateTime = 2.0
+gSkulkXenocideRadiusRange = 1.4
+gSkulkXenocideDistanceFraction = 1 --unused/
+gXenocideDamageType = kDamageType.Structural
+
+
+kXenocideRange = gSkulkXenocideRadiusRange
+kXenocideDamage = gXenocideDamage
+kXenocideDamageType = gXenocideDamageType
+ 
 
 
 --Skulk End
@@ -561,8 +586,9 @@ gFadeYExtents = 1.05
 gStabResearchTime = 20 --default 60
 gStabResearchCost = 20 --default 60
 
+--Rocket
 gRocketRadius = 0.15
-gRocketLifeTime = 0.5
+gRocketLifeTime = 5 --0.5
 
 gAcidRocketDamage = 20 --25
 gAcidRocketDamageType = kDamageType.Structural
@@ -575,25 +601,42 @@ gAcidRocketResearchCost = 20
 gAcidRocketVelocity = 45
 gAcidRocketPlayerVelocityFraction = 0.5
 gAcidRocketHUDSlot = 4
+gAcidRocketignoreLOS = false
 
 kAcidRocketDamage = gAcidRocketDamage
+
+gSwipeDamageType = kDamageType.StructuresOnlyLight
+gSwipeDamage = 75
+gSwipeEnergyCost = 7
+gMetabolizeEnergyCost = 25
+
+gStabDamage = 200 --160
+gStabDamageType = kDamageType.Normal
+gStabEnergyCost = 45 --30
+
+gVortexEnergyCost = 20
+gVortexDuration = 3
+
+gStartBlinkEnergyCost = 14
+gBlinkEnergyCost = 27 -- default 32
+gHealthOnBlink = 0
+
 
 kSwipeDamageType = kDamageType.StructuresOnlyLight
 kSwipeDamage = 75
 kSwipeEnergyCost = 7
 kMetabolizeEnergyCost = 25
 
-kStabDamage = 160
-kStabDamageType = kDamageType.Normal
-kStabEnergyCost = 30
+kStabDamage = gStabDamage
+kStabDamageType = gStabDamageType
+kStabEnergyCost = gStabEnergyCost
 
-kVortexEnergyCost = 20
-kVortexDuration = 3
+kVortexEnergyCost = gVortexEnergyCost
+kVortexDuration = gVortexDuration
 
-kStartBlinkEnergyCost = 14
-kBlinkEnergyCost = 27 -- default 32
-kHealthOnBlink = 0
-
+kStartBlinkEnergyCost = gStartBlinkEnergyCost
+kBlinkEnergyCost = gBlinkEnergyCost
+kHealthOnBlink = gHealthOnBlink
 
 --Fade End
 
