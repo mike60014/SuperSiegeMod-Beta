@@ -196,13 +196,12 @@ local kSiege_TechData =
 
 { [kTechDataId] = kTechId.Xenocide,
 [kTechDataCategory] = kTechId.Skulk,
-[kTechDataMapName] = XenocideLeap.kMapName,
+[kTechDataMapName] = XenocideLeapSiege.kMapName,
 [kTechDataDamageType] = kXenocideDamageType,
 [kTechDataDisplayName] = "XENOCIDE",
 [kTechDataCostKey] = kXenocideResearchCost,
 [kTechDataResearchTimeKey] = kXenocideResearchTime,
 [kTechDataTooltipInfo] = "XENOCIDE_TOOLTIP"},
---{ [kTechDataId] = kTechId.Vortex ,        [kTechDataCategory] = kTechId.Fade,   [kTechDataMapName] = Vortex.kMapName,   [kTechDataDisplayName] = "VORTEX", [kTechDataCostKey] = kVortexResearchCost, [kTechDataResearchTimeKey] = kVortexResearchTime, [kTechDataTooltipInfo] = "VORTEX_TOOLTIP"},
 
 
 { [kTechDataId] = kTechId.OnoGrow,        

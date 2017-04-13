@@ -54,7 +54,7 @@ function Rocket:OnCreate()
 
 end
 
-function self:SetFallOffFunc(fallOffFunc)
+function Rocket:SetFallOffFunc(fallOffFunc)
     self.fallOffFunc = 3
 end
 

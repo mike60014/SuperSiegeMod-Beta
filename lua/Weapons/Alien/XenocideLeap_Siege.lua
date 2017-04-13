@@ -15,7 +15,7 @@ Script.Load("lua/Weapons/Alien/BiteLeap.lua")
 
 class 'XenocideLeapSiege' (BiteLeap)
 
-XenocideLeap.kMapName = "xenocidesiege"
+XenocideLeapSiege.kMapName = "xenocidesiege"
 
 -- after kDetonateTime seconds the skulk goes 'boom!'
 local kDetonateTime = gSkulkXenocideDetonateTime
@@ -72,7 +72,7 @@ local function CleanUI(self)
 
 end
 
-function XenocideLeap_Siege:OnDestroy()
+function XenocideLeapSiege:OnDestroy()
 
     BiteLeap.OnDestroy(self)
 
@@ -82,11 +82,11 @@ function XenocideLeap_Siege:OnDestroy()
 
 end
 
-function XenocideLeap_Siege:GetDeathIconIndex()
+function XenocideLeapSiege:GetDeathIconIndex()
     return kDeathMessageIcon.Xenocide
 end
 
-function XenocideLeap_Siege:GetEnergyCost(player)
+function XenocideLeapSiege:GetEnergyCost(player)
 
     if not self.xenociding then
         return kXenocideEnergyCost
@@ -96,15 +96,15 @@ function XenocideLeap_Siege:GetEnergyCost(player)
 
 end
 
-function XenocideLeap_Siege:GetHUDSlot()
+function XenocideLeapSiege:GetHUDSlot()
     return gSkulkXenocideLeapGetHUDSlot
 end
 
-function XenocideLeap_Siege:GetRange()
+function XenocideLeapSiege:GetRange()
     return gSkulkXenocideRadiusRange
 end
 
-function XenocideLeap_Siege:OnPrimaryAttack(player)
+function XenocideLeapSiege:OnPrimaryAttack(player)
 
     if player:GetEnergy() >= self:GetEnergyCost() then
 
@@ -133,7 +133,7 @@ local function StopXenocide(self)
 
 end
 
-function XenocideLeap_Siege:OnProcessMove(input)
+function XenocideLeapSiege:OnProcessMove(input)
 
     BiteLeap.OnProcessMove(self, input)
 
@@ -153,9 +153,9 @@ function XenocideLeap_Siege:OnProcessMove(input)
                 player:TriggerEffects("xenocide", {effecthostcoords = Coords.GetTranslation(player:GetOrigin())})
 				
 				local kXenocideDamage = gSkulkXenocidePlayerDamage
-                local hitEntities = GetEntitiesWithMixinWithinRange("Live", player:GetOrigin(), 1) --kXenocideRange
+                local hitEntities = GetEntitiesWithMixinWithinRange("Live", player:GetOrigin(), kXenocideRange)
                 
-				RadiusDamage(hitEntities, player:GetOrigin(), 1, kXenocideDamage, self, false) --Errors when trying to add ,kSkulkXenocideDistanceFraction
+				RadiusDamage(hitEntities, player:GetOrigin(), kXenocideRange, kXenocideDamage, self, false) --Errors when trying to add ,kSkulkXenocideDistanceFraction
 
                 player.spawnReductionTime = 4
 
@@ -183,7 +183,7 @@ end
 
 if Server then
 
-    function XenocideLeap_Siege:GetDamageType()
+    function XenocideLeapSiege:GetDamageType()
 
         if self.xenocideTimeLeft == 0 then
             return kXenocideDamageType
@@ -195,4 +195,4 @@ if Server then
 
 end
 
-Shared.LinkClassToMap("XenocideLeap_Siege", XenocideLeap.kMapName, networkVars)
+Shared.LinkClassToMap("XenocideLeapSiege", XenocideLeapSiege.kMapName, networkVars)

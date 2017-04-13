@@ -307,13 +307,14 @@ kSideTimer = 0 -- b/c maps still use this
 
 
 --Alien Settings
+
 kAlienDefaultAddXp = 0.5
 kAlienDefaultLvl = 25
 gAlienEnergyRecuperationRate = 10.0
 gAlienWalkBackwardSpeedScalar = 1
 gAlienEnergyAdrenalineRecuperationRate = 15
 
-gAliennewMaxHealthMultipler = 1.10
+gAliennewMaxHealthMultipler = 1 --1.10
 
 
 --Alien Upgrades
@@ -443,7 +444,7 @@ gSkulkVerticalWallJumpForce = 6 --4.3
 gSkulkWallJumpMaxSpeed = 16 --11
 gSkulkWallJumpMaxSpeedCelerityBonus = 1.8 --1.2
 gSkulkCrouchSpeedScalar = 0
-gSkulkHealthPerBioMass = 10
+gSkulkHealthPerBioMass = 0 --10
 
 gSkulkAcceleration = 13
 gSkulkAirAcceleration =  9
