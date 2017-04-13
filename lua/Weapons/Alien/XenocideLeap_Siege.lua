@@ -15,6 +15,7 @@ Script.Load("lua/Weapons/Alien/BiteLeap.lua")
 
 class 'XenocideLeapSiege' (BiteLeap)
 
+--XenocideLeap.kMapName = "xenocidesiege"
 XenocideLeapSiege.kMapName = "xenocidesiege"
 
 -- after kDetonateTime seconds the skulk goes 'boom!'
@@ -150,7 +151,7 @@ function XenocideLeapSiege:OnProcessMove(input)
 
             if self.xenocideTimeLeft == 0 and player:GetIsAlive() then
 
-                player:TriggerEffects("xenocide", {effecthostcoords = Coords.GetTranslation(player:GetOrigin())})
+                player:TriggerEffects("xenocidesiege", {effecthostcoords = Coords.GetTranslation(player:GetOrigin())})
 				
 				local kXenocideDamage = gSkulkXenocidePlayerDamage
                 local hitEntities = GetEntitiesWithMixinWithinRange("Live", player:GetOrigin(), kXenocideRange)

@@ -153,16 +153,20 @@ end
 function GetSetupConcluded()
 return ( GetSandCastle():GetPrimaryLength() > 1 and GetPrimaryDoorOpen() ) or GetFrontDoorOpen()
 end
+
 function GetPrimaryDoorOpen()
    return GetSandCastle():GetIsPrimaryOpen()
 end
+
 function GetFrontDoorOpen()
    return GetSandCastle():GetFrontOpenBoolean()
 end
+
 function GetSiegeDoorOpen()
    local boolean = GetSandCastle():GetSiegeOpenBoolean()
    return boolean
 end
+
 function GetRoundLengthToSiege()
     
     local gameRules = nil

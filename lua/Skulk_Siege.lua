@@ -18,19 +18,19 @@ Script.Load("lua/RailgunTargetMixin.lua")
 Script.Load("lua/IdleMixin.lua")
 Script.Load("lua/SkulkVariantMixin.lua")
 
-class 'Skulk' (Alien)
+class 'SkulkSiege' (Alien)
 
-Skulk.kMapName = "skulk"
+SkulkSiege.kMapName = "skulksiege"
 
-Skulk.kModelName = PrecacheAsset("models/alien/skulk/skulk.model")
+SkulkSiege.kModelName = PrecacheAsset("models/alien/skulk/SkulkSiege.model")
 local kViewModelName = PrecacheAsset("models/alien/skulk/skulk_view.model")
-local kSkulkAnimationGraph = PrecacheAsset("models/alien/skulk/skulk.animation_graph")
+local kSkulkAnimationGraph = PrecacheAsset("models/alien/skulk/SkulkSiege.animation_graph")
 
 -- Balance, movement, animation
-Skulk.kViewOffsetHeight = gSkulkViewOffsetHeight
+SkulkSiege.kViewOffsetHeight = gSkulkViewOffsetHeight
 
-Skulk.kHealth = kSkulkHealth
-Skulk.kArmor = kSkulkArmor
+SkulkSiege.kHealth = kSkulkHealth
+SkulkSiege.kArmor = kSkulkArmor
 
 local kDashSound = PrecacheAsset("sound/NS2.fev/alien/skulk/full_speed")
 
@@ -38,8 +38,8 @@ local kLeapVerticalForce = gSkulkLeapVerticalForce
 local kLeapTime = gSkulkLeapTime
 local kLeapForce = gSkulkLeapForce
 
-Skulk.kMaxSpeed = gSkulkMaxMovementSpeed
-Skulk.kSneakSpeedModifier = gSneakSpeedModifier
+SkulkSiege.kMaxSpeed = gSkulkMaxMovementSpeed
+SkulkSiege.kSneakSpeedModifier = gSneakSpeedModifier
 
 
 local gSkulkMass -- ~100 pounds
@@ -52,19 +52,19 @@ local kNormalWallWalkRange = gSkulkNormalWallWalkRange
 local kJumpWallRange = gSkulkJumpWallFeelerSize
 local kJumpWallFeelerSize = gSkulkJumpWallRange
 
-Skulk.kXExtents = gSkulkXExtents
-Skulk.kYExtents = gSkulkYExtents
-Skulk.kZExtents = gSkulkZExtents
+SkulkSiege.kXExtents = gSkulkXExtents
+SkulkSiege.kYExtents = gSkulkYExtents
+SkulkSiege.kZExtents = gSkulkZExtents
 
-Skulk.kMaxSneakOffset = gSkulkMaxSneakOffset
+SkulkSiege.kMaxSneakOffset = gSkulkMaxSneakOffset
 
-Skulk.kWallJumpInterval = gSkulkWallJumpInterval
-Skulk.kWallJumpForce = gSkulkWallJumpForce -- scales down the faster you are
-Skulk.kMinWallJumpForce = gSkulkMinWallJumpForce
-Skulk.kVerticalWallJumpForce = gSkulkVerticalWallJumpForce
+SkulkSiege.kWallJumpInterval = gSkulkWallJumpInterval
+SkulkSiege.kWallJumpForce = gSkulkWallJumpForce -- scales down the faster you are
+SkulkSiege.kMinWallJumpForce = gSkulkMinWallJumpForce
+SkulkSiege.kVerticalWallJumpForce = gSkulkVerticalWallJumpForce
 
-Skulk.kWallJumpMaxSpeed = gSkulkWallJumpMaxSpeed
-Skulk.kWallJumpMaxSpeedCelerityBonus = gSkulkWallJumpMaxSpeedCelerityBonus
+SkulkSiege.kWallJumpMaxSpeed = gSkulkWallJumpMaxSpeed
+SkulkSiege.kWallJumpMaxSpeedCelerityBonus = gSkulkWallJumpMaxSpeedCelerityBonus
 
 if Server then
 Script.Load("lua/Skulk_Server.lua", true)
@@ -177,7 +177,7 @@ function Skulk:OnDestroy()
 end
 
 function Skulk:GetBaseArmor()
-return Skulk.kArmor
+return SkulkSiege.kArmor
 end
 
 function Skulk:GetCrouchSpeedScalar()
@@ -185,7 +185,7 @@ function Skulk:GetCrouchSpeedScalar()
 end
 
 	function Skulk:GetBaseHealth()
-return Skulk.kHealth
+return SkulkSiege.kHealth
 end
 
 function Skulk:GetHealthPerBioMass()
@@ -197,7 +197,7 @@ function Skulk:GetArmorFullyUpgradedAmount()
 end
 
 function Skulk:GetMaxViewOffsetHeight()
-return Skulk.kViewOffsetHeight
+return SkulkSiege.kViewOffsetHeight
 end
 
 function Skulk:GetCrouchShrinkAmount()
@@ -228,7 +228,7 @@ function Skulk:OnLeap()
 end
 
 function Skulk:GetRecentlyWallJumped()
-	return self.timeLastWallJump + Skulk.kWallJumpInterval > Shared.GetTime()
+	return self.timeLastWallJump + SkulkSiege.kWallJumpInterval > Shared.GetTime()
 end
 
 function Skulk:GetCanWallJump()
@@ -268,7 +268,7 @@ local function PredictGoal(self, velocity)
 	local goal = self.wallWalkingNormalGoal
 	if velocity:GetLength() > 1 and not self:GetIsGround() then
 		local movementDir = GetNormalizedVector(velocity)
-		local trace = Shared.TraceCapsule(self:GetOrigin(), movementDir * 2.5, Skulk.kXExtents, 0, CollisionRep.Move, PhysicsMask.Movement, EntityFilterOne(self))
+		local trace = Shared.TraceCapsule(self:GetOrigin(), movementDir * 2.5, SkulkSiege.kXExtents, 0, CollisionRep.Move, PhysicsMask.Movement, EntityFilterOne(self))
 
 		if trace.fraction < 1 and not trace.entity then
 			goal = trace.normal
@@ -338,8 +338,8 @@ function Skulk:PreUpdateMove(input, runningPrediction)
 	-- adjust the sneakOffset so sneaking skulks can look around corners without having to expose themselves too much
 	local delta = input.time * math.min(1, self:GetVelocityLength())
 	if self.movementModiferState then
-		if self.sneakOffset < Skulk.kMaxSneakOffset then
-			self.sneakOffset = math.min(Skulk.kMaxSneakOffset, self.sneakOffset + delta)
+		if self.sneakOffset < SkulkSiege.kMaxSneakOffset then
+			self.sneakOffset = math.min(SkulkSiege.kMaxSneakOffset, self.sneakOffset + delta)
 		end
 	else
 		if self.sneakOffset > 0 then
@@ -429,13 +429,13 @@ end
 function Skulk:GetMaxSpeed(possible)
 
 if possible then
-return Skulk.kMaxSpeed
+return SkulkSiege.kMaxSpeed
 end
 
-local maxspeed = Skulk.kMaxSpeed
+local maxspeed = SkulkSiege.kMaxSpeed
 
 if self.movementModiferState then
-maxspeed = maxspeed * Skulk.kSneakSpeedModifier
+maxspeed = maxspeed * SkulkSiege.kSneakSpeedModifier
 end
 
 return maxspeed
@@ -445,7 +445,7 @@ end
 function Skulk:ModifyCelerityBonus(celerityBonus)
 
 if self.movementModiferState then
-celerityBonus = celerityBonus * Skulk.kSneakSpeedModifier
+celerityBonus = celerityBonus * SkulkSiege.kSneakSpeedModifier
 end
 
 return celerityBonus
@@ -477,7 +477,7 @@ end
 end
 
 function Skulk:GetJumpHeight()
-return Skulk.kJumpHeight
+return SkulkSiege.kJumpHeight
 end
 
 function Skulk:GetPerformsVerticalMove()
@@ -485,8 +485,8 @@ return self:GetIsWallWalking()
 end
 
 function Skulk:GetMaxWallJumpSpeed()
-	local celerityMod = (GetHasCelerityUpgrade(self) and GetSpurLevel(self:GetTeamNumber()) or 0) * Skulk.kWallJumpMaxSpeedCelerityBonus/3.0
-	return Skulk.kWallJumpMaxSpeed + celerityMod
+	local celerityMod = (GetHasCelerityUpgrade(self) and GetSpurLevel(self:GetTeamNumber()) or 0) * SkulkSiege.kWallJumpMaxSpeedCelerityBonus/3.0
+	return SkulkSiege.kWallJumpMaxSpeed + celerityMod
 end
 
 function Skulk:ModifyJump(input, velocity, jumpVelocity)
@@ -499,10 +499,10 @@ function Skulk:ModifyJump(input, velocity, jumpVelocity)
 		self.bonusVec:Normalize()
 		jumpVelocity.y = 3 + math.min(1, 1 + viewCoords.zAxis.y) * 2
 		local fraction = 1 - Clamp( velocity:GetLengthXZ() / self:GetMaxWallJumpSpeed(), 0, 1)
-		local force = math.max(Skulk.kMinWallJumpForce, Skulk.kWallJumpForce * fraction)
+		local force = math.max(SkulkSiege.kMinWallJumpForce, SkulkSiege.kWallJumpForce * fraction)
 		self.bonusVec:Scale(force)
 		if not self:GetRecentlyWallJumped() then
-			self.bonusVec.y = viewCoords.zAxis.y * Skulk.kVerticalWallJumpForce
+			self.bonusVec.y = viewCoords.zAxis.y * SkulkSiege.kVerticalWallJumpForce
 			jumpVelocity:Add(self.bonusVec)
 		end
 		self.timeLastWallJump = Shared.GetTime()
@@ -616,7 +616,7 @@ function Skulk:OnAdjustModelCoords(modelCoords)
 	return modelCoords
 end
 
---local origspeed = Skulk.GetMaxSpeed
+--local origspeed = SkulkSiege.GetMaxSpeed
 local kBallFlagAttachPoint = "babbler_attach2"
 /*
 function Skulk:GetMaxSpeed(possible)
@@ -650,15 +650,15 @@ if Server then
 end
 
 
-Shared.LinkClassToMap("Skulk", Skulk.kMapName, networkVars, true)
+Shared.LinkClassToMap("Skulk", SkulkSiege.kMapName, networkVars, true)
 
 if Server then
 	Event.Hook("Console_skulk_sneak", function(client, dist)
 	if Shared.GetTestsEnabled() then
 	if dist then
-		Skulk.kMaxSneakOffset = tonumber(dist)
+		SkulkSiege.kMaxSneakOffset = tonumber(dist)
 	end
-	Log("Skulk.kMaxSneakOffset = %s", Skulk.kMaxSneakOffset)
+	Log("SkulkSiege.kMaxSneakOffset = %s", SkulkSiege.kMaxSneakOffset)
 	end
 	end)
 end -- Server
