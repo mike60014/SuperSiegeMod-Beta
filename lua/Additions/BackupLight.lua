@@ -181,11 +181,11 @@ if Client then
         
         self.flashlight:SetType(RenderLight.Type_Spot)
         self.flashlight:SetColor(Color(.8, .8, 1))
-        self.flashlight:SetInnerCone(math.rad(30))
-        self.flashlight:SetOuterCone(math.rad(45))
-        self.flashlight:SetIntensity(25)
-        self.flashlight:SetRadius(15)
-        self.flashlight:SetAtmosphericDensity(0.2)
+        self.flashlight:SetInnerCone(math.rad(gBackupLightSetInnerCone))
+        self.flashlight:SetOuterCone(math.rad(gBackupLightSetOuterCone))
+        self.flashlight:SetIntensity(gBackupLightSetIntensity)
+        self.flashlight:SetRadius(gBackupLightSetRadius)
+        self.flashlight:SetAtmosphericDensity(gBackupLightSetAtmosphericDensity)
         --self.flashlight:SetGoboTexture("models/marine/male/flashlight.dds")
         
         local coords = self:GetCoords()

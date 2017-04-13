@@ -8,6 +8,7 @@
 //
 // ========= For more information, visit us at http://www.unknownworlds.com =====================
 //Siegemod ~ just had to update the file to the current build, and remove the destination/traveling area which always shot if off screen, to spawn where the crag is at currently
+
 Script.Load("lua/CommAbilities/CommanderAbility.lua")
 
 class 'CragUmbra' (CommanderAbility)

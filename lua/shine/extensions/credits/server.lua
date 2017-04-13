@@ -251,7 +251,7 @@ if Points ~= nil and Points ~= 0 and Player and not Shared.GetCheatsEnabled() th
          self.aliencredits = self.aliencredits + Points --addamount
          end
          
-self.CreditUsers[ controlling:GetClient() ] = self:GetPlayerSaltInfo(controlling:GetClient()) + addamount
+self.CreditUsers[ controlling:GetClient() ] = self:GetPlayerSaltInfo(controlling:GetClient()) + Points --addamount
 Shine.ScreenText.SetText("Salt", string.format( "%s Salt", self:GetPlayerSaltInfo(controlling:GetClient()) ), controlling:GetClient()) 
 end
 end

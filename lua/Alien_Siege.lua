@@ -194,9 +194,6 @@ function Alien:CreditBuy(techId)
 	else
 		table.insert(upgradetable, techId)
 	end
-
-	--table.insert(upgradetable, techId)
-	--self:ProcessBuyAction(upgradetable, true)
 	
 	local newPlayer = self:Replace(Embryo.kMapName)
 	position.y = position.y + Embryo.kEvolveSpawnOffset

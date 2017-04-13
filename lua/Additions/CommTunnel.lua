@@ -9,8 +9,6 @@ class 'CommTunnel' (TunnelEntrance)
 CommTunnel.kMapName = "commtunnel"
 
 
-
-
 local networkVars = { }
 
 AddMixinNetworkVars(OrdersMixin, networkVars)
@@ -22,9 +20,11 @@ TunnelEntrance.OnCreate(self)
     InitMixin(self, OrdersMixin, { kMoveOrderCompleteDistance = kAIMoveOrderCompleteDistance })
     InitMixin(self, AlienStructureMoveMixin, { kAlienStructureMoveSound = Whip.kWalkingSound })
 end
+
 function CommTunnel:GetMaxSpeed()
     return kAlienStructureMoveSpeed
 end
+
 function CommTunnel:OnGetMapBlipInfo()
     local success = false
     local blipType = kMinimapBlipType.Undefined

@@ -217,7 +217,6 @@ gCreditStructureBackupLightMaxHealth = 1000
 gCreditStructureBackupLightMaxArmor = 100
 gCreditStructureBackupLightPointValue = 2
 gCreditStructureBackupLightObstacleRadius = 0.25
-gCreditStructureBackupLightAttachRange = 5
 
 gCreditStructurePhaseGateCost = 15
 gCreditStructurePhaseGateLimit = 2
@@ -341,20 +340,53 @@ kEggArmor = 150
 kEggPointValue = 2
 
 
-
+--Alien Vortex
 gCommVortexCoolDown = 20
 gCommVortexCost = 8
 
+
+
+--Alien Buildings 
+
+
+gAlienStructureMoveSpeed = 3 --1.5
+
+
+kAlienStructureMoveSpeed = gAlienStructureMoveSpeed
+
+--Craig
+
 gCragUmbraCooldown = 10
 gCragUmbraCost = 5
-gCragUmbraRadius = 12
+gCragUmbraRadius = 8 --12
 
+gCragHealBonusDivider = 10 --10  = (self:GetCragsInRange() / gCragHealBonusDivider)
+gCraigStructureMoveSpeed = 3 --1.5
+gCragHealWaveDuration = 8
+gCragHealMaxTargets = 3
+gCragHealInterval = 2
+gCragHealEffectInterval = 1
+gCragHealRadius = 14
+gCragHealAmount = 10
+gCragHealWaveAmount = 50
+gCragHealMinHealAmount = 10
+gCragHealMaxHealAmount = 60
+gCragHealHealAmountMutliplier = 1.3
+gCragHealPercent = 0.06
+--gCragHeal
+--gCragHeal
+
+
+
+--Beacon Structure
 gAlienStructureBeaconArmor = 175
 gAlienStructureBeaconBuildTime = 8
 gAlienStructureBeaconCost = 10
 gAlienStructureBeaconCoolDown = 12
 gAlienStructureBeaconHealth = 675
 gAlienStructureBeaconVisualRange = 8
+
+
 
 
 --Babbler
@@ -819,6 +851,19 @@ kArmoryAddXp = 1
 kAdvancedArmoryHealth = 3500
 kAdvancedArmoryArmor = 750
 kAdvancedArmoryPointValue = 11
+--BackupLight
+
+gBackupLightSetInnerCone = 30
+gBackupLightSetOuterCone = 45
+gBackupLightSetIntensity = 25
+gBackupLightSetRadius = 15
+gBackupLightSetAtmosphericDensity = 0.2
+
+
+--BreakableDoor
+
+gBreakableDoorHealth = 4000
+--gBreakableDoor
 
 --Sentry
 kSentrySupply = 2
@@ -892,7 +937,7 @@ gExoFlamerThrusterHorizontalAcceleration = 23
 
 
 --ExoWelder
-gExoWelderDamagePerSecond = 30
+gExoWelderDamagePerSecond = 20
 --gExoWelderFireAmount = 0
 gExoWelderPlayerWeldAmount = 15 --15
 gExoWelderStructureWeldAmount = 65
