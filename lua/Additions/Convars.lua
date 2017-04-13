@@ -449,9 +449,6 @@ gSkulkMinWallJumpForce = 0.1
 gSkulkVerticalWallJumpForce = 6 --4.3
 gSkulkWallJumpMaxSpeed = 16 --11
 gSkulkWallJumpMaxSpeedCelerityBonus = 1.8 --1.2
-gSkul
-gSkul
-gSkul
 
 
 --Skulk Abilities
