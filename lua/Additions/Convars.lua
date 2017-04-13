@@ -7,8 +7,8 @@
 --BalanceMisc_Siege.lua
 
 
---kJetpackWeightLiftForce = 
---kMinWeightJetpackFuelFactor = 
+--kJetpackWeightLiftForce =
+--kMinWeightJetpackFuelFactor =
 
 
 --kXenocideDamageType = kDamageType.Structural
@@ -270,7 +270,7 @@ gCreditStructureCostWhip = 10
 gCreditStructureCostShift = 10
 gCreditStructureCost = 10
 gCreditStructureCost = 10
---gCreditStructureCost = 
+--gCreditStructureCost =
 gCreditStructureCostHarvesterExtractor = 500
 gCreditStructureLimitHarvesterExtractor = 1
 
@@ -346,7 +346,7 @@ gCommVortexCost = 8
 
 
 
---Alien Buildings 
+--Alien Buildings
 
 
 gAlienStructureMoveSpeed = 3 --1.5
@@ -426,6 +426,32 @@ kNumBabblersPerEgg = 6
 
 
 --Skulk Settings
+
+
+gSkulkMaxMovementSpeed = 9 --7.25
+gSkulkLeapForce = 10 --7.6
+gSkulkLeapVerticalForce = 16 --10.8
+gSkulkLeapTime = 0.5 --0.2
+gSneakSpeedModifier = 0.75 --0.66
+gSkulkViewOffsetHeight = 0.55
+gSkulkMass = 35 --  45=~100 pounds
+gSkulkNormalWallWalkFeelerSize = 0.25
+gSkulkNormalWallWalkRange = 0.3
+gSkulkJumpWallFeelerSize = 0.1
+gSkulkJumpWallRange = 1 --0.4
+gSkulkXExtents = .45
+gSkulkYExtents = .45
+gSkulkZExtents = .45
+gSkulkMaxSneakOffset = 0 --0.55
+gSkulkWallJumpInterval = 0.1 --0.4
+gSkulkWallJumpForce = 5.6 --6.4 -- scales down the faster you are
+gSkulkMinWallJumpForce = 0.1
+gSkulkVerticalWallJumpForce = 6 --4.3
+gSkulkWallJumpMaxSpeed = 16 --11
+gSkulkWallJumpMaxSpeedCelerityBonus = 1.8 --1.2
+gSkul
+gSkul
+gSkul
 
 
 --Skulk Abilities
@@ -691,7 +717,7 @@ kAxeDamageType = kDamageType.Structural
 gAxeHUDSlot = 3 --6
 gAxeRange = 1.5
 gAxeFloorRange = 1
---gAxePrimaryAttackDelay = 
+--gAxePrimaryAttackDelay =
 gAxeSecondaryAttackDelay = 1
 --gAxe = 0
 --gAxe = 0
@@ -836,7 +862,7 @@ kJetpackFuelReplenishDelay = 0.1
 --kJumpPackCost = 7
 
 --Marine Classes End
-//Marine Buildings --Marine Buildings  
+//Marine Buildings --Marine Buildings
 --AdvBeacon
 kAdvancedBeaconCost = 13
 
