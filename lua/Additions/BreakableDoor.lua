@@ -24,7 +24,6 @@ local networkVars =
      timeOfDestruction  = "private time",
 
 }
-
 AddMixinNetworkVars(BaseModelMixin, networkVars)
 AddMixinNetworkVars(ModelMixin, networkVars)
 AddMixinNetworkVars(LiveMixin, networkVars)
@@ -43,7 +42,6 @@ function BreakableDoor:OnCreate()
 
 
 end
-
 function BreakableDoor:OnInitialized()
         ScriptActor.OnInitialized(self)
     self:SetModel(BreakableDoor.kModelName , kDoorAnimationGraph)  
@@ -54,9 +52,9 @@ function BreakableDoor:OnInitialized()
     if Server then
             self:SetPhysicsType(PhysicsType.Kinematic)
             self:SetPhysicsGroup(0)
-            self.health = gBreakableDoorHealth  
-			self:SetMaxHealth(self.health)
-			self.teamNumber = 1
+            self.health = 4000  
+             self:SetMaxHealth(self.health)
+             self.teamNumber = 1
         if not HasMixin(self, "MapBlip") then
            InitMixin(self, MapBlipMixin)
         end
@@ -67,7 +65,6 @@ function BreakableDoor:OnInitialized()
         end
         
 end
-
 function BreakableDoor:GetCanTakeDamageOverride()
     if self.health == 0 then 
     return false
@@ -86,25 +83,21 @@ function BreakableDoor:OnUpdate(deltatime)  --Add in scan for arcs and macs to o
   end
   
 end
-
 function BreakableDoor:GetCanTakeDamageOverride()
     return true
 end
-
 function BreakableDoor:GetReceivesStructuralDamage()
     return true
 end
-
 function BreakableDoor:GetCanDieOverride() 
-	return false
+return false
 end
-
 function BreakableDoor:Reset() 
-	self:SetPhysicsType(PhysicsType.Kinematic)
-	self:SetPhysicsGroup(0)
-	self:SetModel(BreakableDoor.kModelName , kDoorAnimationGraph)      
-	self.open = false
-	self.health = gBreakableDoorHealth
+       self:SetPhysicsType(PhysicsType.Kinematic)
+    self:SetPhysicsGroup(0)
+    self:SetModel(BreakableDoor.kModelName , kDoorAnimationGraph)      
+   self.open = false
+        self.health = 4000
 end
 
 local function GetRecentlyDestroyed(self)
@@ -120,16 +113,15 @@ local function DisplayTimeTillWeldable(self)
           local time = WeldLength
           return string.format(Locale.ResolveString("%s seconds"), time)
 end
-
-	function BreakableDoor:GetUnitNameOverride(viewer) --though not working, not big deal
-	local unitName = GetDisplayName(self)   
-	if not self.open then
-		unitName = string.format(Locale.ResolveString("Locked Door"))
-	else 
-	if GetRecentlyDestroyed(self) then return DisplayTimeTillWeldable(self) end
-
-	unitName = string.format(Locale.ResolveString("Open Door"))
-	end
+  function BreakableDoor:GetUnitNameOverride(viewer) --though not working, not big deal
+    local unitName = GetDisplayName(self)   
+     if not self.open then
+         unitName = string.format(Locale.ResolveString("Locked Door"))
+     else 
+      if GetRecentlyDestroyed(self) then return DisplayTimeTillWeldable(self) end
+       
+    unitName = string.format(Locale.ResolveString("Open Door"))
+     end
 return unitName
 end  
 */
@@ -154,12 +146,10 @@ function BreakableDoor:GetCanBeUsed(player, useSuccessTable)
    useSuccessTable.useSuccess = false
     end  
 end
-
 local function AutoClose(self, timePassed)
        if self.open then self.open = false end
        return false
 end
-
 function BreakableDoor:OnUse(player, elapsedTime, useSuccessTable)
 
     if not self.open  then
@@ -167,11 +157,9 @@ function BreakableDoor:OnUse(player, elapsedTime, useSuccessTable)
      end
     self:AddTimedCallback(AutoClose, 4)
 end
-
 function BreakableDoor:OnAddHealth()
       if self.open and self.health >= 1 then self.open = false end
 end
-
 function BreakableDoor:GetHealthbarOffset()
     return 0.45
 end 

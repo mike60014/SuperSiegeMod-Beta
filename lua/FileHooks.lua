@@ -92,7 +92,6 @@ ModLoader.SetupFileHook( "lua/Armory.lua", "lua/Armory_Siege.lua", "post" )
 
 ModLoader.SetupFileHook( "lua/BalanceHealth.lua", "lua/BalanceHealth_Siege.lua", "post" )
 
-ModLoader.SetupFileHook( "lua/Skulk.lua", "lua/Skulk_Siege.lua", "post" )
 ModLoader.SetupFileHook( "lua/Lerk.lua", "lua/Lerk_Siege.lua", "post" )
 ModLoader.SetupFileHook( "lua/Fade.lua", "lua/Fade_Siege.lua", "post" )
 ModLoader.SetupFileHook( "lua/Gorge.lua", "lua/Gorge_Siege.lua", "post" )
@@ -105,17 +104,17 @@ ModLoader.SetupFileHook( "lua/ARC.lua", "lua/ARC_Siege.lua", "post" )
 ModLoader.SetupFileHook( "lua/TechTreeConstants.lua", "lua/TechTreeConstants_Siege.lua", "post" )
 ModLoader.SetupFileHook( "lua/TechData.lua", "lua/TechData_Siege.lua", "post" )
 
+ModLoader.SetupFileHook( "lua/TechTreeButtons.lua", "lua/TechTreeButtons_Siege.lua", "post" )
+
+ModLoader.SetupFileHook( "lua/Skulk.lua", "lua/Skulk_Siege.lua", "post" )
+
 
 ModLoader.SetupFileHook( "lua/Onos.lua", "lua/Onos_Siege.lua", "post" )
-
 ModLoader.SetupFileHook( "lua/Gamerules.lua", "lua/Gamerules_Siege.lua", "post" )
 ModLoader.SetupFileHook( "lua/NS2Gamerules.lua", "lua/NS2Gamerules_Siege.lua", "post" )
-
 ModLoader.SetupFileHook( "lua/Alien.lua", "lua/Alien_Siege.lua", "post" ) --includes server
 
-ModLoader.SetupFileHook( "lua/Weapons/Alien/XenocideLeap.lua", "lua/Weapons/Alien/XenocideLeap_Siege.lua", "post" )
 
 ModLoader.SetupFileHook( "lua/TeleportTrigger.lua", "lua/TeleportTrigger_Siege_Randmoizer.lua", "post" )
 ModLoader.SetupFileHook( "lua/TeleportDestination.lua", "lua/TeleportDestination_Siege_Randmoizer.lua", "post" )
 
-ModLoader.SetupFileHook( "lua/TechTreeButtons.lua", "lua/TechTreeButtons_Siege.lua", "post" )

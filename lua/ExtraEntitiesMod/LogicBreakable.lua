@@ -6,7 +6,7 @@ Script.Load("lua/ExtraEntitiesMod/ScaledModelMixin.lua")
 Script.Load("lua/UnitStatusMixin.lua")
 Script.Load("lua/PointGiverMixin.lua")
 
-//Because the model doesn't properly remove itself after being destroyed, how about having it simply move like a funcmoveable, to a waypoint, upon destroyed?
+--//Because the model doesn't properly remove itself after being destroyed, how about having it simply move like a funcmoveable, to a waypoint, upon destroyed?
 Script.Load("lua/PathingMixin.lua")
 Script.Load("lua/SiegeMod/MoveableMixin.lua")
 Script.Load("lua/StaticTargetMixin.lua")
@@ -269,7 +269,7 @@ end
 
 
 
-///afer hotfix 9.25
+--///afer hotfix 9.25
 
 function LogicBreakable:GetPointValue()  
 

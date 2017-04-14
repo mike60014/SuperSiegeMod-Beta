@@ -31,9 +31,9 @@ function Fade:GetRedemptionCoolDown()
 return gFadeRedemptionCooldown
 end
 
-function Fade:GetBallFlagAttatchPoint(player)
-       return kBallFlagAttachPoint
-end
+--//function Fade:GetBallFlagAttatchPoint(player)
+      // return kBallFlagAttachPoint
+--//end
 
 function Fade:GetMaxSpeed(possible)
      local speed = origspeed(self)  * gFadePrimaryAttackSpeedMultipler

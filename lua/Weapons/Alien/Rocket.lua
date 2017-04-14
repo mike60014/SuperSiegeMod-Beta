@@ -1,5 +1,5 @@
-//
-// lua\Weapons\Alien\Rocket.lua
+--//
+--// lua\Weapons\Alien\Rocket.lua
 
 Script.Load("lua/Weapons/Projectile.lua")
 Script.Load("lua/TeamMixin.lua")
@@ -11,14 +11,22 @@ class 'Rocket' (PredictedProjectile)
 Rocket.kMapName            = "rocket"
 Rocket.kModelName          = PrecacheAsset("models/alien/babbler/babbler.model")
 
-// The max amount of time a Rocket can last for
-Rocket.kClearOnImpact = true
-Rocket.kClearOnEnemyImpact = true
-Rocket.kRadius = 0.15
+--// The max amount of time a Rocket can last for
 
-local kRocketLifetime = 0.5
+
+local kAcidRocketHUDSlot = gAcidRocketHUDSlot
+local kAcidRocketFireDelay = gAcidRocketFireDelay
+local kAcidRocketEnergyCost = gAcidRocketEnergyCost
+local kAcidRocketDamage = gAcidRocketDamage
+local kAcidRocketRadius = gAcidRocketRadius
+local kRocketRadius = gRocketRadius
+local kRocketLifetime = gRocketLifeTime
 
 local networkVars = { }
+
+Rocket.kClearOnImpact = true
+Rocket.kClearOnEnemyImpact = true
+Rocket.kRadius = kRocketRadius
 
 AddMixinNetworkVars(BaseModelMixin, networkVars)
 AddMixinNetworkVars(ModelMixin, networkVars)

@@ -10,7 +10,6 @@ Script.Load("lua/Additions/CragUmbra.lua")
 Script.Load("lua/Additions/CommVortex.lua")
 Script.Load("lua/Weapons/Alien/AcidRocket.lua")
 Script.Load("lua/Weapons/Alien/Rocket.lua")
-Script.Load("lua/Weapons/Alien/XenocideLeap_Siege.lua")
 --Script.Load("lua/Additions/LerkBileBomb.lua")
 Script.Load("lua/MAC_Siege.lua")
 Script.Load("lua/Additions/LayStructures.lua")
@@ -113,7 +112,7 @@ local kSiege_TechData =
 [kTechDataTooltipInfo] = "Replaces death with egg gestation",
 },
 
-// Lifeform purchases
+--// Lifeform purchases
 { [kTechDataId] = kTechId.Redemption, 
 [kTechDataCategory] = kTechId.CragHiveTwo,  
 [kTechDataDisplayName] = "Redemption", 
@@ -193,16 +192,6 @@ local kSiege_TechData =
 --[kTechDataModel] = "",
 [kTechDataTooltipInfo] = "+Energy to teammates, enzyme cloud",
 },
-
-{ [kTechDataId] = kTechId.Xenocide,
-[kTechDataCategory] = kTechId.Skulk,
-[kTechDataMapName] = XenocideLeapSiege.kMapName,
-[kTechDataDamageType] = kXenocideDamageType,
-[kTechDataDisplayName] = "XENOCIDE",
-[kTechDataCostKey] = kXenocideResearchCost,
-[kTechDataResearchTimeKey] = kXenocideResearchTime,
-[kTechDataTooltipInfo] = "XENOCIDE_TOOLTIP"},
-
 
 { [kTechDataId] = kTechId.OnoGrow,        
 [kTechDataCategory] = kTechId.Onos,   
@@ -353,6 +342,8 @@ local kSiege_TechData =
 [kTechDataTooltipInfo] = "This bad boy right here has the potential to blind anyone standing in its way.. or just.. you know.. help brighten the mood wherever it's placed.",
 [kTechDataObstacleRadius] = gCreditStructureBackupLightObstacleRadius,
 },
+
+
 
 { [kTechDataId] = kTechId.MacSpawnOn,    
 [kTechDataCooldown] = 5,    

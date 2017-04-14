@@ -1,6 +1,6 @@
-//
-// lua\Weapons\Alien\AcidRocket.lua
-// Created by:   Dragon
+--//
+--// lua\Weapons\Alien\AcidRocket.lua
+--// Created by:   Dragon
 
 Script.Load("lua/Weapons/Alien/Ability.lua")
 Script.Load("lua/Weapons/Alien/Rocket.lua")
@@ -10,10 +10,18 @@ class 'AcidRocket' (Blink)
 
 AcidRocket.kMapName = "acidrocket"
 
-local kPlayerVelocityFraction = .5
-local kRocketVelocity = 45
+local kPlayerVelocityFraction = gAcidRocketPlayerVelocityFraction
+local kRocketVelocity = gAcidRocketVelocity
 
 local kAnimationGraph = PrecacheAsset("models/alien/fade/fade_view.animation_graph")
+
+local kAcidRocketHUDSlot = gAcidRocketHUDSlot
+local kAcidRocketFireDelay = gAcidRocketFireDelay
+local kAcidRocketEnergyCost = gAcidRocketEnergyCost
+local kAcidRocketDamage = gAcidRocketDamage
+local kAcidRocketRadius = gAcidRocketRadius
+local kRocketRadius = gRocketRadius
+local kRocketLifetime = gRocketLifeTime
 
 AcidRocket.networkVars =
 {
@@ -44,7 +52,7 @@ function AcidRocket:GetDeathIconIndex()
 end
 
 function AcidRocket:GetHUDSlot()
-    return 4
+    return kAcidRocketHUDSlot
 end
 
 function AcidRocket:OnPrimaryAttack(player)

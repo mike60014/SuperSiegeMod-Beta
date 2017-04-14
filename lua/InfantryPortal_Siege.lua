@@ -17,7 +17,7 @@ end
 
 if Server then
 
-// Spawn player on top of IP. Returns true if it was able to, false if way was blocked.
+--// Spawn player on top of IP. Returns true if it was able to, false if way was blocked.
 local function SpawnPlayer(self)
 
     if self.queuedPlayerId ~= Entity.invalidId then

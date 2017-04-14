@@ -237,31 +237,29 @@ end
 
 function Plugin:OnScore( Player, Points, Res, WasKill )
 if Points ~= nil and Points ~= 0 and Player and not Shared.GetCheatsEnabled() then
-   if not self.GameStarted then Points = 1  AddOneScore(Player,Points,Res, WasKill) end
-  if WasKill and Player:isa("Alien") then self:PrimalScreamPointBonus(Player, Points) end
- local client = Player:GetClient()
- if not client then return end
+	if not self.GameStarted then Points = 1  AddOneScore(Player,Points,Res, WasKill) end
+	if WasKill and Player:isa("Alien") then self:PrimalScreamPointBonus(Player, Points) end
+	local client = Player:GetClient()
+	if not client then return end
+	Points = Points * self.Config.kCreditMultiplier
+	 
+	--local addamount = Points/(10/self.Config.kCreditMultiplier)      
+	local controlling = client:GetControllingPlayer()
+
+	if Player:GetTeamNumber() == 1 then
+		self.marinecredits = self.marinecredits + Points --addamount
+	elseif Player:GetTeamNumber() == 2 then
+		self.aliencredits = self.aliencredits + Points --addamount
+	end
          
-    --local addamount = Points/(10/self.Config.kCreditMultiplier)
- local controlling = client:GetControllingPlayer()
- 
-         if Player:GetTeamNumber() == 1 then
-         self.marinecredits = self.marinecredits + Points --addamount
-        elseif Player:GetTeamNumber() == 2 then
-         self.aliencredits = self.aliencredits + Points --addamount
-         end
-         
-self.CreditUsers[ controlling:GetClient() ] = self:GetPlayerSaltInfo(controlling:GetClient()) + Points --addamount
+self.CreditUsers[ controlling:GetClient() ] = self:GetPlayerSaltInfo(controlling:GetClient()) + addamount
 Shine.ScreenText.SetText("Salt", string.format( "%s Salt", self:GetPlayerSaltInfo(controlling:GetClient()) ), controlling:GetClient()) 
 end
 end
 
 function Plugin:NotifySiege( Player, String, Format, ... )
-Shine:NotifyDualColour( Player, 255, 165, 0,  "[Siege]",  math.random(0,255), math.random(0,255), math.random(0,255), String, Format, ... )
+	Shine:NotifyDualColour( Player, 255, 165, 0,  "[Siege]",  math.random(0,255), math.random(0,255), math.random(0,255), String, Format, ... )
 end
-
-
-
 
 function Plugin:OnReset()
   if self.GameStarted and not self.Refunded then

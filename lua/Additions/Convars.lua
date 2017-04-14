@@ -1,7 +1,7 @@
 --Global Variables for everything
 
 
-/////////////Begin Other Configs
+--///////////Begin Other Configs
 
 
 --BalanceMisc_Siege.lua
@@ -170,7 +170,7 @@ kHiveInfestationRadius = 8
 kMACSupply = 5
 kSentrySupply = 2
 
-////Final Configs
+--//Final Configs
 --Other
 
 
@@ -307,14 +307,13 @@ kSideTimer = 0 -- b/c maps still use this
 
 
 --Alien Settings
-
 kAlienDefaultAddXp = 0.5
 kAlienDefaultLvl = 25
 gAlienEnergyRecuperationRate = 10.0
 gAlienWalkBackwardSpeedScalar = 1
 gAlienEnergyAdrenalineRecuperationRate = 15
 
-gAliennewMaxHealthMultipler = 1 --1.10
+gAliennewMaxHealthMultipler = 1.10
 
 
 --Alien Upgrades
@@ -426,13 +425,13 @@ gSkulkMaxMovementSpeed = 9 --7.25
 gSkulkLeapForce = 10 --7.6
 gSkulkLeapVerticalForce = 16 --10.8
 gSkulkLeapTime = 0.5 --0.2
-gSneakSpeedModifier = 0.75 --0.66
+gSkulkSneakSpeedModifier = 0.75 --0.66
 gSkulkViewOffsetHeight = 0.55
 gSkulkMass = 35 --  45=~100 pounds
 gSkulkNormalWallWalkFeelerSize = 0.25
 gSkulkNormalWallWalkRange = 0.3
-gSkulkJumpWallFeelerSize = 0.1
 gSkulkJumpWallRange = 1 --0.4
+gSkulkJumpWallFeelerSize = 0.1
 gSkulkXExtents = .45
 gSkulkYExtents = .45
 gSkulkZExtents = .45
@@ -722,7 +721,7 @@ kGorgeRebirthLength = 3
 --Gorge End
 
 
-//////////////Marines Settings Start
+--////////////Marines Settings Start
 --Marine Settings
 
 kMarineDefAddXp = 0.5
@@ -903,7 +902,7 @@ kJetpackFuelReplenishDelay = 0.1
 --kJumpPackCost = 7
 
 --Marine Classes End
-//Marine Buildings --Marine Buildings
+--Marine Buildings --Marine Buildings
 --AdvBeacon
 kAdvancedBeaconCost = 13
 
@@ -972,7 +971,7 @@ gArcCapsuleHeight = .05
 gArcCapsuleRadius = .5
 
 
-////Exosuit Settings
+--//Exosuit Settings
 --Exos
 
 

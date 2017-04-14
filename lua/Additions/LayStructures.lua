@@ -352,9 +352,9 @@ local function IsPathable(position)
     return not noBuild and walk
     
 end
-// Given a gorge player's position and view angles, return a position and orientation
-// for structure. Used to preview placement via a ghost structure and then to create it.
-// Also returns bool if it's a valid position or not.
+--// Given a gorge player's position and view angles, return a position and orientation
+--// for structure. Used to preview placement via a ghost structure and then to create it.
+--// Also returns bool if it's a valid position or not.
 function LayStructures:GetPositionForStructure(player)
 
     local isPositionValid = false

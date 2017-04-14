@@ -1,12 +1,12 @@
-// ======= Copyright (c) 2003-2011, Unknown Worlds Entertainment, Inc. All rights reserved. =======    
-//    
-// lua\VortexAbleMixin.lua    
-//    
-//    Created by:   Andreas Urwalek (andi@unknownworlds.com)
-//
-//    Used in combination with onos "stomp" ability.
-//    
-// ========= For more information, visit us at http://www.unknownworlds.com =====================    
+-- ======= Copyright (c) 2003-2011, Unknown Worlds Entertainment, Inc. All rights reserved. =======
+--
+-- lua\VortexAbleMixin.lua
+--
+--    Created by:   Andreas Urwalek (andi@unknownworlds.com)
+--
+--    Used in combination with onos "stomp" ability.
+--
+-- ========= For more information, visit us at http://www.unknownworlds.com =====================
 
 VortexAbleMixin = CreateMixin(VortexAbleMixin)
 VortexAbleMixin.type = "VortexAble"
@@ -74,9 +74,8 @@ function VortexAbleMixin:SetVortexDuration(duration)
     elseif self:GetIsVortexed() then
         return
     end    
-    if self.OnVortex then
+    
     self:OnVortex(duration)
-    end
     
     self.remainingVortexDuration = duration
     self.vortexed = true
@@ -174,17 +173,17 @@ local function SharedUpdate(self, deltaTime)
     
 end
 
-
-
+--[[
+ Vortex is not being used. Stop running the OnUpdate
 function VortexAbleMixin:OnProcessMove(input)
-     SharedUpdate(self, input.time)
+    -- SharedUpdate(self, input.time)
 end
 
 function VortexAbleMixin:OnUpdate(deltaTime)
     PROFILE("VortexAbleMixin:OnUpdate")
-     SharedUpdate(self, deltaTime)
+    -- SharedUpdate(self, deltaTime)
 end
-
+--]]
 
 function VortexAbleMixin:ComputeDamageAttackerOverrideMixin(attacker, damage, damageType, doer)
 

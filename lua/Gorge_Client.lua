@@ -12,7 +12,7 @@ function Gorge:GetHeadAttachpointName()
     return "Bone_Tongue"
 end
 
-// Tilt the camera based on the wall the Gorge is attached to.
+--// Tilt the camera based on the wall the Gorge is attached to.
 function Gorge:PlayerCameraCoordsAdjustment(cameraCoords)
 
     if self.currentCameraRoll ~= 0 then

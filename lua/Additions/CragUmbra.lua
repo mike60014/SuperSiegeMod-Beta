@@ -1,14 +1,13 @@
-// ======= Copyright (c) 2003-2011, Unknown Worlds Entertainment, Inc. All rights reserved. =======
-//
-// lua\CragUmbra.lua
-//
-// Created by: Andreas Urwalek (andi@unknownworlds.com)
-//
-// Protects friendly units from bullets.
-//
-// ========= For more information, visit us at http://www.unknownworlds.com =====================
-//Siegemod ~ just had to update the file to the current build, and remove the destination/traveling area which always shot if off screen, to spawn where the crag is at currently
-
+--// ======= Copyright (c) 2003-2011, Unknown Worlds Entertainment, Inc. All rights reserved. =======
+--//
+--// lua\CragUmbra.lua
+--//
+--// Created by: Andreas Urwalek (andi@unknownworlds.com)
+--//
+--// Protects friendly units from bullets.
+--//
+--// ========= For more information, visit us at http://www.unknownworlds.com =====================
+--//Siegemod ~ just had to update the file to the current build, and remove the destination/traveling area which always shot if off screen, to spawn where the crag is at currently
 Script.Load("lua/CommAbilities/CommanderAbility.lua")
 
 class 'CragUmbra' (CommanderAbility)
@@ -20,7 +19,7 @@ local kUmbraSound = PrecacheAsset("sound/NS2.fev/alien/structures/crag/umbra")
 
 CragUmbra.kType = CommanderAbility.kType.Repeat
 
-// duration of cinematic, increase cinematic duration and kCragUmbraDuration to 12 to match the old value from Crag.lua
+--// duration of cinematic, increase cinematic duration and kCragUmbraDuration to 12 to match the old value from Crag.lua
 CragUmbra.kCragUmbraDuration = kUmbraDuration
 CragUmbra.kRadius = kUmbraRadius
 if Server then

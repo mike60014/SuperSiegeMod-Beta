@@ -42,15 +42,12 @@ end
 function Gorge:GetBallFlagAttatchPoint(player)
        return kBallFlagAttachPoint
 end
-
 function Gorge:GetRebirthLength()
 return kGorgeRebirthLength
 end
-
 function Gorge:GetRedemptionCoolDown()
 return kGorgeRedemptionCooldown
 end
-
 function Gorge:GetBaseArmor()
     return kGorgeArmor
 end
@@ -62,15 +59,12 @@ function Gorge:GetCanJump()
     local canWallJump = self:GetCanWallJump()
     return self:GetIsOnGround() or canWallJump
 end
-
 function Gorge:GetIsWallWalking()
     return self.wallWalking
 end
-
 function Gorge:GetIsWallWalkingPossible() 
     return not self:GetRecentlyJumped() and not self:GetCrouching()
 end
-
 local function PredictGoal(self, velocity)
 
     PROFILE("Gorge:PredictGoal")
@@ -91,7 +85,7 @@ local function PredictGoal(self, velocity)
 
 end
 
-// Handle transitions between starting-sliding, sliding, and ending-sliding
+--// Handle transitions between starting-sliding, sliding, and ending-sliding
 local function UpdateGorgeSliding(self, input)
 
     PROFILE("Gorge:UpdateGorgeSliding")

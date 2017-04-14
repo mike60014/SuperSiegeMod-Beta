@@ -1,16 +1,15 @@
 local networkVars = {lastredeemorrebirthtime = "time", canredeemorrebirth = "boolean",  primaled = "boolean",  primaledID = "entityid",} 
 local orig_Alien_OnCreate = Alien.OnCreate
 
-Alien.kEnergyRecuperationRate = gAlienEnergyRecuperationRate
-Alien.kWalkBackwardSpeedScalar = gAlienWalkBackwardSpeedScalar
-Alien.kEnergyAdrenalineRecuperationRate = gAlienEnergyAdrenalineRecuperationRate
-knewMaxHealthMultipler = gAliennewMaxHealthMultipler
+--Alien.kEnergyRecuperationRate = gAlienEnergyRecuperationRate
+--Alien.kWalkBackwardSpeedScalar = gAlienWalkBackwardSpeedScalar
+--Alien.kEnergyAdrenalineRecuperationRate = gAlienEnergyAdrenalineRecuperationRate
 
-Babbler.kMass = gBabblerMass
-Babbler.kRadius = gBabblerRadius
-Babbler.kLinearDamping = gBabblerLinearDamping
-Babbler.kRestitution = gBabblerRestitution
-Babbler.kFov = gBabblerFov
+--Babbler.kMass = gBabblerMass
+--Babbler.kRadius = gBabblerRadius
+--Babbler.kLinearDamping = gBabblerLinearDamping
+--Babbler.kRestitution = gBabblerRestitution
+--Babbler.kFov = gBabblerFov
 kBabblerHealth = gBabblerHealth
 kTargetSearchRange = gBabblerTargetSearchRange
 kAttackRate = gBabblerAttackRate
@@ -158,6 +157,8 @@ function Alien:UpdateArmorAmountManual(carapaceLevel)
   return false
 end
 
+local knewMaxHealthMultipler = gAliennewMaxHealthMultipler --1.10
+
 function Alien:UpdateHealthAmountManual(bioMassLevel, maxLevel)
     local teamInfo = GetTeamInfoEntity(2)
           if teamInfo then
@@ -194,6 +195,9 @@ function Alien:CreditBuy(techId)
 	else
 		table.insert(upgradetable, techId)
 	end
+
+	--table.insert(upgradetable, techId)
+	--self:ProcessBuyAction(upgradetable, true)
 	
 	local newPlayer = self:Replace(Embryo.kMapName)
 	position.y = position.y + Embryo.kEvolveSpawnOffset
