@@ -47,6 +47,9 @@ function UmbraMixin:ModifyDamageTaken(damageTable, attacker, doer, damageType)
 
 end
 
+kInfestationCommandCenterCorrodeDamagePerSecond = gInfestationCommandCenterCorrodeDamagePerSecond
+kInfestationCorrodeDamagePerSecond = gInfestationCorrodeDamagePerSecond
+
 if Client then 
 
 local originalGUISetColorOf = GUIItem.SetColor
@@ -432,7 +435,7 @@ local function CorrodeOnInfestation(self)
         end
         
         if not self:isa("CommandStation") and not self:isa("PowerPoint") and self:GetArmor() == 0 and not self:isa("ARC")  and GetIsRoomPowerDown(self) then
-           local damage = kInfestationCorrodeDamagePerSecond * 4
+           local damage = kInfestationCommandCenterCorrodeDamagePerSecond --kInfestationCorrodeDamagePerSecond * 4
                     self:DeductHealth(damage, nil, nil, true, false, true)
         end
         
