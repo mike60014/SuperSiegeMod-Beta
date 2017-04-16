@@ -1,3 +1,4 @@
+--[[
 --'Avoca'
 local kViewModels = GenerateMarineViewModelPaths("shotgun")
 local kBulletSize = kShotgunBulletSize
@@ -173,3 +174,4 @@ if Client then
 end //up render
 end -- client
 Shared.LinkClassToMap("AvocaShotgun", AvocaShotgun.kMapName, networkVars)
+]]--

@@ -1,6 +1,7 @@
+--[[
+
 kStartHealthScalar = 1 --0.3
 
-/*
 kSentryHealth = 650
 kSentryArmor = 125
 kSentryPointValue = 3
@@ -41,4 +42,4 @@ kArmoryPointValue = 6
 kAdvancedArmoryHealth = 3500
 kAdvancedArmoryArmor = 750
 kAdvancedArmoryPointValue = 11
-*/
+]]--

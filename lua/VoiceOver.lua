@@ -1,19 +1,10 @@
--- ======= Copyright (c) 2003-2011, Unknown Worlds Entertainment, Inc. All rights reserved. =======
---
--- lua\VoiceOver.lua
---
---11.15 siege simple - It's just easier to replace this right now, than to find a way to add this in with mods pre-or post-hooking.
--- Created by: Andreas Urwalek (andi@unknownworlds.com)
---
--- ========= For more information, visit us at http://www.unknownworlds.com =====================
-
 LEFT_MENU = 1
 RIGHT_MENU = 2
 kMaxRequestsPerSide = 6
 
 kVoiceId = enum ({
 
-    'None', 'VoteEject', 'VoteConcede', 'Ping',
+    'None', 'VoteEject', 'VoteConcede', 'VoteStalemate', 'Ping',
 
     'RequestWeld', 'MarineRequestMedpack', 'MarineRequestAmmo', 'MarineRequestOrder', 
     'MarineTaunt', 'MarineTauntExclusive', 'MarineCovering', 'MarineFollowMe', 'MarineHostiles', 'MarineLetsMove', 'MarineAcknowledged',
@@ -46,6 +37,14 @@ local function VoteEjectCommander(player)
     
 end
 
+local function VoteStalemate(player)
+
+    if player then
+        GetGamerules():CastVoteByPlayer(kTechId.VoteStalemateRound, player)
+    end  
+    
+end
+
 local function VoteConcedeRound(player)
 
     if player then
@@ -63,6 +62,7 @@ local function GetLifeFormSound(player)
     return ""
 
 end
+
 local function BuyMist(player)
 
     if player then
@@ -70,6 +70,7 @@ local function BuyMist(player)
     end  
     
 end
+
 local function BuyMedPack(player)
 
     if player then
@@ -77,6 +78,7 @@ local function BuyMedPack(player)
     end  
     
 end
+
 local function BuyAmmoPack(player)
 
     if player then
@@ -84,6 +86,7 @@ local function BuyAmmoPack(player)
     end  
     
 end
+
 local function PingInViewDirection(player)
 
     if player and (not player.lastTimePinged or player.lastTimePinged + 60 < Shared.GetTime()) then
@@ -126,6 +129,7 @@ local kSoundData =
     -- always part of the menu
     [kVoiceId.VoteEject] = { Function = VoteEjectCommander },
     [kVoiceId.VoteConcede] = { Function = VoteConcedeRound },
+    [kVoiceId.VoteStalemate] = { Function = VoteStalemate },
 
     [kVoiceId.Ping] = { Function = PingInViewDirection, Description = "REQUEST_PING", KeyBind = "PingLocation" },
 

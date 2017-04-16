@@ -1,6 +1,3 @@
---//
---// lua\Weapons\Alien\Rocket.lua
-
 Script.Load("lua/Weapons/Projectile.lua")
 Script.Load("lua/TeamMixin.lua")
 Script.Load("lua/DamageMixin.lua")
@@ -11,14 +8,11 @@ class 'Rocket' (PredictedProjectile)
 Rocket.kMapName            = "rocket"
 Rocket.kModelName          = PrecacheAsset("models/alien/babbler/babbler.model")
 
---// The max amount of time a Rocket can last for
-
-
-local kAcidRocketHUDSlot = gAcidRocketHUDSlot
-local kAcidRocketFireDelay = gAcidRocketFireDelay
-local kAcidRocketEnergyCost = gAcidRocketEnergyCost
-local kAcidRocketDamage = gAcidRocketDamage
-local kAcidRocketRadius = gAcidRocketRadius
+--local kAcidRocketHUDSlot = gAcidRocketHUDSlot
+--local kAcidRocketFireDelay = gAcidRocketFireDelay
+--local kAcidRocketEnergyCost = gAcidRocketEnergyCost
+--local kAcidRocketDamage = gAcidRocketDamage
+--local kAcidRocketRadius = gAcidRocketRadius
 local kRocketRadius = gRocketRadius
 local kRocketLifetime = gRocketLifeTime
 
@@ -26,7 +20,7 @@ local networkVars = { }
 
 Rocket.kClearOnImpact = true
 Rocket.kClearOnEnemyImpact = true
-Rocket.kRadius = kRocketRadius
+--Rocket.kRadius = kRocketRadius
 
 AddMixinNetworkVars(BaseModelMixin, networkVars)
 AddMixinNetworkVars(ModelMixin, networkVars)
@@ -78,8 +72,9 @@ function Rocket:GetDeathIconIndex()
 end
 
 function Rocket:GetDamageType()
-    return kAcidRocketDamageType
+    return gAcidRocketDamageType
 end
+
 function Rocket:OnAdjustModelCoords(modelCoords)
     local scale = 1.50
     local coords = modelCoords
@@ -103,13 +98,13 @@ if Server then
 
         if not self:GetIsDestroyed() then
              self.stopSimulation = true
-            local hitEntities = GetEntitiesWithMixinForTeamWithinRange("Live", 1, self:GetOrigin(), kAcidRocketRadius)
+            local hitEntities = GetEntitiesWithMixinForTeamWithinRange("Live", 1, self:GetOrigin(), gAcidRocketRadius)
             // full damage on direct impact
             if targetHit then
                 table.removevalue(hitEntities, targetHit)
-                self:DoDamage(kAcidRocketDamage, targetHit, targetHit:GetOrigin(), GetNormalizedVector(targetHit:GetOrigin() - self:GetOrigin()), "none")
+                self:DoDamage(gAcidRocketDamage, targetHit, targetHit:GetOrigin(), GetNormalizedVector(targetHit:GetOrigin() - self:GetOrigin()), "none")
             end
-            RadiusDamage(hitEntities, self:GetOrigin(), kAcidRocketRadius, kAcidRocketDamage, self)
+            RadiusDamage(hitEntities, self:GetOrigin(), gAcidRocketRadius, gAcidRocketDamage, self)
             self:TriggerEffects("bilebomb_hit")
             DestroyEntity(self)
         end

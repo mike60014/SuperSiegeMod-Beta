@@ -1,7 +1,7 @@
---'Avoca'
+--
 Shotgun.kStartOffset = 0
-local kBulletSize = gShotgunBulletSize
-local kPrimarySpreadDistance = gShotgunPrimarySpreadDistance
+local kBulletSize = gShotgunSecondaryBulletSize
+--local kPrimarySpreadDistance = gShotgunPrimarySpreadDistance
 local kSecondarySpreadDistance = gShotgunSecondarySpreadDistance
 
 local originit = Shotgun.OnInitialized
@@ -21,7 +21,6 @@ Shotgun.kSecondarySpreadVectors =  --Sven-Coop !
     GetNormalizedVector(Vector(-2, 0.01, kSecondarySpreadDistance)),
     GetNormalizedVector(Vector(1.5, 0.01, kSecondarySpreadDistance)),
     GetNormalizedVector(Vector(2, 0.01, kSecondarySpreadDistance)),
-    
 }
 
 
@@ -50,13 +49,15 @@ end
 function Shotgun:GetHasSecondary(player)
     return true
 end
+
 function Shotgun:GetSecondaryCanInterruptReload()
     return true
 end
 
 
-local kShotgunSecondaryEffectRange = gShotgunSecondaryEffectRange
+--local kShotgunSecondaryEffectRange = gShotgunSecondaryEffectRange
 local kShotgunClipSize = gShotgunClipSize
+
 function Shotgun:SecondaryFire(player)
   local viewAngles = player:GetViewAngles()
 
@@ -64,10 +65,10 @@ function Shotgun:SecondaryFire(player)
 
     -- Filter ourself out of the trace so that we don't hit ourselves.
     local filter = EntityFilterTwo(player, self)
-    local range = self:GetRange()
+    local range = gShotgunSecondaryRange
     
     if GetIsVortexed(player) then
-        range = kShotgunSecondaryEffectRange
+        range = gShotgunSecondaryRangeWhileVortexed
     end
     
     local numberBullets = kShotgunClipSize
@@ -104,7 +105,7 @@ function Shotgun:SecondaryFire(player)
         if numTargets == 0 then
             self:ApplyBulletGameplayEffects(player, nil, impactPoint, direction, 0, trace.surface, showTracer)
         end
-        
+         
         if Client and showTracer then
             TriggerFirstPersonTracer(self, impactPoint)
         end

@@ -9,7 +9,7 @@
 PhaseGateUserMixin = CreateMixin( PhaseGateUserMixin )
 PhaseGateUserMixin.type = "PhaseGateUser"
 
-local kPhaseDelay = 2
+local kPhaseDelay = gPhasegateDelay --2
 
 PhaseGateUserMixin.networkVars =
 {

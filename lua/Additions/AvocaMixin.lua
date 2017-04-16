@@ -12,11 +12,13 @@ function AvocaMixin:__initmixin()
 self.isacreditstructure = false
    --  Print("%s isacreditstructure is %s", self:GetClassName(), self.isacreditstructure)
 end
+
 function AvocaMixin:SetIsACreditStructure(boolean)
     
 self.isacreditstructure = boolean
       --Print("AvocaMixin SetIsACreditStructure %s isacreditstructure is %s", self:GetClassName(), self.isacreditstructure)
 end
+
 function AvocaMixin:GetCanStick()
      local canstick = not GetSetupConcluded()
      --Print("Canstick = %s", canstick)

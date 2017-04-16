@@ -1,6 +1,6 @@
---//
---// lua\Weapons\Alien\AcidRocket.lua
---// Created by:   Dragon
+//
+// lua\Weapons\Alien\AcidRocket.lua
+// Created by:   Dragon
 
 Script.Load("lua/Weapons/Alien/Ability.lua")
 Script.Load("lua/Weapons/Alien/Rocket.lua")
@@ -18,10 +18,10 @@ local kAnimationGraph = PrecacheAsset("models/alien/fade/fade_view.animation_gra
 local kAcidRocketHUDSlot = gAcidRocketHUDSlot
 local kAcidRocketFireDelay = gAcidRocketFireDelay
 local kAcidRocketEnergyCost = gAcidRocketEnergyCost
-local kAcidRocketDamage = gAcidRocketDamage
-local kAcidRocketRadius = gAcidRocketRadius
-local kRocketRadius = gRocketRadius
-local kRocketLifetime = gRocketLifeTime
+--local kAcidRocketDamage = gAcidRocketDamage
+--local kAcidRocketRadius = gAcidRocketRadius
+--local kRocketRadius = gRocketRadius
+--local kRocketLifetime = gRocketLifeTime
 
 AcidRocket.networkVars =
 {
