@@ -2,7 +2,8 @@
 Script.Load("lua/Utility.lua")
 Script.Load("lua/Weapons/Alien/BiteLeap.lua")
 Script.Load("lua/Weapons/Alien/Parasite.lua")
-Script.Load("lua/Weapons/Alien/XenocideLeap.lua")
+--Script.Load("lua/Weapons/Alien/XenocideLeap.lua")
+Script.Load("lua/Weapons/Alien/XenocideLeap_Siege.lua")
 Script.Load("lua/Weapons/Alien/ReadyRoomLeap.lua")
 Script.Load("lua/Alien.lua")
 Script.Load("lua/Mixins/BaseMoveMixin.lua")
@@ -24,14 +25,28 @@ class 'Skulk' (Alien)
 Skulk.kMapName = "skulk"
 
 Skulk.kModelName = PrecacheAsset("models/alien/skulk/skulk.model")
-local kViewModelName = PrecacheAsset("models/alien/skulk/skulk_view.model")
-local kSkulkAnimationGraph = PrecacheAsset("models/alien/skulk/skulk.animation_graph")
 
 -- Balance, movement, animation
 Skulk.kViewOffsetHeight = gSkulkViewOffsetHeight
-
 Skulk.kHealth = kSkulkHealth
 Skulk.kArmor = kSkulkArmor
+Skulk.kMaxSpeed = gSkulkMaxMovementSpeed
+Skulk.kSneakSpeedModifier = gSkulkSneakSpeedModifier
+Skulk.kXExtents = gSkulkXExtents
+Skulk.kYExtents = gSkulkYExtents
+Skulk.kZExtents = gSkulkZExtents
+Skulk.kMaxSneakOffset = gSkulkMaxSneakOffset --0.55
+Skulk.kWallJumpInterval = gSkulkWallJumpInterval
+Skulk.kWallJumpForce = gSkulkWallJumpForce -- scales down the faster you are
+Skulk.kMinWallJumpForce = gSkulkMinWallJumpForce
+Skulk.kVerticalWallJumpForce = gSkulkVerticalWallJumpForce
+Skulk.kWallJumpMaxSpeed = gSkulkWallJumpMaxSpeed
+Skulk.kWallJumpMaxSpeedCelerityBonus = gSkulkWallJumpMaxSpeedCelerityBonus
+
+
+local kViewModelName = PrecacheAsset("models/alien/skulk/skulk_view.model")
+local kSkulkAnimationGraph = PrecacheAsset("models/alien/skulk/skulk.animation_graph")
+
 
 local kDashSound = PrecacheAsset("sound/NS2.fev/alien/skulk/full_speed")
 
@@ -39,8 +54,6 @@ local kLeapVerticalForce = gSkulkLeapVerticalForce
 local kLeapTime = gSkulkLeapTime
 local kLeapForce = gSkulkLeapForce
 
-Skulk.kMaxSpeed = gSkulkMaxMovementSpeed
-Skulk.kSneakSpeedModifier = gSkulkSneakSpeedModifier
 
 local kMass = gSkulkMass -- ~100 pounds
 -- How big the spheres are that are casted out to find walls, "feelers".
@@ -51,20 +64,6 @@ local kNormalWallWalkRange = gSkulkNormalWallWalkRange
 -- jump is valid when you are close to a wall but not attached yet at this range
 local kJumpWallRange = gSkulkJumpWallRange
 local kJumpWallFeelerSize = gSkulkJumpWallFeelerSize
-
-Skulk.kXExtents = gSkulkXExtents
-Skulk.kYExtents = gSkulkYExtents
-Skulk.kZExtents = gSkulkZExtents
-
-Skulk.kMaxSneakOffset = gSkulkMaxSneakOffset --0.55
-
-Skulk.kWallJumpInterval = gSkulkWallJumpInterval
-Skulk.kWallJumpForce = gSkulkWallJumpForce -- scales down the faster you are
-Skulk.kMinWallJumpForce = gSkulkMinWallJumpForce
-Skulk.kVerticalWallJumpForce = gSkulkVerticalWallJumpForce
-
-Skulk.kWallJumpMaxSpeed = gSkulkWallJumpMaxSpeed
-Skulk.kWallJumpMaxSpeedCelerityBonus = gSkulkWallJumpMaxSpeedCelerityBonus
 
 if Server then
     Script.Load("lua/Skulk_Server.lua", true)
@@ -541,27 +540,27 @@ function Skulk:GetMoveSpeedIs2D()
 end
 
 function Skulk:GetAcceleration()
-    return 13
+    return gSkulkAcceleration
 end
 
 function Skulk:GetAirControl()
-    return 27
+    return gSkulkAirControl
 end
 
 function Skulk:GetGroundTransistionTime()
-    return 0.1
+    return gSkulkGroundTransistionTime
 end
 
 function Skulk:GetAirAcceleration()
-    return 9
+    return gSkulkAcceleration
 end
 
 function Skulk:GetAirFriction()
-    return 0.055 - (GetHasCelerityUpgrade(self) and GetSpurLevel(self:GetTeamNumber()) or 0) * 0.009
+    return gSkulkAirFriction - (GetHasCelerityUpgrade(self) and GetSpurLevel(self:GetTeamNumber()) or 0) * 0.009
 end 
 
 function Skulk:GetGroundFriction()
-    return 11
+    return gSkulkGroundFriction
 end
 
 function Skulk:GetCanStep()

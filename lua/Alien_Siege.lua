@@ -123,18 +123,18 @@ function Alien:CheckRedemptionTimer()
 end
 
 function Alien:GetRebirthLength()
-return 0
+	return 0
 end
 
 function Alien:GetRedemptionCoolDown()
-return 0
+	return 0
 end
 
 function Alien:UpdateArmorAmount(carapaceLevel)
-return
+	return
 end
 function Alien:UpdateHealthAmount(bioMassLevel, maxLevel)
-return
+	return
 end
 
 function Alien:UpdateArmorAmountManual(carapaceLevel)

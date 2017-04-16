@@ -13,7 +13,7 @@ Script.Load("lua/Weapons/Alien/BiteLeap.lua")
 
 local kRange = gSkulkXenocideRadiusRange
 
-class 'XenocideLeap' (BiteLeap)
+class 'XenocideLeapSiege' (BiteLeap)
 
 XenocideLeap.kMapName = "xenocide"
 
@@ -34,23 +34,20 @@ local function TriggerXenocide(self, player)
     if Server then
         CheckForDestroyedEffects( self )
         if not self.XenocideSoundName then
-           -- self.XenocideSoundName = Server.CreateEntity(SoundEffect.kMapName)
-            --self.XenocideSoundName:SetAsset(kXenocideSoundName)
-           -- self.XenocideSoundName:SetParent(self)
-            --self.XenocideSoundName:Start()
+            self.XenocideSoundName = Server.CreateEntity(SoundEffect.kMapName)
+            self.XenocideSoundName:SetAsset(kXenocideSoundName)
+            self.XenocideSoundName:SetParent(self)
+            self.XenocideSoundName:Start()
         else
-            --self.XenocideSoundName:Start()
+            self.XenocideSoundName:Start()
         end
-        --StartSoundEffectOnEntity(kXenocideSoundName, player)
+        StartSoundEffectOnEntity(kXenocideSoundName, player)
         self.xenocideTimeLeft = kDetonateTime
     elseif Client and Client.GetLocalPlayer() == player then
-        --if not self.xenocideGui then
-        if not player:xenocideGui then
-            --self.xenocideGui = GetGUIManager():CreateGUIScript("GUIXenocideFeedback")
-            player:xenocideGui = GetGUIManager():CreateGUIScript("GUIXenocideFeedback")
+        if not self.xenocideGui then
+            self.xenocideGui = GetGUIManager():CreateGUIScript("GUIXenocideFeedback")
         end
-        --self.xenocideGui:TriggerFlash(kDetonateTime)
-        player:xenocideGui:TriggerFlash(kDetonateTime)
+        self.xenocideGui:TriggerFlash(kDetonateTime)
         player:SetCameraShake(.01, 15, kDetonateTime)
     end
 end
@@ -96,7 +93,7 @@ function XenocideLeap:OnPrimaryAttack(player)
         if not self.xenociding then
             TriggerXenocide(self, player)
             self.xenociding = true
-        else
+        else	
             if self.xenocideTimeLeft and self.xenocideTimeLeft < kDetonateTime * 0.8 then
                 BiteLeap.OnPrimaryAttack(self, player)
             end

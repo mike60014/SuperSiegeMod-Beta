@@ -14,33 +14,58 @@ local networkVars =
 
 }
 
-MAC.kWeldRate = 1
+--MAC.kWeldRate = 1
 
 AddMixinNetworkVars(ResearchMixin, networkVars)
 AddMixinNetworkVars(RecycleMixin, networkVars)
+
 function MACSiege:OnCreate()
-MAC.OnCreate(self)
+	MAC.OnCreate(self)
     InitMixin(self, ResearchMixin)
     InitMixin(self, RecycleMixin)
+	MAC.kConstructRate = gMACConstructRate
+	MAC.kWeldRate = gMACWeldRate
+	MAC.kOrderScanRadius = gMACOrderScanRadius
+	MAC.kRepairHealthPerSecond = gMACRepairHealthPerSecond
+	MAC.kHealth = gMACHealth
+	MAC.kArmor = gMACArmor
+	MAC.kMoveSpeed = gMACMoveSpeed
+	MAC.kHoverHeight = gMACHoverHeight
+	MAC.kStartDistance = gMACStartDistance
+	MAC.kWeldDistance = gMACWeldDistance
+	MAC.kBuildDistance = gMACBuildDistance     -- Distance at which bot can start building a structure.
+	MAC.kSpeedUpgradePercent = gMACSpeedUpgradePercent
+	MAC.kRolloutSpeed = gMACRolloutSpeed
+	MAC.kCapsuleHeight = gMACCapsuleHeight
+	MAC.kCapsuleRadius = gMACCapsuleRadius
+	MAC.kGreetingUpdateInterval = gMACGreetingUpdateInterval
+	MAC.kGreetingInterval = gMACGreetingInterval
+	MAC.kGreetingDistance = gMACGreetingDistance
+	MAC.kUseTime = gMACUseTime
 end
+
 function MAC:GetIsBuilt()
  return self:GetIsAlive()
 end
+
 function MACSiege:OnInitialized()
-self:SetTechId(kTechId.MAC)
-InitMixin(self, LevelsMixin)
-if Server then ExploitCheck(self) end
-MAC.OnInitialized(self)
+	self:SetTechId(kTechId.MAC)
+	InitMixin(self, LevelsMixin)
+	if Server then ExploitCheck(self) end
+	MAC.OnInitialized(self)
+	end
+	
+function MACSiege:GetTechId()
+	return kTechId.MAC
 end
-        function MACSiege:GetTechId()
-         return kTechId.MAC
+
+function MACSiege:GetMaxLevel()
+	return kMacMaxLevel
 end
-    function MACSiege:GetMaxLevel()
-    return kMacMaxLevel
-    end
-    function MACSiege:GetAddXPAmount()
-    return 0.05 * 0.05
-    end
+
+function MACSiege:GetAddXPAmount()
+	return 0.05 * 0.05
+end
 
 function MACSiege:OnGetMapBlipInfo()
     local success = false
@@ -55,44 +80,60 @@ function MACSiege:OnGetMapBlipInfo()
     
     return success, blipType, blipTeam, isAttacked, false --isParasited
 end
-
-
-
-
  
 Shared.LinkClassToMap("MACSiege", MACSiege.kMapName, networkVars)
+
+
 class 'DropMAC' (MAC)
 DropMAC.kMapName = "dropmac"
 
-local networkVars = 
+local networkVars = {}
 
-{
-
-
-}
 AddMixinNetworkVars(ResearchMixin, networkVars)
 AddMixinNetworkVars(RecycleMixin, networkVars)
+
 function DropMAC:OnCreate()
-MAC.OnCreate(self)
+	MAC.OnCreate(self)
     InitMixin(self, ResearchMixin)
     InitMixin(self, RecycleMixin)
+	MAC.kConstructRate = gMACConstructRate
+	MAC.kWeldRate = gMACWeldRate
+	MAC.kOrderScanRadius = gMACOrderScanRadius
+	MAC.kRepairHealthPerSecond = gMACRepairHealthPerSecond
+	MAC.kHealth = gMACHealth
+	MAC.kArmor = gMACArmor
+	MAC.kMoveSpeed = gMACMoveSpeed
+	MAC.kHoverHeight = gMACHoverHeight
+	MAC.kStartDistance = gMACStartDistance
+	MAC.kWeldDistance = gMACWeldDistance
+	MAC.kBuildDistance = gMACBuildDistance     -- Distance at which bot can start building a structure.
+	MAC.kSpeedUpgradePercent = gMACSpeedUpgradePercent
+	MAC.kRolloutSpeed = gMACRolloutSpeed
+	MAC.kCapsuleHeight = gMACCapsuleHeight
+	MAC.kCapsuleRadius = gMACCapsuleRadius
+	MAC.kGreetingUpdateInterval = gMACGreetingUpdateInterval
+	MAC.kGreetingInterval = gMACGreetingInterval
+	MAC.kGreetingDistance = gMACGreetingDistance
+	MAC.kUseTime = gMACUseTime
 end
 
 function DropMAC:OnInitialized()
-MAC.OnInitialized(self)
-self:SetTechId(kTechId.MAC)
-InitMixin(self, LevelsMixin)
-if Server then ExploitCheck(self) end
+	MAC.OnInitialized(self)
+	self:SetTechId(kTechId.MAC)
+	InitMixin(self, LevelsMixin)
+	if Server then ExploitCheck(self) end
 end
-        function DropMAC:GetTechId()
-         return kTechId.MAC
+
+function DropMAC:GetTechId()
+	return kTechId.MAC
 end
-    function DropMAC:GetMaxLevel()
-    return kMacMaxLevel
-    end
-    function DropMAC:GetAddXPAmount()
-    return 0.05 * 0.05
-    end
+
+function DropMAC:GetMaxLevel()
+	return kMacMaxLevel
+end
+function DropMAC:GetAddXPAmount()
+	return 0.05 * 0.05
+end
 
 function DropMAC:OnGetMapBlipInfo()
     local success = false

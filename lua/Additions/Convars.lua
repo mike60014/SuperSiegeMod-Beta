@@ -19,13 +19,10 @@ kUmbraEnergyCost = 23
 kGorgeCost = 8 --10
 kLerkCost = 16 --20
 kFadeCost = 32 --40
-kOnosCost = 64 --65
 
-kCommEggOnosCost = 90 --default 100
 kGorgeUpgradeCost = 0
 kLerkUpgradeCost = 1
 kFadeUpgradeCost = 1
-kOnosUpgradeCost = 1
 
 
 kUmbraShotgunModifier = 0.70
@@ -80,7 +77,7 @@ kHydrasPerHive = 4 --default 3
 
 --kEnzymeCloudDuration = 4 --default 3
 
-kGorgeGestateTime = 7 -- default 7
+
 kLerkGestateTime = 8 -- default 15
 kFadeGestateTime = 9 -- default 25
 kOnosGestateTime = 10-- default 30
@@ -130,8 +127,7 @@ kMatureCystHealth = 350 --500 --default 450
 
 kOnosHealtPerBioMass = 31 //Investigate typo
 
-kEggBeaconMaxHealth = 715
-kEggBeaconMaxArmor = 200
+
 
 
 kEggHealth = 500
@@ -148,8 +144,6 @@ kAdvancedArmoryHealth = 3500
 kAdvancedArmoryArmor = 750
 kAdvancedArmoryPointValue = 11
 
-kNumWebsPerGorge = 6
-kChargeEnergyCost = 20 --def 20
 
 
 kLerkFlapEnergyCost = 1
@@ -224,7 +218,7 @@ gCreditStructureArcLimit = 1
 gCreditStructureExtractorCost = 500
 gCreditStructureExtractorLimit = 1
 
---Units
+--Units Credits Cost
 gCreditClassCostJetPack = 8
 gCreditClassCostRailGun = 29
 gCreditClassCostMiniGun = 30
@@ -236,7 +230,7 @@ gCreditClassCostFade = 20
 gCreditClassCostOnos = 25
 
 
---Weapons
+--Weapons Credits Cost
 gCreditWeaponCostMines = 1.5
 gCreditWeaponCostWelder = 1
 gCreditWeaponCostHMG = 5
@@ -246,14 +240,14 @@ gCreditWeaponCostGrenadeLauncher = 3
 
 
 
---Alien Abilities
+--Alien Abilities  Credits Cost
 gCreditAbilityCostInk = 1.5
 gCreditAbilityCostNutrientMist = 1
 gCreditAbilityCostHallucination = 1.75
 gCreditAbilityCostEnzymeCloud = 1.5
 gCreditAbilityCostContamination = 1
 
---Alien Credit Structures
+--Alien Structures Credits Cost
 gCreditStructureCostHydra = 1
 gCreditStructureCostSaltyEgg = 15
 gCreditStructureLimitSaltyEgg = 5
@@ -268,7 +262,7 @@ gCreditStructureCostHarvesterExtractor = 500
 gCreditStructureLimitHarvesterExtractor = 1
 
 
-
+--General Player Credit Settings 
 gCreditPlayerCapPerRound = 200
 gCreditPlayerMultiplier = 1
 gCreditPlayerSaveJSONFileInterval = 10
@@ -289,16 +283,21 @@ gCreditPlayerTeamTwoCreditCost = 2
 gCreditPlayerTeamTwoLimit = 3
 --KPlayerCreditTeamOne
 
-kCreditCommReward = 10
+gCreditCommReward = 10
+
+kCreditCommReward = gCreditCommReward
 
 
 
 --Credits End
 
+--Entities Settings
 gMaxEntitiesInRadius = 300 --99
 gMaxEntityRadius = 100 --99
+kMaxEntitiesInRadius = gMaxEntitiesInRadius
+kMaxEntityRadius = kMaxEntityRadius
 
---Doors
+--Doors Settings
 kDoorMoveUpVect = 40
 kPrimaryTimer = 0
 kSideTimer = 0 -- b/c maps still use this
@@ -307,24 +306,35 @@ kSideTimer = 0 -- b/c maps still use this
 
 
 --Alien Settings
-kAlienDefaultAddXp = 0.5
-kAlienDefaultLvl = 25
-gAlienEnergyRecuperationRate = 10.0
-gAlienWalkBackwardSpeedScalar = 1
-gAlienEnergyAdrenalineRecuperationRate = 15
+
+
+gInfestationCorrodeDamagePerSecond = 30 --30
+gInfestationCommandCenterCorrodeDamagePerSecond = 120 -- gInfestationCorrodeDamagePerSecond * 4
+
+gAlienDefaultAddXp = 0.5 --0.5
+gAlienDefaultLvl = 25 --25
+gAlienEnergyRecuperationRate = 10 --10
+gAlienWalkBackwardSpeedScalar = 1 --1
+gAlienEnergyAdrenalineRecuperationRate = 15 --15
 
 gAliennewMaxHealthMultipler = 1.10
 
 
+
+
+kInfestationCorrodeDamagePerSecond = gInfestationCorrodeDamagePerSecond
+kInfestationCommandCenterCorrodeDamagePerSecond = gInfestationCommandCenterCorrodeDamagePerSecond
+kAlienDefaultAddXp = gAlienDefaultAddXp
+kAlienDefaultLvl = gAlienDefaultLvl
+kAlienEnergyRecuperationRate = gAlienEnergyRecuperationRate
+kAlienWalkBackwardSpeedScalar = gAlienWalkBackwardSpeedScalar
+kAlienEnergyAdrenalineRecuperationRate = gAlienEnergyAdrenalineRecuperationRate
+kAliennewMaxHealthMultipler = gAliennewMaxHealthMultipler
+
+
 --Alien Upgrades
 
-gEggBeaconArmor = 150
-gEggBeaconBuildTime = 8
-gEggBeaconCost = 10
-gEggBeaconCoolDown = 12
-gEggBeaconHealth = 480
-gEggBeaconMaxHealth = 715
-gEggBeaconMaxArmor = 200
+
 
 kMatureEggHealth = 400
 kMatureEggArmor = 250
@@ -333,19 +343,22 @@ kEggArmor = 150
 kEggPointValue = 2
 
 
+kCommEggOnosCost = 90 --default 100
+
 --Alien Vortex
 gCommVortexCoolDown = 20
 gCommVortexCost = 8
 
 
 
---Alien Buildings
 
+
+--Alien Buildings
 
 gAlienStructureMoveSpeed = 3 --1.5
 
-
 kAlienStructureMoveSpeed = gAlienStructureMoveSpeed
+
 
 --Craig
 
@@ -380,9 +393,91 @@ gAlienStructureBeaconHealth = 675
 gAlienStructureBeaconVisualRange = 8
 
 
+--Gorge / Comm Tunnel Settings
 
 
---Babbler
+gTunnelEntranceArmor = 15
+gTunnelEntranceHealth = 15
+gTunnelEntrancePointValue = 15
+gTunnelEntranceMaturationTime = 4 -- 135
+gTunnelArmorDamagePerSecond = 10
+
+
+kGorgeArmorTunnelDamagePerSecond = gTunnelArmorDamagePerSecond
+kTunnelEntranceArmor = gTunnelEntranceArmor
+kTunnelEntranceHealth = gTunnelEntranceHealth
+kTunnelEntrancePointValue = gTunnelEntrancePointValue
+kTunnelEntranceMaturationTime = gTunnelEntranceMaturationTime
+
+
+
+--Tunnel End
+
+
+--Skulk Settings
+
+
+gSkulkMaxMovementSpeed = 9 --7.25
+gSkulkLeapForce = 12 --7.6
+gSkulkLeapVerticalForce = 13 --10.8
+gSkulkLeapTime = 0.5 --0.2
+gSkulkMass = 35 --  45=~100 pounds
+gSkulkSneakSpeedModifier = 0.75 --0.66
+gSkulkViewOffsetHeight = 0.55
+gSkulkNormalWallWalkFeelerSize = 0.25
+gSkulkNormalWallWalkRange = 0.3
+gSkulkJumpWallRange = 1 --0.4
+gSkulkJumpWallFeelerSize = 0.1
+gSkulkXExtents = .45
+gSkulkYExtents = .45
+gSkulkZExtents = .45
+gSkulkMaxSneakOffset = 0 --0.55
+gSkulkWallJumpInterval = 0.1 --0.4
+gSkulkWallJumpForce = 5.6 --6.4 -- scales down the faster you are
+gSkulkMinWallJumpForce = 0.1
+gSkulkVerticalWallJumpForce = 6 --4.3
+gSkulkWallJumpMaxSpeed = 16 --11
+gSkulkWallJumpMaxSpeedCelerityBonus = 1.8 --1.2
+gSkulkCrouchSpeedScalar = 0
+gSkulkHealthPerBioMass = 0 --10
+
+gSkulkAcceleration = 13
+gSkulkAirAcceleration =  9
+gSkulkAirControl = 27
+gSkulkGroundTransistionTime = 0.1
+gSkulkAirFriction = 0.055 -- (GetHasCelerityUpgrade(self) and GetSpurLevel(self:GetTeamNumber()) or 0) * 0.009
+gSkulkGroundFriction = 11
+gSkulkIsSmallTarget = true
+
+
+
+gSkulkUpgradeCost = 0
+gXenocideResearchTime = 5 --35 --default 60
+
+kXenocideResearchTime = gXenocideResearchTime
+kSkulkUpgradeCost = gSkulkUpgradeCost
+kSkulkHealthPerBioMass = gSkulkHealthPerBioMass
+
+
+--Skulk Abilities
+
+gSkulkXenocidePlayerDamage = 75
+gSkulkXenocideStructureDamage = 220
+gSkulkXenocideLeapGetHUDSlot = 3
+gSkulkXenocideDetonateTime = 2.0
+gSkulkXenocideRadiusRange = 1.4
+gSkulkXenocideDistanceFraction = 1 --unused/
+gXenocideDamageType = kDamageType.Structural
+
+
+kXenocideRange = gSkulkXenocideRadiusRange
+kXenocideDamage = gXenocideDamage
+kXenocideDamageType = gXenocideDamageType
+ 
+
+
+--Skulk End
+--Babbler Settings
 gBabblerHealth = 15 --default 10
 gBabblerMass = 15
 gBabblerRadius = 0.25
@@ -416,86 +511,22 @@ kNumBabblerEggsPerGorge = 3 --1
 kNumBabblersPerEgg = 6
 
 --Babbler End
-
-
---Skulk Settings
-
-
-gSkulkMaxMovementSpeed = 9 --7.25
-gSkulkLeapForce = 10 --7.6
-gSkulkLeapVerticalForce = 16 --10.8
-gSkulkLeapTime = 0.5 --0.2
-gSkulkSneakSpeedModifier = 0.75 --0.66
-gSkulkViewOffsetHeight = 0.55
-gSkulkMass = 35 --  45=~100 pounds
-gSkulkNormalWallWalkFeelerSize = 0.25
-gSkulkNormalWallWalkRange = 0.3
-gSkulkJumpWallRange = 1 --0.4
-gSkulkJumpWallFeelerSize = 0.1
-gSkulkXExtents = .45
-gSkulkYExtents = .45
-gSkulkZExtents = .45
-gSkulkMaxSneakOffset = 0 --0.55
-gSkulkWallJumpInterval = 0.1 --0.4
-gSkulkWallJumpForce = 5.6 --6.4 -- scales down the faster you are
-gSkulkMinWallJumpForce = 0.1
-gSkulkVerticalWallJumpForce = 6 --4.3
-gSkulkWallJumpMaxSpeed = 16 --11
-gSkulkWallJumpMaxSpeedCelerityBonus = 1.8 --1.2
-gSkulkCrouchSpeedScalar = 0
-gSkulkHealthPerBioMass = 0 --10
-
-gSkulkAcceleration = 13
-gSkulkAirAcceleration =  9
-gSkulkAirControl = 27
-gSkulkGroundTransistionTime = 0.1
---gSkulkAirFriction = 0.055 - (GetHasCelerityUpgrade(self) and GetSpurLevel(self:GetTeamNumber()) or 0) * 0.009
-gSkulkGroundFriction = 11
-gSkulkIsSmallTarget = true
-
-
-
-gSkulkUpgradeCost = 0
-gXenocideResearchTime = 5 --35 --default 60
-
-kXenocideResearchTime = gXenocideResearchTime
-kSkulkUpgradeCost = gSkulkUpgradeCost
-kSkulkHealthPerBioMass = gSkulkHealthPerBioMass
-
-
---Skulk Abilities
-
-gSkulkXenocidePlayerDamage = 75
-gSkulkXenocideStructureDamage = 220
-gSkulkXenocideLeapGetHUDSlot = 3
-gSkulkXenocideDetonateTime = 2.0
-gSkulkXenocideRadiusRange = 1.4
-gSkulkXenocideDistanceFraction = 1 --unused/
-gXenocideDamageType = kDamageType.Structural
-
-
-kXenocideRange = gSkulkXenocideRadiusRange
-kXenocideDamage = gXenocideDamage
-kXenocideDamageType = gXenocideDamageType
- 
-
-
---Skulk End
 --Gorge Settings
 
 
-gGorgeArmorTunnelDamagePerSecond = 10
-gTunnelEntranceArmor = kTunnelEntranceArmor
-gTunnelEntranceHealth = kTunnelEntranceHealth
-gTunnelEntrancePointValue = kTunnelEntrancePointValue
-gTunnelEntranceMaturationTime = 4 -- 135
 
 
-kGorgeArmorTunnelDamagePerSecond = gGorgeArmorTunnelDamagePerSecond
-kTunnelEntranceArmor = gTunnelEntranceArmor
-kTunnelEntranceHealth = gTunnelEntranceHealth
-kTunnelEntrancePointValue = gTunnelEntrancePointValue
-kTunnelEntranceMaturationTime = gTunnelEntranceMaturationTime
+
+gGorgeChargeEnergyCost = 20 --20
+gGorgeGestateTime = 7 -- default 7
+
+
+
+
+
+kNumWebsPerGorge = 6
+kChargeEnergyCost = gGorgeChargeEnergyCost
+kGorgeGestateTime = gGorgeGestateTime
 
 --Gorge Abilities
 
@@ -644,6 +675,9 @@ kHealthOnBlink = gHealthOnBlink
 --Onos Settings
 
 
+kOnosCost = 64 --65
+kOnosUpgradeCost = 1
+
 --Onos abilities
 --gOnosStompBoneWallDuration = 2 --4
 gOnocideDetonateTime = 2.0
@@ -773,7 +807,7 @@ kGrenadeUpgradedLifetime = 1.5
 
 
 
---Flame
+--Flame / Burn
 
 gFlameUpdateTime = 0.6
 gBurnDamagePerSecond = 5--2
@@ -902,22 +936,55 @@ kJetpackFuelReplenishDelay = 0.1
 --kJumpPackCost = 7
 
 --Marine Classes End
---Marine Buildings --Marine Buildings
+--Marine Buildings
+
+
 --AdvBeacon
 kAdvancedBeaconCost = 13
+kObsAdvBeaconPowerOff = 16 --12 w/ lvl 25
+--kAdvBeacTechCost = 15
+--kAdvBeacTechTime = 30
 
---Armory
-kArmoryHealth = 2000
-kArmoryArmor = 500
-kArmoryPointValue = 6
-kArmoryLvl = 75
-kArmoryAddXp = 1
+--Armory Settings
+gArmoryHealth = 1500 --2000
+gArmoryArmor = 1000 --500
+gArmoryPointValue = 6
+gArmoryLvl = 75
+gArmoryAddXp = 1
+gArmoryHealAmount = 25
+gArmoryArmorHealAmount = 0.34 --0.20 -- 20% armor
+gArmoryResupplyInterval = 0.8
+gArmoryLoginAndResupplyTime = 0 --0.3
+gArmoryResupplyUseRange = 2.5
+gArmoryDeployTime = 3
 
---Adv Armory
-kAdvancedArmoryHealth = 3500
-kAdvancedArmoryArmor = 750
-kAdvancedArmoryPointValue = 11
---BackupLight
+kArmoryDeployTime = gArmoryDeployTime
+kArmoryHealth = gArmoryHealth
+kArmoryArmor = gArmoryArmor
+kArmoryPointValue = gArmoryPointValue
+kArmoryLvl = gArmoryLvl
+kArmoryAddXp = gArmoryHealAmount
+kArmoryHealAmount = gArmoryHealAmount
+kArmoryResupplyInterval = gArmoryResupplyInterval
+kArmoryLoginAndResupplyTime = gArmoryLoginAndResupplyTime
+
+
+--Adv Armory Settings
+gAdvancedArmoryHealth = 2500 --3500
+gAdvancedArmoryArmor = 1250 --750
+gAdvancedArmoryPointValue = 11
+gAdvancedArmoryHealAmount = 35 --25
+gAdvancedArmoryResupplyInterval = 0.6 --0.8
+gAdvancedArmoryLoginAndResupplyTime = 0 --0.3
+
+kAdvancedArmoryHealth = gAdvancedArmoryHealth
+kAdvancedArmoryArmor = gAdvancedArmoryArmor
+kAdvancedArmoryPointValue = gAdvancedArmoryPointValue
+kAdvancedArmoryHealAmount = gAdvancedArmoryHealAmount
+kAdvancedArmoryResupplyInterval = gAdvancedArmoryResupplyInterval
+kAdvancedArmoryLoginAndResupplyTime = gAdvancedArmoryLoginAndResupplyTime
+
+--BackupLight Settings
 
 gBackupLightSetInnerCone = 30
 gBackupLightSetOuterCone = 45
@@ -926,30 +993,83 @@ gBackupLightSetRadius = 15
 gBackupLightSetAtmosphericDensity = 0.2
 
 
---BreakableDoor
+--BreakableDoor Settings
 
 gBreakableDoorHealth = 4000
 --gBreakableDoor
 
---Sentry
+--Sentry Settings
 kSentrySupply = 2
 kSentryHealth = 650
 kSentryArmor = 125
 kSentryPointValue = 3
 kCommSentryPerRoom = 6
 
---Battery
+--Battery Settings
 kBatteryPowerRange = 4
 
---InfrantryPortal
+--InfrantryPortal Settings
 kInfantryPortalMaxLevel = 25
 kInfantryPortalXPGain = 0.5
 
---Mac
-kMacMaxLevel = 50
+--Mac Settings
 gMacMaxAmount = 12
+gMacMaxLevel = 50
 
---Arc
+gMACConstructRate = 0.4
+gMACWeldRate = 0.5
+gMACOrderScanRadius = 10
+gMACRepairHealthPerSecond = 50
+gMACHealth = kMACHealth
+gMACArmor = kMACArmor
+gMACMoveSpeed = 6
+gMACHoverHeight = .5
+gMACStartDistance = 3
+gMACWeldDistance = 2
+gMACBuildDistance = 2     -- Distance at which bot can start building a structure.
+gMACSpeedUpgradePercent = (1 + kMACSpeedAmount)
+gMACRolloutSpeed = 2
+gMACCapsuleHeight = .2
+gMACCapsuleRadius = .5
+gMACGreetingUpdateInterval = 1
+gMACGreetingInterval = 10
+gMACGreetingDistance = 5
+gMACUseTime = 2.0
+
+-- how often we check to see if we are in a marines face when welding Note: Need to be fairly long to allow it to weld marines with backs towards walls - the AI will -- stop moving after a < 1 sec long interval, and the welding will be done in the time before it tries -- to move behind their backs again
+gMACWeldPositionCheckInterval = 1 
+
+/*
+MAC.kConstructRate = 0.4
+MAC.kWeldRate = 0.5
+MAC.kOrderScanRadius = 10
+MAC.kRepairHealthPerSecond = 50
+MAC.kHealth = kMACHealth
+MAC.kArmor = kMACArmor
+MAC.kMoveSpeed = 6
+MAC.kHoverHeight = .5
+MAC.kStartDistance = 3
+MAC.kWeldDistance = 2
+MAC.kBuildDistance = 2     -- Distance at which bot can start building a structure.
+MAC.kSpeedUpgradePercent = (1 + kMACSpeedAmount)
+MAC.kRolloutSpeed = 2
+MAC.kCapsuleHeight = .2
+MAC.kCapsuleRadius = .5
+MAC.kGreetingUpdateInterval = 1
+MAC.kGreetingInterval = 10
+MAC.kGreetingDistance = 5
+MAC.kUseTime = 2.0
+
+-- how often we check to see if we are in a marines face when welding Note: Need to be fairly long to allow it to weld marines with backs towards walls - the AI will -- stop moving after a < 1 sec long interval, and the welding will be done in the time before it tries -- to move behind their backs again
+MAC.kWeldPositionCheckInterval = 1 
+*/
+
+
+
+kMacMaxAmount = gMacMaxAmount
+kMacMaxLevel = kMacMaxLevel
+
+--Arc Settings
 gArcMaxAmount = 12
 gArcTurnSpeed = math.pi / 2 -- an ARC turns slowly
 gArcMaxSpeedLimitAngle = math.pi / 36 -- 5 degrees
@@ -975,36 +1095,71 @@ gArcCapsuleRadius = .5
 --Exos
 
 
---ExoFlamer
-kExoFlamerConeWidth = 0.25 --0.17
-kExoFlamerCoolDownRate = 0.25 --0.24
-kExoFlamerDamage = 10 --23
-kExoFlamerDamageLength = 6 --6
-kExoFlamerDamageLevels = 5 --3 WIP
-kExoFlamerDamageOverTimePerLevel = 10  --5 WIP
-kExoFlamerDualGunHeatUpRate = 0.06
-kExoFlamerFireRate = 0.15
-kExoFlamerHeatUpRate = 0.100 --0.168
-kExoFlamerImpactEffectRate = 0.15
-kExoFlamerPilotEffectRate = 0.3
-kExoFlamerSmokeEffectRate = 1.5
-kExoFlamerhardeningModifier = 0.8
-kExoFlamermaxHardeningValue = 2
-kExoFlamerminHardeningValue = 0.5
-kExoFlamerTrailnumFlameSegments = 30
-kExoFlamer3PminHardeningValue = 0.1  --ThirdPerson view
-kExoFlamer3PTrailnumFlameSegments = 8  --ThirdPerson view
-kExoFlamerTrailWeight = 0.6
-kExoFlamerTrailLength = 9.5
-kExoFlameralienvisibilityChangeDuration = 0.5
-kExoFlamerMoveSpeedWhileFiringMultipler = 1  --1 = no change in speed. 1.25 = slow by 25%
+--ExoFlamer Settings
 
+gExoFlamer3PTrailnumFlameSegments = 8  --ThirdPerson view
+gExoFlamer3PminHardeningValue = 0.1  --ThirdPerson view
+gExoFlamerAcceleration = 20 -- 20
+gExoFlamerAlienVisibilityChangeDuration = 0.5
+gExoFlamerConeWidth = 0.25 --0.17
+gExoFlamerCoolDownRate = 0.25 --0.24
+gExoFlamerDamage = 10 --23
+gExoFlamerDamageLength = 6 --6
+gExoFlamerDamageLevels = 5 --3 WIP
+gExoFlamerDamageOverTimePerLevel = 10  --5 WIP
+gExoFlamerDualGunHeatUpRate = 0.06
+gExoFlamerFireRate = 0.15
+gExoFlamerGetStunnedCooldown = 3
+gExoFlamerHardeningModifier = 0.8
+gExoFlamerHeatUpRate = 0.100 --0.168
+gExoFlamerImpactEffectRate = 0.15
+gExoFlamerMaxHardeningValue = 2
+gExoFlamerMinHardeningValue = 0.5
+gExoFlamerMoveSpeedWhileFiringMultipler = 1  --1 = no change in speed. 1.25 = slow by 25%
+gExoFlamerPilotEffectRate = 0.3
+gExoFlamerSmokeEffectRate = 1.5
 gExoFlamerThrusterHorizontalAcceleration = 23
+gExoFlamerTrailLength = 9.5
+gExoFlamerTrailWeight = 0.6
+gExoFlamerTrailnumFlameSegments = 30
+gExoFlamerUseCatPackCooldown = 6 -- 6
+gExoFlamerXZExtents = 0.55 -- 0.55
+gExoFlamerYExtents = 1.2 -- 1.20
+gExoFlamerThrustersCooldownTime = 2.0 -- 2.5
 
+gExoFlamerThrustersDuration = 2.0 -- 1.5
+gExoFlamerThrustersMinimumFuel = 0.50 -- 0.99
+gExoFlamerCrouchShrinkAmount = 0 -- 0
+gExoFlamerExtentsCrouchShrinkAmount = 0 -- 0
 
---ExoWelder
+kExoFlamer3PTrailnumFlameSegments = gExoFlamer3PTrailnumFlameSegments
+kExoFlamer3PminHardeningValue = gExoFlamer3PminHardeningValue
+kExoFlamerAcceleration = gExoFlamerAcceleration
+kExoFlamerConeWidth = gExoFlamerConeWidth
+kExoFlamerCoolDownRate = gExoFlamerCoolDownRate
+kExoFlamerDamage = gExoFlamerDamage
+kExoFlamerDamageLength = gExoFlamerDamageLength
+kExoFlamerDamageLevels = gExoFlamerDamageLevels
+kExoFlamerDamageOverTimePerLevel = gExoFlamerDamageOverTimePerLevel
+kExoFlamerDualGunHeatUpRate = gExoFlamerDualGunHeatUpRate
+kExoFlamerFireRate = gExoFlamerFireRate
+kExoFlamerGetStunnedCooldown = gExoFlamerGetStunnedCooldown
+kExoFlamerHeatUpRate = gExoFlamerHeatUpRate
+kExoFlamerImpactEffectRate = gExoFlamerImpactEffectRate
+kExoFlamerMoveSpeedWhileFiringMultipler = gExoFlamerMoveSpeedWhileFiringMultipler
+kExoFlamerPilotEffectRate = gExoFlamerPilotEffectRate
+kExoFlamerSmokeEffectRate = gExoFlamerSmokeEffectRate
+kExoFlamerThrusterHorizontalAcceleration = gExoFlamerThrusterHorizontalAcceleration
+kExoFlamerTrailLength = gExoFlamerTrailLength
+kExoFlamerTrailWeight = gExoFlamerTrailWeight
+kExoFlamerTrailnumFlameSegments = gExoFlamerTrailnumFlameSegments
+kExoFlameralienvisibilityChangeDuration = gExoFlameralienvisibilityChangeDuration
+kExoFlamerhardeningModifier = gExoFlamerhardeningModifier
+kExoFlamermaxHardeningValue = gExoFlamermaxHardeningValue
+kExoFlamerminHardeningValue = gExoFlamerminHardeningValue
+
+--ExoWelder Settings
 gExoWelderDamagePerSecond = 20
---gExoWelderFireAmount = 0
 gExoWelderPlayerWeldAmount = 15 --15
 gExoWelderStructureWeldAmount = 65
 gExoWelderStructureWeldRateBreakableDoor = 65
@@ -1018,6 +1173,8 @@ gExoWelderPlayerWeldRate = 0.45 --0.45
 gExoWelderStructureWeldRate = 0.2
 gExoWelderGetStunnedCooldown = 3
 
+gExoWelderCrouchShrinkAmount = 0 -- 0
+gExoWelderExtentsCrouchShrinkAmount = 0 -- 0
 gExoWelderMoveSpeedWhileFiringMultipler = 1  --1 = no change in speed. 1.25 = slow by 25% still need to implement
 gExoWelderThrusterHorizontalAcceleration = 23 --23
 gExoWelderAcceleration = 30 --20
@@ -1041,7 +1198,9 @@ kExoWelderStructureWeldRate = gExoWelderStructureWeldAmount
 kExoWelderSelfWeldAmount = gExoWelderSelfWeldAmount
 kExoWelderStructureWeldRateBreakableDoor = gExoWelderStructureWeldRateBreakableDoor
 
-kAcceleration = gExoWelderAcceleration
+kExoWelderCrouchShrinkAmount = gExoWelderCrouchShrinkAmount
+kExoWelderExtentsCrouchShrinkAmount = gExoWelderExtentsCrouchShrinkAmount
+--kAcceleration = gExoWelderAcceleration
 kExoWelderDamagePerSecond = gExoWelderDamagePerSecond
 kExoWelderHealScoreAdded = gExoWelderHealScoreAdded
 kExoWelderAmountHealedForPoints = gExoWelderAmountHealedForPoints
@@ -1051,19 +1210,44 @@ kExoThrusterHorizontalAcceleration = gExoWelderThrusterHorizontalAcceleration
 --Exo.kYExtents = gExoWelderYExtents
 
 
---ExoDualMinigun
+--ExoDualMinigun Settings
+gExoMinigunAcceleration = 20 -- 20
 gExoMinigunThrusterHorizontalAcceleration = 23
-kExoMinigunMoveSpeedWhileFiringMultipler = 1  --1 = no change in speed. 1.25 = slow by 25%
+gExoMinigunMoveSpeedWhileFiringMultipler = 1  --1 = no change in speed. 1.25 = slow by 25%
+gExoMinigunXZExtents = 0.55 -- 0.55
+gExoMinigunYExtents = 1.2 -- 1.20
+gExoMinigunThrustersCooldownTime = 2.0 -- 2.5
+gExoMinigunThrustersDuration = 2.0 -- 1.5
+gExoMinigunThrustersMinimumFuel = 0.50 -- 0.99
+gExoMinigunCrouchShrinkAmount = 0 -- 0
+gExoMinigunExtentsCrouchShrinkAmount = 0 -- 0
+gExoMinigunUseCatPackCooldown = 6 -- 6
+gExoMinigunGetStunnedCooldown = 3
 
---ExoDualRailgun
+
+--ExoDualRailgun Settings
+gExoRailgunDamage = 33
+gExoRailgunChargeDamage = 140
 gExoRailgunThrusterHorizontalAcceleration = 23
 gExoRailgunMoveSpeedWhileFiringMultipler = 1  --1 = no change in speed. 1.25 = slow by 25%
+gExoRailgunXZExtents = 0.55 -- 0.55
+gExoRailgunYExtents = 1.2 -- 1.20
+gExoRailgunThrustersCooldownTime = 2.0 -- 2.5
+gExoRailgunThrustersDuration = 2.0 -- 1.5
+gExoRailgunThrustersMinimumFuel = 0.50 -- 0.99
+gExoRailgunCrouchShrinkAmount = 0 -- 0
+gExoRailgunExtentsCrouchShrinkAmount = 0 -- 0
+gExoRailgunUseCatPackCooldown = 6 -- 6
+gExoRailgunGetStunnedCooldown = 3
+gExoRailgunAcceleration = 20 -- 20
+gExoRailgunSuitCost = 35 --default 45
+gExoRailgunDamageType = kDamageType.Structural
 
-
+kDualRailgunExosuitCost = gExoRailgunSuitCost
 kExoRailgunMoveSpeedWhileFiringMultipler = gExoRailgunMoveSpeedWhileFiringMultipler
-kRailgunDamage = 33
-kRailgunChargeDamage = 140
-kRailgunDamageType = kDamageType.Structural
+kRailgunDamage = gExoRailgunDamage
+kRailgunChargeDamage = gExoRailgunChargeDamage
+kRailgunDamageType = gExoRailgunDamageType
 
 --AllExo Settings
 
@@ -1082,7 +1266,7 @@ gAllExoAtomReconstructionTime = 3
 
 kAtomReconstructionTime = gAllExoAtomReconstructionTime
 
-kExoPlayerWeldRate = kExoPlayerWeldRate
+--kExoPlayerWeldRate = kExoPlayerWeldRate
 kSmashEggRange = gAllExoSmashEggRange
 
 --kHorizontalThrusterAddSpeed = gHorizontalThrusterAddSpeed
@@ -1094,6 +1278,8 @@ kSmashEggRange = gAllExoSmashEggRange
 
 gPrototypeLabBonusHealAuraRange = 1 --def 4
 gPrototypeLabBonusHealAuraAmount = 15
+
+
 kPrototypeLabBonusHealAuraRange = gPrototypeLabBonusHealAuraRange
 kPrototypeLabBonusHealAuraAmount = gPrototypeLabBonusHealAuraAmount
 
@@ -1104,60 +1290,6 @@ gClawDamageType = kDamageType.Structural
 
 kClawDamage = gExoClawDamage
 kClawDamageType = gClawDamageType
-
-kDualRailgunExosuitCost = 35 --default 45
-gExoMinigunAcceleration = 20 -- 20
-gExoRailgunAcceleration = 20 -- 20
-gExoFlamerAcceleration = 20 -- 20
-gExoWelderAcceleration = 20 -- 20
-
-gExoMinigunGetStunnedCooldown = 3
-gExoRailgunGetStunnedCooldown = 3
-gExoFlamerGetStunnedCooldown = 3
-
-gExoMinigunUseCatPackCooldown = 6 -- 6
-gExoRailgunUseCatPackCooldown = 6 -- 6
-gExoFlamerUseCatPackCooldown = 6 -- 6
-
-
-/*
-
-gExoMinigun
-gExoRailgun
-gExoFlamer
-gExoWelder
-
-*/
-
-gExoMinigunXZExtents = 0.55 -- 0.55
-gExoRailgunXZExtents = 0.55 -- 0.55
-gExoFlamerXZExtents = 0.55 -- 0.55
-
-gExoMinigunYExtents = 1.2 -- 1.20
-gExoRailgunYExtents = 1.2 -- 1.20
-gExoFlamerYExtents = 1.2 -- 1.20
-
-gExoMinigunThrustersCooldownTime = 2.0 -- 2.5
-gExoRailgunThrustersCooldownTime = 2.0 -- 2.5
-gExoFlamerThrustersCooldownTime = 2.0 -- 2.5
-
-gExoMinigunThrustersDuration = 2.0 -- 1.5
-gExoRailgunThrustersDuration = 2.0 -- 1.5
-gExoFlamerThrustersDuration = 2.0 -- 1.5
-
-gExoMinigunThrustersMinimumFuel = 0.50 -- 0.99
-gExoRailgunThrustersMinimumFuel = 0.50 -- 0.99
-gExoFlamerThrustersMinimumFuel = 0.50 -- 0.99
-
-gExoMinigunCrouchShrinkAmount = 0 -- 0
-gExoRailgunCrouchShrinkAmount = 0 -- 0
-gExoFlamerCrouchShrinkAmount = 0 -- 0
-gExoWelderCrouchShrinkAmount = 0 -- 0
-
-gExoMinigunExtentsCrouchShrinkAmount = 0 -- 0
-gExoRailgunExtentsCrouchShrinkAmount = 0 -- 0
-gExoFlamerExtentsCrouchShrinkAmount = 0 -- 0
-gExoWelderExtentsCrouchShrinkAmount = 0 -- 0
 
 
 --kHealthWarningTrigger
@@ -1172,11 +1304,7 @@ gAllExoEjectDuration = 1.0
 gAllExoCloseDuration = 1.0 --1.8?
 kAllExoArmorPerUpgradeLevel = 25 --20
 kAllExoArmor = 360
---gAllExoThrusterHorizontalAcceleration =
 
 
 
-kObsAdvBeaconPowerOff = 16 --12 w/ lvl 25
---kAdvBeacTechCost = 15
---kAdvBeacTechTime = 30
 
