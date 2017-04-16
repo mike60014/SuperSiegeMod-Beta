@@ -36,7 +36,10 @@ AddMixinNetworkVars(AchievementGiverMixin, networkVars)
 AddMixinNetworkVars(ShotgunVariantMixin, networkVars)
 
 -- higher numbers reduces the spread
-local kSpreadDistance = 16 --gShotgunPrimarySpreadDistance
+kPrimarySpreadDistance = gShotgunSecondarySpreadDistance
+kSecondarySpreadDistance = gShotgunSecondarySpreadDistance
+local kSpreadDistance = kPrimarySpreadDistance
+local kSecondSpreadDistance = kSecondarySpreadDistance
 Shotgun.kStartOffset = 0
 Shotgun.kSpreadVectors =
 {
@@ -67,16 +70,16 @@ Shotgun.kSpreadVectors =
 
 Shotgun.kSecondarySpreadVectors =  --Sven-Coop !
 {
-    GetNormalizedVector(Vector(-0.25, 0.01, gShotgunSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(-0.5, 0.01, gShotgunSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(0.5, 0.01, gShotgunSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(-1, 0.01, gShotgunSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(1, 0.01, gShotgunSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(-1.25, 0.01, gShotgunSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(-1.5, 0.02, gShotgunSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(1.5, 0.01, gShotgunSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(-2, 0.01, gShotgunSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(2, 0.01, gShotgunSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(-0.25, 0.01, kSecondSpreadDistance)),
+    GetNormalizedVector(Vector(-0.5, 0.01, kSecondSpreadDistance)),
+    GetNormalizedVector(Vector(0.5, 0.01, kSecondSpreadDistance)),
+    GetNormalizedVector(Vector(-1, 0.01, kSecondSpreadDistance)),
+    GetNormalizedVector(Vector(1, 0.01, kSecondSpreadDistance)),
+    GetNormalizedVector(Vector(-1.25, 0.01, kSecondSpreadDistance)),
+    GetNormalizedVector(Vector(-1.5, 0.02, kSecondSpreadDistance)),
+    GetNormalizedVector(Vector(1.5, 0.01, kSecondSpreadDistance)),
+    GetNormalizedVector(Vector(-2, 0.01, kSecondSpreadDistance)),
+    GetNormalizedVector(Vector(2, 0.01, kSecondSpreadDistance)),
 }
 
 Shotgun.kModelName = PrecacheAsset("models/marine/shotgun/shotgun.model")

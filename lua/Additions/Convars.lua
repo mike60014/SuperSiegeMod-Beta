@@ -1037,7 +1037,7 @@ gShotgunSecondaryRange = 100
 gShotgunSecondaryEffectRange = 50 --5
 gShotgunSecondaryRangeWhileVortexed = 50
 -- higher numbers reduces the spread
-gShotgunSecondarySpreadDistance = 32 --Higher number means closer spread
+gShotgunSecondarySpreadDistance = 32    --Higher number means closer spread
 gShotgunPointValue = 10
 
 
@@ -1049,8 +1049,9 @@ kShotgunDamage = gShotgunPrimaryDamage
 kShotgunDamageType = gShotgunPrimaryDamageType
 kShotgunClipSize = gShotgunClipSize
 kShotgunBulletsPerShot = gShotgunPrimaryBulletFiredCount
-kShotgunSpreadDistance = gShotgunSecondarySpreadDistance
 */
+kPrimarySpreadDistance = gShotgunSecondarySpreadDistance
+kSecondarySpreadDistance = gShotgunSecondarySpreadDistance
 --Welder
 
 gLevelScoreAdded = 1

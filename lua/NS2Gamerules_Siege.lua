@@ -1,16 +1,23 @@
 
-Script.Load("lua/Gamerules.lua")
-class "NS2GamerulesSiege" (Gamerules)
+--Script.Load("lua/Gamerules.lua")
+--class "NS2GamerulesSiege" (Gamerules)
 
-function NS2GamerulesSiege:GetWarmUpPlayerLimit()
+function NS2Gamerules:GetWarmUpPlayerLimit()
 	return 10
 end
 
-function NS2GamerulesSiege:KillEnemiesNearCommandStructureInPreGame(timePassed)
+function NS2Gamerules:KillEnemiesNearCommandStructureInPreGame(timePassed)
 --Someday?
 end
 
-function NS2GamerulesSiege:CastVoteByPlayer(voteTechId, player)
+
+
+
+class "VoteStalemateRound" (Gamerules)
+
+VoteStalemateRound.kMapName = "VoteStalemateRound"
+
+function VoteStalemateRound:CastVoteByPlayer(voteTechId, player)
 	if voteTechId == kTechId.VoteStalemateRound then
 		if self:VotingStalementVoteAllowed() then
 			local team = player:GetTeam()
@@ -21,10 +28,10 @@ function NS2GamerulesSiege:CastVoteByPlayer(voteTechId, player)
 	end
 end
 
-
-function NS2GamerulesSiege:VotingStalemateVoteAllowed()
+function VoteStalemateRound:VotingStalemateVoteAllowed()
     return PlayerUI_GetGameStartTime() > 0 and Shared.GetTime() - PlayerUI_GetGameStartTime() > kMinTimeBeforeStalemate
 end
 
 
-Shared.LinkClassToMap("VoteStalemateRound", kTechId.VoteStalemateRound, {})
+Shared.LinkClassToMap("VoteStalemate", kTechId.VoteStalemateRound, {})
+--Shared.LinkClassToMap("VoteStalemateRound", kTechId.VoteStalemateRound, {})
