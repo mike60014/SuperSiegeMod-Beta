@@ -36,43 +36,47 @@ AddMixinNetworkVars(AchievementGiverMixin, networkVars)
 AddMixinNetworkVars(ShotgunVariantMixin, networkVars)
 
 -- higher numbers reduces the spread
-local kShotgunPrimarySpreadDistance = gShotgunPrimarySpreadDistance --kShotgunSpreadDistance
+local kSpreadDistance = 16 --gShotgunPrimarySpreadDistance
 Shotgun.kStartOffset = 0
-Shotgun.kSpreadVectors ={
-/*
-    --GetNormalizedVector(Vector(-0.01, 0.01, kShotgunPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(-0.45, 0.45, kShotgunPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0.45, 0.45, kShotgunPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0.45, -0.45, kShotgunPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(-0.45, -0.45, kShotgunPrimarySpreadDistance)),
-	*/
-    GetNormalizedVector(Vector(-1, 0, kShotgunPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(1, 0, kShotgunPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0, -1, kShotgunPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0, 1, kShotgunPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(-0.35, 0, kShotgunPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0.35, 0, kShotgunPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0, -0.35, kShotgunPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0, 0.35, kShotgunPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(-0.8, -0.8, kShotgunPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(-0.8, 0.8, kShotgunPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0.8, 0.8, kShotgunPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0.8, -0.8, kShotgunPrimarySpreadDistance)),
-	
+Shotgun.kSpreadVectors =
+{
+    GetNormalizedVector(Vector(-0.01, 0.01, kSpreadDistance)),
+    
+    GetNormalizedVector(Vector(-0.45, 0.45, kSpreadDistance)),
+    GetNormalizedVector(Vector(0.45, 0.45, kSpreadDistance)),
+    GetNormalizedVector(Vector(0.45, -0.45, kSpreadDistance)),
+    GetNormalizedVector(Vector(-0.45, -0.45, kSpreadDistance)),
+    
+    GetNormalizedVector(Vector(-1, 0, kSpreadDistance)),
+    GetNormalizedVector(Vector(1, 0, kSpreadDistance)),
+    GetNormalizedVector(Vector(0, -1, kSpreadDistance)),
+    GetNormalizedVector(Vector(0, 1, kSpreadDistance)),
+    
+    GetNormalizedVector(Vector(-0.35, 0, kSpreadDistance)),
+    GetNormalizedVector(Vector(0.35, 0, kSpreadDistance)),
+    GetNormalizedVector(Vector(0, -0.35, kSpreadDistance)),
+    GetNormalizedVector(Vector(0, 0.35, kSpreadDistance)),
+    
+    GetNormalizedVector(Vector(-0.8, -0.8, kSpreadDistance)),
+    GetNormalizedVector(Vector(-0.8, 0.8, kSpreadDistance)),
+    GetNormalizedVector(Vector(0.8, 0.8, kSpreadDistance)),
+    GetNormalizedVector(Vector(0.8, -0.8, kSpreadDistance)),
+    
 }
+
 
 Shotgun.kSecondarySpreadVectors =  --Sven-Coop !
 {
     GetNormalizedVector(Vector(-0.25, 0.01, gShotgunSecondarySpreadDistance)),
     GetNormalizedVector(Vector(-0.5, 0.01, gShotgunSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(-1, 0.01, gShotgunSecondarySpreadDistance)),
     GetNormalizedVector(Vector(0.5, 0.01, gShotgunSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(-1, 0.01, gShotgunSecondarySpreadDistance)),
     GetNormalizedVector(Vector(1, 0.01, gShotgunSecondarySpreadDistance)),
     GetNormalizedVector(Vector(-1.25, 0.01, gShotgunSecondarySpreadDistance)),
     GetNormalizedVector(Vector(-1.5, 0.02, gShotgunSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(1.5, 0.01, gShotgunSecondarySpreadDistance)),
     GetNormalizedVector(Vector(-2, 0.01, gShotgunSecondarySpreadDistance)),
-    --GetNormalizedVector(Vector(1.5, 0.01, gShotgunSecondarySpreadDistance)),
-    --GetNormalizedVector(Vector(2, 0.01, gShotgunSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(2, 0.01, gShotgunSecondarySpreadDistance)),
 }
 
 Shotgun.kModelName = PrecacheAsset("models/marine/shotgun/shotgun.model")
