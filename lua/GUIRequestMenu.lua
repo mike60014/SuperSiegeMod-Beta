@@ -39,7 +39,7 @@ local function GetCanSendRequest(id)
 
     local player = Client.GetLocalPlayer()
     local isAlive = player ~= nil and (not HasMixin(player, "Live") or player:GetIsAlive())
-    local allowWhileDead = id == kVoiceId.VoteConcede or id == kVoiceId.VoteEject or id == kVoiceId.VoteStalemateRound
+    local allowWhileDead = id == kVoiceId.VoteConcede or id == kVoiceId.VoteEject --or id == kVoiceId.VoteStalemateRound
     
     return (isAlive or allowWhileDead) and gTimeLastMessageSend + 2 < Shared.GetTime()
     
@@ -107,7 +107,7 @@ local function CreateEjectButton(self, teamType)
 end
 
 
-
+/*
 local function CreateStalemateButton(self, teamType)
 
     local background = GetGUIManager():CreateGraphicItem()
@@ -145,7 +145,7 @@ local function OnStalemateButtonClicked()
     return false
 
 end
-
+*/
 local function CreateConcedeButton(self, teamType)
 
     local background = GetGUIManager():CreateGraphicItem()
@@ -330,7 +330,7 @@ function GUIRequestMenu:Initialize()
     
     self.ejectCommButton = CreateEjectButton(self, self.teamType)
     self.voteConcedeButton = CreateConcedeButton(self, self.teamType)
-    self.voteStalemateButton = CreateStalemateButton(self, self.teamType)
+    --self.voteStalemateButton = CreateStalemateButton(self, self.teamType)
 
     local leftMenu = GetRequestMenu(LEFT_MENU, self.playerClass)
     local numLeftEntries = #leftMenu
@@ -372,7 +372,7 @@ function GUIRequestMenu:Uninitialize()
     self.background = nil
     self.ejectCommButton = nil
     self.voteConcedeButton = nil
-    self.voteStalemateButton = nil
+    --self.voteStalemateButton = nil
     self.menuButtons = {}
 
 end
@@ -450,11 +450,11 @@ function GUIRequestMenu:Update(deltaTime)
         if self.voteConcedeButton.Background:GetIsVisible() and GUIItemContainsPoint(self.voteConcedeButton.Background, mouseX, mouseY) then
             self.selectedButton = self.voteConcedeButton
         end
-		
+		/*
         if self.voteStalemateButton.Background:GetIsVisible() and GUIItemContainsPoint(self.voteStalemateButton.Background, mouseX, mouseY) then
             self.selectedButton = self.voteStalemateButton
         end
-        
+        */
          for _,button in ipairs( self.menuButtons ) do
             if GUIItemContainsPoint(button.Background, mouseX, mouseY) then
                 self.selectedButton = button 
@@ -508,7 +508,7 @@ function GUIRequestMenu:Update(deltaTime)
         -- Deselect all buttons
         self.ejectCommButton.Background:SetTexture(kBackgroundTexture[self.teamType])
         self.voteConcedeButton.Background:SetTexture(kBackgroundTexture[self.teamType])
-        self.voteStalemateButton.Background:SetTexture(kBackgroundTexture[self.teamType])
+        --self.voteStalemateButton.Background:SetTexture(kBackgroundTexture[self.teamType])
         for _,button in ipairs( self.menuButtons ) do         
             button.Background:SetTexture(kBackgroundTexture[self.teamType])
             

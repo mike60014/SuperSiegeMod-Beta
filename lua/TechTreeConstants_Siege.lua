@@ -51,7 +51,7 @@ local kSiege_TechIds =
     'Onocide',
     'DualWelderExosuit',
     'DualFlamerExosuit',
-    'VoteStalemateRound',
+    --'VoteStalemateRound',
     --'LerkBileBomb',
     
 }

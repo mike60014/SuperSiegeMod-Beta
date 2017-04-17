@@ -4,7 +4,7 @@ kMaxRequestsPerSide = 6
 
 kVoiceId = enum ({
 
-    'None', 'VoteEject', 'VoteConcede', 'VoteStalemate', 'Ping',
+    'None', 'VoteEject', 'VoteConcede', 'Ping', --'VoteStalemate',
 
     'RequestWeld', 'MarineRequestMedpack', 'MarineRequestAmmo', 'MarineRequestOrder', 
     'MarineTaunt', 'MarineTauntExclusive', 'MarineCovering', 'MarineFollowMe', 'MarineHostiles', 'MarineLetsMove', 'MarineAcknowledged',
@@ -36,15 +36,15 @@ local function VoteEjectCommander(player)
     end    
     
 end
-
-local function VoteStalemate(player)
+/*
+local function VoteStalemateRound(player)
 
     if player then
         GetGamerules():CastVoteByPlayer(kTechId.VoteStalemateRound, player)
-    end  
+    end
     
 end
-
+*/
 local function VoteConcedeRound(player)
 
     if player then
@@ -129,7 +129,7 @@ local kSoundData =
     -- always part of the menu
     [kVoiceId.VoteEject] = { Function = VoteEjectCommander },
     [kVoiceId.VoteConcede] = { Function = VoteConcedeRound },
-    [kVoiceId.VoteStalemate] = { Function = VoteStalemate },
+    --[kVoiceId.VoteStalemateRound] = { Function = VoteStalemateRound },
 
     [kVoiceId.Ping] = { Function = PingInViewDirection, Description = "REQUEST_PING", KeyBind = "PingLocation" },
 

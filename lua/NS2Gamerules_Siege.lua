@@ -2,6 +2,8 @@
 --Script.Load("lua/Gamerules.lua")
 --class "NS2GamerulesSiege" (Gamerules)
 
+local networkVars = {}
+
 function NS2Gamerules:GetWarmUpPlayerLimit()
 	return 10
 end
@@ -12,7 +14,7 @@ end
 
 
 
-
+/*
 class "VoteStalemateRound" (Gamerules)
 
 VoteStalemateRound.kMapName = "VoteStalemateRound"
@@ -33,5 +35,6 @@ function VoteStalemateRound:VotingStalemateVoteAllowed()
 end
 
 
-Shared.LinkClassToMap("VoteStalemate", kTechId.VoteStalemateRound, {})
+Shared.LinkClassToMap("VoteStalemateRound", VoteStalemateRound.kMapName, networkVars)
 --Shared.LinkClassToMap("VoteStalemateRound", kTechId.VoteStalemateRound, {})
+*/

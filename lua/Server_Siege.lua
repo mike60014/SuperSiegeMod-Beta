@@ -1,3 +1,4 @@
+
 function OnMapLoadEntity(mapName, groupName, values)
 
     local priority = GetMapEntityLoadPriority(mapName)

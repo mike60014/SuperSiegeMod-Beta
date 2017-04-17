@@ -1,4 +1,4 @@
---Script.Load("lua/Team.lua")
+
 
 /*
 function PlayingTeam:AddSupplyUsed(supplyUsed)
@@ -7,9 +7,20 @@ function PlayingTeam:AddSupplyUsed(supplyUsed)
 end
 */
 
+/*
+Script.Load("lua/StalemateSequence.lua")
 
-function PlayingTeam:Init(teamName, teamNumber)
-	PlayingTeam.Initialize(teamName, teamNumber)
+
+function PlayingTeam:Initialize(teamName, teamNumber)
+	--PlayingTeam.Initialize(teamName, teamNumber)
+	
+    InitMixin(self, TeamDeathMessageMixin)
+    
+    Team.Initialize(self, teamName, teamNumber)
+
+    self.respawnEntity = nil
+    
+    self:OnCreate()
     self.stalemateVoteManager = VoteManager()
     self.stalemateVoteManager:Initialize()
     self.stalemateVoteManager:SetTeamPercentNeeded(kPercentNeededForStalemate)
@@ -78,3 +89,4 @@ local kVoteStalemateCastMessage =
 
 
 Shared.RegisterNetworkMessage("VoteStalemateCast", kVoteStalemateCastMessage)
+*/

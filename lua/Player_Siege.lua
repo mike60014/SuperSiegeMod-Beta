@@ -1,5 +1,16 @@
 --Kyle 'Avoca' Abent
-local networkVars = {gravity = "float (-5 to 5 by 1)", modelsize = "private float (-9 to 9 by 1)",} 
+local networkVars = {
+gravity = "float (-5 to 5 by 1)",
+modelsize = "private float (-9 to 9 by 1)",
+/*
+stalemateSequenceActive = "private boolean",
+stalemateStartAngle = "private angle", --offset in radians around target point
+stalemateAngularVelocity = "private float", --radians/sec to orbit target point
+stalemateTargetPoint = "private vector",
+stalemateStartTime = "private time",
+stalemateSettingsIndex = "private integer (1 to 3)",
+*/
+ } 
 
 local origcreate = Player.OnCreate
 

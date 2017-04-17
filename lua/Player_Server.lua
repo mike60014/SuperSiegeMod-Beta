@@ -876,7 +876,7 @@ function Player:StartConcedeSequence(sequenceSettings)
 end
 
 
-
+/*
 function Player:StartStalemateSequence(sequenceSettings)
     self.stalemateStartAngle = sequenceSettings.startAngle
     self.stalemateAngularVelocity = sequenceSettings.angularVelocity
@@ -895,3 +895,4 @@ function Player:StartStalemateSequence(sequenceSettings)
         self:SetSpectatorMode(kSpectatorMode.FreeLook)
     end
 end
+*/

@@ -17,9 +17,18 @@ Script.Load("lua/AchievementGiverMixin.lua")
 Script.Load("lua/Hitreg.lua")
 Script.Load("lua/ShotgunVariantMixin.lua")
 
+
 class 'Shotgun' (ClipWeapon)
 
 Shotgun.kMapName = "shotgun"
+
+Shotgun.kModelName = PrecacheAsset("models/marine/shotgun/shotgun.model")
+local kNanoshieldMaterial = PrecacheAsset("Glow/green/green.material")
+local kViewModels = GenerateMarineViewModelPaths("shotgun")
+local kAnimationGraph = PrecacheAsset("models/marine/shotgun/shotgun_view.animation_graph")
+
+local kMuzzleEffect = PrecacheAsset("cinematics/marine/shotgun/muzzle_flash.cinematic")
+local kMuzzleAttachPoint = "fxnode_shotgunmuzzle"
 
 local kBulletSize = gShotgunPrimaryBulletSize --0.016
 
@@ -40,6 +49,9 @@ kPrimarySpreadDistance = gShotgunSecondarySpreadDistance
 kSecondarySpreadDistance = gShotgunSecondarySpreadDistance
 local kSpreadDistance = kPrimarySpreadDistance
 local kSecondSpreadDistance = kSecondarySpreadDistance
+
+if kSpreadDistance == nil then kSpreadDistance = 16 end
+if kSecondSpreadDistance == nil then kSecondSpreadDistance = 32 end
 Shotgun.kStartOffset = 0
 Shotgun.kSpreadVectors =
 {
@@ -82,12 +94,6 @@ Shotgun.kSecondarySpreadVectors =  --Sven-Coop !
     GetNormalizedVector(Vector(2, 0.01, kSecondSpreadDistance)),
 }
 
-Shotgun.kModelName = PrecacheAsset("models/marine/shotgun/shotgun.model")
-local kViewModels = GenerateMarineViewModelPaths("shotgun")
-local kAnimationGraph = PrecacheAsset("models/marine/shotgun/shotgun_view.animation_graph")
-
-local kMuzzleEffect = PrecacheAsset("cinematics/marine/shotgun/muzzle_flash.cinematic")
-local kMuzzleAttachPoint = "fxnode_shotgunmuzzle"
 
 function Shotgun:OnCreate()
 
