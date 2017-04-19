@@ -359,7 +359,7 @@ function ClipWeapon:OnSecondaryAttack(player)
     
         self.secondaryAttacking = true
         self.attackLastRequested = Shared.GetTime()
-        CancelReload(self)
+        --CancelReload(self)
         
         Weapon.OnSecondaryAttack(self, player)
                 
@@ -371,11 +371,15 @@ end
 
 function ClipWeapon:OnSecondaryAttackEnd(player)
 
-    Weapon.OnSecondaryAttackEnd(self, player)
-    
-    self.secondaryAttacking = false
-    self.timeAttackEnded = Shared.GetTime()
-
+	if self.secondaryAttacking then
+		Weapon.OnSecondaryAttackEnd(self, player)
+		
+		self.secondaryAttacking = false
+		self.timeAttackEnded = Shared.GetTime()
+		
+        idleTime = Shared.GetTime()
+	end
+	self.shooting = false
 end
 
 function ClipWeapon:GetPrimaryAttacking()

@@ -37,6 +37,7 @@ local kSecondarySpreadDistance = gRifleSecondarySpreadDistance
 local kSecondaryBulletSize = gRifleSecondaryBulletSize
 
 Rifle.kStartOffset = 0 --  0.01
+
 Rifle.kSecondarySpreadVectors = --Sven-Coop !
 {
     GetNormalizedVector(Vector(-0.25, 0.01, kSecondarySpreadDistance)),
@@ -90,6 +91,9 @@ local networkVars =
 AddMixinNetworkVars(LiveMixin, networkVars)
 AddMixinNetworkVars(RifleVariantMixin, networkVars)
 
+
+Rifle.primaryAttacking = false
+Rifle.secondaryAttacking = false
 local kMuzzleEffect = PrecacheAsset("cinematics/marine/rifle/muzzle_flash.cinematic")
 local kMuzzleAttachPoint = "fxnode_riflemuzzle"
 
@@ -314,14 +318,14 @@ function Rifle:GetClipSize()
 end
 
 function Rifle:GetSpread()
-    return kPrimarySpread
+    return gRiflePrimarySpreadDistance
 end
 
 function Rifle:GetPrimaryMinFireDelay()
     return gRiflePrimaryFireRate    
 end
 
-function Rifle:GetSecondryMinFireDelay()
+function Rifle:GetSecondaryMinFireDelay()
     return gRifleSecondaryFireRate    
 end
 
@@ -369,8 +373,46 @@ function Rifle:GetBulletsPerShotSecondary()
 	return gRifleSecondaryBulletsPerShot
 end
 
+function Rifle:GetTracerEffectFrequency()
+    return gRiflePrimaryEffectRate --0.5
+end
+
 function Rifle:GetSecondaryCanInterruptReload()
-    return false --true
+    return true
+end
+
+function Rifle:OnPrimaryAttackEnd(player)
+    self.primaryAttacking = false
+    self.secondaryAttacking = false
+    self.timeprimaryAttackEnded = Shared.GetTime()
+    ClipWeapon.OnPrimaryAttackEnd(self, player)
+	self.emptyPoseParam = 0
+	
+end
+
+function Rifle:OnSecondaryAttackEnd(player)
+    self.secondaryAttacking = false
+    self.primaryAttacking = false
+    self.timesecondaryAttackEnded = Shared.GetTime()
+    ClipWeapon.OnSecondaryAttackEnd(self, player)
+	self.emptyPoseParam = 0
+	
+
+end
+
+local function CancelReload(self)
+
+    if self:GetIsReloading() then
+    
+        self.reloading = false
+        if Client then
+            self:TriggerEffects("reload_cancel")
+        end
+        if Server then
+            self:TriggerEffects("reload_cancel")
+        end
+    end
+    --self.emptyPoseParam = 0
 end
 
 function Rifle:GetIdleAnimations(index)
@@ -389,35 +431,37 @@ end
 */
 
 function Rifle:OnPrimaryAttack(player)
-local attackAllowed = (not self:GetIsReloading() or self:GetSecondaryCanInterruptReload()) and (not self:GetSecondaryAttackRequiresPress() or not player:GetSecondaryAttackLastFrame()) --player:GetPrimaryAttackLastFrame())
-    
-    if attackAllowed and self.GetPrimaryMinFireDelay and self.GetSecondaryMinFireDelay then
+local attackAllowed = (not self:GetIsReloading() or self:GetSecondaryCanInterruptReload()) and (not self:GetPrimaryAttackRequiresPress() or not player:GetPrimaryAttackLastFrame()) --player:GetPrimaryAttackLastFrame())
+    if self.clip == 0 then return self:GetIsDeployed() and not sprintedRecently and attackAllowed end
+    if attackAllowed and self.GetPrimaryMinFireDelay then
 		--attackAllowed = (Shared.GetTime() - self.secondaryattackLastRequested()) >= self.GetSecondaryMinFireDelay()  --self:GetPrimaryMinFireDelay()
 		SecattackAllowed = (Shared.GetTime() - self.secondaryattackLastRequested) >= self:GetSecondaryMinFireDelay()
 		PrimattackAllowed = (Shared.GetTime() - self.primaryattackLastRequested) >= self:GetPrimaryMinFireDelay()
         
         if not PrimattackAllowed or not SecattackAllowed and self.OnMaxFireRateExceeded then
             --self:OnMaxFireRateExceeded()
-        end
-		
-		if self:GetIsDeployed() and (SecattackAllowed or PrimattackAllowed) and not self.primaryAttacking  then
-		
-			self.primaryAttacking = true
-			self.primaryattackLastRequested = Shared.GetTime()
-			CancelReload(self)
-			self:PrimaryFire(player)
-			self.clip = self.clip - gRiflePrimaryBulletsPerShot
-			
+        --end
 		else
-			self:OnPrimaryAttackEnd(player)
+			if self:GetIsDeployed() and (SecattackAllowed or PrimattackAllowed) and not self.primaryAttacking  then
+			
+				self.primaryAttacking = true
+				self.primaryattackLastRequested = Shared.GetTime()
+				CancelReload(self)
+				self.clip = self.clip - gRiflePrimaryBulletsPerShot
+				self:PrimaryFire(player)
+				
+			else
+				self:OnPrimaryAttackEnd(player)
+			end
 		end
 	end
+	
 	attackAllowed = attackAllowed and (PrimattackAllowed and SecattackAllowed)
 	
     return self:GetIsDeployed() and not sprintedRecently and attackAllowed
 
 end
-/*
+
 function Rifle:OnTag(tagName)
 
     PROFILE("Rifle:OnTag")
@@ -425,13 +469,14 @@ function Rifle:OnTag(tagName)
     ClipWeapon.OnTag(self, tagName)
     
     if tagName == "hit" then
+    --if tagName == "shoot" then
     
         --self.shooting = false
     
         local player = self:GetParent()
         if player then
             --self:PerformMeleeAttack(player)
-            self:OnSecondaryAttack(player)
+            --self:OnSecondaryAttack(player)
         end
         
     end
@@ -441,12 +486,12 @@ function Rifle:OnTag(tagName)
     end
 
 end
-*/
+
 
 function Rifle:OnSecondaryAttack(player)
-    local attackAllowed = (not self:GetIsReloading() or self:GetSecondaryCanInterruptReload()) and (not self:GetSecondaryAttackRequiresPress() or not player:GetSecondaryAttackLastFrame()) --player:GetPrimaryAttackLastFrame())
+    local attackAllowed = (not self:GetIsReloading() or self:GetPrimaryCanInterruptReload()) and (not self:GetSecondaryAttackRequiresPress() or not player:GetSecondaryAttackLastFrame()) --player:GetPrimaryAttackLastFrame())
     
-    if attackAllowed and self.GetPrimaryMinFireDelay and self.GetSecondaryMinFireDelay then
+    if attackAllowed and self.GetSecondaryMinFireDelay then
 		--attackAllowed = (Shared.GetTime() - self.secondaryattackLastRequested()) >= self.GetSecondaryMinFireDelay()  --self:GetPrimaryMinFireDelay()
 		PrimattackAllowed = (Shared.GetTime() - self.primaryattackLastRequested) >= self:GetPrimaryMinFireDelay()
 		SecattackAllowed = (Shared.GetTime() - self.secondaryattackLastRequested) >= self:GetSecondaryMinFireDelay()
@@ -460,7 +505,7 @@ function Rifle:OnSecondaryAttack(player)
 			self.secondaryAttacking = true
 			self.secondaryattackLastRequested = Shared.GetTime()
 			CancelReload(self)
-			self:FireSecondary(player)
+			self:SecondaryFire(player)
 			self.clip = self.clip - gRifleSecondaryBulletsPerShot
 			
 		else
@@ -473,25 +518,89 @@ function Rifle:OnSecondaryAttack(player)
 
 end
 
+function Rifle:PrimaryFire(player)
 
-function Rifle:FireSecondary(player)
-
-	--if self.secondaryattackLastRequested + gRifleSecondaryAttackSpeed <= Shared.GetTime() then return end
-	local SecviewAngles = player:GetViewAngles()
+	local viewAngles = player:GetViewAngles()
     viewAngles.roll = NetworkRandom() * math.pi * 2
 
-    local SecshootCoords = viewAngles:GetCoords()
+    local shootCoords = viewAngles:GetCoords()
 
     -- Filter ourself out of the trace so that we don't hit ourselves.
-    local Secfilter = EntityFilterTwo(player, self)
-    local Secrange = self:GetRange()
+    local filter = EntityFilterTwo(player, self)
+    local range = gRiflePrimaryRange --self:GetRange()
+    --local numberBullets = gRiflePrimaryBulletsPerShot
+    local startPoint = player:GetEyePos()
+    local bulletSize = gRiflePrimaryBulletSize
+    
+    self:TriggerEffects("Rifle_attack_sound")
+    self:TriggerEffects("Rifle_attack")
+	
+	--local spreadDirection = shootCoords:TransformVector(gRiflePrimarySpreadDistance)
+	local spreadDirection = shootCoords:TransformVector(Vector(0,0,gRiflePrimarySpreadDistance))
+    --local spreadDirection = CalculateSpread(shootCoords, gRiflePrimarySpreadDistance * (ConditionalValue(player and player.GetIsInterrupted and player:GetIsInterrupted(), 8, 1)), NetworkRandom)
+	
+	local endPoint = startPoint + spreadDirection * range
+	startPoint = player:GetEyePos() + shootCoords.xAxis * gRiflePrimarySpreadDistance * self.kStartOffset + shootCoords.yAxis * gRiflePrimarySpreadDistance * self.kStartOffset
+	
+	local targets, trace, hitPoints = GetBulletTargets(startPoint, endPoint, spreadDirection, bulletSize, filter)
+	
+	--local damage = gRiflePrimaryDamagePerShot
+	
+	HandleHitregAnalysis(player, startPoint, endPoint, trace)        
+	
+	local direction = (trace.endPoint - startPoint):GetUnit()
+	local hitOffset = direction * kHitEffectOffset
+	local impactPoint = trace.endPoint - hitOffset
+	local effectFrequency = self:GetTracerEffectFrequency()
+	local showTracer = self.clip % effectFrequency == 0 --bullet % effectFrequency == 0
+	
+	local numTargets = #targets
+	
+	if numTargets == 0 then
+		self:ApplyBulletGameplayEffects(player, nil, impactPoint, direction, 0, trace.surface, showTracer)
+	end
+	
+	if Client and showTracer then
+		TriggerFirstPersonTracer(self, impactPoint)
+	end
+	
+	for i = 1, numTargets do
+
+		local target = targets[i]
+		local hitPoint = hitPoints[i]
+
+		self:ApplyBulletGameplayEffects(player, target, hitPoint - hitOffset, direction, gRiflePrimaryDamagePerShot, "", showTracer and i == numTargets)
+		player.primaryAttackLastFrame = Shared.GetTime()
+		local client = Server and player:GetClient() or Client
+		if not Shared.GetIsRunningPrediction() and client.hitRegEnabled then
+			RegisterHitEvent(player, bullet, startPoint, trace, gRiflePrimaryDamagePerShot)
+		end
+	
+	end
+    
+    --end
+
+end
+
+
+function Rifle:SecondaryFire(player)
+
+	--if self.secondaryattackLastRequested + gRifleSecondaryAttackSpeed <= Shared.GetTime() then return end
+	local viewAngles = player:GetViewAngles()
+    viewAngles.roll = NetworkRandom() * math.pi * 2
+
+    local shootCoords = viewAngles:GetCoords()
+
+    -- Filter ourself out of the trace so that we don't hit ourselves.
+    local filter = EntityFilterTwo(player, self)
+    local range = gRifleSecondaryBulletsPerShot
     
     if GetIsVortexed(player) then
-        Secrange = gRifleSecondaryRangeWhileVortexed
+        range = gRifleSecondaryRangeWhileVortexed
     end
     
-    local SecnumberBullets = gRifleSecondaryBulletsPerShot
-    local SecstartPoint = player:GetEyePos()
+    local numberBullets = gRifleSecondaryBulletsPerShot
+    local startPoint = player:GetEyePos()
     
     --self:TriggerEffects("Rifle_attack_sound")
     --self:TriggerEffects("Rifle_attack")
@@ -502,45 +611,47 @@ function Rifle:FireSecondary(player)
     
         if not self.kSecondarySpreadVectors[bullet] then
             break
-        end    
-    
-        local SecspreadDirection = SecshootCoords:TransformVector(self.kSecondarySpreadVectors[bullet])
+        end
+		
+        --local spreadDirection = CalculateSpread(SecshootCoords, gRifleSecondarySpreadDistance * (ConditionalValue(player and player.GetIsInterrupted and player:GetIsInterrupted(), 8, 1)), NetworkRandom)
 
-        local SecendPoint = SecstartPoint + SecspreadDirection * Secrange
-        startPoint = player:GetEyePos() + SecshootCoords.xAxis * self.kSecondarySpreadVectors[bullet].x * self.kStartOffset + SecshootCoords.yAxis * self.kSecondarySpreadVectors[bullet].y * self.kStartOffset
+        local spreadDirection = shootCoords:TransformVector(self.kSecondarySpreadVectors[bullet])
+
+        local endPoint = startPoint + spreadDirection * range
+        startPoint = player:GetEyePos() + shootCoords.xAxis * self.kSecondarySpreadVectors[bullet].x * self.kStartOffset + shootCoords.yAxis * self.kSecondarySpreadVectors[bullet].y * self.kStartOffset
         
-        local Sectargets, Sectrace, SechitPoints = GetBulletTargets(startPoint, SecendPoint, SecspreadDirection, gRifleSecondaryBulletSize, Secfilter)
+        local targets, trace, hitPoints = GetBulletTargets(startPoint, endPoint, spreadDirection, gRifleSecondaryBulletSize, filter)
         
         --local damage = gRifleSecondaryDamagePerShot
 
-        HandleHitregAnalysis(player, SecstartPoint, SecendPoint, Sectrace)        
+        HandleHitregAnalysis(player, startPoint, endPoint, trace)        
             
-        local Secdirection = (trace.endPoint - startPoint):GetUnit()
-        local SechitOffset = Secdirection * kHitEffectOffset
-        local SecimpactPoint = trace.endPoint - SechitOffset
-        local SeceffectFrequency = self:GetTracerEffectFrequency()
-        local SecshowTracer = bullet % effectFrequency == 0
+        local direction = (trace.endPoint - startPoint):GetUnit()
+        local hitOffset = direction * kHitEffectOffset
+        local impactPoint = trace.endPoint - hitOffset
+        local effectFrequency = self:GetTracerEffectFrequency()
+        local showTracer = bullet % effectFrequency == 0
         
-        local SecnumTargets = #Sectargets
+        local numTargets = #targets
         
         if numTargets == 0 then
-            self:ApplyBulletGameplayEffects(player, nil, SecimpactPoint, Secdirection, 0, trace.surface, showTracer)
+            self:ApplyBulletGameplayEffects(player, nil, impactPoint, direction, 0, trace.surface, showTracer)
         end
         
         if Client and showTracer then
-            TriggerFirstPersonTracer(self, SecimpactPoint)
+            TriggerFirstPersonTracer(self, impactPoint)
         end
 
-        for i = 1, SecnumTargets do
+        for i = 1, numTargets do
 
-            local Sectarget = Sectargets[i]
-            local SechitPoint = SechitPoints[i]
+            local target = targets[i]
+            local hitPoint = hitPoints[i]
 
-            self:ApplyBulletGameplayEffects(player, Sectarget, SechitPoint - hitOffset, direction, gRifleSecondaryDamagePerShot, "", showTracer and i == numTargets)
+            self:ApplyBulletGameplayEffects(player, target, hitPoint - hitOffset, direction, gRifleSecondaryDamagePerShot, "", showTracer and i == numTargets)
             player.secondaryAttackLastFrame = Shared.GetTime()
             local client = Server and player:GetClient() or Client
             if not Shared.GetIsRunningPrediction() and client.hitRegEnabled then
-                RegisterHitEvent(player, Secbullet, SecstartPoint, Sectrace, gRifleSecondaryDamagePerShot)
+                RegisterHitEvent(player, bullet, startPoint, trace, gRifleSecondaryDamagePerShot)
             end
         
         end

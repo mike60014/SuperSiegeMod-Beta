@@ -55,34 +55,33 @@ AddMixinNetworkVars(ShotgunVariantMixin, networkVars)
 -- higher numbers reduces the spread
 local kPrimarySpreadDistance = gShotgunPrimarySpreadDistance
 local kSecondarySpreadDistance = gShotgunSecondarySpreadDistance
-local kSpreadDistance = kPrimarySpreadDistance
 
---if kSpreadDistance == nil then kSpreadDistance = 12 end
+--if kPrimarySpreadDistance == nil then kPrimarySpreadDistance = 12 end
 --if kSecondarySpreadDistance == nil then kSecondarySpreadDistance = 24 end
 Shotgun.kStartOffset = 0
 Shotgun.kSpreadVectors =
 {
-    --GetNormalizedVector(Vector(-0.01, 0.01, kSpreadDistance)),
+    --GetNormalizedVector(Vector(-0.01, 0.01, kPrimarySpreadDistance)),
     
-    GetNormalizedVector(Vector(-0.45, 0.45, kSpreadDistance)),
-    GetNormalizedVector(Vector(0.45, 0.45, kSpreadDistance)),
-    GetNormalizedVector(Vector(0.45, -0.45, kSpreadDistance)),
-    GetNormalizedVector(Vector(-0.45, -0.45, kSpreadDistance)),
+    GetNormalizedVector(Vector(-0.45, 0.45, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0.45, 0.45, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0.45, -0.45, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(-0.45, -0.45, kPrimarySpreadDistance)),
     
-    GetNormalizedVector(Vector(-1, 0, kSpreadDistance)),
-    GetNormalizedVector(Vector(1, 0, kSpreadDistance)),
-    GetNormalizedVector(Vector(0, -1, kSpreadDistance)),
-    GetNormalizedVector(Vector(0, 1, kSpreadDistance)),
+    GetNormalizedVector(Vector(-1, 0, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(1, 0, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0, -1, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0, 1, kPrimarySpreadDistance)),
     
-    GetNormalizedVector(Vector(-0.35, 0, kSpreadDistance)),
-    GetNormalizedVector(Vector(0.35, 0, kSpreadDistance)),
-    GetNormalizedVector(Vector(0, -0.35, kSpreadDistance)),
-    GetNormalizedVector(Vector(0, 0.35, kSpreadDistance)),
+    GetNormalizedVector(Vector(-0.35, 0, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0.35, 0, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0, -0.35, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0, 0.35, kPrimarySpreadDistance)),
     
-    GetNormalizedVector(Vector(-0.8, -0.8, kSpreadDistance)),
-    GetNormalizedVector(Vector(-0.8, 0.8, kSpreadDistance)),
-    GetNormalizedVector(Vector(0.8, 0.8, kSpreadDistance)),
-    GetNormalizedVector(Vector(0.8, -0.8, kSpreadDistance)),
+    GetNormalizedVector(Vector(-0.8, -0.8, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(-0.8, 0.8, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0.8, 0.8, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0.8, -0.8, kPrimarySpreadDistance)),
     
 }
 
@@ -255,19 +254,17 @@ function Shotgun:OnTag(tagName)
     end
     
     if continueReloading then
-    
         local player = self:GetParent()
         if player then
             player:Reload()
         end
-        
     end
     
 end
 
 -- used for last effect
 function Shotgun:GetEffectParams(tableParams)
-    tableParams[kEffectFilterEmpty] = self.clip == 1
+    tableParams[kEffectFilterEmpty] = self.clip == 0 --1
 end
 
 function Shotgun:OnUpdateAnimationInput(modelMixin)
@@ -279,10 +276,6 @@ function Shotgun:OnUpdateAnimationInput(modelMixin)
 	elseif self.primaryAttacking then
 		activity = "primary"
 		modelMixin:SetAnimationInput("activity", activity)
-	else
-		activity = "none"
-		modelMixin:SetAnimationInput("activity", activity)
-		self.emptyPoseParam = 0
 	end
 end
 
@@ -308,18 +301,15 @@ function Shotgun:GetViewModelName(sex, variant)
 end
 
 function Shotgun:OnPrimaryAttackEnd(player)
-    
     self.primaryAttacking = false
     self.secondaryAttacking = false
     self.timeprimaryAttackEnded = Shared.GetTime()
     ClipWeapon.OnPrimaryAttackEnd(self, player)
 	self.emptyPoseParam = 0
 	
-	
 end
 
 function Shotgun:OnSecondaryAttackEnd(player)
-    
     self.secondaryAttacking = false
     self.primaryAttacking = false
     self.timesecondaryAttackEnded = Shared.GetTime()
@@ -375,7 +365,7 @@ function Shotgun:OnPrimaryAttack(player)
 end
 
 function Shotgun:OnSecondaryAttack(player)
-    local attackAllowed = (not self:GetIsReloading() or self:GetSecondaryCanInterruptReload()) and (not self:GetSecondaryAttackRequiresPress() or not player:GetSecondaryAttackLastFrame())
+    local attackAllowed = (not self:GetIsReloading() or self:GetPrimaryCanInterruptReload()) and (not self:GetSecondaryAttackRequiresPress() or not player:GetSecondaryAttackLastFrame())
     
     if attackAllowed and self.GetSecondaryMinFireDelay then
 		--attackAllowed = (Shared.GetTime() - self.timeAttackFired) >= self:GetSecondaryMinFireDelay()
@@ -548,6 +538,26 @@ end
 
 if Client then
 
+    function Shotgun:GetBarrelPoint()
+    
+        local player = self:GetParent()
+        if player then
+        
+            local origin = player:GetEyePos()
+            local viewCoords= player:GetViewCoords()
+            
+            return origin + viewCoords.zAxis * 0.4 + viewCoords.xAxis * -0.18 + viewCoords.yAxis * -0.2
+            
+        end
+        
+        return self:GetOrigin()
+        
+    end
+    
+    function Shotgun:GetUIDisplaySettings()
+        return { xSize = 256, ySize = 128, script = "lua/GUIShotgunDisplay.lua", variant = self:GetShotgunVariant() }
+    end
+	
     function Shotgun:OnUpdateRender()
         ClipWeapon.OnUpdateRender( self )
 		
@@ -566,12 +576,12 @@ if Client then
                 end
                 
                 viewModel:InstanceMaterials()
-                viewModel:GetRenderModel():SetMaterialParameter("ammo", self.lightCount or 6 )
+                viewModel:GetRenderModel():SetMaterialParameter("ammo", self.lightCount or gShotgunClipSize) --6 )
                 
             end
         end
-          local showMaterial = true --not self:GetInAttackMode()
-    
+        local showMaterial = true --not self:GetInAttackMode()
+    /*
         local model = self:GetRenderModel()
         if model then
 
@@ -597,6 +607,7 @@ if Client then
             end //showma
             
         end//omodel
+	*/
 end //up render
 end -- client
 

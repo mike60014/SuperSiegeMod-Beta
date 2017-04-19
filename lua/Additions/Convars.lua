@@ -240,7 +240,6 @@ kSkulkCarapaceSpeedReduction = 0 --0.08
 kGorgeCarapaceSpeedReduction = 0 --0.08
 kLerkCarapaceSpeedReduction = 0 --0.15
 kFadeCarapaceSpeedReduction = 0 --0.15
-kOnosCarapaceSpeedReduction = 0 --0.12
 
 --Umbra
 kUmbraEnergyCost = 23
@@ -790,25 +789,67 @@ kHealthOnBlink = gHealthOnBlink
 
 --Onos Settings
 
-gOnosOnFireMoveSpeed = 7.5
-gOnosMaxMoveSpeed = 9.375
-gOnosMaxChargeSpeed = 12
-gOnocideMoveSpeedFraction = 0.65
-gBoneShieldMoveSpeedFraction = 0.1
+gOnosHealth = 900
+gOnosArmor = 450
+gOnosPointValue = 30
+gOnosHealthPerBioMass = 31 --30
 
-kOnosGestateTime = 10-- default 30
-kOnosCost = 64 --65
-kOnosUpgradeCost = 1
+--Onos Movespeed
+gOnosMaxSpeed = 7.5
+gOnosChargeSpeed = 11.5
+gOnosCelerityMoveSpeed = 9.375
+gOnosCarapaceMoveSpeed = 0.88 --0
+gOnosMaxChargeSpeed = 12 --11.5
+gOnosOnFireMoveSpeedFraction = 0.9
+gOnosElectrifiedMoveSpeedFraction = 0.75
+gOnocideMoveSpeedFraction = 0.65 --1
+gBoneShieldMoveSpeedFraction = 0.1 --0
+
+gOnosJumpForce = 20
+gOnosJumpVerticalVelocity = 8
+gOnosJumpRepeatTime = 0.25
+gOnosViewOffsetHeight = 2.5
+gOnosXExtents = 0.7
+gOnosYExtents = 1.2
+gOnosZExtents = 0.4
+gOnosYHeadExtents = 0.7
+gOnosYHeadExtentsLowered = 0.0
+gOnosMass = 453 -- Half a ton
+gOnosJumpHeight = 1.15
+-- triggered when the momentum value has changed by this amount (negative because we trigger the effect when the onos stops, not accelerates)
+gOnosMomentumEffectTriggerDiff = 3
+gOnosGroundFrictionForce = 3
+
+gOnosChargeEnergyCost = 30 -- per second
+gOnosChargeUpDuration = 0.5
+gOnosChargeDelay = 1.0
+gOnosChargingSensScalar = 0.20 --0
+
+gOnosStoopingCheckInterval = 0.3
+gOnosStoopingAnimationSpeed = 2
+
+
+
+gOnosGestateTime = 10-- default 30
+gOnosCost = 64 --65
+gOnosUpgradeCost = 1
+
+
+kOnosGestateTime = gOnosGestateTime
+kOnosCost = gOnosCost
+kOnosUpgradeCost = gOnosUpgradeCost
 
 --Onos abilities
 --gOnosStompBoneWallDuration = 2 --4
 gOnocideDetonateTime = 2.0
 gOnocideDetonateRange = 5 --10
 gOnocideHUDSlot = 4
+gOnocideDamage = 400
+gOnocideDamageHealthMinRatio = 0 --0.3
+gOnocideDamageHealthMaxRatio = 0.5 --1 
 
 gOnosStunWallLifeSpan = 2 --4
 gOnosStunWallHealth = 200 --450
-gOnosHealthPerBioMass = 31
 gOnosChargeEnergyCost = 30
 
 gOnosChargeDamageReduction = 0.7
@@ -836,6 +877,10 @@ gStompDamage = 40
 gStompRange = 9 --12
 gDisruptMarineTime = 2 --4
 gDisruptMarineTimeout = 4 --8
+
+kOnosHealth = 900
+kOnosArmor = 450
+kOnosPointValue = 30
 
 kChargeEnergyCost = gOnosChargeEnergyCost
 kOnocideDetonateTime = gOnocideDetonateTime
@@ -1036,13 +1081,13 @@ gRiflePrimarySpreadDistance = Math.Radians(2.8) --20
 
 gRifleSecondaryBulletSize = 0.100 --0.018
 gRifleSecondaryEffectRate = 0.80 --Attack Speed 018
+gRifleSecondaryRange = 200
 gRifleSecondaryFireRate = 0.80 --Attack Speed 
 gRifleSecondaryBulletsPerShot = 10
 gRifleSecondaryDamageType = kDamageType.Puncture
 gRifleSecondaryDamagePerShot = 13
 gRifleSecondaryRangeWhileVortexed = 200
 gRifleSecondarySpreadDistance = Math.Radians(1.5) -- 32?
-gRifleSecondaryRange = 200
 --gRifleSecondary
 
 
@@ -1075,7 +1120,7 @@ kHeavyMachineGunDropCost = 25 --default = 40
 
 
 --Axe
-gAxeDamage = 55 --25
+gAxeDamage = 40 --25
 gAxeDamageType = kDamageType.Structural
 
 gAxeHUDSlot = 3 --6
@@ -1175,14 +1220,14 @@ gShotgunPrimaryAttackSpeed = 0.95 --0.88
 gShotgunPrimaryBulletsClipCost = 1
 gShotgunPrimaryBulletsPerShot = 16 --10
 gShotgunPrimaryDamageType = kDamageType.Normal
-gShotgunPrimaryEffectRange = 25 --5
 gShotgunPrimaryRange = 50 --100
+gShotgunPrimaryEffectRange = 25 --5
 gShotgunPrimaryRangeWhileVortexed = 25 --5
 -- higher numbers reduces the spread
-gShotgunPrimarySpreadDistance = 16 --16
+gShotgunPrimarySpreadDistance = 12 --16
 
 gShotgunSecondaryBulletSize = 0.16 --0.016
-gShotgunSecondaryDamage = 32 --16
+gShotgunSecondaryDamage = 24 --16
 gShotgunSecondaryAttackSpeed = 0.66 --0.88
 gShotgunSecondaryBulletsClipCost = 1
 gShotgunSecondaryBulletsPerShot = 8 --10
@@ -1191,7 +1236,7 @@ gShotgunSecondaryRange = 100
 gShotgunSecondaryEffectRange = 50 --5
 gShotgunSecondaryRangeWhileVortexed = 50
 -- higher numbers reduces the spread
-gShotgunSecondarySpreadDistance = 32    --Higher number means closer spread
+gShotgunSecondarySpreadDistance = 25    --Higher number means closer spread
 gShotgunPointValue = 10
 
 

@@ -211,6 +211,7 @@ function Onocide:OnProcessMove(input)
            
 
 end
+
 function Onocide:ExplodeYo()
     
     local player = self:GetParent()
@@ -225,10 +226,10 @@ function Onocide:ExplodeYo()
             
                 player:TriggerEffects("xenocide", {effecthostcoords = Coords.GetTranslation(player:GetOrigin())})
                 
-                local hitEntities = GetEntitiesWithMixinWithinRange("Live", player:GetOrigin(), kXenocideRange)
-                local healthScalar = Clamp(player:GetHealthScalar(), 0.3, 1)
-                local damage = (kOnocideDamage * healthScalar)
-                RadiusDamage(hitEntities, player:GetOrigin(), kXenocideRange, damage, self)
+                local hitEntities = GetEntitiesWithMixinWithinRange("Live", player:GetOrigin(), gOnocideDetonateRange)
+                local healthScalar = Clamp(player:GetHealthScalar(), gOnocideDamageHealthMinRatio, gOnocideDamageHealthMaxRatio)
+                local damage = (gOnocideDamage * healthScalar)
+                RadiusDamage(hitEntities, player:GetOrigin(), gOnocideDetonateRange, damage, self)
                 
                 player.spawnReductionTime = 4
                 
