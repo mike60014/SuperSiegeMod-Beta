@@ -89,7 +89,7 @@ function PushTrigger:OnTriggerEntered(enterEnt, triggerEnt)
 end
 
 
---//Addtimedcallback had not worked, so lets search it this way
+//Addtimedcallback had not worked, so lets search it this way
 function PushTrigger:OnUpdate(deltaTime)
 
         PushAllInTrigger(self)

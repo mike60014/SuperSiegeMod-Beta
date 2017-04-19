@@ -131,8 +131,20 @@ function Alien:GetRedemptionCoolDown()
 end
 
 function Alien:UpdateArmorAmount(carapaceLevel)
-	return
+	
+    local level = GetHasCarapaceUpgrade(self) and carapaceLevel or 0
+    local newMaxArmor = (level / 3) * (self:GetArmorFullyUpgradedAmount() - self:GetBaseArmor()) + self:GetBaseArmor()
+
+    if newMaxArmor ~= self.maxArmor then
+
+        local armorPercent = self.maxArmor > 0 and self.armor/self.maxArmor or 0
+        self.maxArmor = newMaxArmor
+        self:SetArmor(self.maxArmor * armorPercent)
+    
+    end
+
 end
+
 function Alien:UpdateHealthAmount(bioMassLevel, maxLevel)
 	return
 end

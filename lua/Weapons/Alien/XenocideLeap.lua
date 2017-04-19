@@ -151,8 +151,15 @@ function XenocideLeap:OnProcessMove(input)
             
                 player:TriggerEffects("xenocide", {effecthostcoords = Coords.GetTranslation(player:GetOrigin())})
                 
-                local hitEntities = GetEntitiesWithMixinWithinRange("Live", player:GetOrigin(), kXenocideRange)
-                RadiusDamage(hitEntities, player:GetOrigin(), kXenocideRange, kXenocideDamage, self)
+                local hitBuildingEntities = GetEntitiesWithMixinWithinRange("Building", player:GetOrigin(), kXenocideRange)
+                if not hitBuildingEntities == nil then RadiusDamage(hitsBuildingEntities, player:GetOrigin(), kXenocideRange, gSkulkXenocideStructureDamage, self) end
+				
+                local hitstructureEntities = GetEntitiesWithMixinWithinRange("Construct", player:GetOrigin(), kXenocideRange)
+                if not hitstructureEntities == nil then RadiusDamage(hitstructureEntities, player:GetOrigin(), kXenocideRange, gSkulkXenocideStructureDamage, self) end
+                
+				-- still not hitting marine bots
+                local hitplayerEntities = GetEntitiesWithMixinWithinRange("Live", player:GetOrigin(), kXenocideRange)
+                if not hitplayerEntities == nil then RadiusDamage(hitplayerEntities, player:GetOrigin(), kXenocideRange, gSkulkXenocidePlayerDamage, self) end
                 
                 player.spawnReductionTime = 4
                 

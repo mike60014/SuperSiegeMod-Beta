@@ -18,8 +18,8 @@ Axe.kModelName = PrecacheAsset("models/marine/axe/axe.model")
 local kViewModels = GenerateMarineViewModelPaths("axe")
 local kAnimationGraph = PrecacheAsset("models/marine/axe/axe_view.animation_graph")
 
-Axe.kRange = 1
-Axe.kFloorRange = 0.8
+Axe.kRange = 2 --gAxeRange
+Axe.kFloorRange = 1 --gAxeFloorRange
 
 local idleTime = 0
 local animFrequency = 10
@@ -180,5 +180,27 @@ end
 function Axe:UseLandIntensity()
     return true
 end
+
+
+function Axe:GetSecondaryAttackDelay()
+    return gAxeSecondaryAttackDelay
+end
+
+function Axe:OnSecondaryAttack(player)
+
+    if not self.attacking then
+        
+        self.sprintAllowed = false
+        self.secondaryAttacking = true
+        
+    end
+
+end
+
+function Axe:OnSecondaryAttackEnd(player)
+    self.secondaryAttacking = false
+    idleTime = Shared.GetTime()
+end
+
 
 Shared.LinkClassToMap("Axe", Axe.kMapName, networkVars)

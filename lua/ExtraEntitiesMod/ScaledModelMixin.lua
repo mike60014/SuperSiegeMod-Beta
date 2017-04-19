@@ -1,9 +1,9 @@
---//________________________________
---//
---//   	NS2 CustomEntitesMod   
---//	Made by JimWest 2012
---//
---//________________________________
+//________________________________
+//
+//   	NS2 CustomEntitesMod   
+//	Made by JimWest 2012
+//
+//________________________________
 
 Script.Load("lua/FunctionContracts.lua")
 Script.Load("lua/PathingUtility.lua")
@@ -29,7 +29,7 @@ ScaledModelMixin.networkVars =
 {
 }
 
---// create a model if theres a model value
+// create a model if theres a model value
 function ScaledModelMixin:__initmixin() 
 end
 
@@ -50,7 +50,7 @@ function ScaledModelMixin:SetScaledModel(model, animationGraph)
 end
 
 
---// only way to scale the model
+// only way to scale the model
 function ScaledModelMixin:OnAdjustModelCoords(modelCoords)
 
     local coords = modelCoords

@@ -1,3 +1,74 @@
+
+
+
+
+Marine.kMaxSprintFov = 95
+-- Player phase delay - players can only teleport this often
+Marine.kPlayerPhaseDelay = 2
+
+Marine.kWalkMaxSpeed = 5                -- Four miles an hour = 6,437 meters/hour = 1.8 meters/second (increase for FPS tastes)
+--Marine.kRunMaxSpeed = 6.0               -- 10 miles an hour = 16,093 meters/hour = 4.4 meters/second (increase for FPS tastes)
+--Marine.kRunInfestationMaxSpeed = 5.2    -- 10 miles an hour = 16,093 meters/hour = 4.4 meters/second (increase for FPS tastes)
+Marine.kRunMaxSpeed = 5.75
+Marine.kRunInfestationMaxSpeed = 5
+
+-- How fast does our armor get repaired by welders
+Marine.kArmorWeldRate = kMarineArmorWeldRate
+Marine.kWeldedEffectsInterval = .5
+
+Marine.kSpitSlowDuration = 3
+
+Marine.kWalkBackwardSpeedScalar = 0.4
+
+-- start the get up animation after stun before giving back control
+Marine.kGetUpAnimationLength = 0
+
+-- tracked per techId
+Marine.kMarineAlertTimeout = 4
+
+Marine.kDropWeaponTimeLimit = 1
+Marine.kFindWeaponRange = 2
+Marine.kPickupWeaponTimeLimit = 1
+Marine.kPickupPriority = { [kTechId.Flamethrower] = 1, [kTechId.GrenadeLauncher] = 2, [kTechId.HeavyMachineGun] = 3, [kTechId.Shotgun] = 4 }
+	
+Marine.kAcceleration = 100
+Marine.kSprintAcceleration = 120 -- 70
+Marine.kSprintInfestationAcceleration = 60
+
+Marine.kGroundFrictionForce = 16
+
+Marine.kAirStrafeWeight = 2
+
+
+
+local function PickupWeapon(self, weapon, wasAutoPickup)
+    
+    -- some weapons completely replace other weapons (welder > axe).
+    local replacement = weapon.GetReplacementWeaponMapName and weapon:GetReplacementWeaponMapName()
+    local obsoleteWep = replacement and self:GetWeapon(replacement)
+    if obsoleteWep then
+        self:RemoveWeapon(obsoleteWep)
+        DestroyEntity(obsoleteWep)
+    end
+    
+    -- find the weapon that is about to be dropped to make room for this one
+    local slot = weapon:GetHUDSlot()
+    local oldWep = self:GetWeaponInHUDSlot(slot)
+    
+    -- perform the actual weapon pickup (also drops weapon in the slot)
+    self:AddWeapon(weapon, not wasAutoPickup or slot == 1 or obsoleteWep ~= nil)
+    StartSoundEffectAtOrigin(Marine.kGunPickupSound, self:GetOrigin())
+    
+    if not wasAutoPickup then
+        self:SetHUDSlotActive(weapon:GetHUDSlot())
+    end
+    
+    self.timeOfLastPickUpWeapon = Shared.GetTime()
+    self.lastDroppedWeapon = oldWep
+    
+end
+
+
 local origcreate = Marine.OnCreate
 function Marine:OnCreate()
   origcreate(self)
@@ -59,22 +130,6 @@ function Marine:GiveLayStructure(techid, mapname)
    --  self:TellMarine(self)
   -- end
 end
-
-/*
-function Alien:CreditBuy(techId)
-        local cost = LookupTechData(techId, kTechDataCostKey, 0)
-        --self:AddResources(-cost)
-        local upgradetable = {}
-        local upgrades = Player.lastUpgradeList
-        if upgrades and #upgrades > 0 then
-            table.insert(upgradetable, upgrades)
-        end
-        
-        table.insert(upgradetable, techId)
-        self:ProcessBuyAction(upgradetable, true)
-        --self:AddResources(-cost)
-end
-*/
 
 function Marine:GiveExo(spawnPoint)
     local random = math.random(1,2)

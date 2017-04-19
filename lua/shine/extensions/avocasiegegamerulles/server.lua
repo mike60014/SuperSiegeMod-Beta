@@ -552,7 +552,7 @@ StalemateCommand:Help( "declares the round a draw." )
 
 
 local function Slap( Client, Targets, Number )
---//local Giver = Client:GetControllingPlayer()
+//local Giver = Client:GetControllingPlayer()
 
 
   
@@ -692,7 +692,7 @@ ModelSizeCommand:AddParam{ Type = "number" }
 ModelSizeCommand:Help( "sh_playergravity <player> <number> works differently than ns1. kinda glitchy. respawn to reset." )
 
 local function Bury( Client, Targets, Number )
---//local Giver = Client:GetControllingPlayer()
+//local Giver = Client:GetControllingPlayer()
 for i = 1, #Targets do
 local Player = Targets[ i ]:GetControllingPlayer()
        if Player and Player:GetIsAlive() and not Player:isa("Commander") then
@@ -768,7 +768,7 @@ FirstPersonCommand:Help( "Triggers first person view" )
 local function GiveRes( Client, TargetClient, Number )
 local Giver = Client:GetControllingPlayer()
 local Reciever = TargetClient:GetControllingPlayer()
---//local TargetName = TargetClient:GetName()
+//local TargetName = TargetClient:GetName()
  //Only apply this formula to pres non commanders // If trying to give a number beyond the amount currently owned in pres, do not continue. Or If the reciever already has 100 resources then do not bother taking resources from the giver
   if Giver:GetTeamNumber() ~= Reciever:GetTeamNumber() or Giver:isa("Commander") or Reciever:isa("Commander") or Number > Giver:GetResources() or Reciever:GetResources() == 100 then
   self:NotifyGiveRes( Giver, "Unable to donate any amount of resources to %s", true, Reciever:GetName())
@@ -794,15 +794,15 @@ Giver:SetResources(Giver:GetResources() - Number)
 Reciever:SetResources(Reciever:GetResources() + Number)
 self:NotifyGiveRes( Giver, "Succesfully donated %s resource(s) to %s", true, Number, Reciever:GetName())
 self:NotifyGiveRes( Reciever, "%s donated %s resource(s) to you", true, Giver:GetName(), Number)
---//Notify(StringFormat("[GiveRes] Succesfully donated %s resource(s) to %s.",  Number, TargetName) )
+//Notify(StringFormat("[GiveRes] Succesfully donated %s resource(s) to %s.",  Number, TargetName) )
 
 
---//Now for some fun and to expand on the potential of giveres within ns2 that ns1 did not reach?
---//In particular, team res and commanders. 
+//Now for some fun and to expand on the potential of giveres within ns2 that ns1 did not reach?
+//In particular, team res and commanders. 
 
---//If the giver is a commander to a recieving teammate then take the resources out of team resources rather than personal.
+//If the giver is a commander to a recieving teammate then take the resources out of team resources rather than personal.
 
---//if Giver:GetTeamNumber() == Reciever:GetTeamNumber() and Giver:isa(Commander) then
+//if Giver:GetTeamNumber() == Reciever:GetTeamNumber() and Giver:isa(Commander) then
 end
 
 local GiveResCommand = self:BindCommand( "sh_giveres", "giveres", GiveRes, true)

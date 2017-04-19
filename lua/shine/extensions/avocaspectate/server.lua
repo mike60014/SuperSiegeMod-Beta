@@ -249,7 +249,6 @@ local function overHeadandNear(self, client, vip)
              client:SetLockOnTarget(vip:GetId())
              self:NotifyGeneric( client, "VIP is %s, location is %s", true, vip:GetClassName(), GetLocationName(client) )
 end
-
 local function firstPersonScoreBased(self, client)
 
     client:BreakChains()
@@ -272,7 +271,6 @@ local function firstPersonScoreBased(self, client)
     SaltChosen(self, topscorer, entrant)
     self:NotifyGeneric( client, "(First person) VIP is %s, # rank in score is %s", true, topscorer:GetName(), entrant )
 end
-
  function Plugin:OnChangeView(client, untilNext, betweenLast)
  -- Print("ChangeView")
       -- client.SendNetworkMessage("SwitchFromFirstPersonSpectate", { mode = kSpectatorMode.Following })

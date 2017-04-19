@@ -52,7 +52,7 @@ end
 function Plugin:RollPlayer(Player)
 
 if Player:GetIsAlive() and Player:GetTeamNumber() == 1 and not Player:isa("Commander") then 
---//self:NotifyMarine( nil, "%s Player is an alive marine, not commander. Could be marine, jetpack, or exo. Getting random number.", true, Player:GetName())
+//self:NotifyMarine( nil, "%s Player is an alive marine, not commander. Could be marine, jetpack, or exo. Getting random number.", true, Player:GetName())
    local MarineorJetpackMarineorExoRoll = math.random(1, 3)
     //self:NotifyMarine( nil, "%s Random number calculated, now applying.", true, Player:GetName())
 
@@ -706,7 +706,7 @@ RTDDelayCommand:Help("Sets the successful rtd delay cooldown with the failed coo
 RTDDelayCommand:AddParam{ Type = "number" }
 
 local function RollTheDice( Client )
---//Do something regarding pre-game?
+//Do something regarding pre-game?
 local Player = Client:GetControllingPlayer()
 
          if Player:isa("Egg") or Player:isa("Embryo") then
@@ -750,7 +750,7 @@ local NextUse = self.Users[ Client ]
        local Success = self:AddDelayToPlayer(Player)
        //local Success = self:NotifyGeneric(Player, "RollTheDice is currently disabled.") 
 if Success then
---//Weekends
+//Weekends
 local gameRules = GetGamerules()
  /*
   if gameRules then

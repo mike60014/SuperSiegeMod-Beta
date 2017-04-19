@@ -55,7 +55,7 @@ local kBallFlagAttachPoint = "babbler_attach2"
 local kMass = gSkulkMass -- ~100 pounds
 -- How big the spheres are that are casted out to find walls, "feelers".
 -- The size is calculated so the "balls" touch each other at the end of their range
-local kNormalWallWalkFeelerSize = 0
+local kNormalWallWalkFeelerSize = gSkulkNormalWallWalkFeelerSize
 local kNormalWallWalkRange = gSkulkNormalWallWalkRange
 
 -- jump is valid when you are close to a wall but not attached yet at this range

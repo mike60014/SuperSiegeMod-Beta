@@ -356,8 +356,8 @@ if Server then
     end
 function AvocaArc:SpecificRules() 
 
---//local moving = self.mode == ARC.kMode.Moving     
---//Print("moving is %s", moving) 
+//local moving = self.mode == ARC.kMode.Moving     
+//Print("moving is %s", moving) 
         
 local attacking = self:GetInAttackMode()
 local inradius = (self:GetOrigin() == self:GetHighestWaypoint():GetOrigin()() )  //and GetIsPointWithinHiveRadius(self:GetOrigin()) //or CheckForAndActAccordingly(self)  
@@ -368,7 +368,7 @@ local shouldReverse = not shouldmove and self.lastNearby + 16 <= Shared.GetTime(
 shouldstop = shouldstop and not shouldReverse
 
 
---//Print("shouldReverse is %s", shouldReverse)
+//Print("shouldReverse is %s", shouldReverse)
   
     
     if shouldstop or shouldattack then 

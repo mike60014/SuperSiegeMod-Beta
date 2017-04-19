@@ -68,14 +68,14 @@ function MoveableMixin:Reset()
     self:MakeSurePlayersCanGoThroughWhenMoving()
 end
 
---//**********************************
---// Driving things
---//**********************************
+//**********************************
+// Driving things
+//**********************************
 
---// TODO:Accept
---// 1. Generate Path
---// 2. Move
---// called from OnUpdate when self.driving = true
+// TODO:Accept
+// 1. Generate Path
+// 2. Move
+// called from OnUpdate when self.driving = true
 
 function MoveableMixin:UpdatePosition(deltaTime)
     if self.driving then          

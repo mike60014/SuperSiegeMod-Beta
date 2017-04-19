@@ -13,13 +13,13 @@ local kDetonateTime = kOnocideDetonateTime
 local kXenocideSoundName = PrecacheAsset("sound/NS2.fev/alien/common/xenocide_start")
 
 
-local networkVars = 
-
-{
+local networkVars = {
     timeFuelChanged = "private time",
     fuelAtChange = "private float (0 to 1 by 0.01)",
  }
+ 
 AddMixinNetworkVars(StompMixin, networkVars)
+
 function Onocide:OnCreate()
 
     Ability.OnCreate(self)
@@ -30,8 +30,10 @@ function Onocide:OnCreate()
     self.fuelAtChange = 1
     self.modelsize = 1
     self.durationofholdingdownmouse = 0
+	self.xenociding = false
 
 end
+
 function Onocide:SetFuel(fuel)
    self.timeFuelChanged = Shared.GetTime()
    self.fuelAtChange = fuel
@@ -48,6 +50,7 @@ end
 function Onocide:GetEnergyCost()
     return kBoneShieldInitialEnergyCost
 end
+
 local function CheckForDestroyedEffects(self)
     if self.XenocideSoundName and not IsValid(self.XenocideSoundName) then
         self.XenocideSoundName = nil
@@ -117,11 +120,21 @@ function Onocide:GetEnergyCost()
 end
 
 function Onocide:GetHUDSlot()
-    return 4
+    return gOnocideHUDSlot
 end
 
 function Onocide:GetRange()
     return kRange
+end
+
+function Onocide:GetIsXenociding()
+
+    local activeWeapon = self:GetActiveWeapon()
+    if activeWeapon and activeWeapon:isa("Onocide") and activeWeapon.primaryAttacking then
+        return true
+    end    
+    return false
+    
 end
 
 function Onocide:OnPrimaryAttack(player)

@@ -112,7 +112,7 @@ local kSiege_TechData =
 [kTechDataTooltipInfo] = "Replaces death with egg gestation",
 },
 
---// Lifeform purchases
+// Lifeform purchases
 { [kTechDataId] = kTechId.Redemption, 
 [kTechDataCategory] = kTechId.CragHiveTwo,  
 [kTechDataDisplayName] = "Redemption", 

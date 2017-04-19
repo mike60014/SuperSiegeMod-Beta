@@ -85,7 +85,7 @@ local function PredictGoal(self, velocity)
 
 end
 
---// Handle transitions between starting-sliding, sliding, and ending-sliding
+// Handle transitions between starting-sliding, sliding, and ending-sliding
 local function UpdateGorgeSliding(self, input)
 
     PROFILE("Gorge:UpdateGorgeSliding")

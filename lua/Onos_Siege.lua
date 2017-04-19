@@ -31,17 +31,16 @@ end
 --Onos.kChargeSpeed = 13.7
 
 function Onos:GetMaxSpeed(possible)
-     local speed = 7.5
-  
-    if possible then
-        return speed
-    end
-   if not self:GetIsOnFire() then speed = 9.375 end
-    if self:GetIsPoopGrowing() then speed = 0 end
-    local boneShieldSlowdown = self:GetIsBoneShieldActive() and kBoneShieldMoveFraction or 1
-    local chargeExtra = self:GetChargeFraction() * (12 - speed)
+	local speed = gOnosMaxMoveSpeed
+    if possible then return speed end
+	if self:GetIsOnFire() then speed = gOnosOnFireMoveSpeed end
+	--if not self:GetIsOnFire() then speed = 9.375 end
+	if self:GetIsPoopGrowing() then speed = 0 end
+	if self:GetIsXenociding() then speed = speed * gOnocideMoveSpeedFraction end
+	if self:GetIsBoneShieldActive() then speed = speed * gBoneShieldMoveSpeedFraction end
+	local chargeExtra = self:GetChargeFraction() * (gOnosMaxChargeSpeed - speed)
     
-    return ( speed + chargeExtra ) * boneShieldSlowdown
+    return ( speed + chargeExtra )
     
     
 end
@@ -55,7 +54,7 @@ local kBlockDoers =
     "HeavyMachineGun",
     "Shotgun",
     "Axe",
-    "Welder",
+    --"Welder",
     "Sentry",
     "Claw"
 }
@@ -81,10 +80,12 @@ function Onos:ModifyDamageTaken(damageTable, attacker, doer, damageType, hitPoin
        
         if self:GetIsBoneShieldActive() then
           if GetHitsBoneShield(self, doer, hitPoint) then
-           damageReduct = kBoneShieldDamageReduction
+           damageReduct = gBoneShieldDamageReduction
            end
-        elseif self:GetIsCharging()  then  
-        damageReduct =  0.7
+        elseif self:GetIsCharging() then  
+        damageReduct = gOnosChargeDamageReduction
+        elseif self:GetIsXenociding() then  
+        damageReduct = gOnosXenocideDamageReduction
         end
         
         if damageReduct ~= 1 then
@@ -104,6 +105,16 @@ function Onos:GetIsPoopGrowing()
 
     local activeWeapon = self:GetActiveWeapon()
     if activeWeapon and activeWeapon:isa("OnoGrow") and activeWeapon.primaryAttacking then
+        return true
+    end    
+    return false
+    
+end
+
+function Onos:GetIsXenociding()
+
+    local activeWeapon = self:GetActiveWeapon()
+    if activeWeapon and activeWeapon:isa("Onocide") and activeWeapon.primaryAttacking then
         return true
     end    
     return false
