@@ -583,7 +583,7 @@ function ClipWeapon:OnTag(tagName)
 		if self.clip == 0 and self.ammo > 0 then
 			player:Reload()
 		end
-           
+		
     elseif tagName == "reload" then
         FillClip(self)
         self.reloaded = true

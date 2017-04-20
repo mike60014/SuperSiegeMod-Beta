@@ -565,6 +565,9 @@ gLerkPointValue = 15
 gLerkHealthPerBioMass = 2
 gLerkGestateTime = 8 -- default 15
 gLerkFlapEnergyCost = 3
+gLerkModelSizeScaler = 0.75
+gLerkRebirthLength = 4
+gLerkRedemptionCooldown = 15
 
 kLerkCost = gLerkCost
 kLerkUpgradeCost = gLerkUpgradeCost
@@ -1066,28 +1069,34 @@ kRifleWeight = 0.13
 gRifleAddClipSize = 25
 --if kRifleClipSize == nil then kRifleClipSize = 50 end
 gRifleClipSize = kRifleClipSize + gRifleAddClipSize
+gRifleMaxClips = 10
+gRifleMaxAmmo = 300
+
 
 --gRiflePrimary
 gRiflePrimaryBulletSize = 0.018
-gRiflePrimaryDamagePerShot = 10
 gRiflePrimaryRange = 100
-gRiflePrimaryDamageType = kDamageType.Normal
-gRiflePrimaryRangeWhileVortexed = 75
+gRiflePrimaryTracerEffectRate = 0.5
+gRiflePrimaryEffectRate = 0.0367 --0.08
+gRiflePrimaryFireRate = 0.0367 --0.08
 gRiflePrimaryBulletsPerShot = 1
-gRiflePrimaryEffectRate = 0.08
-gRiflePrimaryFireRate = 0.08
-gRiflePrimarySpreadDistance = Math.Radians(2.8) --20
+gRiflePrimaryDamageType = kDamageType.Normal
+gRiflePrimaryDamagePerShot = 10
+gRiflePrimaryRangeWhileVortexed = 75
+gRiflePrimarySpreadDistance = 10
+gRiflePrimarySpreadDistanceX = Math.Radians(gRiflePrimarySpreadDistance) --20
+gRiflePrimarySpreadDistanceY = Math.Radians(gRiflePrimarySpreadDistance) --20
 
-
-gRifleSecondaryBulletSize = 0.100 --0.018
-gRifleSecondaryEffectRate = 0.80 --Attack Speed 018
-gRifleSecondaryRange = 200
-gRifleSecondaryFireRate = 0.80 --Attack Speed 
-gRifleSecondaryBulletsPerShot = 10
-gRifleSecondaryDamageType = kDamageType.Puncture
-gRifleSecondaryDamagePerShot = 13
-gRifleSecondaryRangeWhileVortexed = 200
-gRifleSecondarySpreadDistance = Math.Radians(1.5) -- 32?
+--Shoot more bullets at once
+gRifleSecondaryBulletSize = 0.018
+gRifleSecondaryRange = 50
+gRifleSecondaryBulletsPerShot = 5
+gRifleSecondaryEffectRate = gRiflePrimaryFireRate * gRifleSecondaryBulletsPerShot --0.48 --Attack Speed 
+gRifleSecondaryFireRate = gRiflePrimaryFireRate * gRifleSecondaryBulletsPerShot --0.48 --Attack Speed 
+gRifleSecondaryDamageType = kDamageType.Normal--kDamageType.Puncture
+gRifleSecondaryDamagePerShot = 10
+--gRifleSecondaryRangeWhileVortexed = 200
+gRifleSecondarySpreadDistance = 10
 --gRifleSecondary
 
 
@@ -1209,34 +1218,34 @@ kFlamethrowerStackRate = gFlamethrowerStackRate
 
 --Shotgun
 
-gShotgunBulletSize = 0.05 --0.016
+--gShotgunBulletSize = 0.05 --0.016
 gShotgunClipSize = 8 --default 6
 gShotgunAmmoSize = 165 --default 6
 gShotgunWeight = 0.14
 
 gShotgunPrimaryBulletSize = 0.016
-gShotgunPrimaryDamage = 16
-gShotgunPrimaryAttackSpeed = 0.95 --0.88
+gShotgunPrimaryDamage = 10
+gShotgunPrimaryAttackSpeed = 0.88
 gShotgunPrimaryBulletsClipCost = 1
-gShotgunPrimaryBulletsPerShot = 16 --10
+gShotgunPrimaryBulletsPerShot = 19
 gShotgunPrimaryDamageType = kDamageType.Normal
-gShotgunPrimaryRange = 50 --100
-gShotgunPrimaryEffectRange = 25 --5
-gShotgunPrimaryRangeWhileVortexed = 25 --5
+gShotgunPrimaryRange = 35
+gShotgunPrimaryEffectRange = 35 --5
+gShotgunPrimaryRangeWhileVortexed = 35  --5
 -- higher numbers reduces the spread
-gShotgunPrimarySpreadDistance = 12 --16
+gShotgunPrimarySpreadDistance = 2 --16
 
-gShotgunSecondaryBulletSize = 0.16 --0.016
-gShotgunSecondaryDamage = 24 --16
+gShotgunSecondaryBulletSize = 0.5 --0.016
+gShotgunSecondaryDamage = 80 
 gShotgunSecondaryAttackSpeed = 0.66 --0.88
 gShotgunSecondaryBulletsClipCost = 1
-gShotgunSecondaryBulletsPerShot = 8 --10
+gShotgunSecondaryBulletsPerShot = 2 --10
 gShotgunSecondaryDamageType = kDamageType.Puncture --kDamageType.Normal
-gShotgunSecondaryRange = 100
-gShotgunSecondaryEffectRange = 50 --5
-gShotgunSecondaryRangeWhileVortexed = 50
+gShotgunSecondaryRange = 35
+gShotgunSecondaryEffectRange = 35 --5
+gShotgunSecondaryRangeWhileVortexed = 35
 -- higher numbers reduces the spread
-gShotgunSecondarySpreadDistance = 25    --Higher number means closer spread
+gShotgunSecondarySpreadDistance = 10    --Higher number means closer spread
 gShotgunPointValue = 10
 
 

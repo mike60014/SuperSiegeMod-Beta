@@ -222,51 +222,6 @@ return self
 end
 */
 
-local function LoadBullet(self)
-    if self.ammo > 0 and self.clip < self:GetClipSize() then
-        self.clip = self.clip + 1
-        self.ammo = self.ammo - 1
-    end
-end
-
-function Shotgun:OnTag(tagName)
-
-    PROFILE("Shotgun:OnTag")
-    
-    local continueReloading = false
-    if self:GetIsReloading() and tagName == "reload_end" then
-    
-        continueReloading = true
-        self.reloading = false
-        
-    end
-    
-    ClipWeapon.OnTag(self, tagName)
-    
-    if tagName == "load_shell" then
-        LoadBullet(self)
-    elseif tagName == "reload_shotgun_start" then
-        self:TriggerEffects("shotgun_reload_start")
-    elseif tagName == "reload_shotgun_shell" then
-        self:TriggerEffects("shotgun_reload_shell")
-    elseif tagName == "reload_shotgun_end" then
-        self:TriggerEffects("shotgun_reload_end")
-    end
-    
-    if continueReloading then
-        local player = self:GetParent()
-        if player then
-            player:Reload()
-        end
-    end
-    
-end
-
--- used for last effect
-function Shotgun:GetEffectParams(tableParams)
-    tableParams[kEffectFilterEmpty] = self.clip == 0 --1
-end
-
 function Shotgun:OnUpdateAnimationInput(modelMixin)
 	--origanim(self, modelMixin)
 	local activity = "none"

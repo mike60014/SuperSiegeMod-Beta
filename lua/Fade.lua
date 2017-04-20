@@ -391,6 +391,13 @@ function Fade:GetHasMovementSpecial()
     return self:GetHasOneHive()
 end
 
+function Fade:GetRebirthLength()
+	return gFadeRedemptionCooldown
+end
+function Fade:GetRedemptionCoolDown()
+	return gFadeRebirthLength
+end
+
 function Fade:GetMovementSpecialEnergyCost()
     return kMetabolizeEnergyCost
 end
