@@ -302,12 +302,7 @@ function Rifle:GetViewModelName(sex, variant)
 end
 
 function Rifle:GetDeathIconIndex()
-
-    if self:GetSecondaryAttacking() then
-        return kDeathMessageIcon.RifleButt
-    end
     return kDeathMessageIcon.Rifle
-    
 end
 
 function Rifle:GetHUDSlot()
@@ -379,7 +374,7 @@ function Rifle:GetTracerEffectFrequency()
 end
 
 function Rifle:GetSecondaryCanInterruptReload()
-    return true
+    return false --true
 end
 
 function Rifle:OnPrimaryAttackEnd(player)
@@ -500,6 +495,12 @@ function Rifle:FirePrimary(player)
     self:TriggerEffects("Rifle_attack")
 	local viewAngles = player:GetViewAngles()
     viewAngles.roll = NetworkRandom() * math.pi * 2
+local kRifleRandomX = math.random(-100,100) * 0.01 --0.0 thru 3.0
+local kRifleRandomY = math.random(-75,75) * 0.01 --0.0 thru 3.0
+local kRifleRandomSpread = math.random(30,40)
+local kRiflePrimarySpreadDistance = Math.Radians(kRifleRandomSpread)
+local kRiflePrimarySpreadDistanceX = Math.Radians(kRifleRandomX) --20
+local kRiflePrimarySpreadDistanceY = Math.Radians(kRifleRandomY) --20
 
     local shootCoords = viewAngles:GetCoords()
 
@@ -512,11 +513,11 @@ function Rifle:FirePrimary(player)
     
 	
 	--local spreadDirection = shootCoords:TransformVector(gRiflePrimarySpreadDistance)
-	local spreadDirection = shootCoords:TransformVector(Vector(gRiflePrimarySpreadDistanceX,gRiflePrimarySpreadDistanceY,gRiflePrimarySpreadDistance))
+	local spreadDirection = shootCoords:TransformVector(Vector(kRiflePrimarySpreadDistanceX,kRiflePrimarySpreadDistanceY,kRiflePrimarySpreadDistance))
     --local spreadDirection = CalculateSpread(shootCoords, gRiflePrimarySpreadDistance * (ConditionalValue(player and player.GetIsInterrupted and player:GetIsInterrupted(), 8, 1)), NetworkRandom)
 	
 	local endPoint = startPoint + spreadDirection * range
-	startPoint = player:GetEyePos() + shootCoords.xAxis * gRiflePrimarySpreadDistance * self.kStartOffset + shootCoords.yAxis * gRiflePrimarySpreadDistance * self.kStartOffset
+	startPoint = player:GetEyePos() + shootCoords.xAxis * kRiflePrimarySpreadDistanceX * self.kStartOffset + shootCoords.yAxis * kRiflePrimarySpreadDistanceY * self.kStartOffset
 	
 	local targets, trace, hitPoints = GetBulletTargets(startPoint, endPoint, spreadDirection, bulletSize, filter)
 	bullet = 1
@@ -554,8 +555,6 @@ function Rifle:FirePrimary(player)
 	
 	end
     
-		self:TriggerEffects("Rifle_attack_sound")
-		self:TriggerEffects("Rifle_attack")
     --end
 
 end
@@ -568,6 +567,13 @@ function Rifle:FireSecondary(player)
 	--if self.secondaryattackLastRequested + gRifleSecondaryAttackSpeed <= Shared.GetTime() then return end
 	local viewAngles = player:GetViewAngles()
     viewAngles.roll = NetworkRandom() * math.pi * 2
+	
+local kRifleRandomX = math.random(-100,100) * 0.01 --0.0 thru 3.0
+local kRifleRandomY = math.random(-75,75) * 0.01 --0.0 thru 3.0
+local kRifleRandomSpread = math.random(30,40)
+local kRifleSecondarySpreadDistance = Math.Radians(kRifleRandomSpread)
+local kRifleSecondarySpreadDistanceX = Math.Radians(kRifleRandomX) --20
+local kRifleSecondarySpreadDistanceY = Math.Radians(kRifleRandomY) --20
 
     local shootCoords = viewAngles:GetCoords()
 
@@ -580,18 +586,19 @@ function Rifle:FireSecondary(player)
     local startPoint = player:GetEyePos()
     
     
-    for bullet = 1, math.min(numberBullets, #self.kSecondarySpreadVectors) do
-    
+    for bullet = 1, numberBullets do
+    /*
         if not self.kSecondarySpreadVectors[bullet] then
             break
         end
-		
+		*/
         --local spreadDirection = CalculateSpread(SecshootCoords, gRifleSecondarySpreadDistance * (ConditionalValue(player and player.GetIsInterrupted and player:GetIsInterrupted(), 8, 1)), NetworkRandom)
 
-        local spreadDirection = shootCoords:TransformVector(self.kSecondarySpreadVectors[bullet])
+        local spreadDirection = shootCoords:TransformVector(Vector(kRifleSecondarySpreadDistanceX,kRifleSecondarySpreadDistanceY,kRifleSecondarySpreadDistance)) --self.kSecondarySpreadVectors[bullet])
 
         local endPoint = startPoint + spreadDirection * range
-        startPoint = player:GetEyePos() + shootCoords.xAxis * self.kSecondarySpreadVectors[bullet].x * self.kStartOffset + shootCoords.yAxis * self.kSecondarySpreadVectors[bullet].y * self.kStartOffset
+        --startPoint = player:GetEyePos() + shootCoords.xAxis * self.kSecondarySpreadVectors[bullet].x * self.kStartOffset + shootCoords.yAxis * self.kSecondarySpreadVectors[bullet].y * self.kStartOffset
+        startPoint = player:GetEyePos() + shootCoords.xAxis * kRifleSecondarySpreadDistanceX * self.kStartOffset + shootCoords.yAxis * kRifleSecondarySpreadDistanceY * self.kStartOffset
         
         local targets, trace, hitPoints = GetBulletTargets(startPoint, endPoint, spreadDirection, gRifleSecondaryBulletSize, filter)
         
@@ -632,7 +639,7 @@ function Rifle:FireSecondary(player)
     end
 
 end
-
+/*
 
 if Client then
 
@@ -765,8 +772,7 @@ if Client then
     
 end
 
-
-/*
+*/
 if Client then
 
     function Rifle:OnClientPrimaryAttackStart()
@@ -979,7 +985,7 @@ if Client then
     end
     
 end
-*/
+
 function Rifle:ModifyDamageTaken(damageTable, attacker, doer, damageType)
 
     if damageType ~= kDamageType.Corrode then

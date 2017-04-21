@@ -1083,21 +1083,29 @@ gRiflePrimaryBulletsPerShot = 1
 gRiflePrimaryDamageType = kDamageType.Normal
 gRiflePrimaryDamagePerShot = 10
 gRiflePrimaryRangeWhileVortexed = 75
-gRiflePrimarySpreadDistance = 10
-gRifleRandom = math.random()
-gRiflePrimarySpreadDistanceX = Math.Radians(gRifleRandom) --20
-gRiflePrimarySpreadDistanceY = Math.Radians(gRifleRandom) --20
+gRifleRandomX = math.random(-100,100) * 0.01 --0.0 thru 3.0
+gRifleRandomY = math.random(-75,75) * 0.01 --0.0 thru 3.0
+gRifleRandomSpread = math.random(30,40)
+gRiflePrimarySpreadDistance = Math.Radians(gRifleRandomSpread)
+--gRiflePrimarySpreadDistanceX = Math.Radians(gRifleRandomX) --20
+--gRiflePrimarySpreadDistanceY = Math.Radians(gRifleRandomY) --20
 
 --Shoot more bullets at once
 gRifleSecondaryBulletSize = 0.018
-gRifleSecondaryRange = 50
-gRifleSecondaryBulletsPerShot = 5
-gRifleSecondaryEffectRate = gRiflePrimaryFireRate * gRifleSecondaryBulletsPerShot --0.48 --Attack Speed 
-gRifleSecondaryFireRate = gRiflePrimaryFireRate * gRifleSecondaryBulletsPerShot --0.48 --Attack Speed 
-gRifleSecondaryDamageType = kDamageType.Normal--kDamageType.Puncture
-gRifleSecondaryDamagePerShot = 10
+gRifleSecondaryRange = 100
+gRifleSecondaryBulletsPerShot = 4
+gRifleSecondaryEffectRate = gRiflePrimaryFireRate * gRifleSecondaryBulletsPerShot * 0.85 --0.48 --Attack Speed 
+gRifleSecondaryFireRate = gRiflePrimaryFireRate * gRifleSecondaryBulletsPerShot * 0.85 --0.48 --Attack Speed 
+gRifleSecondaryDamageType = kDamageType.Puncture
+gRifleSecondaryDamagePerShot = gRiflePrimaryDamagePerShot
 --gRifleSecondaryRangeWhileVortexed = 200
-gRifleSecondarySpreadDistance = 10
+gRifleSecondaryPrecisionRatio = 0.75 --+25% spread distrance for the triple fire
+gRifleSecondarySpreadDistance = Math.Radians(gRifleRandomSpread) * gRifleSecondaryPrecisionRatio
+--gRifleSecondarySpreadDistanceX = Math.Radians(gRifleRandomX) * gRifleSecondaryPrecisionRatio
+--gRifleSecondarySpreadDistanceY = Math.Radians(gRifleRandomY) * gRifleSecondaryPrecisionRatio
+--gRifleSecondarySpreadDistance = gRiflePrimarySpreadDistance * gRifleSecondaryPrecisionRatio
+--gRifleSecondarySpreadDistanceX = gRiflePrimarySpreadDistanceX * gRifleSecondaryPrecisionRatio
+--gRifleSecondarySpreadDistanceY = gRiflePrimarySpreadDistanceY * gRifleSecondaryPrecisionRatio
 --gRifleSecondary
 
 
@@ -1221,8 +1229,9 @@ kFlamethrowerStackRate = gFlamethrowerStackRate
 
 --gShotgunBulletSize = 0.05 --0.016
 gShotgunClipSize = 8 --default 6
-gShotgunAmmoSize = 165 --default 6
+gShotgunAmmoSize = 66 --default 6
 gShotgunWeight = 0.14
+gShotgunReloadSpeed = 0.66
 
 gShotgunPrimaryBulletSize = 0.016
 gShotgunPrimaryDamage = 10

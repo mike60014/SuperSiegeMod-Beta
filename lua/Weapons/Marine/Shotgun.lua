@@ -39,7 +39,16 @@ kShotgunDamageType = gShotgunPrimaryDamageType
 kShotgunBulletsPerShot = gShotgunPrimaryBulletsPerShot
 kShotgunSecondaryBulletsPerShot = gShotgunSecondaryBulletsPerShot
 
-
+/*
+local kShotgunRandomX = math.random(-100,100) * 0.01 --0.0 thru 3.0
+local kShotgunRandomY = math.random(-75,75) * 0.01 --0.0 thru 3.0
+local kShotgunRandomSpread = math.random(30,40)
+gShotgunPrimarySpreadDistance = Math.Radians(kShotgunRandomSpread)
+gShotgunPrimarySpreadDistanceX = Math.Radians(kShotgunRandomX) --20
+gShotgunPrimarySpreadDistanceY = Math.Radians(kShotgunRandomY) --20
+local kPrimarySpreadDistance = gShotgunPrimarySpreadDistance
+local kSecondarySpreadDistance = gShotgunSecondarySpreadDistance
+*/
 local networkVars =
 {
     emptyPoseParam = "private float (0 to 1 by 0.01)",
@@ -53,71 +62,29 @@ AddMixinNetworkVars(AchievementGiverMixin, networkVars)
 AddMixinNetworkVars(ShotgunVariantMixin, networkVars)
 
 -- higher numbers reduces the spread
-local kPrimarySpreadDistance = gShotgunPrimarySpreadDistance
-local kSecondarySpreadDistance = gShotgunSecondarySpreadDistance
-
 --if kPrimarySpreadDistance == nil then kPrimarySpreadDistance = 12 end
 --if kSecondarySpreadDistance == nil then kSecondarySpreadDistance = 24 end
 Shotgun.kStartOffset = 0
-Shotgun.kSpreadVectors =
-{
-    --GetNormalizedVector(Vector(-0.01, 0.01, kPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(-0.25, 0.25, kPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0.25, -0.25, kPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0.25, 0.25, kPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(-0.25, -0.25, kPrimarySpreadDistance)),
-	
-    GetNormalizedVector(Vector(-0.50, 0.50, kPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0.50, 0.50, kPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0.50, -0.50, kPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(-0.50, -0.50, kPrimarySpreadDistance)),
-    
-    GetNormalizedVector(Vector(-1, 0, kPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(1, 0, kPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0, -1, kPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0, 1, kPrimarySpreadDistance)),
-    
-    GetNormalizedVector(Vector(-0.40, 0, kPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0.40, 0, kPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0, -0.40, kPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0, 0.40, kPrimarySpreadDistance)),
-    
-    GetNormalizedVector(Vector(-0.75, -0.75, kPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(-0.75, 0.75, kPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0.75, 0.75, kPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0.75, -0.75, kPrimarySpreadDistance)),
-	
-}
 
 
-Shotgun.kSecondarySpreadVectors =  --Sven-Coop !
-{
-    GetNormalizedVector(Vector(-gShotgunSecondarySpreadDistanceX, gShotgunSecondarySpreadDistanceY, kSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(-gShotgunSecondarySpreadDistanceX, gShotgunSecondarySpreadDistanceY, kSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(gShotgunSecondarySpreadDistanceX, gShotgunSecondarySpreadDistanceY, kSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(-gShotgunSecondarySpreadDistanceX, gShotgunSecondarySpreadDistanceY, kSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(gShotgunSecondarySpreadDistanceX, gShotgunSecondarySpreadDistanceY, kSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(-gShotgunSecondarySpreadDistanceX, gShotgunSecondarySpreadDistanceY, kSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(-gShotgunSecondarySpreadDistanceX, gShotgunSecondarySpreadDistanceX, kSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(gShotgunSecondarySpreadDistanceX, gShotgunSecondarySpreadDistanceY, kSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(-gShotgunSecondarySpreadDistanceX, gShotgunSecondarySpreadDistanceY, kSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(gShotgunSecondarySpreadDistanceX, gShotgunSecondarySpreadDistanceY, kSecondarySpreadDistance)),
-}
-Shotgun.primaryattackLastRequested = 0
-Shotgun.secondaryattackLastRequested = 0
-Shotgun.ammo = gShotgunAmmoSize
-Shotgun.clip = gShotgunClipSize
+
+
+
 
 function Shotgun:OnCreate()
 
     ClipWeapon.OnCreate(self)
-    
+     
+	Shotgun.primaryattackLastRequested = 0
+	Shotgun.secondaryattackLastRequested = 0
+	Shotgun.ammo = gShotgunAmmoSize
+	Shotgun.clip = gShotgunClipSize
     InitMixin(self, PickupableWeaponMixin)
     InitMixin(self, LiveMixin)
     InitMixin(self, PointGiverMixin)
     InitMixin(self, AchievementGiverMixin)
     InitMixin(self, ShotgunVariantMixin)
-    
+    self.lastreloaded = 0
     self.emptyPoseParam = 0
 
 end
@@ -216,76 +183,62 @@ function Shotgun:GetClipSize()
 end
 
 local function LoadBullet(self)
-
     if self.ammo > 0 and self.clip < self:GetClipSize() then
-    
         self.clip = self.clip + 1
         self.ammo = self.ammo - 1
-        
     end
-    
 end
 
-function Shotgun:OnTag(tagName)
+local function GetLastReloaded(self)
+	return self.lastreloaded
+end
 
-    PROFILE("Shotgun:OnTag")
-    
-    local continueReloading = false
-    if self:GetIsReloading() and tagName == "reload_end" then
-        continueReloading = true
-    end
-    if self:GetIsReloading() and tagName == "reload" then
-        continueReloading = true
-		
-    end
-    
-    if tagName == "end" then
-        self.primaryAttacking = false
-        self.secondaryAttacking = false
-    end
-	
-    ClipWeapon.OnTag(self, tagName)
-    
-    if tagName == "load_shell" then
-        LoadBullet(self)
-    elseif tagName == "reload_shotgun_start" then
-        self:TriggerEffects("shotgun_reload_start")
-    elseif tagName == "reload_shotgun_shell" then
-        self:TriggerEffects("shotgun_reload_shell")
-    elseif tagName == "reload_shotgun_end" then
-        self:TriggerEffects("shotgun_reload_end")
-    elseif tagName == "reload_cancel_shotgun" then
-        self:TriggerEffects("shotgun_reload_end")
-    end
-    
-    if continueReloading then
-    
-        local player = self:GetParent()
-        if player then
-            player:Reload()
-			
-        LoadBullet(self)
-        end
-        
-    end
-    
-	self.reloading = false
+local function GetReloadSpeed()
+	return gShotgunReloadSpeed
 end
 
 function Shotgun:OnUpdateAnimationInput(modelMixin)
-	--origanim(self, modelMixin)
     PROFILE("Shotgun:OnUpdateAnimationInput")
 	local activity = "none"
-    if self:GetIsReloading() then
-		activity = "reload"
-		if self.secondaryAttacking then
-			activity = "primary"
+	if self.secondaryAttacking then
+		activity = "primary"
+		modelMixin:SetAnimationInput("activity", activity)
+		if self.clip == 0 then self:TriggerEffects("reload") end
+	elseif self:GetIsReloading() then
+		if self.clip < self:GetClipSize() then
+			if GetReloadSpeed() + GetLastReloaded(self) <= Shared.GetTime() then
+				--self.reloading = true
+				--self:TriggerEffects("reload")
+				self.lastreloaded = Shared.GetTime()
+				activity = "reload"
+				modelMixin:SetAnimationInput("activity", activity)
+				LoadBullet(self)
+				--player.Reload()
+			end
+		else
+			
+			self.reloading = false
+			activity = "none"
 			modelMixin:SetAnimationInput("activity", activity)
-		elseif self.primaryAttacking then
-			activity = "primary"
-			modelMixin:SetAnimationInput("activity", activity)
+			self:TriggerEffects("end")
 		end
+	elseif self.primaryAttacking then
+		activity = "primary"
+		modelMixin:SetAnimationInput("activity", activity)
+		if self.clip == 0 then self:TriggerEffects("reload") end
+	else
+		modelMixin:SetAnimationInput("activity", activity)
 	end
+	
+end
+
+-- used for last effect
+function Shotgun:GetEffectParams(tableParams)
+    tableParams[kEffectFilterEmpty] = self.clip == 0
+end
+
+function Shotgun:GetIsReloading()
+	return self.reloading
 end
 
 function Shotgun:OnProcessMove(input)
@@ -310,21 +263,22 @@ function Shotgun:GetViewModelName(sex, variant)
 end
 
 function Shotgun:OnPrimaryAttackEnd(player)
+	self.emptyPoseParam = 0
+	self:TriggerEffects("end")
     self.primaryAttacking = false
     self.secondaryAttacking = false
     self.timeprimaryAttackEnded = Shared.GetTime()
     ClipWeapon.OnPrimaryAttackEnd(self, player)
-	self.emptyPoseParam = 0
 	
 end
 
 function Shotgun:OnSecondaryAttackEnd(player)
+	self.emptyPoseParam = 0
+	self:TriggerEffects("end")
     self.secondaryAttacking = false
     self.primaryAttacking = false
     self.timesecondaryAttackEnded = Shared.GetTime()
     ClipWeapon.OnSecondaryAttackEnd(self, player)
-	self.emptyPoseParam = 0
-	
 
 end
 
@@ -342,20 +296,33 @@ function Shotgun:GetSecondaryAttacking()
     return self.secondaryAttacking
 end
 
+function ShotgunPrimarySpreadDistanceX()
+    return math.random() ---2,2) * 0.1005
+end
+
+function ShotgunPrimarySpreadDistanceY()
+    return math.random() ---2,2) * 0.1005 -- -75.0 thru 75.0
+end
+
+function ShotgunSecondarySpreadDistanceX()
+    return math.random() ---2,2) * 0.1005
+end
+
+function ShotgunSecondarySpreadDistanceY()
+    return math.random() ---2,2) * 0.1005
+end
+
 function Shotgun:OnPrimaryAttack(player)
     local attackAllowed = (not self:GetIsReloading() or self:GetSecondaryCanInterruptReload()) and (not self:GetPrimaryAttackRequiresPress() or not player:GetPrimaryAttackLastFrame())
     
 	if attackAllowed and (self.clip == 0) then
 	
-        --self:TriggerEffects("reload")
-        --self:TriggerEffects("reload_start")
-		--self:TriggerEffects("shotgun_reload_start")
-		self:TriggerEffects("reload_shotgun_start")
-		self.reloading = true
-		player.Reload()
+        --self:TriggerEffects("load_shell")
+		--self:TriggerEffects("reload_shotgun_start")
+		--self.reloading = true
+		--player.Reload()
 	
     elseif attackAllowed and self.GetPrimaryMinFireDelay and (self.clip > 0) then
-		--attackAllowed = (Shared.GetTime() - self.timeAttackFired) >= self:GetSecondaryMinFireDelay()
 		primaryattackAllowed = (Shared.GetTime() - self.secondaryattackLastRequested) >= self:GetSecondaryMinFireDelay()
 		secondaryattackAllowed = (Shared.GetTime() - self.primaryattackLastRequested) >= self:GetPrimaryMinFireDelay()
         
@@ -387,14 +354,11 @@ function Shotgun:OnSecondaryAttack(player)
     
 	if attackAllowed and (self.clip == 0) then
 	
-        --self:TriggerEffects("reload")
-		self:TriggerEffects("shotgun_reload_start")
-		self.reloading = true
-		player.Reload()
+        --self:TriggerEffects("load_shell")
+		--self.reloading = true
 		
 	
     elseif attackAllowed and self.GetSecondaryMinFireDelay and (self.clip > 0)  then
-		--attackAllowed = (Shared.GetTime() - self.timeAttackFired) >= self:GetSecondaryMinFireDelay()
 		primaryattackAllowed = (Shared.GetTime() - self.secondaryattackLastRequested) >= self:GetSecondaryMinFireDelay()
 		secondaryattackAllowed = (Shared.GetTime() - self.primaryattackLastRequested) >= self:GetPrimaryMinFireDelay()
         
@@ -413,13 +377,78 @@ function Shotgun:OnSecondaryAttack(player)
 		end
 	end
 	
-	attackAllowed = false
+	--attackAllowed = false
+	attackAllowed = attackAllowed and (primaryattackAllowed and secondaryattackAllowed)
     return self:GetIsDeployed() and not sprintedRecently and attackAllowed
 
 end
 
 function Shotgun:FirePrimary(player)
 
+--local kShotgunRandomX = math.random(-3,3) * 0.1005 --0.0 thru 3.0
+--local kShotgunRandomY = math.random(-3,3) * 0.1005 --0.0 thru 3.0
+local kShotgunRandomSpread = math.random(10,16)
+local kPrimarySpreadDistance = kShotgunRandomSpread
+--local kShotgunPrimarySpreadDistanceX = Math.Radians(kShotgunRandomX) --20
+--local kShotgunPrimarySpreadDistanceY = Math.Radians(kShotgunRandomY) --20
+Shotgun.kSpreadVectors =
+{
+
+    GetNormalizedVector(Vector(-ShotgunPrimarySpreadDistanceX(), ShotgunPrimarySpreadDistanceY(), kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(-ShotgunPrimarySpreadDistanceX(), ShotgunPrimarySpreadDistanceY(), kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(ShotgunPrimarySpreadDistanceX(), ShotgunPrimarySpreadDistanceY(), kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(-ShotgunPrimarySpreadDistanceX(), ShotgunPrimarySpreadDistanceY(), kPrimarySpreadDistance)),
+   
+    GetNormalizedVector(Vector(ShotgunPrimarySpreadDistanceX(), -ShotgunPrimarySpreadDistanceY(), kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(-ShotgunPrimarySpreadDistanceX(), ShotgunPrimarySpreadDistanceY(), kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(-ShotgunPrimarySpreadDistanceX(), ShotgunPrimarySpreadDistanceY(), kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(ShotgunPrimarySpreadDistanceX(), -ShotgunPrimarySpreadDistanceY(), kPrimarySpreadDistance)),
+    
+    GetNormalizedVector(Vector(ShotgunPrimarySpreadDistanceX(), -ShotgunPrimarySpreadDistanceY(), kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(-ShotgunPrimarySpreadDistanceX(), ShotgunPrimarySpreadDistanceY(), kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(-ShotgunPrimarySpreadDistanceX(), -ShotgunPrimarySpreadDistanceY(), kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(ShotgunPrimarySpreadDistanceX(), ShotgunPrimarySpreadDistanceY(), kPrimarySpreadDistance)),
+    
+    GetNormalizedVector(Vector(ShotgunPrimarySpreadDistanceX(), ShotgunPrimarySpreadDistanceY(), kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(-ShotgunPrimarySpreadDistanceX(), -ShotgunPrimarySpreadDistanceY(), kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(-ShotgunPrimarySpreadDistanceX(), ShotgunPrimarySpreadDistanceY(), kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(ShotgunPrimarySpreadDistanceX(), -ShotgunPrimarySpreadDistanceY(), kPrimarySpreadDistance)),
+    
+	GetNormalizedVector(Vector(-ShotgunPrimarySpreadDistanceX(), -ShotgunPrimarySpreadDistanceY(), kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(ShotgunPrimarySpreadDistanceX(), -ShotgunPrimarySpreadDistanceY(), kPrimarySpreadDistance)),
+	GetNormalizedVector(Vector(-ShotgunPrimarySpreadDistanceX(), ShotgunPrimarySpreadDistanceY(), kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(-ShotgunPrimarySpreadDistanceX(), -ShotgunPrimarySpreadDistanceY(), kPrimarySpreadDistance)),
+	
+
+/*
+    --GetNormalizedVector(Vector(-0.01, 0.01, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(-0.25, 0.25, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0.25, -0.25, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0.25, 0.25, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(-0.25, -0.25, kPrimarySpreadDistance)),
+	
+    GetNormalizedVector(Vector(-0.50, 0.50, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0.50, 0.50, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0.50, -0.50, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(-0.50, -0.50, kPrimarySpreadDistance)),
+    
+    GetNormalizedVector(Vector(-1, 0, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(1, 0, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0, -1, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0, 1, kPrimarySpreadDistance)),
+    
+    GetNormalizedVector(Vector(-0.40, 0, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0.40, 0, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0, -0.40, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0, 0.40, kPrimarySpreadDistance)),
+    
+    GetNormalizedVector(Vector(-0.75, -0.75, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(-0.75, 0.75, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0.75, 0.75, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0.75, -0.75, kPrimarySpreadDistance)),
+*/
+	
+}
     local viewAngles = player:GetViewAngles()
     viewAngles.roll = NetworkRandom() * math.pi * 2
 
@@ -488,6 +517,26 @@ end
 
 function Shotgun:FireSecondary(player)
 
+--local kShotgunRandomX = math.random(-10,10) * 0.01
+--local kShotgunRandomY = math.random(-7,7) * 0.01 --0.0 thru 3.0
+local kShotgunRandomSpread = 100 --math.random(45,50)
+local kSecondarySpreadDistance = kShotgunRandomSpread --Math.Radians(kShotgunRandomSpread)
+--local kShotgunSecondarySpreadDistanceX = Math.Radians(0) --20
+--local kShotgunSecondarySpreadDistanceY = Math.Radians(0) --20
+
+Shotgun.kSecondarySpreadVectors =  --Sven-Coop !
+{
+    GetNormalizedVector(Vector(-ShotgunSecondarySpreadDistanceX(), ShotgunSecondarySpreadDistanceY(), kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(-ShotgunSecondarySpreadDistanceX(), ShotgunSecondarySpreadDistanceY(), kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(ShotgunSecondarySpreadDistanceX(), ShotgunSecondarySpreadDistanceY(), kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(-ShotgunSecondarySpreadDistanceX(), ShotgunSecondarySpreadDistanceY(), kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(ShotgunSecondarySpreadDistanceX(), ShotgunSecondarySpreadDistanceY(), kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(-ShotgunSecondarySpreadDistanceX(), ShotgunSecondarySpreadDistanceY(), kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(-ShotgunSecondarySpreadDistanceX(), ShotgunSecondarySpreadDistanceY(), kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(ShotgunSecondarySpreadDistanceX(), ShotgunSecondarySpreadDistanceY(), kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(-ShotgunSecondarySpreadDistanceX(), ShotgunSecondarySpreadDistanceY(), kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(ShotgunSecondarySpreadDistanceX(), ShotgunSecondarySpreadDistanceY(), kSecondarySpreadDistance)),
+}
 	local viewAngles = player:GetViewAngles()
     viewAngles.roll = NetworkRandom() * math.pi * 2
 
@@ -632,15 +681,6 @@ if Client then
 	*/
 end //up render
 end -- client
-
-function Shotgun:GetCanTakeDamageOverride()
-    return self:GetParent() == nil
-end
-
-function Shotgun:GetIdleAnimations(index)
-    local animations = {"idle", "idle_check", "idle_clean"}
-    return animations[index]
-end
 
 Shared.LinkClassToMap("Shotgun", Shotgun.kMapName, networkVars)
 --Shared.LinkClassToMap("Shotgun", Shotgun.kMapName, networkVars)
