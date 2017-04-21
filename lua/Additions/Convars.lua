@@ -1076,7 +1076,7 @@ gRifleMaxAmmo = 300
 --gRiflePrimary
 gRiflePrimaryBulletSize = 0.018
 gRiflePrimaryRange = 100
-gRiflePrimaryTracerEffectRate = 0.5
+gRiflePrimaryTracerEffectRate = 0.0367 --0.5
 gRiflePrimaryEffectRate = 0.0367 --0.08
 gRiflePrimaryFireRate = 0.0367 --0.08
 gRiflePrimaryBulletsPerShot = 1
@@ -1084,8 +1084,9 @@ gRiflePrimaryDamageType = kDamageType.Normal
 gRiflePrimaryDamagePerShot = 10
 gRiflePrimaryRangeWhileVortexed = 75
 gRiflePrimarySpreadDistance = 10
-gRiflePrimarySpreadDistanceX = Math.Radians(gRiflePrimarySpreadDistance) --20
-gRiflePrimarySpreadDistanceY = Math.Radians(gRiflePrimarySpreadDistance) --20
+gRifleRandom = math.random()
+gRiflePrimarySpreadDistanceX = Math.Radians(gRifleRandom) --20
+gRiflePrimarySpreadDistanceY = Math.Radians(gRifleRandom) --20
 
 --Shoot more bullets at once
 gRifleSecondaryBulletSize = 0.018
@@ -1233,19 +1234,28 @@ gShotgunPrimaryRange = 35
 gShotgunPrimaryEffectRange = 35 --5
 gShotgunPrimaryRangeWhileVortexed = 35  --5
 -- higher numbers reduces the spread
-gShotgunPrimarySpreadDistance = 2 --16
+gShotgunPrimarySpreadDistance = 10 --16
+--gShotgunPrimarySpreadDistanceX = Math.Radians() --20
+--gShotgunPrimarySpreadDistanceY = Math.Radians() --20
+
+
 
 gShotgunSecondaryBulletSize = 0.5 --0.016
 gShotgunSecondaryDamage = 80 
 gShotgunSecondaryAttackSpeed = 0.66 --0.88
 gShotgunSecondaryBulletsClipCost = 1
-gShotgunSecondaryBulletsPerShot = 2 --10
+gShotgunSecondaryBulletsPerShot = 1 --10
 gShotgunSecondaryDamageType = kDamageType.Puncture --kDamageType.Normal
 gShotgunSecondaryRange = 35
 gShotgunSecondaryEffectRange = 35 --5
 gShotgunSecondaryRangeWhileVortexed = 35
 -- higher numbers reduces the spread
 gShotgunSecondarySpreadDistance = 10    --Higher number means closer spread
+
+gShotgunSecondarySpreadDistance = 10
+gShotgunSecondarySpreadDistanceX = Math.Radians(gShotgunPrimarySpreadDistance * 0.001) --20
+gShotgunSecondarySpreadDistanceY = Math.Radians(gShotgunPrimarySpreadDistance * 0.001) --20
+
 gShotgunPointValue = 10
 
 

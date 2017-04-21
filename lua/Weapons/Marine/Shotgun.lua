@@ -62,42 +62,46 @@ Shotgun.kStartOffset = 0
 Shotgun.kSpreadVectors =
 {
     --GetNormalizedVector(Vector(-0.01, 0.01, kPrimarySpreadDistance)),
-    
-    GetNormalizedVector(Vector(-0.45, 0.45, kPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0.45, 0.45, kPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0.45, -0.45, kPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(-0.45, -0.45, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(-0.25, 0.25, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0.25, -0.25, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0.25, 0.25, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(-0.25, -0.25, kPrimarySpreadDistance)),
+	
+    GetNormalizedVector(Vector(-0.50, 0.50, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0.50, 0.50, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0.50, -0.50, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(-0.50, -0.50, kPrimarySpreadDistance)),
     
     GetNormalizedVector(Vector(-1, 0, kPrimarySpreadDistance)),
     GetNormalizedVector(Vector(1, 0, kPrimarySpreadDistance)),
     GetNormalizedVector(Vector(0, -1, kPrimarySpreadDistance)),
     GetNormalizedVector(Vector(0, 1, kPrimarySpreadDistance)),
     
-    GetNormalizedVector(Vector(-0.35, 0, kPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0.35, 0, kPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0, -0.35, kPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0, 0.35, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(-0.40, 0, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0.40, 0, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0, -0.40, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0, 0.40, kPrimarySpreadDistance)),
     
-    GetNormalizedVector(Vector(-0.8, -0.8, kPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(-0.8, 0.8, kPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0.8, 0.8, kPrimarySpreadDistance)),
-    GetNormalizedVector(Vector(0.8, -0.8, kPrimarySpreadDistance)),
-    
+    GetNormalizedVector(Vector(-0.75, -0.75, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(-0.75, 0.75, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0.75, 0.75, kPrimarySpreadDistance)),
+    GetNormalizedVector(Vector(0.75, -0.75, kPrimarySpreadDistance)),
+	
 }
 
 
 Shotgun.kSecondarySpreadVectors =  --Sven-Coop !
 {
-    GetNormalizedVector(Vector(-0.25, 0.01, kSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(-0.5, 0.01, kSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(0.5, 0.01, kSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(-1, 0.01, kSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(1, 0.01, kSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(-1.25, 0.01, kSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(-1.5, 0.02, kSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(1.5, 0.01, kSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(-2, 0.01, kSecondarySpreadDistance)),
-    GetNormalizedVector(Vector(2, 0.01, kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(-gShotgunSecondarySpreadDistanceX, gShotgunSecondarySpreadDistanceY, kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(-gShotgunSecondarySpreadDistanceX, gShotgunSecondarySpreadDistanceY, kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(gShotgunSecondarySpreadDistanceX, gShotgunSecondarySpreadDistanceY, kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(-gShotgunSecondarySpreadDistanceX, gShotgunSecondarySpreadDistanceY, kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(gShotgunSecondarySpreadDistanceX, gShotgunSecondarySpreadDistanceY, kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(-gShotgunSecondarySpreadDistanceX, gShotgunSecondarySpreadDistanceY, kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(-gShotgunSecondarySpreadDistanceX, gShotgunSecondarySpreadDistanceX, kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(gShotgunSecondarySpreadDistanceX, gShotgunSecondarySpreadDistanceY, kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(-gShotgunSecondarySpreadDistanceX, gShotgunSecondarySpreadDistanceY, kSecondarySpreadDistance)),
+    GetNormalizedVector(Vector(gShotgunSecondarySpreadDistanceX, gShotgunSecondarySpreadDistanceY, kSecondarySpreadDistance)),
 }
 Shotgun.primaryattackLastRequested = 0
 Shotgun.secondaryattackLastRequested = 0
@@ -156,9 +160,6 @@ function Shotgun:GetHUDSlot()
     return kPrimaryWeaponSlot
 end
 
-function Shotgun:GetClipSize()
-    return gShotgunClipSize
-end
 /*
 function Shotgun:GetBulletsPerShot()
     return kShotgunBulletsPerShot
@@ -181,10 +182,6 @@ function Shotgun:GetTracerEffectFrequency()
     return 0.5
 end
 
-function Shotgun:GetBulletDamage()
-    return kShotgunDamage    
-end
-
 function Shotgun:GetPrimaryCanInterruptReload()
     return true
 end
@@ -205,32 +202,89 @@ local function CancelReload(self)
     
         self.reloading = false
         if Client then
-            self:TriggerEffects("reload_cancel")
+            self:TriggerEffects("reload_cancel_shotgun")
         end
         if Server then
-            self:TriggerEffects("reload_cancel")
+            self:TriggerEffects("reload_cancel_shotgun")
         end
     end
     self.emptyPoseParam = 0
 end
-/*
-local function Shotgun:resetAmmoVars(self)
-self.ammo = gShotgunAmmoSize
-self.clip = gShotgunClipSize
-return self
 
+function Shotgun:GetClipSize()
+    return gShotgunClipSize
 end
-*/
+
+local function LoadBullet(self)
+
+    if self.ammo > 0 and self.clip < self:GetClipSize() then
+    
+        self.clip = self.clip + 1
+        self.ammo = self.ammo - 1
+        
+    end
+    
+end
+
+function Shotgun:OnTag(tagName)
+
+    PROFILE("Shotgun:OnTag")
+    
+    local continueReloading = false
+    if self:GetIsReloading() and tagName == "reload_end" then
+        continueReloading = true
+    end
+    if self:GetIsReloading() and tagName == "reload" then
+        continueReloading = true
+		
+    end
+    
+    if tagName == "end" then
+        self.primaryAttacking = false
+        self.secondaryAttacking = false
+    end
+	
+    ClipWeapon.OnTag(self, tagName)
+    
+    if tagName == "load_shell" then
+        LoadBullet(self)
+    elseif tagName == "reload_shotgun_start" then
+        self:TriggerEffects("shotgun_reload_start")
+    elseif tagName == "reload_shotgun_shell" then
+        self:TriggerEffects("shotgun_reload_shell")
+    elseif tagName == "reload_shotgun_end" then
+        self:TriggerEffects("shotgun_reload_end")
+    elseif tagName == "reload_cancel_shotgun" then
+        self:TriggerEffects("shotgun_reload_end")
+    end
+    
+    if continueReloading then
+    
+        local player = self:GetParent()
+        if player then
+            player:Reload()
+			
+        LoadBullet(self)
+        end
+        
+    end
+    
+	self.reloading = false
+end
 
 function Shotgun:OnUpdateAnimationInput(modelMixin)
 	--origanim(self, modelMixin)
+    PROFILE("Shotgun:OnUpdateAnimationInput")
 	local activity = "none"
-	if self.secondaryAttacking then
-		activity = "primary"
-		modelMixin:SetAnimationInput("activity", activity)
-	elseif self.primaryAttacking then
-		activity = "primary"
-		modelMixin:SetAnimationInput("activity", activity)
+    if self:GetIsReloading() then
+		activity = "reload"
+		if self.secondaryAttacking then
+			activity = "primary"
+			modelMixin:SetAnimationInput("activity", activity)
+		elseif self.primaryAttacking then
+			activity = "primary"
+			modelMixin:SetAnimationInput("activity", activity)
+		end
 	end
 end
 
@@ -291,7 +345,16 @@ end
 function Shotgun:OnPrimaryAttack(player)
     local attackAllowed = (not self:GetIsReloading() or self:GetSecondaryCanInterruptReload()) and (not self:GetPrimaryAttackRequiresPress() or not player:GetPrimaryAttackLastFrame())
     
-    if attackAllowed and self.GetPrimaryMinFireDelay then
+	if attackAllowed and (self.clip == 0) then
+	
+        --self:TriggerEffects("reload")
+        --self:TriggerEffects("reload_start")
+		--self:TriggerEffects("shotgun_reload_start")
+		self:TriggerEffects("reload_shotgun_start")
+		self.reloading = true
+		player.Reload()
+	
+    elseif attackAllowed and self.GetPrimaryMinFireDelay and (self.clip > 0) then
 		--attackAllowed = (Shared.GetTime() - self.timeAttackFired) >= self:GetSecondaryMinFireDelay()
 		primaryattackAllowed = (Shared.GetTime() - self.secondaryattackLastRequested) >= self:GetSecondaryMinFireDelay()
 		secondaryattackAllowed = (Shared.GetTime() - self.primaryattackLastRequested) >= self:GetPrimaryMinFireDelay()
@@ -322,7 +385,15 @@ end
 function Shotgun:OnSecondaryAttack(player)
     local attackAllowed = (not self:GetIsReloading() or self:GetPrimaryCanInterruptReload()) and (not self:GetSecondaryAttackRequiresPress() or not player:GetSecondaryAttackLastFrame())
     
-    if attackAllowed and self.GetSecondaryMinFireDelay then
+	if attackAllowed and (self.clip == 0) then
+	
+        --self:TriggerEffects("reload")
+		self:TriggerEffects("shotgun_reload_start")
+		self.reloading = true
+		player.Reload()
+		
+	
+    elseif attackAllowed and self.GetSecondaryMinFireDelay and (self.clip > 0)  then
 		--attackAllowed = (Shared.GetTime() - self.timeAttackFired) >= self:GetSecondaryMinFireDelay()
 		primaryattackAllowed = (Shared.GetTime() - self.secondaryattackLastRequested) >= self:GetSecondaryMinFireDelay()
 		secondaryattackAllowed = (Shared.GetTime() - self.primaryattackLastRequested) >= self:GetPrimaryMinFireDelay()
@@ -356,11 +427,7 @@ function Shotgun:FirePrimary(player)
 
     -- Filter ourself out of the trace so that we don't hit ourselves.
     local filter = EntityFilterTwo(player, self)
-    local range = gShotgunPrimaryRange --self:GetRange()
-    
-    if GetIsVortexed(player) then
-        range = gShotgunPrimaryRangeWhileVortexed --5
-    end
+    local range = self:GetRange()
     
     local numberBullets = gShotgunPrimaryBulletsPerShot
     local startPoint = player:GetEyePos()

@@ -547,6 +547,17 @@ function ClipWeapon:GetIsAllowedToShoot(player)
     return player and self.clip > 0 and timeSinceAttackKeyReleased < self:GetMaxAllowedDelaySinceAttackRequest()
 end
 
+local function LoadBullet(self)
+
+    if self.ammo > 0 and self.clip < self:GetClipSize() then
+    
+        self.clip = self.clip + 1
+        self.ammo = self.ammo - 1
+        
+    end
+    
+end
+
 function ClipWeapon:OnTag(tagName)
 
     PROFILE("ClipWeapon:OnTag")

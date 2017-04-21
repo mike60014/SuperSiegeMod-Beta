@@ -138,17 +138,17 @@ end
 function SandCastle:GetIsSiegeOpen()
            local gamestarttime = GetGameInfoEntity():GetStartTime()
            local gameLength = Shared.GetTime() - gamestarttime
-           return  gameLength >= self.SiegeTimer
+           return gameLength >= self.SiegeTimer
 end
 function SandCastle:GetIsFrontOpen()
            local gamestarttime = GetGameInfoEntity():GetStartTime()
            local gameLength = Shared.GetTime() - gamestarttime
-           return  gameLength >= self.FrontTimer
+           return gameLength >= self.FrontTimer
 end
 function SandCastle:GetIsPrimaryOpen()
            local gamestarttime = GetGameInfoEntity():GetStartTime()
            local gameLength = Shared.GetTime() - gamestarttime
-           return  gameLength >= self.PrimaryTimer
+           return gameLength >= self.PrimaryTimer
 end
 function SandCastle:CountSTimer()
        if  self:GetIsSiegeOpen() then
