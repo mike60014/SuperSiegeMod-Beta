@@ -6,14 +6,14 @@ function Crag:GetCragsInRange()
 
 		local nearbycrags = GetEntitiesWithinRange("Crag", self:GetOrigin(), Crag.kHealRadius)
 		local cragcount = nearbycrags
-		
+		/*
 	if not gCragHealIgnoreLOS then
 
 		for addcrag = 1, #nearbycrags do
 			if not GetCanHealTarget(nearbycrags[addcrag]) then cragcount = cragcount - 1 end
 		end
 	end
-	
+	*/
 		return Clamp(cragcount, 0, gCragMaxInHealRange)
 end
 

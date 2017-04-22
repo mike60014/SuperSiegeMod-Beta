@@ -141,9 +141,10 @@ if limitMod == true then limit = 8 end
     if entitycount ~= limit then return false end
      return true
 end
+
 function Plugin:HasLimitOfCragOutHive(Player, mapname, teamnumbber, limit, Client)
-local entitycount = 0
-local entities = {}
+	local entitycount = 0
+	local entities = {}
 if limitMod == true then limit = 8 end
         for index, entity in ipairs(GetEntitiesWithMixinForTeam("Live", teamnumbber)) do
         if entity:GetMapName() == mapname and entity:GetOwner() == Player and not GetIsOriginInHiveRoom( entity:GetOrigin() )  then entitycount = entitycount + 1 table.insert(entities, entity) end
@@ -249,8 +250,8 @@ if Points ~= nil and Points ~= 0 and Player and not Shared.GetCheatsEnabled() th
 		self.aliencredits = self.aliencredits + Points --addamount
 	end
 
-self.CreditUsers[ controlling:GetClient() ] = self:GetPlayerSaltInfo(controlling:GetClient()) + addamount
-Shine.ScreenText.SetText("Salt", string.format("%s Salt", self:GetPlayerSaltInfo(controlling:GetClient()) ), controlling:GetClient())
+	self.CreditUsers[ controlling:GetClient() ] = self:GetPlayerSaltInfo(controlling:GetClient()) + addamount
+	Shine.ScreenText.SetText("Salt", string.format("%s Salt", self:GetPlayerSaltInfo(controlling:GetClient()) ), controlling:GetClient())
 end
 end
 
@@ -356,12 +357,26 @@ function Plugin:JoinTeam( Gamerules, Player, NewTeam, Force )
 end
 
 
+local PresCommand = self:BindCommand("sh_pbkill", "sh_pbkill", DestroyAllSaltStructFor)
+PresCommand:AddParam{ Type = "clients" }
+--PresCommand:AddParam{ Type = "number" }
+PresCommand:Help("sh_pbkill <player> kills all of a players spawned buildings.")
+
+function DestroyAllSaltStructFor(Client)
+//Intention: Kill Salt Structures if client f4s, otherwise 'limit' becomes nil and infinite
+local Player = Client:GetControllingPlayer()
+	for index, entity in ipairs(GetEntitiesWithMixinForTeam("Live", Player:GetTeamNumber())) do
+		if entity:GetOwner() == Player and entity:GetIsACreditStructure() then entity:Kill() end
+	end
+
+end
+
 function Plugin:DestroyAllSaltStructFor(Client)
 //Intention: Kill Salt Structures if client f4s, otherwise 'limit' becomes nil and infinite
 local Player = Client:GetControllingPlayer()
-        for index, entity in ipairs(GetEntitiesWithMixinForTeam("Live", Player:GetTeamNumber())) do
-        --if entity:GetOwner() == Player then entity:Kill() end
-      end
+	for index, entity in ipairs(GetEntitiesWithMixinForTeam("Live", Player:GetTeamNumber())) do
+		if entity:GetOwner() == Player and entity:GetIsACreditStructure() then entity:Kill() end
+	end
 
 end
 

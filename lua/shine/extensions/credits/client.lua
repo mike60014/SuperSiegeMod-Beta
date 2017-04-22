@@ -41,9 +41,9 @@ end)
 Shine.VoteMenu:AddPage ("SpendExpenive", function( self )
        local player = Client.GetLocalPlayer()
     if player:GetTeamNumber() == 1 then 
-            self:AddSideButton("Extractor(500)", function() Shared.ConsoleCommand ("sh_buy Extractor")  end)
+            self:AddSideButton("Extractor(1500)", function() Shared.ConsoleCommand ("sh_buy Extractor")  end)
     elseif  player:GetTeamNumber() == 2 then
-      self:AddSideButton("Harvester(500)", function() Shared.ConsoleCommand ("sh_buy Harvester")  end)
+      self:AddSideButton("Harvester(1500)", function() Shared.ConsoleCommand ("sh_buy Harvester")  end)
     end
         self:AddBottomButton("Back", function()self:SetPage("SpendCredits")end) 
 end)
@@ -78,13 +78,13 @@ Shine.VoteMenu:AddPage ("SpendClasses", function( self )
     end
         self:AddBottomButton("Back", function()self:SetPage("SpendCredits")end) 
 end)
-/*
+
 Shine.VoteMenu:AddPage ("SpendExpenive", function( self )
         self:AddSideButton("OffensiveConcGrenade(100) (WIP)", function() Shared.ConsoleCommand ("sh_buywp OffensiveConcGrenade")  end)
              self:AddBottomButton("Back", function()self:SetPage("SpendCredits")end) 
 
 end)
-*/
+
 Shine.VoteMenu:AddPage ("SpendFun", function( self )
         self:AddSideButton("JediConcGrenade(5) (WIP)", function() Shared.ConsoleCommand ("sh_buywp JediConcGrenade")  end)
              self:AddBottomButton("Back", function()self:SetPage("SpendCredits")end) 
@@ -110,33 +110,26 @@ Shine.VoteMenu:AddPage ("SpendCommAbilities", function( self )
 end)
 */
 
-Shine.VoteMenu:AddPage ("SpendCredits", function(self)
+Shine.VoteMenu:AddPage ("SpendCredits", function( self )
 	local player = Client.GetLocalPlayer()
-	self:AddTopButton("Classes", function() self:SetPage("SpendClasses") end)
-	self:AddBottomButton("Back", function()self:SetPage("Main")end)
-	if player:GetTeamNumber() == 1 then 
-		self:AddSideButton("Scan(10)", function()Shared.ConsoleCommand ("sh_buy Scan")end) --top left
-		self:AddSideButton("Weapons", function() self:SetPage("SpendWeapons") end) --top right
-		self:AddSideButton("Medpack(5)", function()Shared.ConsoleCommand ("sh_buy Medpack")end) --left ish
-		self:AddSideButton("Structures", function() self:SetPage("SpendStructures") end) --rightish
-		self:AddSideButton("Expensive", function() self:SetPage("SpendExpenive") end) --left
+	self:AddTopButton("Classes", function()self:SetPage("SpendClasses") end)
+	self:AddBottomButton("Back", function()self:SetPage("Main") end)
+	if player:GetTeamNumber() == 1 then
+		self:AddSideButton("Scan(10)", function()Shared.ConsoleCommand ("sh_buy Scan") end) --top left
+		self:AddSideButton("Weapons", function()self:SetPage("SpendWeapons") end) --top right
+		self:AddSideButton("Medpack(5)", function()Shared.ConsoleCommand ("sh_buy Medpack") end) --left ish
+		self:AddSideButton("Structures", function()self:SetPage("SpendStructures") end) --rightish
+		self:AddSideButton("Expensive", function()self:SetPage("SpendExpenive") end) --left
 	elseif player:GetTeamNumber() == 2 then
 		--self:AddSideButton("CommAbilities", function() self:SetPage("SpendCommAbilities") end)
-		self:AddSideButton("Expensive", function() self:SetPage("SpendExpenive") end)
-		self:AddSideButton("Structures", function() self:SetPage("SpendStructures") end)
+		self:AddSideButton("Expensive", function()self:SetPage("SpendExpenive") end)
+		self:AddSideButton("Structures", function()self:SetPage("SpendStructures") end)
 		--  self:AddSideButton("Fun", function() self:SetPage("SpendFun") end)
-	else
-		self:AddSideButton("Fun", function() self:SetPage("SpendFun") end)
-		
 	end
-	)
+	
+	end)
 
 
-end
-
-
-     
-     
 Shine.VoteMenu:EditPage("Main", function( self ) 
 self:AddSideButton("Salt", function() self:SetPage("SpendCredits") end)
 end)

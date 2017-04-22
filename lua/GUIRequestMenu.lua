@@ -249,6 +249,20 @@ local function OnConcedeButtonClicked()
 
 end
 
+local function OnStalemateButtonClicked()
+
+    if GetCanSendRequest(kVoiceId.VoteStalemate) then
+
+        Client.SendNetworkMessage("VoiceMessage", BuildVoiceMessage(kVoiceId.VoteStalemate), true)        
+        gTimeLastMessageSend = Shared.GetTime()
+        return true
+        
+    end
+    
+    return false
+
+end
+
 local function SendRequest(self, voiceId)
 
     if GetCanSendRequest(voiceId) and not MainMenu_GetIsOpened() then

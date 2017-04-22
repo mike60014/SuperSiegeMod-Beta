@@ -31,7 +31,7 @@ VoteStalemateRound.kMapName = "VoteStalemateRound"
 
 function VoteStalemateRound:CastVoteByPlayer(voteTechId, player)
 	if voteTechId == kTechId.VoteStalemateRound then
-		if self:VotingStalementVoteAllowed() then
+		if self:VotingStalemateVoteAllowed() then
 			local team = player:GetTeam()
 			if team.VoteToStalemate then
 				team:VoteToStalemate(player)
