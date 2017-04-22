@@ -256,7 +256,7 @@ local function DropStructure(self, player)
                 else
                 
                     player:TriggerInvalidSound()
-                    --DestroyEntity(structure)
+                    DestroyEntity(structure)
                     
                 end
                 

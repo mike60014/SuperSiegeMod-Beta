@@ -1,6 +1,6 @@
+/*
 Script.Load("lua/Additions/Functions.lua")
 
-/*
 function Rifle:OnTag(tagName)
 
     PROFILE("Rifle:OnTag")

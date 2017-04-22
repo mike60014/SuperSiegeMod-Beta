@@ -271,7 +271,6 @@ kFadeCarapaceSpeedReduction = 0.15
 
 --
 
-kNumBabblerEggsPerGorge = 3
 kVortexLifeSpan = 8
 kRedemptionCost = 2
 kRebirthCost = 2
@@ -516,12 +515,12 @@ kXenocideDamageType = gXenocideDamageType
 
 --Skulk End
 --Babbler Settings
-gBabblerHealth = 15 --default 10
+gBabblerHealth = 10 --default 10
 gBabblerMass = 15
 gBabblerRadius = 0.25
 gBabblerLinearDamping = 0
 gBabblerRestitution = 0.65
-gBabblerFov = 200 --360
+gBabblerFov = 240 --360
 
 gBabblerTargetSearchRange = 12
 gBabblerAttackRate = 0.37
@@ -532,13 +531,13 @@ gBabblerUpdateAttackInterval = 1
 gBabblerMinJumpDistance = 6
 gBabblerRunSpeed = 7.5    --7
 gBabblerVerticalJumpForce = 6
-gBabblerMaxJumpForce = 15
+gBabblerMaxJumpForce = 8 --15
 gBabblerMinJumpForce = 5
 gBabblerTurnSpeed = math.pi
 gBabblerClingDuration = -1
 
 kBabblerPheromoneEnergyCost = 7
-kBabblerDamage = 8
+kBabblerDamage = 3 --8
 kBabblerDamageType = kDamageType.Structural
 
 kBabblerHealth = gBabblerHealth
@@ -682,9 +681,9 @@ gSpikesRange = 50
 gSpikesPerShot = 1
 
 gSporesDamageType = kDamageType.Gas
-gSporesDustDamagePerSecond = 15
+gSporesDustDamagePerSecond = 5 --15
 gSporesDustFireDelay = 0.36
-gSporesMaxRange = 17
+gSporesMaxRange = 12 --17
 gSporesDustEnergyCost = 27
 gSporesDustCloudRadius = 4
 gSporesDustCloudLifetime = 4
@@ -913,7 +912,7 @@ kOnosUpgradeCost = gOnosUpgradeCost
 
 --Onos abilities
 gOnocideDetonateTime = 2.0
-gOnocideDetonateRange = 5 --10
+gOnocideDetonateRange = 10
 gOnocideInitialEnergyCost = 20
 gOnocideHUDSlot = 4
 gOnocideDamage = gOnosHealth --Clamp(player:GetHealthScalar(), gOnocideDamageHealthMinRatio, gOnocideDamageHealthMaxRatio)

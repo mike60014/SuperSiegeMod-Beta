@@ -1,6 +1,86 @@
-
+/*
+Script.Load("lua/Mixins/ClientModelMixin.lua")
+Script.Load("lua/LiveMixin.lua")
+Script.Load("lua/UpgradableMixin.lua")
+Script.Load("lua/PointGiverMixin.lua")
+Script.Load("lua/AchievementGiverMixin.lua")
+Script.Load("lua/GameEffectsMixin.lua")
+Script.Load("lua/SelectableMixin.lua")
+Script.Load("lua/FlinchMixin.lua")
+Script.Load("lua/CloakableMixin.lua")
 Script.Load("lua/LOSMixin.lua")
+Script.Load("lua/DetectableMixin.lua")
+Script.Load("lua/InfestationTrackerMixin.lua")
+Script.Load("lua/TeamMixin.lua")
+Script.Load("lua/EntityChangeMixin.lua")
+Script.Load("lua/ConstructMixin.lua")
+Script.Load("lua/ResearchMixin.lua")
+Script.Load("lua/CommanderGlowMixin.lua")
+
+Script.Load("lua/ScriptActor.lua")
+Script.Load("lua/RagdollMixin.lua")
+Script.Load("lua/FireMixin.lua")
+Script.Load("lua/SleeperMixin.lua")
+Script.Load("lua/ObstacleMixin.lua")
+Script.Load("lua/CatalystMixin.lua")
+Script.Load("lua/TeleportMixin.lua")
+Script.Load("lua/TargetCacheMixin.lua")
+Script.Load("lua/UnitStatusMixin.lua")
+Script.Load("lua/UmbraMixin.lua")
+Script.Load("lua/DissolveMixin.lua")
+Script.Load("lua/MaturityMixin.lua")
+Script.Load("lua/MapBlipMixin.lua")
+Script.Load("lua/HiveVisionMixin.lua")
+Script.Load("lua/CombatMixin.lua")
+
+Script.Load("lua/PathingMixin.lua")
+Script.Load("lua/RepositioningMixin.lua")
+Script.Load("lua/SupplyUserMixin.lua")
+Script.Load("lua/BiomassMixin.lua")
+Script.Load("lua/OrdersMixin.lua")
+Script.Load("lua/IdleMixin.lua")
+*/
+-- Same as NS1
+Crag.kHealRadius = 14
+Crag.kHealAmount = 10
+Crag.kHealWaveAmount = 50
+Crag.kMaxTargets = 3
+Crag.kThinkInterval = .25
+Crag.kHealInterval = 2
+Crag.kHealEffectInterval = 1
+
+Crag.kHealWaveDuration = 8
+
+Crag.kHealPercentage = 0.06
+Crag.kMinHeal = 10
+Crag.kMaxHeal = 60
+Crag.kHealWaveMultiplier = 1.3
+/*
+AddMixinNetworkVars(BaseModelMixin, networkVars)
+AddMixinNetworkVars(ClientModelMixin, networkVars)
+AddMixinNetworkVars(LiveMixin, networkVars)
+AddMixinNetworkVars(UpgradableMixin, networkVars)
+AddMixinNetworkVars(GameEffectsMixin, networkVars)
+AddMixinNetworkVars(FlinchMixin, networkVars)
+AddMixinNetworkVars(TeamMixin, networkVars)
+AddMixinNetworkVars(CloakableMixin, networkVars)
 AddMixinNetworkVars(LOSMixin, networkVars)
+AddMixinNetworkVars(DetectableMixin, networkVars)
+AddMixinNetworkVars(ConstructMixin, networkVars)
+AddMixinNetworkVars(ResearchMixin, networkVars)
+
+AddMixinNetworkVars(ObstacleMixin, networkVars)
+AddMixinNetworkVars(CatalystMixin, networkVars)
+AddMixinNetworkVars(TeleportMixin, networkVars)
+AddMixinNetworkVars(UmbraMixin, networkVars)
+AddMixinNetworkVars(DissolveMixin, networkVars)
+AddMixinNetworkVars(FireMixin, networkVars)
+AddMixinNetworkVars(MaturityMixin, networkVars)
+AddMixinNetworkVars(CombatMixin, networkVars)
+AddMixinNetworkVars(SelectableMixin, networkVars)
+AddMixinNetworkVars(OrdersMixin, networkVars)
+AddMixinNetworkVars(IdleMixin, networkVars)
+*/
 
 function Crag:GetCragsInRange()
 
@@ -26,9 +106,9 @@ local function GetHealTargets(self)
     
         if player:GetIsAlive() then
 			if not gCragHealIgnoreLOS then
-			if GetCanHealTarget(self, player) then
+			--if GetCanHealTarget(self, player) then
 				table.insert(targets, player)
-			end
+			--end
 			end
         end
         
@@ -38,9 +118,9 @@ local function GetHealTargets(self)
         
         if healable:GetIsAlive() then
 			if not gCragHealIgnoreLOS then
-			if GetCanHealTarget(self, player) then
+			--if GetCanHealTarget(self, player) then
 				table.insertunique(targets, healable)
-			end
+			--end
 			end
         end
         
@@ -60,7 +140,7 @@ function Crag:GetUnitNameOverride(viewer)
 	--unitName = unitName + "0% heal)"
 	return unitName
 end
-
+/*
 local function GetCanHealTarget(target)
 	--Line of Sight implement
 		local canhealtarget = true
@@ -72,7 +152,7 @@ local function GetCanHealTarget(target)
 	end
 	return canhealtarget
 end
-
+*/
 local origbuttons = Crag.GetTechButtons
 function Crag:GetTechButtons(techId)
 	local table = {}
@@ -99,7 +179,7 @@ function Crag:TriggerUmbra()
 end
 
 function Crag:TryHeal(target)
-if GetCanHealTarget(target) then
+--if GetCanHealTarget(target) then
 	
     local unclampedHeal = target:GetMaxHealth() * Crag.kHealPercentage
     local heal = Clamp(unclampedHeal, Crag.kMinHeal, Crag.kMaxHeal) 
@@ -120,7 +200,7 @@ if GetCanHealTarget(target) then
     else
         return 0
     end
-end
+--end
 end
 
 -------- Hmmm?? does this even do anything? a 10% dmg discount from minigun? I have no idea.

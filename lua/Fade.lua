@@ -392,10 +392,10 @@ function Fade:GetHasMovementSpecial()
 end
 
 function Fade:GetRebirthLength()
-	return gFadeRedemptionCooldown
+	return gFadeRebirthLength
 end
 function Fade:GetRedemptionCoolDown()
-	return gFadeRebirthLength
+	return gFadeRedemptionCooldown
 end
 
 function Fade:GetMovementSpecialEnergyCost()

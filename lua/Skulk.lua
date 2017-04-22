@@ -217,7 +217,7 @@ function Skulk:GetHealthPerBioMass()
 end
 
 function Skulk:GetArmorFullyUpgradedAmount()
-    return  --gSkulkArmorFullyUpgradedAmount
+    return  gSkulkArmorFullyUpgradedAmount
 end
 
 function Skulk:GetMaxViewOffsetHeight()

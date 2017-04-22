@@ -67,10 +67,6 @@ AddMixinNetworkVars(ShotgunVariantMixin, networkVars)
 Shotgun.kStartOffset = 0
 
 
-
-
-
-
 function Shotgun:OnCreate()
 
     ClipWeapon.OnCreate(self)

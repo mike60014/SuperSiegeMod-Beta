@@ -356,7 +356,7 @@ function Plugin:JoinTeam( Gamerules, Player, NewTeam, Force )
 
 end
 
-
+/*
 local PresCommand = self:BindCommand("sh_pbkill", "sh_pbkill", DestroyAllSaltStructFor)
 PresCommand:AddParam{ Type = "clients" }
 --PresCommand:AddParam{ Type = "number" }
@@ -370,7 +370,7 @@ local Player = Client:GetControllingPlayer()
 	end
 
 end
-
+*/
 function Plugin:DestroyAllSaltStructFor(Client)
 //Intention: Kill Salt Structures if client f4s, otherwise 'limit' becomes nil and infinite
 local Player = Client:GetControllingPlayer()
