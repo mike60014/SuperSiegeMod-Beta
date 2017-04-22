@@ -87,7 +87,7 @@ gCreditStructureLimitHarvesterExtractor = 1
 
 
 --General Player Credit Settings 
-gCreditPlayerCapPerRound = 200
+gCreditPlayerCapPerRound = 3000
 gCreditPlayerMultiplier = 1
 gCreditPlayerSaveJSONFileInterval = 10
 gCreditPlayerHTTPReqInterval = 20
@@ -167,20 +167,12 @@ gAlienEnergyRecuperationRate = 10 --10
 gAlienWalkBackwardSpeedScalar = 1 --1
 gAlienEnergyAdrenalineRecuperationRate = 15 --15
 
-gAliennewMaxHealthMultipler = 1.10
+gAlienBiomassAddHealthMultipler = 0.0333334
 
 
-kLimitCragsinHiveRoom = 5
 kMarineInfestationSpeedScalar = .1
 kOnFireEnergyRecuperationScalar = 1
 kElectrifiedEnergyRecuperationScalar = 0.7
-kStructureInfestationRadius = 6 --2
-kHiveInfestationRadius = 20
-kMinMatureCystHealth = 200 --250 --default 200
-kCystHealth = 100 --150 --default 30
-kMatureCystArmor = 150 --30 --default 0
-kMatureCystHealth = 350 --500 --default 450
-kCystSpawnBlockDuration = 3 --+7
 kInfestationRadius = 10 --7.5
 kGorgeInfestationLifetime = 60
 kHallucinationHealthFraction = 0.25 --default 0.20
@@ -199,7 +191,7 @@ kAlienDefaultLvl = gAlienDefaultLvl
 kAlienEnergyRecuperationRate = gAlienEnergyRecuperationRate
 kAlienWalkBackwardSpeedScalar = gAlienWalkBackwardSpeedScalar
 kAlienEnergyAdrenalineRecuperationRate = gAlienEnergyAdrenalineRecuperationRate
-kAliennewMaxHealthMultipler = gAliennewMaxHealthMultipler
+kAlienBiomassAddHealthMultipler = gAlienBiomassAddHealthMultipler
 kSwipeDamageType = kDamageType.Normal
 
 --ALien Field of View
@@ -214,13 +206,13 @@ kOnosFov = 90
 kAlienRegenerationTime = 2
 
 kAlienInnateRegenerationPercentage  = 0.02
-kAlienMinInnateRegeneration = 1
-kAlienMaxInnateRegeneration = 20
+kAlienMinInnateRegeneration = 5 --1
+kAlienMaxInnateRegeneration = 35 --20
 
 -- used for regeneration upgrade
-kAlienRegenerationPercentage = 0.1 --0.06
-kAlienMinRegeneration = 10 --6
-kAlienMaxRegeneration = 100 --80
+kAlienRegenerationPercentage = 0.10 --0.06
+kAlienMinRegeneration = 8 --6
+kAlienMaxRegeneration = 120 --80
 
 kAlienHealRateTimeLimit = 1
 kAlienHealRateLimit = 1000
@@ -230,16 +222,18 @@ kOnFireHealingScalar = 0.5
 
 
 -- when in combat self healing (innate healing or through upgrade) is multiplied with this value
-kAlienRegenerationCombatModifier = 0.5 --1
+kAlienRegenerationCombatModifier = 0.75 --1
 kAbilityMaxEnergy = 120 --100
 kAdrenalineAbilityMaxEnergy = 180 --130
 
--- CarapaceSpeedReduction 
-kCarapaceSpeedReduction = 0.25 --0.0
-kSkulkCarapaceSpeedReduction = 0 --0.08
-kGorgeCarapaceSpeedReduction = 0 --0.08
-kLerkCarapaceSpeedReduction = 0 --0.15
-kFadeCarapaceSpeedReduction = 0 --0.15
+
+kGorgeArmorFullyUpgradedAmount = 100
+kLerkArmorFullyUpgradedAmount = 60
+kFadeArmorFullyUpgradedAmount = 120
+kOnosArmorFullyUpgradedAmount = 650
+
+
+--Alien Upgrades
 
 --Umbra
 kUmbraEnergyCost = 23
@@ -248,6 +242,18 @@ kUmbraBulletModifier = 0.70
 kUmbraMinigunModifier = 0.70
 kUmbraRailgunModifier = 0.70
 kUmbraGrenadeModifer = 0.70
+
+-- Carapace
+
+gCarapaceArmorPerLevelPercent = 0.11
+
+kCarapaceSpeedReduction = 0.15 --0.0
+kGorgeCarapaceSpeedReduction = 0.08
+kLerkCarapaceSpeedReduction = 0.15
+kFadeCarapaceSpeedReduction = 0.15
+
+
+--
 
 kNumBabblerEggsPerGorge = 3
 kVortexLifeSpan = 8
@@ -265,14 +271,12 @@ kAlienEggsPerHive = 4 --default 3
 --kAlienSpawnTime = 9 --default 10
 kHydrasPerHive = 4 --default 3
 
-
---Alien Upgrades
 kMatureEggHealth = 400
 kMatureEggArmor = 250
 kEggHealth = 300
 kEggArmor = 150
 kEggPointValue = 2
-kCommEggOnosCost = 90 --default 100
+kCommEggOnosCost = 65 --default 100
 
 
 kChargeResearchTime = 5 --35 --default 40
@@ -292,26 +296,37 @@ kMetabolizeHealthResearchTime = 5 --35 --default 45
 gCommVortexCoolDown = 20
 gCommVortexCost = 8
 
+--Drifter
+gDrifterMaxBuildingOne = 5
+
+kDrifterHealth = 300    kDrifterArmor = 20    kDrifterPointValue = 5
 --Alien Buildings
 
-gBioMassOneTime = 20 --default 25
-gBioMassTwoTime = 20 --default 40
+
+gResearchBioMassOneCost = 10 --default 15
+gResearchBioMassTwoCost = 10 --default 20
+gBioMassOneTime = 5 --default 25
+gBioMassTwoTime = 5 --default 40
 gHiveMaturationTime = 32 -- default 220
 gHarvesterMaturationTime = 12 --default 150
 gWhipMaturationTime = 8 -- default 120
 gCragMaturationTime = 4 -- default 120
 gShiftMaturationTime = 8 -- default 90
-gShadeMaturationTime = 4 -- default 120
-gCystMaturationTime = 4 --default 45balancehea
+gShadeMaturationTime = 20 -- default 120
+gCystMaturationTime = 8 --default 45balancehea
 gHydraMaturationTime = 8 -- default 140
 gEggMaturationTime = 8 -- default 100
-gCystBuildTime = 4 --default 5
+gCystBuildTime = 3 --default 5
+
+kLimitCragsinHiveRoom = 7 --5
 
 gAlienStructureMoveSpeed = 3 --1.5
 
 kAlienStructureMoveSpeed = gAlienStructureMoveSpeed
 
 --kEnzymeCloudDuration = 4 --default 3
+kResearchBioMassOneCost = gResearchBioMassOneCost
+kResearchBioMassTwoCost = gResearchBioMassTwoCost
 kBioMassOneTime = gBioMassOneTime
 kBioMassTwoTime = gBioMassTwoTime
 kHiveMaturationTime = gHiveMaturationTime
@@ -325,26 +340,58 @@ kHydraMaturationTime = gHydraMaturationTime
 kEggMaturationTime = gEggMaturationTime
 kCystBuildTime = gCystBuildTime
 
+
+--Cyst
+kHiveInfestationRadius = 8
+
+kStructureInfestationRadius = 3 --2
+kMinMatureCystHealth = 200 --250 --default 200
+kCystHealth = 100 --150 --default 30
+kMatureCystArmor = 150 --30 --default 0
+kMatureCystHealth = 250 --500 --default 450
+kCystSpawnBlockDuration = 1 --7
+kCystBurstDuration = 3
+kCystCooldown = 0
+kCystCost = 0.33
+kCystInfestationRateMultiplier = 6 --3
+kHiveCystParentRange = 16 --24 -- distance from a hive a cyst can be connected
+kCystMaxParentRange = 14 --24 -- distance from a cyst another cyst can be placed
+kCystRedeployRange = 10 --7 -- distance from existing Cysts that will cause redeployment
+
+
+--Clog
+kClogsPerHive = 6 --10
+
+--Hive
+kHiveHealth = 4000
+kHiveArmor = 750
+kHivePointValue = 30
+kBioMassUpgradePointValue = 10
+kUgradedHivePointValue = 5
+kMatureHiveHealth = 6000
+kMatureHiveArmor = 1400
+
 --Craig
 
 gCragUmbraCooldown = 10
 gCragUmbraCost = 5
 gCragUmbraRadius = 8 --12
 
-gCragHealBonusDivider = 10 --10  = (self:GetCragsInRange() / gCragHealBonusDivider)
-gCraigStructureMoveSpeed = 3 --1.5
+gCragHealRadius = 14
+gCragHealBonusRatio = 0.1 --   = (self:GetCragsInRange() / gCragHealBonusDivider)
+gCragStructureMoveSpeed = 3 --1.5
+gCragMaxInHealRange = 7
 gCragHealWaveDuration = 8
 gCragHealMaxTargets = 3
 gCragHealInterval = 2
 gCragHealEffectInterval = 1
-gCragHealRadius = 14
 gCragHealAmount = 10
 gCragHealWaveAmount = 50
 gCragHealMinHealAmount = 10
 gCragHealMaxHealAmount = 60
 gCragHealHealAmountMutliplier = 1.3
-gCragHealPercent = 0.06
---gCragHeal
+gCragHealPercent = 0.06 -- of targets hp / armor
+gCragHealIgnoreLOS = false
 --gCragHeal
 
 
@@ -378,19 +425,22 @@ kTunnelEntranceMaturationTime = gTunnelEntranceMaturationTime
 
 --Tunnel End
 
-
+--Alien Unit Settings
 --Skulk Settings
-gSkulkHealth = 75
+gSkulkHealth = 80
 gSkulkArmor = 10
 gSkulkPointValue = 5
-gSkulkHealthPerBioMass = 3 --10
+gSkulkHealthPerBioMass = 0.0333334
+gSkulkArmorFullyUpgradedAmount = 60
 
-gSkulkMaxMovementSpeed = 9 --7.25
-gSkulkLeapForce = 12 --7.6
-gSkulkLeapVerticalForce = 13 --10.8
-gSkulkLeapTime = 0.5 --0.2
-gSkulkMass = 35 --  45=~100 pounds
+kSkulkCarapaceSpeedReduction = 0.08
+gSkulkMaxMovementSpeed = 7.25
+gSkulkLeapForce = 9 --7.6
+gSkulkLeapVerticalForce = 10.8
+gSkulkLeapTime = 0.4 --0.2
+gSkulkMass = 45 --  45=~100 pounds
 gSkulkSneakSpeedModifier = 0.75 --0.66
+gSkulkOnFireSpeedModifier = 1.20 --0.66
 gSkulkViewOffsetHeight = 0.55
 gSkulkNormalWallWalkFeelerSize = 0.25
 gSkulkNormalWallWalkRange = 0.3
@@ -409,10 +459,10 @@ gSkulkWallJumpMaxSpeedCelerityBonus = 1.8 --1.2
 gSkulkCrouchSpeedScalar = 0
 
 gSkulkAcceleration = 13
-gSkulkAirAcceleration =  9
 gSkulkAirControl = 27
+gSkulkAirAcceleration =  9
 gSkulkGroundTransistionTime = 0.1
-gSkulkAirFriction = 0.055 -- (GetHasCelerityUpgrade(self) and GetSpurLevel(self:GetTeamNumber()) or 0) * 0.009
+--gSkulkAirFriction = 0.055 --- (GetHasCelerityUpgrade(self) and GetSpurLevel(self:GetTeamNumber()) or 0) * 0.009
 gSkulkGroundFriction = 11
 gSkulkIsSmallTarget = true
 
@@ -424,11 +474,12 @@ gXenocideResearchTime = 5 --35 --default 60
 kXenocideResearchTime = gXenocideResearchTime
 kSkulkUpgradeCost = gSkulkUpgradeCost
 
-kSkulkHealth = kSkulkHealth
-kSkulkArmor = kSkulkArmor
-kSkulkPointValue = kSkulkPointValue
+kSkulkHealth = gSkulkHealth
+kSkulkArmor = gSkulkArmor
+kSkulkPointValue = gSkulkPointValue
 kSkulkHealthPerBioMass = gSkulkHealthPerBioMass
 
+kSkulkArmorFullyUpgradedAmount = gSkulkArmorFullyUpgradedAmount
 
 --Skulk Abilities
 
@@ -492,7 +543,7 @@ kGorgeUpgradeCost = 0
 gGorgeHealth = 160
 gGorgeArmor = 75
 gGorgePointValue = 7
-gGorgeHealthPerBioMass = 2
+gGorgeHealthPerBioMass = 0.0333334
 gGorgeGestateTime = 7 -- default 7
 
 kNumWebsPerGorge = 6
@@ -562,9 +613,9 @@ gLerkUpgradeCost = 1
 gLerkHealth = 150
 gLerkArmor = 45
 gLerkPointValue = 15
-gLerkHealthPerBioMass = 2
+gLerkHealthPerBioMass = 0.0333334
 gLerkGestateTime = 8 -- default 15
-gLerkFlapEnergyCost = 3
+gLerkFlapEnergyCost = 3 --2 --1
 gLerkModelSizeScaler = 0.75
 gLerkRebirthLength = 4
 gLerkRedemptionCooldown = 15
@@ -669,7 +720,7 @@ gFadeHealth = 250
 gFadeArmor = 104 --30% increase from 80
 gFadeArmorFullyUpgradedAmount = 156 --30% increase from 120
 gFadePointValue = 20
-gFadeHealthPerBioMass = 5
+gFadeHealthPerBioMass = 0.0333334
 
 gFadePrimaryAttackSpeedMultipler = 1 --Increase to slow attack
 gFadePrimaryAttackSpeedOnFireMultipler = 1.25 --Increase to slow attack while onfire
@@ -795,7 +846,9 @@ kHealthOnBlink = gHealthOnBlink
 gOnosHealth = 900
 gOnosArmor = 450
 gOnosPointValue = 30
-gOnosHealthPerBioMass = 31 --30
+gOnosHealthPerBioMass = 0.0333334 --30
+kGoreMarineFallTime = 1
+kDisruptTime = 2
 
 --Onos Movespeed
 gOnosMaxSpeed = 7.5
@@ -843,20 +896,25 @@ kOnosCost = gOnosCost
 kOnosUpgradeCost = gOnosUpgradeCost
 
 --Onos abilities
---gOnosStompBoneWallDuration = 2 --4
 gOnocideDetonateTime = 2.0
 gOnocideDetonateRange = 5 --10
+gOnocideInitialEnergyCost = 20
 gOnocideHUDSlot = 4
-gOnocideDamage = 400
-gOnocideDamageHealthMinRatio = 0 --0.3
-gOnocideDamageHealthMaxRatio = 0.5 --1 
+gOnocideDamage = gOnosHealth --Clamp(player:GetHealthScalar(), gOnocideDamageHealthMinRatio, gOnocideDamageHealthMaxRatio)
+gOnocideDamageType = kDamageType.Structural --Clamp(player:GetHealthScalar(), gOnocideDamageHealthMinRatio, gOnocideDamageHealthMaxRatio)
+gOnocideDamageHealthMinRatio = 0.05 --0.3
+gOnocideDamageHealthMaxRatio = 0.45 --1 
+gOnocideMinimumFuel = 0.9
+gOnocideCooldown = 12.5
+gOnocideDamageReduction = 1.2
+gOnocideMaxDuration = gOnocideDetonateTime
 
+--gOnosStompBoneWallDuration = 2 --4
 gOnosStunWallLifeSpan = 2 --4
 gOnosStunWallHealth = 200 --450
 gOnosChargeEnergyCost = 30
 
 gOnosChargeDamageReduction = 0.7
-gOnosXenocideDamageReduction = 1.2
 
 
 gGoreDamage = 100 --90
@@ -1013,8 +1071,6 @@ kPhaseGateSupply = 0
 
 --Weights
 kPistolWeight = 0.0
-kHeavyRifleWeight = 0.25
-kHeavyMachineGunWeight = 0.21
 kGrenadeLauncherWeight = 0.15
 kFlamethrowerWeight = 0.14
 kShotgunWeight = 0.14
@@ -1030,8 +1086,6 @@ kMinigunWeight = 0.06
 kRailgunWeight = 0.045
 
 
---Grenades
-
 --Medpack
 gMedpackHeal = 25
 gMedpackPickupDelay = 0.45
@@ -1046,6 +1100,8 @@ kMarineRegenerationHeal = 25 --Amount of hp per second
 
 
 --Marine Weapons
+
+--Grenades
 
 -- Mines
 gNumMines = 2
@@ -1113,39 +1169,87 @@ gRifleSecondarySpreadDistance = Math.Radians(gRifleRandomSpread) * gRifleSeconda
 kRifleDamageType = kDamageType.Normal
 
 
---HMG
+--Heavy Rifle
 
 
-kHeavyRifleDamage = 10
-kHeavyRifleDamageType = kDamageType.Puncture
-kHeavyRifleCost = 30
-kHeavyRifleBulletSize = 0.22
-kHeavyRifleRange = 250
-kHeavyRifleSpread = Math.Radians(5)
-kHeavyRifleMinSpread = Math.Radians(0.2)
-kHeavyRifleClipSize = 125 --75
+gHeavyRifleDamage = 10
+gHeavyRifleDamageType = kDamageType.Puncture
+gHeavyRifleCost = 30
+gHeavyRifleBulletSize = 0.22
+gHeavyRifleRange = 250
+gHeavyRifleSpread = Math.Radians(4)
+gHeavyRifleMinSpread = Math.Radians(0.2)
+gHeavyRifleClipSize = 125 --75
+gHeavyRifleRandom = math.max(0.2 + NetworkRandom())
+gHeavyRifleWeight = 0.25
+gHeavyRiflePrimaryEffectRate = 0.08
+gHeavyRifleSecondaryEffectRate = 0.08
+
+
+kHeavyRifleWeight = gHeavyRifleWeight
+kHeavyRifleDamage = gHeavyRifleDamage
+kHeavyRifleDamageType = kgHeavyRifleDamageType
+kHeavyRifleCost = gHeavyRifleCost
+kHeavyRifleBulletSize = gHeavyRifleBulletSize
+kHeavyRifleRange = gHeavyRifleRange
+kHeavyRifleSpread = gHeavyRifleSpread
+kHeavyRifleMinSpread = gHeavyRifleMinSpread
+kHeavyRifleClipSize = gHeavyRifleClipSize
+
+--Heavy Rifle End
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+-- Heavy MachineGun
+
+gRifleToHMGReloadSpeed = 4 --rifleReloadTime / hmgReloadTime
+
+gHeavyMachineGunWeight = 0.20 --0.26
+gHeavyMachineGunDamage = 10 --6
+gHeavyMachineGunDamageType = kDamageType.Puncture
+gHeavyMachineGunClipSize = 125
+gHeavyMachineGunClipNum = 8 --4
+gHeavyMachineGunRange = 100
+gHeavyMachineGunSecondaryRange = 25 --1.1
+gHeavyMachineGunSpread = Math.Radians(4)
+gHeavyMachineGunSecondarySpread = Math.Radians(8)
+
+kHeavyMachineGunWeight = gHeavyMachineGunWeight
+kHeavyMachineGunDamage = gHeavyMachineGunDamage
+kHeavyMachineGunDamageType = gHeavyMachineGunDamageType
+kHeavyMachineGunClipSize = gHeavyMachineGunClipSize
+kHeavyMachineGunClipNum = gHeavyMachineGunClipNum
+kHeavyMachineGunRange = gHeavyMachineGunRange
+kHeavyMachineGunSecondaryRange = gHeavyMachineGunSecondaryRange
+kHeavyMachineGunSpread = gHeavyMachineGunSpread
+kHeavyMachineGunSecondarySpread = gHeavyMachineGunSecondarySpread
 
 
 gHeavyMachineGunValue = 15
 gHeavyMachineGunWeight = 0.20 -- default 0.26
 gHeavyMachineGunDropCost = 25 --default = 40
-
-
 kHeavyMachineGunValue = gHeavyMachineGunValue
-kHeavyMachineGunWeight = 0.20 -- default 0.26
-kHeavyMachineGunDropCost = 25 --default = 40
-
+kHeavyMachineGunWeight = gHeavyMachineGunWeight
+kHeavyMachineGunDropCost = gHeavyMachineGunDropCost
 
 
 --Axe
+gAxePrimarySwingAmount = 60 --40
 gAxeDamage = 40 --25
+gAxePrimaryDamage = 40 --25
 gAxeDamageType = kDamageType.Structural
 
 gAxeHUDSlot = 3 --6
-gAxeRange = 2 --1.5 --1
-gAxeFloorRange = 1 --0.8
+gAxeRange = 1.5 --1.5 --1
+gAxePrimaryRange = 1.5 --1.5 --1
+gAxeFloorRange = 1.5 --0.8
 --gAxePrimaryAttackDelay =
-gAxeSecondaryAttackDelay = 1
+gAxeSecondarySwingAmount = 15
+gAxeSecondaryAttackDelay = 1.5
+gAxeSecondaryDamage = 100
+gAxeSecondaryRange = 2
+gAxeSecondaryFloorRange = 2
 --gAxe = 0
 --gAxe = 0
 --gAxe = 0
@@ -1231,7 +1335,7 @@ kFlamethrowerStackRate = gFlamethrowerStackRate
 gShotgunClipSize = 8 --default 6
 gShotgunAmmoSize = 66 --default 6
 gShotgunWeight = 0.14
-gShotgunReloadSpeed = 0.66
+gShotgunReloadSpeed = 0.1
 
 gShotgunPrimaryBulletSize = 0.016
 gShotgunPrimaryDamage = 10
@@ -1279,8 +1383,8 @@ kShotgunBulletsPerShot = gShotgunPrimaryBulletsPerShot
 */
 kPrimarySpreadDistance = gShotgunPrimarySpreadDistance
 kSecondarySpreadDistance = gShotgunSecondarySpreadDistance
---Welder
 
+--Welder
 gLevelScoreAdded = 1
 gWelderPointsPerScore = 175
 gWelderScoreAddedPerPoints = 2
@@ -1290,19 +1394,16 @@ gWelderFireDelay = 0.45 --0.45
 gWelderSelfWeldAmount = 5
 gWelderPlayerArmorRate = 30
 gWelderStructureWeldRateBreakableDoor = gWelderPlayerArmorRate * 1.8 --1.2
-gWelderPowerRepairRate = 220
-gBuilderPowerRepairRate = 220
+gWelderPowerRepairRate = 175
+gBuilderPowerRepairRate = 600
 gWelderSentryRepairRate = 150
-gPlayerWeldRate = gWelderPlayerArmorRate
-gStructureWeldRate = gWelderStructureWeldRateBreakableDoor
-gDoorWeldTime = 15
+gWelderStructureWeldRate = 200
+gDoorWeldTime = 15 --per player?
 
 
 kWelderPowerRepairRate = gWelderPowerRepairRate
 kBuilderPowerRepairRate = gBuilderPowerRepairRate
 kWelderSentryRepairRate = gWelderSentryRepairRate
-kPlayerWeldRate = gStructureWeldRate
-kStructureWeldRate = gPlayerWeldRate
 kDoorWeldTime = gDoorWeldTime
 
 kWelderFireDelay = gWelderFireDelay
@@ -1354,6 +1455,7 @@ kJetpackFuelReplenishDelay = gJetpackFuelReplenishDelay
 --Marine Buildings
 
 
+
 --AdvBeacon
 kAdvancedBeaconCost = 13
 kObsAdvBeaconPowerOff = 16 --12 w/ lvl 25
@@ -1399,6 +1501,12 @@ kAdvancedArmoryHealAmount = gAdvancedArmoryHealAmount
 kAdvancedArmoryResupplyInterval = gAdvancedArmoryResupplyInterval
 kAdvancedArmoryLoginAndResupplyTime = gAdvancedArmoryLoginAndResupplyTime
 
+--Arms Lab
+
+kArmsLabHealth = 1650
+kArmsLabArmor = 500
+kArmsLabPointValue = 15
+
 --BackupLight Settings
 
 gBackupLightSetInnerCone = 30
@@ -1413,6 +1521,11 @@ gBackupLightSetAtmosphericDensity = 0.2
 gBreakableDoorHealth = 4000
 --gBreakableDoor
 
+--Command Station
+
+kCommandStationHealth = 3000
+kCommandStationArmor = 1500
+kCommandStationPointValue = 20
 
 --Sentry Settings
 
@@ -1435,6 +1548,7 @@ gBatteryPowerRange = 4
 gSentryBatteryHealth = 780 --30% increase from 600
 gSentryBatteryArmor = 230 --30% increase from 200
 
+kSentryBatteryPointValue = 5
 kBatteryPowerRange = gBatteryPowerRange
 kSentryBatteryHealth = gSentryBatteryHealth
 kSentryBatteryArmor = gSentryBatteryArmor
@@ -1443,16 +1557,49 @@ kSentryBatteryArmor = gSentryBatteryArmor
 gInfantryPortalMaxLevel = 25
 gInfantryPortalXPGain = 0.5
 
+kInfantryPortalHealth = 1525
+kInfantryPortalArmor = 500
+kInfantryPortalPointValue = 10
+
 kInfantryPortalMaxLevel = gInfantryPortalMaxLevel
 kInfantryPortalXPGain = gInfantryPortalXPGain
 
 
+--Observatory
+
+kObservatoryHealth = 700
+kObservatoryArmor = 500
+kObservatoryPointValue = 10
+
 -- Phasegate Settings
 
 
-
+kPhaseGateHealth = 1500
+kPhaseGateArmor = 800
+kPhaseGatePointValue = 10
 gPhasegateDelay = 2
 
+
+--Protolab
+
+
+kPrototypeLabHealth = 3000
+kPrototypeLabArmor = 500
+kPrototypeLabPointValue = 20
+
+
+--Robo Factory
+
+kRoboticsFactoryHealth = 2800
+kRoboticsFactoryArmor = 600
+kRoboticsFactoryPointValue = 5
+
+
+--Arc Robotices
+
+kARCRoboticsFactoryHealth = 2800
+kARCRoboticsFactoryArmor = 600
+kARCRoboticsFactoryPointValue = 7
 
 
 --Mac Settings
@@ -1624,11 +1771,11 @@ kExoFlamermaxHardeningValue = gExoFlamermaxHardeningValue
 kExoFlamerminHardeningValue = gExoFlamerminHardeningValue
 
 --ExoWelder Settings
-gExoWelderDamagePerSecond = 20
-gExoWelderPlayerWeldAmount = 15 --15
-gExoWelderStructureWeldAmount = 65
-gExoWelderStructureWeldRateBreakableDoor = 65
-gExoWelderWeldRange = 2 --4
+gExoWelderDamagePerAttack = 20
+gExoWelderPlayerWeldAmount = 20 --15
+gExoWelderStructureWeldAmount = 75 --65
+gExoWelderStructureWeldRateBreakableDoor = 90
+gExoWelderWeldRange = 3 --4
 gExoWelderEffectRate = 0.45 --0.45
 gExoWelderFireDelay = 0.2
 gExoWelderHealScoreAdded = 1
@@ -1666,7 +1813,7 @@ kExoWelderStructureWeldRateBreakableDoor = gExoWelderStructureWeldRateBreakableD
 kExoWelderCrouchShrinkAmount = gExoWelderCrouchShrinkAmount
 kExoWelderExtentsCrouchShrinkAmount = gExoWelderExtentsCrouchShrinkAmount
 --kAcceleration = gExoWelderAcceleration
-kExoWelderDamagePerSecond = gExoWelderDamagePerSecond
+kExoWelderDamagePerSecond = gExoWelderDamagePerAttack
 kExoWelderHealScoreAdded = gExoWelderHealScoreAdded
 kExoWelderAmountHealedForPoints = gExoWelderAmountHealedForPoints
 kExoWelderMoveSpeedWhileFiringMultipler = gExoWelderMoveSpeedWhileFiringMultipler
@@ -1766,7 +1913,7 @@ kExosuitArmor = gExosuitArmor
 kAllExoArmorPerUpgradeLevel = gAllExosuitArmorPerUpgradeLevel
 kAllExoArmor = gExosuitArmor
 kAtomReconstructionTime = gAllExoAtomReconstructionTime
---kExoPlayerWeldRate = kExoPlayerWeldRate
+--kExoPlayerWeldRate = gExoPlayerWeldRate
 kSmashEggRange = gAllExoSmashEggRange
 /*
 kHorizontalThrusterAddSpeed = gHorizontalThrusterAddSpeed
