@@ -221,8 +221,8 @@ function ExoWelder:PerformWeld(player)
     if didHit and target and HasMixin(target, "Live") then
         
         if HasMixin(target, "Team")and GetAreEnemies(player, target) then
-           --self:DoDamage(kExoWelderDamagePerSecond * kWelderFireDelay, target, endPoint, attackDirection)
-           self:DoDamage(kExoWelderDamagePerSecond, target, endPoint, attackDirection)
+           --self:DoDamage(gExoWelderDamagePerAttack * kWelderFireDelay, target, endPoint, attackDirection)
+           self:DoDamage(gExoWelderDamagePerAttack, target, endPoint, attackDirection)
            success = true
 		   
         elseif HasMixin(target, "Team") and player:GetTeamNumber() == target:GetTeamNumber() and HasMixin(target, "Weldable") then
@@ -281,7 +281,7 @@ function ExoWelder:GetRepairRate(repairedEntity)
 
     local repairRate = kExoPlayerWeldRate
     if repairedEntity.GetReceivesStructuralDamage and repairedEntity:GetReceivesStructuralDamage() then
-        repairRate = kExoPlayerWeldRate * 1.20
+        repairRate = gExoWelderDamagePerAttack
     end
     
     return repairRate

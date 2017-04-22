@@ -346,7 +346,7 @@ function Fade:GetMaxSpeed(possible)
     end
     
 	if self:GetIsOnFire() then kMaxSpeed = kMaxSpeed * 1.20 end
-    -- Take into account crouching.
+    -- Take into account crouching. someday
     return kMaxSpeed
     
 end

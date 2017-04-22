@@ -221,15 +221,15 @@ function HeavyRifle:GetHUDSlot()
 end
 
 function HeavyRifle:GetClipSize()
-    return kHeavyRifleClipSize
+    return gHeavyRifleClipSize
 end
 
 function HeavyRifle:GetSpread()
-    return kSpread
+    return gHeavyRifleSpread --kSpread
 end
 
 local function HeavyRifleRandom()
-    return math.max(0.2 + NetworkRandom())
+    return math.max(NetworkRandom()) --math.max(0.2 + NetworkRandom()) --gHeavyRifleRandom
 end
 
 function HeavyRifle:CalculateSpreadDirection(shootCoords, player)
@@ -237,19 +237,19 @@ function HeavyRifle:CalculateSpreadDirection(shootCoords, player)
 end
 
 function HeavyRifle:GetBulletDamage(target, endPoint)
-    return kHeavyRifleDamage
+    return gHeavyRifleDamage --kHeavyRifleDamage
 end
 
 function HeavyRifle:GetBulletSize()
-    return kHeavyRifleBulletSize
+    return gHeavyRifleBulletSize --kHeavyRifleBulletSize
 end
 
 function HeavyRifle:GetRange()
-    return kRange
+    return gHeavyRifleRange --kRange
 end
 
 function HeavyRifle:GetWeight()
-    return kHeavyRifleWeight
+    return gHeavyRifleWeight --kHeavyRifleWeight
 end
 
 function HeavyRifle:GetSecondaryCanInterruptReload()
@@ -365,7 +365,7 @@ if Client then
     end
     
     function HeavyRifle:GetPrimaryEffectRate()
-        return 0.08
+        return gHeavyRiflePrimaryEffectRate --0.08
     end
     
     function HeavyRifle:GetBarrelPoint()

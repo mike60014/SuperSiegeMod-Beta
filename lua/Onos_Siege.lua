@@ -115,7 +115,7 @@ function Onos:ModifyDamageTaken(damageTable, attacker, doer, damageType, hitPoin
         elseif self:GetIsCharging() then  
         damageReduct = gOnosChargeDamageReduction
         elseif self:GetIsXenociding() then  
-        damageReduct = gOnosXenocideDamageReduction
+        damageReduct = gOnocideDamageReduction
         end
         
         if damageReduct ~= 1 then

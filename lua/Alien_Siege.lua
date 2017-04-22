@@ -130,58 +130,65 @@ function Alien:GetRedemptionCoolDown()
 	return 0
 end
 
-function Alien:UpdateArmorAmount(carapaceLevel)
-	
-    local level = GetHasCarapaceUpgrade(self) and carapaceLevel or 0
-    local newMaxArmor = (level / 3) * (self:GetArmorFullyUpgradedAmount() - self:GetBaseArmor()) + self:GetBaseArmor()
-
-    if newMaxArmor ~= self.maxArmor then
-
-        local armorPercent = self.maxArmor > 0 and self.armor/self.maxArmor or 0
-        self.maxArmor = newMaxArmor
-        self:SetArmor(self.maxArmor * armorPercent)
-    
-    end
-
-end
 
 function Alien:UpdateHealthAmount(bioMassLevel, maxLevel)
-	return
+    local teamInfo = GetTeamInfoEntity(2)
+	if teamInfo then
+		local bioMassLevel = teamInfo:GetBioMassLevel()
+		local bioMassPlusPercent = self:GetHealthPerBioMass() * bioMassLevel
+		local newMaxHealth = self:GetBaseHealth() + (bioMassPlusPercent * self:GetBaseHealth())
+		--newMaxHealth =  ConditionalValue(self:GetHasUpgrade(kTechId.ThickenedSkin), newMaxHealth * bioMassPlusPercent, newMaxHealth)
+		self:AdjustMaxHealth(newMaxHealth)
+		self:SetMaxHealth(newMaxHealth)
+    end
+   return false
+end
+
+function Alien:UpdateArmorAmount(carapaceLevel)
+    local teamInfo = GetTeamInfoEntity(2)
+	if teamInfo then
+		local bioMassLevel = teamInfo:GetBioMassLevel()
+		local bioMassPlusPercent = self:GetHealthPerBioMass() * bioMassLevel
+		local newMaxHealth = self:GetBaseHealth() + (bioMassPlusPercent * self:GetBaseHealth())
+	if GetHasCarapaceUpgrade(self) then
+		local level = carapaceLevel or 0
+		local AddArmorFromHP = ((level * gCarapaceArmorPerLevelPercent) * newMaxHealth) + self:GetBaseArmor()
+		local maxArmorPossible = (3 * gCarapaceArmorPerLevelPercent) * newMaxHealth + self:GetBaseArmor()
+		local newMaxArmor = Clamp(AddArmorFromHP , self:GetBaseArmor(), maxArmorPossible)
+        self.maxArmor = newMaxArmor
+        self:SetArmor(newMaxArmor)
+    end
+	end
+	return false
 end
 
 function Alien:UpdateArmorAmountManual(carapaceLevel)
     local teamInfo = GetTeamInfoEntity(2)
-          if teamInfo then
-      --local bioMassLevel = teamInfo:GetBioMassLevel()
- --default, just manual. Outdated if modified... 
-    local level = GetHasCarapaceUpgrade(self) and carapaceLevel or 0
-    --local newMaxArmor = level * (self:GetArmorFullyUpgradedAmount() - self:GetBaseArmor()) + self:GetBaseArmor()
-    local newMaxArmor = self:GetArmorFullyUpgradedAmount()
-
-    --if newMaxArmor ~= self.maxArmor then
-
-        --local armorPercent = self.maxArmor > 0 and self.armor/self.maxArmor or 0
+	if teamInfo then
+		local bioMassLevel = teamInfo:GetBioMassLevel()
+		local bioMassPlusPercent = self:GetHealthPerBioMass() * bioMassLevel
+		local newMaxHealth = self:GetBaseHealth() + (bioMassPlusPercent * self:GetBaseHealth())
+	if GetHasCarapaceUpgrade(self) then
+		local level = carapaceLevel or 0
+		local AddArmorFromHP = ((level * gCarapaceArmorPerLevelPercent) * newMaxHealth) + self:GetBaseArmor()
+		local maxArmorPossible = (3 * gCarapaceArmorPerLevelPercent) * newMaxHealth + self:GetBaseArmor()
+		local newMaxArmor = Clamp(AddArmorFromHP , self:GetBaseArmor(), maxArmorPossible)
         self.maxArmor = newMaxArmor
         self:SetArmor(newMaxArmor)
-        --self:SetArmor(self.maxArmor * armorPercent)
-    --end
     end
-  return false
+	end
+	return false
 end
-
-local knewMaxHealthMultipler = gAliennewMaxHealthMultipler --1.10
 
 function Alien:UpdateHealthAmountManual(bioMassLevel, maxLevel)
     local teamInfo = GetTeamInfoEntity(2)
-          if teamInfo then
-      local bioMassLevel = teamInfo:GetBioMassLevel()
- ---default w/ mod of thick skin. I know this is not perfect because the orig can be modified and make this one outdated. But im not worried. 
-    local level = math.max(0, bioMassLevel - 1)
-    local newMaxHealth = self:GetBaseHealth() + level * self:GetHealthPerBioMass()
-    newMaxHealth =  ConditionalValue(self:GetHasUpgrade(kTechId.ThickenedSkin), newMaxHealth * knewMaxHealthMultipler, newMaxHealth)
-   -- Print(" newMaxHealth is %s", newMaxHealth)
-        self:AdjustMaxHealth(newMaxHealth)
-        self:SetMaxHealth(newMaxHealth)
+	if teamInfo then
+		local bioMassLevel = teamInfo:GetBioMassLevel()
+		local bioMassPlusPercent = self:GetHealthPerBioMass() * bioMassLevel
+		local newMaxHealth = self:GetBaseHealth() + (bioMassPlusPercent * self:GetBaseHealth())
+		--newMaxHealth =  ConditionalValue(self:GetHasUpgrade(kTechId.ThickenedSkin), newMaxHealth * bioMassPlusPercent, newMaxHealth)
+		self:AdjustMaxHealth(newMaxHealth)
+		self:SetMaxHealth(newMaxHealth)
     end
    return false
 end

@@ -15,7 +15,7 @@ Cyst.kImpulseLightIntensity = 8
 
 Cyst.kExtents = Vector(0.2, 0.1, 0.2)
 
-Cyst.kBurstDuration = 3
+Cyst.kBurstDuration = kCystBurstDuration
 
 -- range at which we can be a parent
 Cyst.kCystMaxParentRange = kCystMaxParentRange
@@ -28,7 +28,56 @@ Cyst.kInfestationGrowthDuration = Cyst.kInfestationRadius / kCystInfestDuration
 Cyst.kMaturityLossTime = 15
 
 -- cyst infestation spreads/recedes faster
-Cyst.kInfestationRateMultiplier = 6 --3
+Cyst.kInfestationRateMultiplier = kCystInfestationRateMultiplier --3
+
+function Cyst:GetMatureMaxHealth() --Cysts scale their health based on the distance to the clostest hive
+    return math.max(kMatureCystHealth * self.healthScalar or 0, kMinMatureCystHealth)
+end 
+
+function Cyst:OnCreate()
+
+    ScriptActor.OnCreate(self)
+    
+    InitMixin(self, TeamMixin)
+    InitMixin(self, BaseModelMixin)
+    InitMixin(self, ClientModelMixin)
+    InitMixin(self, GameEffectsMixin)
+    InitMixin(self, LiveMixin)
+    InitMixin(self, FireMixin)
+    InitMixin(self, UmbraMixin)
+    InitMixin(self, CatalystMixin)
+    InitMixin(self, CombatMixin)
+    InitMixin(self, EntityChangeMixin)
+    InitMixin(self, LOSMixin)
+    InitMixin(self, FlinchMixin)
+    InitMixin(self, SelectableMixin)
+    InitMixin(self, PointGiverMixin)
+    InitMixin(self, AchievementGiverMixin)
+    InitMixin(self, CloakableMixin)
+    InitMixin(self, ConstructMixin)
+    InitMixin(self, MaturityMixin)
+    InitMixin(self, DetectableMixin)
+    
+    if Server then
+    
+        InitMixin(self, SpawnBlockMixin)
+        self:UpdateIncludeRelevancyMask()
+        self.timeLastCystConstruction = 0
+        
+    elseif Client then
+        InitMixin(self, CommanderGlowMixin)
+        self.connectedFraction = 0
+    end
+
+    self:SetPhysicsCollisionRep(CollisionRep.Move)
+    self:SetPhysicsGroup(PhysicsGroup.SmallStructuresGroup)
+    
+    self:SetLagCompensated(false)
+    
+    self.parentId = Entity.invalidId
+    
+end
+
 
 function Cyst:ModifyDamageTaken(damageTable, attacker, doer, damageType, hitPoint)
 

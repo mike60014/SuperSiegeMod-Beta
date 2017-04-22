@@ -38,8 +38,8 @@ local kSkulkAnimationGraph = PrecacheAsset("models/alien/skulk/skulk.animation_g
 -- Balance, movement, animation
 Skulk.kViewOffsetHeight = gSkulkViewOffsetHeight
 
-Skulk.kHealth = kSkulkHealth
-Skulk.kArmor = kSkulkArmor
+Skulk.kHealth = gSkulkHealth --kSkulkHealth
+Skulk.kArmor = gSkulkArmor --kSkulkArmor
 
 local kDashSound = PrecacheAsset("sound/NS2.fev/alien/skulk/full_speed")
 
@@ -213,11 +213,11 @@ function Skulk:GetBaseHealth()
 end
 
 function Skulk:GetHealthPerBioMass()
-    return kSkulkHealthPerBioMass
+    return gSkulkHealthPerBioMass
 end
 
 function Skulk:GetArmorFullyUpgradedAmount()
-    return kSkulkArmorFullyUpgradedAmount
+    return  --gSkulkArmorFullyUpgradedAmount
 end
 
 function Skulk:GetMaxViewOffsetHeight()
@@ -465,7 +465,7 @@ function Skulk:GetMaxSpeed(possible)
     local maxspeed = Skulk.kMaxSpeed
     
     if self.movementModiferState then maxspeed = maxspeed * Skulk.kSneakSpeedModifier end
-	if self:GetIsOnFire() then maxspeed = maxspeed * 1.20 end
+	if self:GetIsOnFire() then maxspeed = maxspeed * gSkulkOnFireSpeedModifier end
 	
     return maxspeed
     
@@ -558,19 +558,19 @@ function Skulk:GetMoveSpeedIs2D()
 end
 
 function Skulk:GetAcceleration()
-    return 13
+    return gSkulkAcceleration
 end
 
 function Skulk:GetAirControl()
-    return 27
+    return gSkulkAirControl
 end
 
 function Skulk:GetGroundTransistionTime()
-    return 0.1
+    return gSkulkGroundTransistionTime
 end
 
 function Skulk:GetAirAcceleration()
-    return 9
+    return gSkulkAirAcceleration
 end
 
 function Skulk:GetAirFriction()
@@ -578,7 +578,7 @@ function Skulk:GetAirFriction()
 end 
 
 function Skulk:GetGroundFriction()
-    return 11
+    return gSkulkGroundFriction
 end
 
 function Skulk:GetCanStep()

@@ -95,11 +95,11 @@ local networkVars =
 AddMixinNetworkVars(LiveMixin, networkVars)
 AddMixinNetworkVars(RifleVariantMixin, networkVars)
 
+local kMuzzleEffect = PrecacheAsset("cinematics/marine/rifle/muzzle_flash.cinematic")
+local kMuzzleAttachPoint = "fxnode_riflemuzzle"
 
 Rifle.primaryAttacking = false
 Rifle.secondaryAttacking = false
-local kMuzzleEffect = PrecacheAsset("cinematics/marine/rifle/muzzle_flash.cinematic")
-local kMuzzleAttachPoint = "fxnode_riflemuzzle"
 
 local function CheckForDestroyedEffects(self)
     if self.muzzleCinematic and not IsValid(self.muzzleCinematic) then
@@ -200,7 +200,7 @@ function Rifle:OnCreate()
         self.soundType = self.soundVariant
     end
     
-    self.skipDraw = false
+    --self.skipDraw = false
     
 end
 
@@ -442,6 +442,7 @@ function Rifle:OnPrimaryAttack(player)
 				self.primaryAttacking = true
 				self.primaryattackLastRequested = Shared.GetTime()
 				CancelReload(self)
+				if Server then UpdateSoundType(self, player) end
 				self:FirePrimary(player)
 				self.clip = self.clip - gRiflePrimaryBulletsPerShot
 			else
@@ -475,6 +476,7 @@ function Rifle:OnSecondaryAttack(player)
 			if self:GetIsDeployed() and primaryattackAllowed and secondaryattackAllowed and not self.primaryAttacking and not self:GetIsReloading() then
 				self.secondaryAttacking = true
 				self.secondaryattackLastRequested = Shared.GetTime()
+				if Server then UpdateSoundType(self, player) end
 				CancelReload(self)
 				self:FireSecondary(player)
 				self.clip = self.clip - gRifleSecondaryBulletsPerShot
@@ -491,8 +493,9 @@ end
 
 function Rifle:FirePrimary(player)
 
-    self:TriggerEffects("Rifle_attack_sound")
-    self:TriggerEffects("Rifle_attack")
+    --self:TriggerEffects("spikes_attack")
+    --self:TriggerEffects("rifle_attack_sound")
+    self:TriggerEffects("rifle_attack")
 	local viewAngles = player:GetViewAngles()
     viewAngles.roll = NetworkRandom() * math.pi * 2
 local kRifleRandomX = math.random(-100,100) * 0.01 --0.0 thru 3.0
@@ -563,7 +566,8 @@ end
 function Rifle:FireSecondary(player)
 
     self:TriggerEffects("Rifle_attack_sound")
-    self:TriggerEffects("Rifle_attack")
+    --self:TriggerEffects("Rifle_attack")
+    --self:TriggerEffects("spikes_attack")
 	--if self.secondaryattackLastRequested + gRifleSecondaryAttackSpeed <= Shared.GetTime() then return end
 	local viewAngles = player:GetViewAngles()
     viewAngles.roll = NetworkRandom() * math.pi * 2
@@ -639,151 +643,12 @@ local kRifleSecondarySpreadDistanceY = Math.Radians(kRifleRandomY) --20
     end
 
 end
-/*
 
 if Client then
 
     function Rifle:OnClientPrimaryAttackStart()
         
-        CheckForDestroyedEffects(self)
-        
-        -- TODO re-enable the single shot, see why it was removed at all :/
-        StartSoundEffectAtOrigin(kSingleShotSounds[math.ceil(self.soundType / 3)], self:GetOrigin())
-        
         Shared.PlaySound(self, kLoopingSounds[self.soundType])
-        self.clientSoundTypePlaying = self.soundType
-        
-        local player = self:GetParent()
-        
-        if not self.muzzleCinematic then            
-            CreateMuzzleEffect(self)                
-        elseif player then
-        
-            local cinematicName = kMuzzleCinematics[math.ceil(self.soundType / 3)]
-            local useFirstPerson = player:GetIsLocalPlayer() and player:GetIsFirstPerson()
-            
-            if cinematicName ~= self.activeCinematicName or self.firstPersonLoaded ~= useFirstPerson then
-            
-                DestroyMuzzleEffect(self)
-                CreateMuzzleEffect(self)
-                
-            end
-            
-        end
-            
-        -- CreateMuzzleCinematic() can return nil in case there is no parent or the parent is invisible (for alien commander for example)
-        if self.muzzleCinematic then
-            self.muzzleCinematic:SetIsVisible(true)
-        end
-        
-        if player then
-        
-            local useFirstPerson = player == Client.GetLocalPlayer()
-            
-            if useFirstPerson ~= self.loadedFirstPersonShellEffect then
-                DestroyShellEffect(self)
-            end
-        
-            if not self.shellsCinematic then
-                CreateShellCinematic(self)
-            end
-        
-            self.shellsCinematic:SetIsActive(true)
-
-        end
-        
-    end
-    
-    -- needed for first person muzzle effect since it is attached to the view model entity: view model entity gets cleaned up when the player changes (for example becoming a commander and logging out again)
-    -- this results in viewmodel getting destroyed / recreated -> cinematic object gets destroyed which would result in an invalid handle.
-    function Rifle:OnParentChanged(oldParent, newParent)
-        
-        ClipWeapon.OnParentChanged(self, oldParent, newParent)
-        
-        CheckForDestroyedEffects(self)
-        DestroyMuzzleEffect(self)
-        DestroyShellEffect(self)
-        
-    end
-    
-    function Rifle:OnClientPrimaryAttackEnd()
-    
-        CheckForDestroyedEffects(self)
-    
-        -- Just assume the looping sound is playing.
-        Shared.StopSound(self, kLoopingSounds[self.soundType])
-        Shared.PlaySound(self, kEndSounds[math.ceil(self.soundType / 3)])
-        
-        if self.muzzleCinematic then
-            self.muzzleCinematic:SetIsVisible(false)
-        end
-        
-        if self.shellsCinematic then
-            self.shellsCinematic:SetIsActive(false)
-        end
-        
-    end
-    
-    function Rifle:OnClientPrimaryAttacking(deltaTime)
-
-        -- Update weapon sounds if the weapon upgrade level has changed
-        if self.clientSoundTypePlaying and self.clientSoundTypePlaying ~= self.soundType then
-
-            Shared.StopSound(self, kLoopingSounds[self.clientSoundTypePlaying])
-            
-            Shared.PlaySound(self, kLoopingSounds[self.soundType])
-            self.clientSoundTypePlaying = self.soundType
-            
-        end
-        
-    end
-    
-    function Rifle:GetPrimaryEffectRate()
-        return gRiflePrimaryEffectRate --0.08
-    end
-    
-	function Rifle:GetSecondaryEffectRate()
-		return gRifleSecondaryEffectRate --0.45 --0.08
-	end
-
-    function Rifle:GetTriggerPrimaryEffects()
-        return not self:GetIsReloading() and self.shooting
-    end
-    
-    function Rifle:GetBarrelPoint()
-    
-        local player = self:GetParent()
-        if player then
-        
-            local origin = player:GetEyePos()
-            local viewCoords= player:GetViewCoords()
-            
-            return origin + viewCoords.zAxis * 0.4 + viewCoords.xAxis * -0.15 + viewCoords.yAxis * -0.22
-            
-        end
-        
-        return self:GetOrigin()
-        
-    end
-    
-    function Rifle:GetUIDisplaySettings()
-        return { xSize = 256, ySize = 417, script = "lua/GUIRifleDisplay.lua", variant = self:GetRifleVariant() }
-    end
-    
-end
-
-*/
-if Client then
-
-    function Rifle:OnClientPrimaryAttackStart()
-        
-        CheckForDestroyedEffects(self)
-        
-        -- TODO re-enable the single shot, see why it was removed at all :/
-        StartSoundEffectAtOrigin(kSingleShotSounds[math.ceil(self.soundType / 3)], self:GetOrigin())
-        
-        Shared.PlaySound(self, kLoopingSounds[self.soundType])
-        self.clientSoundTypePlaying = self.soundType
         
         local player = self:GetParent()
         

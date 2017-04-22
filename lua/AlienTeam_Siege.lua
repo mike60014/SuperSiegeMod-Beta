@@ -51,10 +51,11 @@ self.techTree:AddPassive(kTechId.AcidRocket, kTechId.Stab, kTechId.None, kTechId
 
 self.techTree:AddPassive(kTechId.CragHiveTwo, kTechId.CragHive)
 self.techTree:AddPassive(kTechId.ShiftHiveTwo, kTechId.ShiftHive)
+self.techTree:AddPassive(kTechId.ThickenedSkin, kTechId.Spur)
 self.techTree:AddBuyNode(kTechId.Rebirth, kTechId.Shell, kTechId.None, kTechId.AllAliens)
 self.techTree:AddBuyNode(kTechId.Redemption, kTechId.Shell, kTechId.None, kTechId.AllAliens)
 self.techTree:AddBuyNode(kTechId.Hunger, kTechId.Shell, kTechId.None, kTechId.AllAliens)
-self.techTree:AddBuyNode(kTechId.ThickenedSkin, kTechId.Spur, kTechId.None, kTechId.AllAliens)
+--self.techTree:AddBuyNode(kTechId.ThickenedSkin, kTechId.Spur, kTechId.None, kTechId.AllAliens)
 self.techTree:SetComplete()
  PlayingTeam.InitTechTree = orig_PlayingTeam_InitTechTree
 end

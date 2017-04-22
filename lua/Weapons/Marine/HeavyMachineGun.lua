@@ -14,7 +14,7 @@ local kAnimationGraph = PrecacheAsset("models/marine/lmg/lmg_view.animation_grap
 local rifleReloadTime = Shared.GetAnimationLength("models/marine/male/male.model", "rifle_reload")
 local hmgReloadTime = Shared.GetAnimationLength("models/marine/lmg/lmg_view.model", "reload")
 
-kRifleToHMGReloadSpeed = rifleReloadTime / hmgReloadTime
+kRifleToHMGReloadSpeed = gRifleToHMGReloadSpeed --rifleReloadTime / hmgReloadTime
 
 -- Sounds
 local kNumberOfVariants = 3

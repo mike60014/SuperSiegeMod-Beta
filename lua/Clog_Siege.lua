@@ -5,28 +5,32 @@ local networkVars = {}
 AddMixinNetworkVars(InfestationMixin, networkVars)
 
 function Clog:GetMinRangeAC()
-return  kCystRedeployRange * .7      
+	return kCystRedeployRange * .7      
 end
+
+-- clogs take maximum X damage per attack (prevents grenades being too effectfive against them), unless the attack is not a of type Flame)
+Clog.kMaxShockDamage = 75
 
 local originit = Clog.OnInitialized
 function Clog:OnInitialized()
-     originit(self)
-  InitMixin(self, InfestationMixin)
+	originit(self)
+	InitMixin(self, InfestationMixin)
 end
 
 function Clog:GetInfestationRadius()
-  local frontdoor = GetEntitiesWithinRange("FrontDoor", self:GetOrigin(), 7)
-   if #frontdoor >=1 then return 0
-   else
-    return ConditionalValue(not GetIsInSiege(self), 3.5, 2)
-   end
+	local frontdoor = GetEntitiesWithinRange("FrontDoor", self:GetOrigin(), 7)
+	if #frontdoor >=1 then return 0
+	else
+		return 3.5 --ConditionalValue(not GetIsInSiege(self), 3.5, 2)
+	end
 end
 
 function Clog:GetInfestationGrowthRate()
- return ConditionalValue(not GetIsInSiege(self), 0.5, 0.15)
+	return 0.5 --ConditionalValue(not GetIsInSiege(self), 0.5, 0.15)
 end
+
 function Clog:GetAttached()
-return false
+	return false
 end
 
 local origonkill = Clog.PreOnKill

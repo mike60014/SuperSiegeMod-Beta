@@ -518,7 +518,7 @@ function DropStructureAbility:ProcessMoveOnWeapon(input)
             local team = player:GetTeam()
             local hiveCount = team:GetNumHives()
             local numAllowedHydras = LookupTechData(kTechId.Hydra, kTechDataMaxAmount, -1) 
-            local numAllowedClogs = LookupTechData(kTechId.Clog, kTechDataMaxAmount, -1) 
+            local numAllowedClogs = LookupTechData(kTechId.Clog, kTechDataMaxAmount, -1) * hiveCount
             local numAllowedTunnels = LookupTechData(kTechId.GorgeTunnel, kTechDataMaxAmount, -1) 
             local numAllowedWebs = LookupTechData(kTechId.Web, kTechDataMaxAmount, -1) 
             local numAllowedBabblers = LookupTechData(kTechId.BabblerEgg, kTechDataMaxAmount, -1) 

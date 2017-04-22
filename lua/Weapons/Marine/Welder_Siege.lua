@@ -2,16 +2,14 @@
 local kWelderPointsPerScore = gWelderPointsPerScore
 local kWelderScoreAddedPerPoints = gWelderScoreAddedPerPoints
 kExoWelderStructureWeldRateBreakableDoor = gExoWelderStructureWeldRateBreakableDoor
-local kPlayerWeldRate = gWelderPlayerArmorRate
 local kLevelScoreAdded = gLevelScoreAdded
-kWelderEffectRate = gWelderFireDelay
 
 local originit = Welder.GetRepairRate
 function Welder:GetRepairRate(repairedEntity)
 
-    local repairRate = kPlayerWeldRate
+    local repairRate = gWelderPlayerArmorRate
     if repairedEntity:isa("BreakableDoor") then
-        repairRate = kExoWelderStructureWeldRateBreakableDoor
+        repairRate = gExoWelderStructureWeldRateBreakableDoor
     end
     
     return repairRate
@@ -72,7 +70,7 @@ function Welder:OnPrimaryAttack(player)
         
     end
     
-    if not self.timeLastWeldEffect or self.timeLastWeldEffect + kWelderEffectRate < Shared.GetTime() then
+    if not self.timeLastWeldEffect or self.timeLastWeldEffect + gWelderFireDelay < Shared.GetTime() then
     
         self:TriggerEffects("welder_muzzle")
         self.timeLastWeldEffect = Shared.GetTime()

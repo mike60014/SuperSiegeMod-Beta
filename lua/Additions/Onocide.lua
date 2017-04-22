@@ -2,14 +2,14 @@ Script.Load("lua/Weapons/Alien/Ability.lua")
 Script.Load("lua/Weapons/Alien/Gore.lua")
 Script.Load("lua/Weapons/Alien/StompMixin.lua")
 
-local kRange = kOnocideDetonateRange
+--local kRange = kOnocideDetonateRange
 
 class 'Onocide' (Ability)
 
 Onocide.kMapName = "onocide"
 
 -- after kDetonateTime seconds the skulk goes 'boom!'
-local kDetonateTime = kOnocideDetonateTime
+local kDetonateTime = gOnocideDetonateTime
 local kXenocideSoundName = PrecacheAsset("sound/NS2.fev/alien/common/xenocide_start")
 
 
@@ -41,14 +41,14 @@ end
 
 function Onocide:GetFuel()
     if self.primaryAttacking then
-        return Clamp(self.fuelAtChange - (Shared.GetTime() - self.timeFuelChanged) / kBoneShieldMaxDuration, 0, 1)
+        return Clamp(self.fuelAtChange - (Shared.GetTime() - self.timeFuelChanged) / gOnocideMaxDuration, 0, 1)
     else
-        return Clamp(self.fuelAtChange + (Shared.GetTime() - self.timeFuelChanged) / kBoneShieldCooldown, 0, 1)
+        return Clamp(self.fuelAtChange + (Shared.GetTime() - self.timeFuelChanged) / gOnocideCooldown, 0, 1)
     end
 end
 
 function Onocide:GetEnergyCost()
-    return kBoneShieldInitialEnergyCost
+    return gOnocideInitialEnergyCost
 end
 
 local function CheckForDestroyedEffects(self)
@@ -56,7 +56,7 @@ local function CheckForDestroyedEffects(self)
         self.XenocideSoundName = nil
     end
 end
-    
+
 local function TriggerXenocide(self, player)
 
     if Server then
@@ -97,26 +97,22 @@ local function CleanUI(self)
 end
     
 function Onocide:OnDestroy()
-
     Gore.OnDestroy(self)
-    
     if Client then
         CleanUI(self)
     end
-
 end
 
 function Onocide:GetDeathIconIndex()
     return kDeathMessageIcon.Xenocide
 end
+
 function Onocide:IsOnCooldown()
-    return self:GetFuel() < kBoneShieldMinimumFuel
+    return self:GetFuel() < gOnocideMinimumFuel
 end
+
 function Onocide:GetCanUseOnocide(player)
     return not self:IsOnCooldown() and not self.secondaryAttacking and not player.charging
-end
-function Onocide:GetEnergyCost()
-    return kBoneShieldInitialEnergyCost
 end
 
 function Onocide:GetHUDSlot()
@@ -124,7 +120,7 @@ function Onocide:GetHUDSlot()
 end
 
 function Onocide:GetRange()
-    return kRange
+    return gOnocideDetonateRange
 end
 
 function Onocide:GetIsXenociding()
@@ -138,8 +134,6 @@ function Onocide:GetIsXenociding()
 end
 
 function Onocide:OnPrimaryAttack(player)
-    
-    
     if not self.primaryAttacking then
         if player:GetIsOnGround() and self:GetCanUseOnocide(player) and self:GetEnergyCost() < player:GetEnergy() then
                 
@@ -150,28 +144,20 @@ function Onocide:OnPrimaryAttack(player)
             self.xenociding = true 
         end
     end
-    
-    
 end
+
 local function StopXenocide(self)
-
     CleanUI(self)
-    
     self.xenociding = false
-
 end
+
 function Onocide:OnPrimaryAttackEnd(player)
-    
     if self.primaryAttacking then 
-    
         self:SetFuel( self:GetFuel() ) -- set it now, because it will go up from this point
         self.primaryAttacking = false
         self.xenociding = false 
         StopXenocide(self)
-
-    
     end
-    
 end
 
 function Onocide:OnProcessMove(input)
@@ -179,37 +165,31 @@ function Onocide:OnProcessMove(input)
     if self.primaryAttacking then
         
         if self:GetFuel() > 0 then
-        
-                if  self.durationofholdingdownmouse == 0 then
-                  self.durationofholdingdownmouse = Shared.GetTime() 
-                  end
-                 parent:DeductAbilityEnergy(.7)     
-                 
-                 if Client and Client.GetLocalPlayer() == parent then
-               if not self.xenocideGui then
-                self.xenocideGui = GetGUIManager():CreateGUIScript("GUIXenocideFeedback")
-               end   
-                 self.xenocideGui:TriggerFlash(3)
-                 parent:SetCameraShake(.01, 15, 1.5)       
-               end 
+	
+			if self.durationofholdingdownmouse == 0 then
+				self.durationofholdingdownmouse = Shared.GetTime() 
+			end
+			parent:DeductAbilityEnergy(.7)     
+			if Client and Client.GetLocalPlayer() == parent then
+				if not self.xenocideGui then
+					self.xenocideGui = GetGUIManager():CreateGUIScript("GUIXenocideFeedback")
+				end   
+				self.xenocideGui:TriggerFlash(3)
+				parent:SetCameraShake(.01, 15, 1.5)       
+			end 
                
         else  
             self.primaryAttacking = false
             self.durationofholdingdownmouse = 0
-               if Shared.GetTime() > self.durationofholdingdownmouse + 3 then
-                     TriggerXenocide(self, player)
-                     self:ExplodeYo()
-                  
+			if Shared.GetTime() > self.durationofholdingdownmouse + 3 then
+				TriggerXenocide(self, player)
+				self:ExplodeYo()
             end --shared.
         end -- orig
         
-   else
-       self.durationofholdingdownmouse = 0
-              
-              end
-              
-           
-
+	else
+		self.durationofholdingdownmouse = 0
+	end
 end
 
 function Onocide:ExplodeYo()
@@ -229,7 +209,7 @@ function Onocide:ExplodeYo()
                 local hitEntities = GetEntitiesWithMixinWithinRange("Live", player:GetOrigin(), gOnocideDetonateRange)
                 local healthScalar = Clamp(player:GetHealthScalar(), gOnocideDamageHealthMinRatio, gOnocideDamageHealthMaxRatio)
                 local damage = (gOnocideDamage * healthScalar)
-                RadiusDamage(hitEntities, player:GetOrigin(), gOnocideDetonateRange, damage, self)
+                RadiusDamage(hitEntities, player:GetOrigin(), gOnocideDetonateRange, damage, self, false)
                 
                 player.spawnReductionTime = 4
                 

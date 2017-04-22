@@ -10,7 +10,6 @@ Script.Load("lua/Additions/CragUmbra.lua")
 Script.Load("lua/Additions/CommVortex.lua")
 Script.Load("lua/Weapons/Alien/AcidRocket.lua")
 Script.Load("lua/Weapons/Alien/Rocket.lua")
---Script.Load("lua/Additions/LerkBileBomb.lua")
 Script.Load("lua/MAC_Siege.lua")
 Script.Load("lua/Additions/LayStructures.lua")
 Script.Load("lua/Additions/ExoWelder.lua")
@@ -18,6 +17,8 @@ Script.Load("lua/Additions/ExoFlamer.lua")
 Script.Load("lua/Babbler.lua")
 Script.Load("lua/Onos.lua")
 Script.Load("lua/Jetpack.lua")
+Script.Load("lua/Clog.lua")
+--Script.Load("lua/Additions/LerkBileBomb.lua")
 
 
 
@@ -92,7 +93,7 @@ local kSiege_TechData =
 [kTechDataDisplayName] = "Thickened Skin", 
 [kTechDataSponitorCode] = "A",  
 [kTechDataCostKey] = kThickenedSkinCost,
-[kTechDataTooltipInfo] = "+10% max hp per Hive",
+[kTechDataTooltipInfo] = "Passive +3% max hp per Biomass",
 },
 
 { [kTechDataId] = kTechId.Hunger, 
@@ -103,6 +104,21 @@ local kSiege_TechData =
 [kTechDataTooltipInfo] = "10% health / energy gain, and effects of Enzyme on player kill (if gorge then structures not players) ",
 },
 
+{ [kTechDataId] = kTechId.Clog,
+[kTechDataGhostModelClass] = "AlienGhostModel",
+[kTechDataAllowConsumeDrop] = true,
+[kTechDataTooltipInfo] = "CLOG_TOOLTIP",
+[kTechDataAllowStacking] = true,
+[kTechDataMaxAmount] = kClogsPerHive,
+[kTechDataMapName] = Clog.kMapName,
+[kTechDataDisplayName] = "CLOG",
+[kTechDataCostKey] = kClogCost,
+[kTechDataMaxHealth] = kClogHealth,
+[kTechDataMaxArmor] = kClogArmor,
+[kTechDataModel] = Clog.kModelName,
+[kTechDataRequiresInfestation] = false,
+[kTechDataPointValue] = kClogPointValue,
+},
 
 { [kTechDataId] = kTechId.Rebirth, 
 [kTechDataCategory] = kTechId.CragHiveTwo,  
@@ -210,7 +226,7 @@ local kSiege_TechData =
 [kTechDataCostKey] = 10,
 --[kTechDataModel] = Onos.kModelName,
 [kTechDataResearchTimeKey] = 10,
---   [kTechDataDamageType] = kStabDamageType,
+[kTechDataDamageType] = gOnocideDamageType,
 [kTechDataDisplayName] = "Onicide",
 [kTechDataTooltipInfo] = "Onicide",
 },
