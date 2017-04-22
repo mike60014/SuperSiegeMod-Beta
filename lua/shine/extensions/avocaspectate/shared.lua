@@ -9,4 +9,4 @@ end
 
 
 
-Shine:RegisterExtension( "avocaspectate", Plugin )
+Shine:RegisterExtension("avocaspectate", Plugin )

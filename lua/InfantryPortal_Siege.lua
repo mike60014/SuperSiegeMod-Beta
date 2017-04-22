@@ -33,7 +33,7 @@ local function SpawnPlayer(self)
 
             player:SetCameraDistance(0)
             
-            if HasMixin( player, "Controller" ) and HasMixin( player, "AFKMixin" ) then
+            if HasMixin( player, "Controller") and HasMixin( player, "AFKMixin") then
                 
                 if player:GetAFKTime() > self:GetSpawnTime() - 1 then
                     

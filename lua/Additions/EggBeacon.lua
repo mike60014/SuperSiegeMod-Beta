@@ -227,7 +227,7 @@ function EggBeacon:OnConstructionComplete()
 function EggBeacon:DoYourBusiness()
    -- Print("DoYourBusiness")
       if not self:GetIsAlive() then return false end
-         local egg = GetEntitiesForTeam( "Egg", 2 )
+         local egg = GetEntitiesForTeam("Egg", 2 )
          local count = table.count(egg) or 0
       for i = 1, #egg do
        local actualegg = egg[i]

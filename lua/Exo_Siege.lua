@@ -62,33 +62,32 @@ function ExoSiege:OnCreate()
     InitMixin(self, PhaseGateUserMixin)
     InitMixin(self, LadderMoveMixin)
     self.isLockedEjecting = false
-   
+	self.lastStunRecoverTime = 0
+	self.lastStunnedTime = 0
 
 end
+
 local origmodel = Exo.InitExoModel
 
 function ExoSiege:InitExoModel()
 
-    local hasWelders = false
-    local modelName = kDualWelderModelName
-    local graphName = kDualWelderAnimationGraph
-    
-  if self.layout == "WelderWelder" or self.layout == "FlamerFlamer" then
-         modelName = kDualWelderModelName
-        graphName = kDualWelderAnimationGraph
-        self.hasDualGuns = true
-        hasWelders = true
-        self:SetModel(modelName, graphName)
-    end
-    
-    
-    if hasWelders then 
-    else
-    origmodel(self)
-    end
+	local hasWelders = false
+	local modelName = kDualWelderModelName
+	local graphName = kDualWelderAnimationGraph
 
-     
-  
+	if self.layout == "WelderWelder" or self.layout == "FlamerFlamer" then
+		modelName = kDualWelderModelName
+		graphName = kDualWelderAnimationGraph
+		self.hasDualGuns = true
+		hasWelders = true
+		self:SetModel(modelName, graphName)
+	end
+
+
+	if hasWelders then 
+	else
+		origmodel(self)
+	end
 
   
 end
@@ -141,6 +140,7 @@ end
 function ExoSiege:GetCanControl()
     return not self.isLockedEjecting and not self.isMoveBlocked and self:GetIsAlive() and  not self.countingDown and not self.concedeSequenceActive
 end
+
 local oninit = Exo.OnInitialized
 function ExoSiege:OnInitialized()
 
@@ -176,9 +176,22 @@ end
 function ExoSiege:OnStun()
          if Server then
                 local stunwall = CreateEntity(StunWall.kMapName, self:GetOrigin(), 2)    
+				self.lastStunnedTime = Shared.GetTime()
                 StartSoundEffectForPlayer(AlienCommander.kBoneWallSpawnSound, self)
         end
 end
+
+function ExoSiege:OnStunEnd()
+
+    local activeWeapon = self:GetActiveWeapon()
+    
+    if activeWeapon then
+        activeWeapon:OnDraw(self)
+		self.lastStunRecoverTime = Shared.GetTime()
+    end
+    
+end
+
 function ExoSiege:OnDestroy()
 
     Exo.OnDestroy(self)

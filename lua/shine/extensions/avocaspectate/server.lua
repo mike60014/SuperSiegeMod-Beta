@@ -3,7 +3,7 @@ local Shine = Shine
 local Plugin = Plugin
 
 
-Shine.Hook.SetupClassHook( "AvocaSpectator", "ChangeView", "OnChangeView", "PassivePre" )
+Shine.Hook.SetupClassHook("AvocaSpectator", "ChangeView", "OnChangeView", "PassivePre")
 
 Plugin.Version = "1.0"
 
@@ -306,7 +306,7 @@ end
 /*
 local function AutoSpectate(self, client)
 
-    Shine.Timer.Create( "AutoSpectate", 8, -1, function() if client and client:isa("AvocaSpectator") then self:OnChangeView(client) else Shine.Timer.Destroy("AutoSpectate") end  end )
+    Shine.Timer.Create("AutoSpectate", 8, -1, function() if client and client:isa("AvocaSpectator") then self:OnChangeView(client) else Shine.Timer.Destroy("AutoSpectate") end  end )
 end
 */
 

@@ -63,7 +63,7 @@ if Server then
     end
     function StructureBeacon:Magnetize()
       local eligable = {}
-      local entity = GetEntitiesWithMixinForTeam( "Supply", 2 )
+      local entity = GetEntitiesWithMixinForTeam("Supply", 2 )
       
       for i = 1, #entity do
          local structure = entity[i]

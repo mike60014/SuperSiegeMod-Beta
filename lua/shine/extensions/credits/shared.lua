@@ -9,4 +9,4 @@ end
 
 
 
-Shine:RegisterExtension( "credits", Plugin )
+Shine:RegisterExtension("credits", Plugin )

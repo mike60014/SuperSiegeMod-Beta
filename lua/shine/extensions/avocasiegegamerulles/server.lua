@@ -291,9 +291,9 @@ local function UpdateCertainHealing(self)
     
 end
 
-Shine.Hook.SetupClassHook( "Alien", "TriggerRedeemCountDown", "OnRedemedHook", "PassivePre" )
-Shine.Hook.SetupClassHook( "Alien", "TriggerRebirthCountDown", "TriggerRebirthCountDown", "PassivePre" )
-Shine.Hook.SetupClassHook( "Player", "NotifyShineBallGiven", "OnBallGiven", "PassivePre" )
+Shine.Hook.SetupClassHook("Alien", "TriggerRedeemCountDown", "OnRedemedHook", "PassivePre")
+Shine.Hook.SetupClassHook("Alien", "TriggerRebirthCountDown", "TriggerRebirthCountDown", "PassivePre")
+Shine.Hook.SetupClassHook("Player", "NotifyShineBallGiven", "OnBallGiven", "PassivePre")
 
 
 Plugin.Version = "1.0"
@@ -501,10 +501,10 @@ local function Pres( Client, Targets, Number )
      end
 end
 
-local PresCommand = self:BindCommand( "sh_pres", "pres", Pres)
+local PresCommand = self:BindCommand("sh_pres", "pres", Pres)
 PresCommand:AddParam{ Type = "clients" }
 PresCommand:AddParam{ Type = "number" }
-PresCommand:Help( "sh_pres <player> <number> sets player's pres to the number desired." )
+PresCommand:Help("sh_pres <player> <number> sets player's pres to the number desired.")
 
 
 local function  AddScore( Client, Targets, Number )
@@ -518,10 +518,10 @@ local function  AddScore( Client, Targets, Number )
      end
 end
 
-local AddScoreCommand = self:BindCommand( "sh_addscore", "addscore", AddScore)
+local AddScoreCommand = self:BindCommand("sh_addscore", "addscore", AddScore)
 AddScoreCommand:AddParam{ Type = "clients" }
 AddScoreCommand:AddParam{ Type = "number" }
-AddScoreCommand:Help( "sh_addscore <player> <number> adds number to players score" )
+AddScoreCommand:Help("sh_addscore <player> <number> adds number to players score")
 
 
 
@@ -534,8 +534,8 @@ local function RandomRR( Client )
         end
            Shine:CommandNotify( Client, "randomized the readyroom", true)  
 end
-local RandomRRCommand = self:BindCommand( "sh_randomrr", "randomrr", RandomRR )
-RandomRRCommand:Help( "randomize's the ready room.") 
+local RandomRRCommand = self:BindCommand("sh_randomrr", "randomrr", RandomRR )
+RandomRRCommand:Help("randomize's the ready room.") 
 
 
 local function Stalemate( Client )
@@ -545,8 +545,8 @@ Gamerules:DrawGame()
 end 
 
 
-local StalemateCommand = self:BindCommand( "sh_stalemate", "stalemate", Stalemate )
-StalemateCommand:Help( "declares the round a draw." )
+local StalemateCommand = self:BindCommand("sh_stalemate", "stalemate", Stalemate )
+StalemateCommand:Help("declares the round a draw.")
 
 
 
@@ -568,7 +568,7 @@ local Player = Targets[ i ]:GetControllingPlayer()
 end
 end
 end
-local SlapCommand = self:BindCommand( "sh_slap", "slap", Slap)
+local SlapCommand = self:BindCommand("sh_slap", "slap", Slap)
 SlapCommand:Help ("sh_slap <player> <time> Slaps the player once per second random strength")
 SlapCommand:AddParam{ Type = "clients" }
 SlapCommand:AddParam{ Type = "number" }
@@ -589,10 +589,10 @@ local function PHealth( Client, Targets, Number )
              end --
      end--
 end--
-local PHealthCommand = self:BindCommand( "sh_phealth", "phealth", PHealth)
+local PHealthCommand = self:BindCommand("sh_phealth", "phealth", PHealth)
 PHealthCommand:AddParam{ Type = "clients" }
 PHealthCommand:AddParam{ Type = "number", Min = 1, Max = 8191, Error = "1 min 8191 max" }
-PHealthCommand:Help( "sh_phealth <player> <number> sets player's health to the number desired." )
+PHealthCommand:Help("sh_phealth <player> <number> sets player's health to the number desired.")
 
 local function PArmor( Client, Targets, Number )
     for i = 1, #Targets do
@@ -607,15 +607,15 @@ local function PArmor( Client, Targets, Number )
              end--
      end--
 end--
-local PArmorCommand = self:BindCommand( "sh_parmor", "parmor", PArmor)
+local PArmorCommand = self:BindCommand("sh_parmor", "parmor", PArmor)
 PArmorCommand:AddParam{ Type = "clients" }
 PArmorCommand:AddParam{ Type = "number", Min = 1, Max = 2045, Error = "1 min 2045 max" }
-PArmorCommand:Help( "sh_parmor <player> <number> sets player's armor to the number desired." )
+PArmorCommand:Help("sh_parmor <player> <number> sets player's armor to the number desired.")
 
 
 local function SHealth( Client, String, Number  )
         local player = Client:GetControllingPlayer()
-        for _, entity in ipairs( GetEntitiesWithMixinWithinRange( "Live", player:GetOrigin(), 8 ) ) do
+        for _, entity in ipairs( GetEntitiesWithMixinWithinRange("Live", player:GetOrigin(), 8 ) ) do
             if string.find(entity:GetMapName(), String)  then
                   local defaulthealth = LookupTechData(entity:GetTechId(), kTechDataMaxHealth, 1)
                    if entity.SetMature then entity:SetMature() end
@@ -625,14 +625,14 @@ local function SHealth( Client, String, Number  )
              end--
          end--
 end--
-local SHealthCommand = self:BindCommand( "sh_shealth", "shealth", SHealth )
+local SHealthCommand = self:BindCommand("sh_shealth", "shealth", SHealth )
 SHealthCommand:AddParam{ Type = "string" }
 SHealthCommand:AddParam{ Type = "number", Min = 1, Max = 8191, Error = "1 min 8191 max" }
-SHealthCommand:Help( "shealth <string> <number> within 8 radius sets this classname's health to X" )
+SHealthCommand:Help("shealth <string> <number> within 8 radius sets this classname's health to X")
 
 local function Sarmor( Client, String, Number  )
         local player = Client:GetControllingPlayer()
-        for _, entity in ipairs( GetEntitiesWithMixinWithinRange( "Live", player:GetOrigin(), 8 ) ) do
+        for _, entity in ipairs( GetEntitiesWithMixinWithinRange("Live", player:GetOrigin(), 8 ) ) do
             if string.find(entity:GetMapName(), String)  then
                   local defaultarmor = LookupTechData(entity:GetTechId(), kTechDataMaxArmor, 1)
                   if Number > defaultarmor then entity:AdjustMaxArmor(Number) end
@@ -641,24 +641,24 @@ local function Sarmor( Client, String, Number  )
              end--
          end--
 end--
-local SarmorCommand = self:BindCommand( "sh_sarmor", "sarmor", Sarmor )
+local SarmorCommand = self:BindCommand("sh_sarmor", "sarmor", Sarmor )
 SarmorCommand:AddParam{ Type = "string" }
 SarmorCommand:AddParam{ Type = "number", Min = 1, Max = 2045, Error = "1 min 2045 max" }
-SarmorCommand:Help( "sarmor <string> <number> within 8 radius sets this classname's armor to X" )
+SarmorCommand:Help("sarmor <string> <number> within 8 radius sets this classname's armor to X")
 
 
 local function Respawn( Client, Targets )
     for i = 1, #Targets do
     local Player = Targets[ i ]:GetControllingPlayer()
 	        	Shine:CommandNotify( Client, "respawned %s.", true,
-				Player:GetName() or "<unknown>" )  
+				Player:GetName() or "<unknown>")  
          Player:GetTeam():ReplaceRespawnPlayer(Player)
                  Player:SetCameraDistance(0)
      end--
 end--
-local RespawnCommand = self:BindCommand( "sh_respawn", "respawn", Respawn )
+local RespawnCommand = self:BindCommand("sh_respawn", "respawn", Respawn )
 RespawnCommand:AddParam{ Type = "clients" }
-RespawnCommand:Help( "<player> respawns said player" )
+RespawnCommand:Help("<player> respawns said player")
 
 
 local function RunCMD( Client, Targets, String )
@@ -667,10 +667,10 @@ local function RunCMD( Client, Targets, String )
 	        	Player:RunCommand(String)
      end--
 end--
-local RunCMDCommand = self:BindCommand( "sh_runcmd", "runcmd", RunCMD )
+local RunCMDCommand = self:BindCommand("sh_runcmd", "runcmd", RunCMD )
 RunCMDCommand:AddParam{ Type = "clients" }
 RunCMDCommand:AddParam{ Type = "string" }
-RunCMDCommand:Help( "<player> <string> makes the client type something in console of which you choose." )
+RunCMDCommand:Help("<player> <string> makes the client type something in console of which you choose.")
 
 
 
@@ -686,10 +686,10 @@ local function ModelSize( Client, Targets, Number )
      end
 end
 
-local ModelSizeCommand = self:BindCommand( "sh_modelsize", "modelsize", ModelSize )
+local ModelSizeCommand = self:BindCommand("sh_modelsize", "modelsize", ModelSize )
 ModelSizeCommand:AddParam{ Type = "clients" }
 ModelSizeCommand:AddParam{ Type = "number" }
-ModelSizeCommand:Help( "sh_playergravity <player> <number> works differently than ns1. kinda glitchy. respawn to reset." )
+ModelSizeCommand:Help("sh_playergravity <player> <number> works differently than ns1. kinda glitchy. respawn to reset.")
 
 local function Bury( Client, Targets, Number )
 //local Giver = Client:GetControllingPlayer()
@@ -707,23 +707,23 @@ end
 end
 end
 
-local BuryCommand = self:BindCommand( "sh_bury", "bury", Bury)
+local BuryCommand = self:BindCommand("sh_bury", "bury", Bury)
 BuryCommand:Help ("sh_bury <player> <time> Buries the player for the given time")
 BuryCommand:AddParam{ Type = "clients" }
 BuryCommand:AddParam{ Type = "number" }
 
 local function Destroy( Client, String  )
         local player = Client:GetControllingPlayer()
-        for _, entity in ipairs( GetEntitiesWithMixinWithinRange( "Live", player:GetOrigin(), 8 ) ) do
+        for _, entity in ipairs( GetEntitiesWithMixinWithinRange("Live", player:GetOrigin(), 8 ) ) do
             if string.find(entity:GetMapName(), String)  then
                   self:NotifyGeneric( nil, "destroyed %s in %s", true, entity:GetMapName(), entity:GetLocationName())
                   DestroyEntity(entity)
              end
          end
 end
-local DestroyCommand = self:BindCommand( "sh_destroy", "destroy", Destroy )
+local DestroyCommand = self:BindCommand("sh_destroy", "destroy", Destroy )
 DestroyCommand:AddParam{ Type = "string" }
-DestroyCommand:Help( "Destroy <string> Destroys all entities with this name within 8 radius" )
+DestroyCommand:Help("Destroy <string> Destroys all entities with this name within 8 radius")
 
 /*
 local function ModelSize( Client, Targets, Number, Boolean )
@@ -741,29 +741,29 @@ local function ModelSize( Client, Targets, Number, Boolean )
              end
      end
 end
-local ModelSizeCommand = self:BindCommand( "sh_modelsize", "modelsize", ModelSize )
+local ModelSizeCommand = self:BindCommand("sh_modelsize", "modelsize", ModelSize )
 ModelSizeCommand:AddParam{ Type = "clients" }
 ModelSizeCommand:AddParam{ Type = "number" }
-ModelSizeCommand:Help( "sh_modelsize <player> <size> <true/false for health armor bonus>" )
+ModelSizeCommand:Help("sh_modelsize <player> <size> <true/false for health armor bonus>")
 ModelSizeCommand:AddParam{ Type = "boolean", optional = true }
 */
 local function ThirdPerson( Client )
 local Player = Client:GetControllingPlayer()
-if not Player or not HasMixin( Player, "CameraHolder" ) then return end
+if not Player or not HasMixin( Player, "CameraHolder") then return end
 Player:SetCameraDistance(3) //* ConditionalValue(not Player:isa("ReadyRoomPlayer") and Player.modelsize > 1, Player.modelsize * .5, 1))
 end
 
-local ThirdPersonCommand = self:BindCommand( "sh_thirdperson", { "thirdperson", "3rdperson" }, ThirdPerson, true)
-ThirdPersonCommand:Help( "Triggers third person view" )
+local ThirdPersonCommand = self:BindCommand("sh_thirdperson", { "thirdperson", "3rdperson" }, ThirdPerson, true)
+ThirdPersonCommand:Help("Triggers third person view")
 	
 local function FirstPerson( Client )
 local Player = Client:GetControllingPlayer()
-if not Player or not HasMixin( Player, "CameraHolder" ) then return end
+if not Player or not HasMixin( Player, "CameraHolder") then return end
 Player:SetCameraDistance(0)
 end
 
-local FirstPersonCommand = self:BindCommand( "sh_firstperson", { "firstperson", "1stperson" }, FirstPerson, true)
-FirstPersonCommand:Help( "Triggers first person view" )
+local FirstPersonCommand = self:BindCommand("sh_firstperson", { "firstperson", "1stperson" }, FirstPerson, true)
+FirstPersonCommand:Help("Triggers first person view")
 
 local function GiveRes( Client, TargetClient, Number )
 local Giver = Client:GetControllingPlayer()
@@ -805,8 +805,8 @@ self:NotifyGiveRes( Reciever, "%s donated %s resource(s) to you", true, Giver:Ge
 //if Giver:GetTeamNumber() == Reciever:GetTeamNumber() and Giver:isa(Commander) then
 end
 
-local GiveResCommand = self:BindCommand( "sh_giveres", "giveres", GiveRes, true)
-GiveResCommand:Help( "giveres <name> <amount> ~ (No commanders)" )
+local GiveResCommand = self:BindCommand("sh_giveres", "giveres", GiveRes, true)
+GiveResCommand:Help("giveres <name> <amount> ~ (No commanders)")
 GiveResCommand:AddParam{ Type = "client",  NotSelf = true, IgnoreCanTarget = true }
 GiveResCommand:AddParam{ Type = "number", Min = 1, Max = 100, Round = true }
 
@@ -817,16 +817,16 @@ local function Gravity( Client, Number )
  end
    self:NotifyGeneric( nil, "Set Gravity to %s (0=off)", true, Number)  
 end
-local GravityCommand = self:BindCommand( "sh_gravity", "gravity", Gravity )
+local GravityCommand = self:BindCommand("sh_gravity", "gravity", Gravity )
 GravityCommand:AddParam{ Type = "number" }
-GravityCommand:Help( "sh_gravity <number> (0 = default) applies to all players and copies values on respawn, meaning new players may not be affected?" )
+GravityCommand:Help("sh_gravity <number> (0 = default) applies to all players and copies values on respawn, meaning new players may not be affected?")
 
 local function Gbd( Client )
 local Player = Client:GetControllingPlayer()
  Player:GiveLayStructure(kTechId.Door, BreakableDoor.kMapName)
 end
-local GbdCommand = self:BindCommand( "sh_gbd", "gbd", Gbd )
-GbdCommand:Help( "gives self laystructure breakabledoor placeable anywhere without limit - aboos" )
+local GbdCommand = self:BindCommand("sh_gbd", "gbd", Gbd )
+GbdCommand:Help("gives self laystructure breakabledoor placeable anywhere without limit - aboos")
 
 local function Give( Client, Targets, String, Number )
 for i = 1, #Targets do
@@ -847,20 +847,20 @@ if HasMixin(ent, "Construct") then  ent:SetConstructionComplete() end
 end
 end
 end
-local GiveCommand = self:BindCommand( "sh_give", "give", Give )
+local GiveCommand = self:BindCommand("sh_give", "give", Give )
 GiveCommand:AddParam{ Type = "clients" }
 GiveCommand:AddParam{ Type = "string" }
 GiveCommand:AddParam{ Type = "number", Optional = true }
-GiveCommand:Help( "<player> Give item to player(s)" )
+GiveCommand:Help("<player> Give item to player(s)")
 
 
 local function Chat( Client, String )
            
       self:SendMessageToMods(String)
 end
-local ChatCommand = self:BindCommand( "sh_chat", "chat", Chat )
+local ChatCommand = self:BindCommand("sh_chat", "chat", Chat )
 ChatCommand:AddParam{ Type = "string" }
-ChatCommand:Help( "for mods to talk in private. Only mods can see and use this chat." )
+ChatCommand:Help("for mods to talk in private. Only mods can see and use this chat.")
 
 
 local function OpenSiegeDoors()
@@ -877,9 +877,9 @@ local function Cyst( Client, Targets )
           end
      end
 end
-local CystCommand = self:BindCommand( "sh_cyst", "cyst", Cyst )
+local CystCommand = self:BindCommand("sh_cyst", "cyst", Cyst )
 CystCommand:AddParam{ Type = "clients" }
-CystCommand:Help( "<player> Give cyst to player(s)" )
+CystCommand:Help("<player> Give cyst to player(s)")
 local function OpenFrontDoors()
            for index, sandcastle in ientitylist(Shared.GetEntitiesWithClassname("SandCastle")) do
                 sandcastle:OpenFrontDoors() 
@@ -917,9 +917,9 @@ local Gamerules = GetGamerules()
   
 end --
 
-local OpenCommand = self:BindCommand( "sh_open", "open", Open )
+local OpenCommand = self:BindCommand("sh_open", "open", Open )
 OpenCommand:AddParam{ Type = "string" }
-OpenCommand:Help( "Opens <type> doors (Front/Primary/Siege) (not case sensitive) - timer will still display." )
+OpenCommand:Help("Opens <type> doors (Front/Primary/Siege) (not case sensitive) - timer will still display.")
 
 
 

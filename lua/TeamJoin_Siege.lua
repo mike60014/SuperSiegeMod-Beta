@@ -115,9 +115,9 @@
                                     bestSwapI = i
                                     bestSwapJ = j
                                     bestSwapDelta = skillDifference - 2*delta
-                                    --RawPrint( "Good", ForceEvenTeams_GetPlayerSkill(playerToAssignI.player) , ForceEvenTeams_GetPlayerSkill(playerToAssignJ.player), delta, skillDifference - delta, bestSwapDelta )
+                                    --RawPrint("Good", ForceEvenTeams_GetPlayerSkill(playerToAssignI.player) , ForceEvenTeams_GetPlayerSkill(playerToAssignJ.player), delta, skillDifference - delta, bestSwapDelta )
                                 else
-                                    --RawPrint( "Bad", ForceEvenTeams_GetPlayerSkill(playerToAssignI.player) , ForceEvenTeams_GetPlayerSkill(playerToAssignJ.player), delta, skillDifference - delta, bestSwapDelta )
+                                    --RawPrint("Bad", ForceEvenTeams_GetPlayerSkill(playerToAssignI.player) , ForceEvenTeams_GetPlayerSkill(playerToAssignJ.player), delta, skillDifference - delta, bestSwapDelta )
                                 end
                             end
                         end
@@ -126,7 +126,7 @@
                 if bestSwapI ~= -1 then
                     playersToAssign[bestSwapI].teamDestination, playersToAssign[bestSwapJ].teamDestination 
                         = playersToAssign[bestSwapJ].teamDestination, playersToAssign[bestSwapI].teamDestination
-                    --RawPrint( "Swapping", bestSwapI, bestSwapJ, skillDifference, bestSwapDelta )
+                    --RawPrint("Swapping", bestSwapI, bestSwapJ, skillDifference, bestSwapDelta )
                     skillDifference = bestSwapDelta
                 else
                     break

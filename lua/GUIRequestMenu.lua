@@ -39,7 +39,7 @@ local function GetCanSendRequest(id)
 
     local player = Client.GetLocalPlayer()
     local isAlive = player ~= nil and (not HasMixin(player, "Live") or player:GetIsAlive())
-    local allowWhileDead = id == kVoiceId.VoteConcede or id == kVoiceId.VoteEject --or id == kVoiceId.VoteStalemateRound
+    local allowWhileDead = id == kVoiceId.VoteConcede or id == kVoiceId.VoteEject or id == kVoiceId.VoteStalemateRound
     
     return (isAlive or allowWhileDead) and gTimeLastMessageSend + 2 < Shared.GetTime()
     
@@ -106,8 +106,6 @@ local function CreateEjectButton(self, teamType)
 
 end
 
-
-/*
 local function CreateStalemateButton(self, teamType)
 
     local background = GetGUIManager():CreateGraphicItem()
@@ -145,7 +143,7 @@ local function OnStalemateButtonClicked()
     return false
 
 end
-*/
+
 local function CreateConcedeButton(self, teamType)
 
     local background = GetGUIManager():CreateGraphicItem()

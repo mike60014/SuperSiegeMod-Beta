@@ -66,7 +66,7 @@ end
 
 function PhaseGateUserMixin:GetCanPhase()
     if Server then
-        return self:GetIsAlive() and Shared.GetTime() > self.timeOfLastPhase + kPhaseDelay and not GetConcedeSequenceActive()
+        return self:GetIsAlive() and Shared.GetTime() > self.timeOfLastPhase + kPhaseDelay and not GetConcedeSequenceActive() and not GetStalemateSequenceActive()
     else
         return self:GetIsAlive() and Shared.GetTime() > self.timeOfLastPhase + kPhaseDelay
     end

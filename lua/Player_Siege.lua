@@ -1,15 +1,15 @@
---Kyle 'Avoca' Abent
+
 local networkVars = {
 gravity = "float (-5 to 5 by 1)",
 modelsize = "private float (-9 to 9 by 1)",
-/*
+
 stalemateSequenceActive = "private boolean",
 stalemateStartAngle = "private angle", --offset in radians around target point
 stalemateAngularVelocity = "private float", --radians/sec to orbit target point
 stalemateTargetPoint = "private vector",
 stalemateStartTime = "private time",
 stalemateSettingsIndex = "private integer (1 to 3)",
-*/
+
  } 
 
 local origcreate = Player.OnCreate
@@ -18,6 +18,8 @@ function Player:OnCreate()
    origcreate(self)
     self.gravity = 0
     self.modelsize = 1
+	
+    self.StalemateSettingsIndex = 1
 end
 
 local origGravity = Player.ModifyGravityForce
@@ -39,16 +41,16 @@ function Player:SetGravity(value)
 end
 
 function Player:HookWithShineToBuyMist(player)
-	self:Kill() //What a horrible Joke.. Oh Hey! Purchase Mist! ... *Dies
+	--self:Kill() //What a horrible Joke.. Oh Hey! Purchase Mist! ... *Dies
 	--11.15 well except for that this is replaced via shine to do the dirty work, ya dig. I digg.
 end
 
 function Player:HookWithShineToBuyMed(player)
-	self:Kill() 
+	--self:Kill() 
 end
 
 function Player:HookWithShineToBuyAmmo(player)
-	self:Kill() 
+	--self:Kill() 
 end
 
 function Player:RunCommand(string)
@@ -74,16 +76,10 @@ function Player:OnAdjustModelCoords(modelCoords)
 end
 
 if Server then
-
-local origcopydata = Player.CopyPlayerDataFrom
-
-function Player:CopyPlayerDataFrom(player)
-
-	origcopydata(self, player)
-
-	self.gravity = player.gravity
-	self.modelsize = player.modelsize
-end
-
-
+	local origcopydata = Player.CopyPlayerDataFrom
+	function Player:CopyPlayerDataFrom(player)
+		origcopydata(self, player)
+		self.gravity = player.gravity
+		self.modelsize = player.modelsize
+	end
 end

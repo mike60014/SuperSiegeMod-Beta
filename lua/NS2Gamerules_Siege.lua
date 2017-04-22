@@ -1,5 +1,5 @@
 
---Script.Load("lua/Gamerules.lua")
+Script.Load("lua/NS2Gamerules.lua")
 --class "NS2GamerulesSiege" (Gamerules)
 
 local networkVars = {}
@@ -12,9 +12,19 @@ function NS2Gamerules:KillEnemiesNearCommandStructureInPreGame(timePassed)
 --Someday?
 end
 
+if Server then
+
+    function NS2Gamerules:UpdateStalemateSequence()
+        local seq = GetStalemateSequence()
+        if seq then
+            seq:UpdateStalemateSequence()
+        end
+    end
+	
+	
+end
 
 
-/*
 class "VoteStalemateRound" (Gamerules)
 
 VoteStalemateRound.kMapName = "VoteStalemateRound"
@@ -37,4 +47,3 @@ end
 
 Shared.LinkClassToMap("VoteStalemateRound", VoteStalemateRound.kMapName, networkVars)
 --Shared.LinkClassToMap("VoteStalemateRound", kTechId.VoteStalemateRound, {})
-*/

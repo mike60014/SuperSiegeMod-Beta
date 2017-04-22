@@ -98,6 +98,29 @@ function Marine:GetHasLayStructure()
     return builder
 end
 
+function Marine:OnStun()
+
+    local activeWeapon = self:GetActiveWeapon()
+    
+    if activeWeapon then
+        activeWeapon:OnHolster(self)
+		self.lastStunnedTime = Shared.GetTime()
+    end
+	
+    
+end
+
+function Marine:OnStunEnd()
+
+    local activeWeapon = self:GetActiveWeapon()
+    
+    if activeWeapon then
+        activeWeapon:OnDraw(self)
+		self.lastStunRecoverTime = Shared.GetTime()
+    end
+    
+end
+
 function Marine:GetCanBeVortexed()
     return false
 end

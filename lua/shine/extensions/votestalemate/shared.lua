@@ -2,10 +2,10 @@
 local Plugin = {}
 
 function Plugin:SetupDataTable()
-	self:AddDTVar( "integer", "ConcedeTime", kMinTimeBeforeConcede )
+	self:AddDTVar("integer", "ConcedeTime", kMinTimeBeforeConcede )
 end
 
-Shine:RegisterExtension( "votesurrender", Plugin )
+Shine:RegisterExtension("votesurrender", Plugin )
 
 if Server then return end
 

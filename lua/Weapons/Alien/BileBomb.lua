@@ -76,7 +76,7 @@ local function CreateBombProjectile( self, player )
             startPoint = startPointTrace.endPoint
         end
         
-        player:CreatePredictedProjectile( "Bomb", startPoint, startVelocity, 0, 0, nil )
+        player:CreatePredictedProjectile("Bomb", startPoint, startVelocity, 0, 0, nil )
         
     end
     

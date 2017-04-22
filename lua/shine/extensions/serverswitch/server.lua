@@ -86,7 +86,7 @@ function Plugin:CreateCommands()
 		local ServerData = self.Config.Servers[ Num ]
 
 		if not ServerData then
-			Shine:NotifyError( Client, "Invalid server number." )
+			Shine:NotifyError( Client, "Invalid server number.")
 			return
 		end
 
@@ -94,7 +94,7 @@ function Plugin:CreateCommands()
 			local UserTable = Shine:GetUserData( Client )
 
 			if not UserTable then
-				Shine:NotifyError( Client, "You are not allowed to switch to that server." )
+				Shine:NotifyError( Client, "You are not allowed to switch to that server.")
 
 				return
 			end
@@ -109,22 +109,22 @@ function Plugin:CreateCommands()
 		end
 
 		Shine.SendNetworkMessage( Client, "Shine_Command", {
-			Command = StringFormat( "connect %s:%s%s", ServerData.IP, ServerData.Port, Password )
+			Command = StringFormat("connect %s:%s%s", ServerData.IP, ServerData.Port, Password )
 		}, true )
 	end
-	local SwitchServerCommand = self:BindCommand( "sh_switchserver", "server", SwitchServer, true )
+	local SwitchServerCommand = self:BindCommand("sh_switchserver", "server", SwitchServer, true )
 	SwitchServerCommand:AddParam{ Type = "number", Min = 1, Round = true,
 		Error = "Please specify a server number to switch to." }
-	SwitchServerCommand:Help( "Connects you to the given registered server." )
+	SwitchServerCommand:Help("Connects you to the given registered server.")
 
 	local function ListServers( Client )
 		local ServerData = self.Config.Servers
 
 		if #ServerData == 0 then
 			if Client then
-				ServerAdminPrint( Client, "There are no registered servers." )
+				ServerAdminPrint( Client, "There are no registered servers.")
 			else
-				Notify( "There are no registered servers." )
+				Notify("There are no registered servers.")
 			end
 
 			return
@@ -133,7 +133,7 @@ function Plugin:CreateCommands()
 		for i = 1, #ServerData do
 			local Data = ServerData[ i ]
 
-			local String = StringFormat( "%i) - %s | %s:%s", i, Data.Name or "No name",
+			local String = StringFormat("%i) - %s | %s:%s", i, Data.Name or "No name",
 				Data.IP, Data.Port )
 
 			if Client then
@@ -143,6 +143,6 @@ function Plugin:CreateCommands()
 			end
 		end
 	end
-	local ListServersCommand = self:BindCommand( "sh_listservers", nil, ListServers, true )
-	ListServersCommand:Help( "Lists all registered servers that you can connect to." )
+	local ListServersCommand = self:BindCommand("sh_listservers", nil, ListServers, true )
+	ListServersCommand:Help("Lists all registered servers that you can connect to.")
 end

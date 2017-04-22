@@ -26,7 +26,7 @@ function AxeSiege:OnPrimaryAttack(player)
 		if trace.entity then
 			local classname = trace.entity:GetClassName()
 			Print("Traced entity %s", classname)
-			if Server and HasMixin( trace.entity, "Construct" ) and not  trace.entity:isa("CommandStation") then
+			if Server and HasMixin( trace.entity, "Construct") and not  trace.entity:isa("CommandStation") then
 				local viewAngles = player:GetViewAngles()
 				local viewCoords = viewAngles:GetCoords()
 				local startVelocity = viewCoords.zAxis * 15

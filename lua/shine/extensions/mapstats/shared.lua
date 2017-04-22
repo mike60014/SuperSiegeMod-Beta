@@ -7,4 +7,4 @@ self.Enabled = true
 return true
 end
 
-Shine:RegisterExtension( "mapstats", Plugin )
+Shine:RegisterExtension("mapstats", Plugin )

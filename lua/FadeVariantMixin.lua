@@ -13,12 +13,12 @@ FadeVariantMixin.kModelNames = {}
 FadeVariantMixin.kViewModelNames = {}
 
 for variant, data in pairs(kFadeVariantData) do
-    FadeVariantMixin.kModelNames[variant] = PrecacheAsset("models/alien/fade/fade" .. data.modelFilePart .. ".model" )
+    FadeVariantMixin.kModelNames[variant] = PrecacheAsset("models/alien/fade/fade" .. data.modelFilePart .. ".model")
 end
 
 FadeVariantMixin.kViewModelNames = {}
 for variant, data in pairs(kFadeVariantData) do
-    FadeVariantMixin.kViewModelNames[variant] = PrecacheAsset("models/alien/fade/fade" .. data.viewModelFilePart .. "_view.model" )
+    FadeVariantMixin.kViewModelNames[variant] = PrecacheAsset("models/alien/fade/fade" .. data.viewModelFilePart .. "_view.model")
 end
 
 FadeVariantMixin.kDefaultModelName = FadeVariantMixin.kModelNames[kDefaultFadeVariant]
@@ -76,7 +76,7 @@ if Server then
             self.variant = data.fadeVariant
             assert( self.variant ~= -1 )
             local modelName = self:GetVariantModel()
-            assert( modelName ~= "" )
+            assert( modelName ~= "")
             self:SetModel(modelName, kFadeAnimationGraph)
 
         else

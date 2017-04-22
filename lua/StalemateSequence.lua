@@ -1,5 +1,5 @@
 -- lua\StalemateSequence.lua
-/*
+
 class 'StalemateSequence'
 
 if Server then
@@ -443,5 +443,3 @@ if Server then
         end
     end
 end
-
-*/

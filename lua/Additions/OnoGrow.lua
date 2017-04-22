@@ -139,7 +139,7 @@ function OnoGrow:OnProcessMove(input)
             self.durationofholdingdownmouse = 0
                if Shared.GetTime() > self.durationofholdingdownmouse + 6 then
                      if Server then
-                      local egg = GetEntitiesForTeam( "PoopEgg", 2 )
+                      local egg = GetEntitiesForTeam("PoopEgg", 2 )
                       local count = table.count(egg) or 0
                       if count < 8  then
                       local egg = CreateEntity(PoopEgg.kMapName, parent:GetOrigin() + Vector(0, .5, 0), parent:GetTeamNumber())

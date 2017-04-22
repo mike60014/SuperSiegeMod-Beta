@@ -11,10 +11,10 @@ local ServerListMessage = {
 	ID = "integer (0 to 255)"
 }
 
-Shine:RegisterExtension( "serverswitch", Plugin )
+Shine:RegisterExtension("serverswitch", Plugin )
 
 function Plugin:SetupDataTable()
-	self:AddNetworkMessage( "ServerList", ServerListMessage, "Client" )
+	self:AddNetworkMessage("ServerList", ServerListMessage, "Client")
 end
 
 if Server then return end
@@ -40,16 +40,16 @@ function Plugin:Initialise()
 	return true
 end
 
-VoteMenu:AddPage( "ServerSwitch", function( self )
-	self:AddBottomButton( Plugin:GetPhrase( "BACK" ), function()
-		self:SetPage( "Main" )
+VoteMenu:AddPage("ServerSwitch", function( self )
+	self:AddBottomButton( Plugin:GetPhrase("BACK"), function()
+		self:SetPage("Main")
 	end )
 
 	local Servers = Plugin.ServerList
 
 	local function ClickServer( ID )
 		if self.GetCanSendVote() then
-			Shared.ConsoleCommand( "sh_switchserver "..ID )
+			Shared.ConsoleCommand("sh_switchserver "..ID )
 
 			return true
 		end
@@ -71,12 +71,12 @@ VoteMenu:AddPage( "ServerSwitch", function( self )
 			local Max = Data.maxPlayers
 			local Tags = Data.serverTags
 
-			local TagTable = StringExplode( Tags, "|" )
+			local TagTable = StringExplode( Tags, "|")
 
 			for i = 1, #TagTable do
 				local Tag = TagTable[ i ]
 
-				local Match = Tag:match( "R_S(%d+)" )
+				local Match = Tag:match("R_S(%d+)")
 
 				if Match then
 					Max = Max - tonumber( Match )
@@ -84,15 +84,15 @@ VoteMenu:AddPage( "ServerSwitch", function( self )
 				end
 			end
 
-			Button:SetText( StringFormat( "%s (%i/%i)", Server.Name, Connected, Max ) )
+			Button:SetText( StringFormat("%s (%i/%i)", Server.Name, Connected, Max ) )
 		end )
 	end
 end )
 
-VoteMenu:EditPage( "Main", function( self )
+VoteMenu:EditPage("Main", function( self )
 	if Plugin.Enabled and next( Plugin.ServerList ) then
-		self:AddBottomButton( Plugin:GetPhrase( "VOTEMENU_BUTTON" ), function()
-			self:SetPage( "ServerSwitch" )
+		self:AddBottomButton( Plugin:GetPhrase("VOTEMENU_BUTTON"), function()
+			self:SetPage("ServerSwitch")
 		end )
 	end
 end )

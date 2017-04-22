@@ -8,4 +8,4 @@ return true
 end
 
 
-Shine:RegisterExtension( "rtd", Plugin )
+Shine:RegisterExtension("rtd", Plugin )

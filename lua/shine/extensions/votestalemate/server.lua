@@ -36,7 +36,7 @@ Plugin.EnabledGamemodes = {
 	[ "mvm" ] = true
 }
 
-Script.Load( Shine.GetModuleFile( "vote.lua" ), true )
+Script.Load( Shine.GetModuleFile("vote.lua"), true )
 
 function Plugin:Initialise()
 	local function VoteTimeout( Vote )
@@ -171,7 +171,7 @@ function Plugin:Stalemate( Team )
 	local Gamerules = GetGamerules()
 	if not Gamerules then return end
 
-	Shine.SendNetworkMessage( "TeamConceded", { teamNumber = Team } )
+	Shine.SendNetworkMessage("TeamConceded", { teamNumber = Team } )
 
 	local WinningTeam = Gamerules:GetTeam( Team == 1 and 2 or 1 )
 	local StalemateingTeam = Gamerules:GetTeam( Team )
@@ -218,7 +218,7 @@ function Plugin:CastVoteByPlayer( Gamerules, ID, Player )
 end
 
 function Plugin:AnnounceVote( Player, Team, VotesNeeded )
-	local Players = GetEntitiesForTeam( "Player", Team )
+	local Players = GetEntitiesForTeam("Player", Team )
 
 	local NWMessage = {
 		voterName = Player:GetName(),
@@ -245,7 +245,7 @@ function Plugin:CreateCommands()
 		local Team = Player:GetTeamNumber()
 
 		if not self.Votes[ Team ] then
-			self:NotifyTranslatedError( Player, "ERROR_WRONG_TEAM" )
+			self:NotifyTranslatedError( Player, "ERROR_WRONG_TEAM")
 
 			return
 		end
@@ -261,12 +261,12 @@ function Plugin:CreateCommands()
 		end
 
 		if Err == "already voted" then
-			self:NotifyTranslatedError( Player, "ERROR_ALREADY_VOTED" )
+			self:NotifyTranslatedError( Player, "ERROR_ALREADY_VOTED")
 		else
-			self:NotifyTranslatedError( Player, "ERROR_ROUND_TIME" )
+			self:NotifyTranslatedError( Player, "ERROR_ROUND_TIME")
 		end
 	end
-	local VoteStalemateCommand = self:BindCommand( "sh_votestalemate",
+	local VoteStalemateCommand = self:BindCommand("sh_votestalemate",
 		{ "stalemate", "votestalemate", "stalematevote" }, VoteStalemate, true )
-	VoteStalemateCommand:Help( "Votes to stalemate the round." )
+	VoteStalemateCommand:Help("Votes to stalemate the round.")
 end

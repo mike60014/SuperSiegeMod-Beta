@@ -53,7 +53,7 @@ function SiegeUnstickPlayer(self, Player, Pos)
 	local i = 1
 
         -- Grab any nearby doors so we can make sure that the player isn't unstucking through them
-        local nearbyDoors = #GetEntitiesWithinRange( "FrontDoor", Pos, 10 ) > 0 and not GetFrontDoorOpen()
+        local nearbyDoors = #GetEntitiesWithinRange("FrontDoor", Pos, 10 ) > 0 and not GetFrontDoorOpen()
         local Naughty = nearbyDoors
 
 	repeat
@@ -63,7 +63,7 @@ function SiegeUnstickPlayer(self, Player, Pos)
                 OtherSideOfObstacle = false
 
 		if SpawnPoint then
-		        ResourceNear = #GetEntitiesWithinRange( "ResourcePoint", SpawnPoint, 2 ) > 0
+		        ResourceNear = #GetEntitiesWithinRange("ResourcePoint", SpawnPoint, 2 ) > 0
 		end
 
                 -- Check that the player haven't gone through any nearby closed doors or barriers

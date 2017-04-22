@@ -155,7 +155,7 @@ if MarineorJetpackMarineorExoRoll == 1 then
     self:NotifyMarine( nil, "%s lost %s credits", true, Player:GetName(), Amount * -1)
     end
      self.CreditUsers[ Player:GetClient() ] = self:GetPlayerCreditsInfo(Player:GetClient()) + Amount
-     Shine.ScreenText.SetText("Credits", string.format( "%s Credits", self:GetPlayerCreditsInfo(Player:GetClient()) ), Player:GetClient()) 
+     Shine.ScreenText.SetText("Credits", string.format("%s Credits", self:GetPlayerCreditsInfo(Player:GetClient()) ), Player:GetClient()) 
     return
     */
    end //end of == 7
@@ -710,27 +710,27 @@ local function RollTheDice( Client )
 local Player = Client:GetControllingPlayer()
 
          if Player:isa("Egg") or Player:isa("Embryo") then
-         Shine:NotifyError( Player, "You cannot gamble while an egg/embryo (Yet)" )
+         Shine:NotifyError( Player, "You cannot gamble while an egg/embryo (Yet)")
          return
          end
          
          if Player:isa("ReadyRoomPlayer") or (Player:GetTeamNumber() ~= 1 and Player:GetTeamNumber() ~= 2) then
-         Shine:NotifyError( Player, "You must be an alien or marine to gamble (In this version, atleast)" )
+         Shine:NotifyError( Player, "You must be an alien or marine to gamble (In this version, atleast)")
          return
          end
          
          if Player:isa("Commander") then
-         Shine:NotifyError( Player, "You cannot gamble while a commander (Yet)" )
+         Shine:NotifyError( Player, "You cannot gamble while a commander (Yet)")
          return
          end
          
           if Player:isa("Spectator") then
-         Shine:NotifyError( Player, "You cannot gamble while spectating (Yet)" )
+         Shine:NotifyError( Player, "You cannot gamble while spectating (Yet)")
          return
          end
          
          if not Player:GetIsAlive() then
-         Shine:NotifyError( Player, "You cannot gamble when you are dead (Yet)" )
+         Shine:NotifyError( Player, "You cannot gamble when you are dead (Yet)")
          return
          end
          
@@ -771,8 +771,8 @@ end
 
 end
 
-local RollTheDiceCommand = self:BindCommand( "sh_rtd", { "rollthedice", "rtd" }, RollTheDice, true)
-RollTheDiceCommand:Help( "Gamble and emit a positive or negative effect") 
+local RollTheDiceCommand = self:BindCommand("sh_rtd", { "rollthedice", "rtd" }, RollTheDice, true)
+RollTheDiceCommand:Help("Gamble and emit a positive or negative effect") 
 
 
 end

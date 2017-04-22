@@ -124,11 +124,27 @@ kMarineTeamType = 1
 kAlienTeamType = 2
 kRandomTeamType = 3
 
-kMinTimeBeforeStalemate = 3 -- * 60
-kMaxTimeBeforeReset = 3 * 60
-kMinTimeBeforeConcede = 7 * 60
+--Vote Stalemate
+kMinTimeBeforeStalemate = 1 -- 45 * 60 -- 45min
+kPercentNeededForStalemate = 0.90 --0.75
+
+--Vote Reset
+kMaxTimeBeforeReset = 360 --
+
+
+-- Vote concede sequence constants
+kConcedeTimeBeforeMontage = 1.0
+kConcedeMontageDuration = 5.0
+kConcedeTimeAfterMontage = 4.0
+
+kConcedeNumAnglesToCheck = 64 -- adjust for performance
+kConcedeIdealDistance = {6.5, 6.5, 4.5} -- xz distance
+kConcedeIdealHeightOffset = {2.5, 2.0, 1.5} -- y distance
+kConcedeIdealCameraSpeed = 1.0
+kConcedeRelevancyDistance = 20 -- reduce relevancy distance for these sequences
+
+kMinTimeBeforeConcede = 600 -- 7 * 60
 kPercentNeededForVoteConcede = 0.75 --0.75
-kPercentNeededForStalemate = 0.85 --0.75
 
 
 --Entities Settings
