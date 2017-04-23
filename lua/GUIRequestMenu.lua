@@ -39,7 +39,7 @@ local function GetCanSendRequest(id)
 
     local player = Client.GetLocalPlayer()
     local isAlive = player ~= nil and (not HasMixin(player, "Live") or player:GetIsAlive())
-    local allowWhileDead = id == kVoiceId.VoteConcede or id == kVoiceId.VoteEject or id == kVoiceId.VoteStalemateRound
+    local allowWhileDead = id == kVoiceId.VoteConcede or id == kVoiceId.VoteEject or id == kVoiceId.VoteStalemate
     
     return (isAlive or allowWhileDead) and gTimeLastMessageSend + 2 < Shared.GetTime()
     
@@ -127,20 +127,6 @@ local function CreateStalemateButton(self, teamType)
     background:AddChild(StalemateText)
     
     return { Background = background, StalemateText = StalemateText }
-
-end
-
-local function OnStalemateButtonClicked()
-
-    if GetCanSendRequest(kVoiceId.VoteStalemateRound) then
-
-        Client.SendNetworkMessage("VoiceMessage", BuildVoiceMessage(kVoiceId.VoteStalemateRound), true)        
-        gTimeLastMessageSend = Shared.GetTime()
-        return true
-        
-    end
-    
-    return false
 
 end
 

@@ -55,7 +55,7 @@ function Plugin:Initialise()
 	}
 
 	self.NextVote = 0
-	self.dt.ConcedeTime = self.Config.VoteDelay
+	self.dt.StalemateTime = self.Config.VoteDelay
 
 	self:CreateCommands()
 
@@ -171,14 +171,14 @@ function Plugin:Stalemate( Team )
 	local Gamerules = GetGamerules()
 	if not Gamerules then return end
 
-	Shine.SendNetworkMessage("TeamConceded", { teamNumber = Team } )
+	Shine.SendNetworkMessage("TeamStalemate", { teamNumber = Team } )
 
-	local WinningTeam = Gamerules:GetTeam( Team == 1 and 2 or 1 )
-	local StalemateingTeam = Gamerules:GetTeam( Team )
+	local WinningTeam = Gamerules:GetTeam( Team == 4 )--1 and 2 or 1 )
+	local StalemateTeam = Gamerules:GetTeam( Team == 1 and 2)
 
 	-- For the stalemate sequence we have to set this flag
 	if not self.Config.SkipSequence then
-		StalemateingTeam.conceded = true
+		StalemateTeam.stalemate = true
 	end
 
 	Gamerules:EndGame( WinningTeam )
@@ -190,11 +190,11 @@ function Plugin:Stalemate( Team )
 end
 
 --[[
-	Overrides the concede vote button in the NS2 request menu.
+	Overrides the stalemate vote button in the NS2 request menu.
 ]]
 function Plugin:CastVoteByPlayer( Gamerules, ID, Player )
 	if not Player then return end
-	if ID ~= kTechId.VoteConcedeRound then return end
+	if ID ~= kTechId.VoteStalemate then return end
 
 	local Client = Player:GetClient()
 	if not Client then return true end
@@ -229,8 +229,8 @@ function Plugin:AnnounceVote( Player, Team, VotesNeeded )
 		local Ply = Players[ i ]
 
 		if Ply then
-			-- Use NS2's built in concede, it's localised.
-			Shine.SendNetworkMessage( Ply, "VoteConcedeCast", NWMessage, true )
+			-- Use NS2's built in stalemate, it's localised.
+			Shine.SendNetworkMessage( Ply, "VoteStalemateCast", NWMessage, true )
 		end
 	end
 end

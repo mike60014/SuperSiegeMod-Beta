@@ -7,10 +7,10 @@ function OnVoteStalemateCast(message)
     ChatUI_AddSystemMessage(text)
 end
 
-function OnTeamStalemated(message)
+function OnTeamsStalemate(message)
         ChatUI_AddSystemMessage(Locale.ResolveString("TEAM_MARINES_STALEMATE"))
         ChatUI_AddSystemMessage(Locale.ResolveString("TEAM_ALIENS_STALEMATE"))
 end
 
 Client.HookNetworkMessage("VoteStalemateCast", OnVoteStalemateCast)
-Client.HookNetworkMessage("TeamsStalemate", OnTeamStalemated)
+Client.HookNetworkMessage("TeamsStalemate", OnTeamsStalemate)

@@ -36,15 +36,15 @@ local function VoteEjectCommander(player)
     end    
     
 end
-/*
-local function VoteStalemateRound(player)
+
+local function VoteStalemate(player)
 
     if player then
-        GetGamerules():CastVoteByPlayer(kTechId.VoteStalemateRound, player)
+        GetGamerules():CastVoteByPlayer(kTechId.VoteStalemate, player)
     end
     
 end
-*/
+
 local function VoteConcedeRound(player)
 
     if player then

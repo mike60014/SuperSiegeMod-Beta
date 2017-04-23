@@ -130,7 +130,6 @@ function Alien:GetRedemptionCoolDown()
 	return 0
 end
 
-
 function Alien:UpdateHealthAmount(bioMassLevel, maxLevel)
     local teamInfo = GetTeamInfoEntity(2)
 	if teamInfo then
@@ -138,29 +137,33 @@ function Alien:UpdateHealthAmount(bioMassLevel, maxLevel)
 		local bioMassPlusPercent = self:GetHealthPerBioMass() * bioMassLevel
 		local newMaxHealth = self:GetBaseHealth() + (bioMassPlusPercent * self:GetBaseHealth())
 		--newMaxHealth =  ConditionalValue(self:GetHasUpgrade(kTechId.ThickenedSkin), newMaxHealth * bioMassPlusPercent, newMaxHealth)
+		
 		self:AdjustMaxHealth(newMaxHealth)
 		self:SetMaxHealth(newMaxHealth)
     end
    return false
 end
 
+/*
 function Alien:UpdateArmorAmount(carapaceLevel)
     local teamInfo = GetTeamInfoEntity(2)
 	if teamInfo then
 		local bioMassLevel = teamInfo:GetBioMassLevel()
 		local bioMassPlusPercent = self:GetHealthPerBioMass() * bioMassLevel
 		local newMaxHealth = self:GetBaseHealth() + (bioMassPlusPercent * self:GetBaseHealth())
-	if GetHasCarapaceUpgrade(self) then
 		local level = carapaceLevel or 0
+	if GetHasCarapaceUpgrade(self) then
 		local AddArmorFromHP = ((level * gCarapaceArmorPerLevelPercent) * newMaxHealth) + self:GetBaseArmor()
 		local maxArmorPossible = (3 * gCarapaceArmorPerLevelPercent) * newMaxHealth + self:GetBaseArmor()
-		local newMaxArmor = Clamp(AddArmorFromHP , self:GetBaseArmor(), maxArmorPossible)
-        self.maxArmor = newMaxArmor
+		local AddNewArmor = AddArmorFromHP - self:GetArmor()
+		local newMaxArmor = Clamp(AddNewArmor , self:GetBaseArmor(), maxArmorPossible)
+        self.maxArmor = maxArmorPossible
         self:SetArmor(newMaxArmor)
     end
 	end
 	return false
 end
+*/
 
 function Alien:UpdateArmorAmountManual(carapaceLevel)
     local teamInfo = GetTeamInfoEntity(2)
@@ -168,12 +171,13 @@ function Alien:UpdateArmorAmountManual(carapaceLevel)
 		local bioMassLevel = teamInfo:GetBioMassLevel()
 		local bioMassPlusPercent = self:GetHealthPerBioMass() * bioMassLevel
 		local newMaxHealth = self:GetBaseHealth() + (bioMassPlusPercent * self:GetBaseHealth())
-	if GetHasCarapaceUpgrade(self) then
 		local level = carapaceLevel or 0
+	if GetHasCarapaceUpgrade(self) then
 		local AddArmorFromHP = ((level * gCarapaceArmorPerLevelPercent) * newMaxHealth) + self:GetBaseArmor()
 		local maxArmorPossible = (3 * gCarapaceArmorPerLevelPercent) * newMaxHealth + self:GetBaseArmor()
-		local newMaxArmor = Clamp(AddArmorFromHP , self:GetBaseArmor(), maxArmorPossible)
-        self.maxArmor = newMaxArmor
+		local AddNewArmor = AddArmorFromHP - self:GetArmor()
+		local newMaxArmor = Clamp(AddNewArmor , self:GetBaseArmor(), maxArmorPossible)
+        self.maxArmor = maxArmorPossible
         self:SetArmor(newMaxArmor)
     end
 	end

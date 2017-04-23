@@ -6,7 +6,7 @@ local kVoteStalemateCastMessage =
     votesMoreNeeded = "integer (0 to 64)"
 }
 
-local kTeamStalematedMessage =
+local kTeamsStalemateMessage =
 {
     teamNumber = string.format("integer (-1 to %d)", kRandomTeamType)
 }

@@ -25,12 +25,12 @@ if Server then
 end
 
 
-class "VoteStalemateRound" (Gamerules)
+class "VoteStalemate" (Gamerules)
 
-VoteStalemateRound.kMapName = "VoteStalemateRound"
+VoteStalemate.kMapName = "VoteStalemate"
 
-function VoteStalemateRound:CastVoteByPlayer(voteTechId, player)
-	if voteTechId == kTechId.VoteStalemateRound then
+function VoteStalemate:CastVoteByPlayer(voteTechId, player)
+	if voteTechId == kTechId.VoteStalemate then
 		if self:VotingStalemateVoteAllowed() then
 			local team = player:GetTeam()
 			if team.VoteToStalemate then
@@ -40,10 +40,10 @@ function VoteStalemateRound:CastVoteByPlayer(voteTechId, player)
 	end
 end
 
-function VoteStalemateRound:VotingStalemateVoteAllowed()
+function VoteStalemate:VotingStalemateVoteAllowed()
     return PlayerUI_GetGameStartTime() > 0 and Shared.GetTime() - PlayerUI_GetGameStartTime() > kMinTimeBeforeStalemate
 end
 
 
-Shared.LinkClassToMap("VoteStalemateRound", VoteStalemateRound.kMapName, networkVars)
---Shared.LinkClassToMap("VoteStalemateRound", kTechId.VoteStalemateRound, {})
+Shared.LinkClassToMap("VoteStalemate", VoteStalemate.kMapName, networkVars)
+--Shared.LinkClassToMap("VoteStalemate", kTechId.VoteStalemate, {})
