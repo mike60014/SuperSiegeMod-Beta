@@ -539,9 +539,9 @@ RandomRRCommand:Help("randomize's the ready room.")
 
 
 local function Stalemate( Client )
-local Gamerules = GetGamerules()
-if not Gamerules then return end
-Gamerules:DrawGame()
+	local Gamerules = GetGamerules()
+	if not Gamerules then return end
+	Gamerules:DrawGame()
 end 
 
 

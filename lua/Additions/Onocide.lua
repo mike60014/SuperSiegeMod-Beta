@@ -2,14 +2,14 @@ Script.Load("lua/Weapons/Alien/Ability.lua")
 Script.Load("lua/Weapons/Alien/Gore.lua")
 Script.Load("lua/Weapons/Alien/StompMixin.lua")
 
---local kRange = kOnocideDetonateRange
+local kRange = 1.4
 
 class 'Onocide' (Ability)
 
 Onocide.kMapName = "onocide"
 
 -- after kDetonateTime seconds the skulk goes 'boom!'
-local kDetonateTime = gOnocideDetonateTime
+local kDetonateTime = kOnocideDetonateTime
 local kXenocideSoundName = PrecacheAsset("sound/NS2.fev/alien/common/xenocide_start")
 
 
@@ -41,14 +41,14 @@ end
 
 function Onocide:GetFuel()
     if self.primaryAttacking then
-        return Clamp(self.fuelAtChange - (Shared.GetTime() - self.timeFuelChanged) / gOnocideMaxDuration, 0, 1)
+        return Clamp(self.fuelAtChange - (Shared.GetTime() - self.timeFuelChanged) / kOnocideMaxDuration, 0, 1)
     else
-        return Clamp(self.fuelAtChange + (Shared.GetTime() - self.timeFuelChanged) / gOnocideCooldown, 0, 1)
+        return Clamp(self.fuelAtChange + (Shared.GetTime() - self.timeFuelChanged) / kOnocideCooldown, 0, 1)
     end
 end
 
 function Onocide:GetEnergyCost()
-    return gOnocideInitialEnergyCost
+    return kOnocideInitialEnergyCost
 end
 
 local function CheckForDestroyedEffects(self)
@@ -108,7 +108,7 @@ function Onocide:GetDeathIconIndex()
 end
 
 function Onocide:IsOnCooldown()
-    return self:GetFuel() < gOnocideMinimumFuel
+    return self:GetFuel() < kOnocideMinimumFuel
 end
 
 function Onocide:GetCanUseOnocide(player)
@@ -116,11 +116,11 @@ function Onocide:GetCanUseOnocide(player)
 end
 
 function Onocide:GetHUDSlot()
-    return gOnocideHUDSlot
+    return kOnocideHUDSlot
 end
 
 function Onocide:GetRange()
-    return gOnocideDetonateRange
+    return kRange
 end
 
 function Onocide:GetIsXenociding()
@@ -206,10 +206,10 @@ function Onocide:ExplodeYo()
             
                 player:TriggerEffects("xenocide", {effecthostcoords = Coords.GetTranslation(player:GetOrigin())})
                 
-                local hitEntities = GetEntitiesWithMixinWithinRange("Live", player:GetOrigin(), gOnocideDetonateRange)
-                local healthScalar = Clamp(player:GetHealthScalar(), gOnocideDamageHealthMinRatio, gOnocideDamageHealthMaxRatio)
+                local hitEntities = GetEntitiesWithMixinWithinRange("Live", player:GetOrigin(), kOnocideDetonateRange)
+                local healthScalar = Clamp(player:GetHealthScalar(), kOnocideDamageHealthMinRatio, kOnocideDamageHealthMaxRatio)
                 local damage = (gOnocideDamage * healthScalar)
-                RadiusDamage(hitEntities, player:GetOrigin(), gOnocideDetonateRange, damage, self, false)
+                RadiusDamage(hitEntities, player:GetOrigin(), kOnocideDetonateRange, damage, self, false)
                 
                 player.spawnReductionTime = 4
                 

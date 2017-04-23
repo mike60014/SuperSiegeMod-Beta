@@ -2,6 +2,7 @@ Script.Load("lua/Additions/Convars.lua")
 Script.Load("lua/Additions/EggBeacon.lua")
 Script.Load("lua/Additions/StructureBeacon.lua")
 Script.Load("lua/Weapons/Alien/PrimalScream.lua")
+Script.Load("lua/Weapons/Marine/PowerFist.lua")
 Script.Load("lua/Additions/BackupLight.lua")
 Script.Load("lua/Additions/CommTunnel.lua")
 Script.Load("lua/Additions/OnoGrow.lua")
@@ -10,6 +11,7 @@ Script.Load("lua/Additions/CragUmbra.lua")
 Script.Load("lua/Additions/CommVortex.lua")
 Script.Load("lua/Weapons/Alien/AcidRocket.lua")
 Script.Load("lua/Weapons/Alien/Rocket.lua")
+--Script.Load("lua/Additions/LerkBileBomb.lua")
 Script.Load("lua/MAC_Siege.lua")
 Script.Load("lua/Additions/LayStructures.lua")
 Script.Load("lua/Additions/ExoWelder.lua")
@@ -17,8 +19,6 @@ Script.Load("lua/Additions/ExoFlamer.lua")
 Script.Load("lua/Babbler.lua")
 Script.Load("lua/Onos.lua")
 Script.Load("lua/Jetpack.lua")
-Script.Load("lua/Clog.lua")
---Script.Load("lua/Additions/LerkBileBomb.lua")
 
 
 
@@ -69,9 +69,6 @@ function GetCheckStructureBeacon(techId, origin, normal, commander)
     return num < 1
 end
 
-local kAcidRocketResearchCost = gAcidRocketResearchCost
-local kAcidRocketResearchTime = gAcidRocketResearchTime
-
 
 local kSiege_TechData =
 {
@@ -93,7 +90,7 @@ local kSiege_TechData =
 [kTechDataDisplayName] = "Thickened Skin", 
 [kTechDataSponitorCode] = "A",  
 [kTechDataCostKey] = kThickenedSkinCost,
-[kTechDataTooltipInfo] = "Passive +3% max hp per Biomass",
+[kTechDataTooltipInfo] = "+3% Max HP per Biomass",
 },
 
 { [kTechDataId] = kTechId.Hunger, 
@@ -104,21 +101,6 @@ local kSiege_TechData =
 [kTechDataTooltipInfo] = "10% health / energy gain, and effects of Enzyme on player kill (if gorge then structures not players) ",
 },
 
-{ [kTechDataId] = kTechId.Clog,
-[kTechDataGhostModelClass] = "AlienGhostModel",
-[kTechDataAllowConsumeDrop] = true,
-[kTechDataTooltipInfo] = "CLOG_TOOLTIP",
-[kTechDataAllowStacking] = true,
-[kTechDataMaxAmount] = kClogsPerHive,
-[kTechDataMapName] = Clog.kMapName,
-[kTechDataDisplayName] = "CLOG",
-[kTechDataCostKey] = kClogCost,
-[kTechDataMaxHealth] = kClogHealth,
-[kTechDataMaxArmor] = kClogArmor,
-[kTechDataModel] = Clog.kModelName,
-[kTechDataRequiresInfestation] = false,
-[kTechDataPointValue] = kClogPointValue,
-},
 
 { [kTechDataId] = kTechId.Rebirth, 
 [kTechDataCategory] = kTechId.CragHiveTwo,  
@@ -226,9 +208,9 @@ local kSiege_TechData =
 [kTechDataCostKey] = 10,
 --[kTechDataModel] = Onos.kModelName,
 [kTechDataResearchTimeKey] = 10,
-[kTechDataDamageType] = gOnocideDamageType,
+--   [kTechDataDamageType] = kStabDamageType,
 [kTechDataDisplayName] = "Onicide",
-[kTechDataTooltipInfo] = "Onicide",
+[kTechDataTooltipInfo] = "Onicide, Blow up Enemies! Damage = 5-45% current hp",
 },
 
 { [kTechDataId] = kTechId.EggBeacon, 
@@ -327,7 +309,7 @@ local kSiege_TechData =
 [kTechIDShowEnables] = false, 
 [kTechDataTooltipInfo] =  "Now Constructable!", 
 [kTechDataModel] = MAC.kModelName, 
-[kTechDataBuildTime] = 1,
+[kTechDataBuildTime] = 5, --1,
 [kTechDataCostKey] = kMACCost, 
 [kStructureAttachRange] = 8,
 [kTechDataSupply] = kMACSupply,
@@ -359,7 +341,25 @@ local kSiege_TechData =
 [kTechDataObstacleRadius] = gCreditStructureBackupLightObstacleRadius,
 },
 
+{ [kTechDataId] = kTechId.Fist,
+[kTechDataMapName] = Fist.kMapName,
+[kTechDataDisplayName] = "SWITCH_AX",
+[kTechDataModel] = Fist.kModelName,
+[kTechDataDamageType] = kFistDamageType,
+[kTechDataCostKey] = kFistCost,
+[kTechDataTooltipInfo] = "Fist_TOOLTIP",
+},
 
+{ [kTechDataId] = kTechId.PowerFist,
+[kTechDataMapName] = PowerFist.kMapName,
+[kTechDataDisplayName] = "PULSE_GRENADE",
+[kTechDataModel] = PowerFist.kModelName,
+[kTechDataDamageType] = kPowerFistDamageType,
+[kTechDataCostKey] = kPowerFistCost,
+[kTechDataTooltipInfo] = "PowerFist_TOOLTIP",
+},
+
+   
 
 { [kTechDataId] = kTechId.MacSpawnOn,    
 [kTechDataCooldown] = 5,    

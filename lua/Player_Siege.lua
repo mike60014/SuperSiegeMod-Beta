@@ -10,7 +10,7 @@ stalemateTargetPoint = "private vector",
 stalemateStartTime = "private time",
 stalemateSettingsIndex = "private integer (1 to 3)",
 
- } 
+ }
 
 local origcreate = Player.OnCreate
 
@@ -19,7 +19,7 @@ function Player:OnCreate()
     self.gravity = 0
     self.modelsize = 1
 	
-    self.StalemateSettingsIndex = 1
+    --self.StalemateSettingsIndex = 1
 end
 
 local origGravity = Player.ModifyGravityForce

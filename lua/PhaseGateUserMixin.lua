@@ -9,7 +9,7 @@
 PhaseGateUserMixin = CreateMixin( PhaseGateUserMixin )
 PhaseGateUserMixin.type = "PhaseGateUser"
 
-local kPhaseDelay = gPhasegateDelay --2
+local kPhaseDelay = 2
 
 PhaseGateUserMixin.networkVars =
 {
@@ -66,7 +66,7 @@ end
 
 function PhaseGateUserMixin:GetCanPhase()
     if Server then
-        return self:GetIsAlive() and Shared.GetTime() > self.timeOfLastPhase + kPhaseDelay and not GetConcedeSequenceActive() and not GetStalemateSequenceActive()
+        return self:GetIsAlive() and Shared.GetTime() > self.timeOfLastPhase + kPhaseDelay and not GetConcedeSequenceActive()
     else
         return self:GetIsAlive() and Shared.GetTime() > self.timeOfLastPhase + kPhaseDelay
     end

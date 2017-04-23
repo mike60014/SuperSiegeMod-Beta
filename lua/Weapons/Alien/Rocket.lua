@@ -8,13 +8,13 @@ class 'Rocket' (PredictedProjectile)
 Rocket.kMapName            = "rocket"
 Rocket.kModelName          = PrecacheAsset("models/alien/babbler/babbler.model")
 
---local kAcidRocketHUDSlot = gAcidRocketHUDSlot
---local kAcidRocketFireDelay = gAcidRocketFireDelay
---local kAcidRocketEnergyCost = gAcidRocketEnergyCost
---local kAcidRocketDamage = gAcidRocketDamage
---local kAcidRocketRadius = gAcidRocketRadius
-local kRocketRadius = gRocketRadius
-local kRocketLifetime = gRocketLifeTime
+local kAcidRocketHUDSlot = kAcidRocketHUDSlot
+--local kAcidRocketFireDelay = kAcidRocketFireDelay
+--local kAcidRocketEnergyCost = kAcidRocketEnergyCost
+--local kAcidRocketDamage = kAcidRocketDamage
+--local kAcidRocketRadius = kAcidRocketRadius
+local kRocketRadius = kRocketetRadius
+local kRocketLifetime = kRocketetLifeTime
 
 local networkVars = { }
 
@@ -72,7 +72,7 @@ function Rocket:GetDeathIconIndex()
 end
 
 function Rocket:GetDamageType()
-    return gAcidRocketDamageType
+    return kAcidRocketDamageType
 end
 
 function Rocket:OnAdjustModelCoords(modelCoords)
@@ -98,13 +98,13 @@ if Server then
 
         if not self:GetIsDestroyed() then
              self.stopSimulation = true
-            local hitEntities = GetEntitiesWithMixinForTeamWithinRange("Live", 1, self:GetOrigin(), gAcidRocketRadius)
+            local hitEntities = GetEntitiesWithMixinForTeamWithinRange("Live", 1, self:GetOrigin(), kAcidRocketRadius)
             // full damage on direct impact
             if targetHit then
                 table.removevalue(hitEntities, targetHit)
-                self:DoDamage(gAcidRocketDamage, targetHit, targetHit:GetOrigin(), GetNormalizedVector(targetHit:GetOrigin() - self:GetOrigin()), "none")
+                self:DoDamage(kAcidRocketDamage, targetHit, targetHit:GetOrigin(), GetNormalizedVector(targetHit:GetOrigin() - self:GetOrigin()), "none")
             end
-            RadiusDamage(hitEntities, self:GetOrigin(), gAcidRocketRadius, gAcidRocketDamage, self)
+            RadiusDamage(hitEntities, self:GetOrigin(), kAcidRocketRadius, kAcidRocketDamage, self)
             self:TriggerEffects("bilebomb_hit")
             DestroyEntity(self)
         end

@@ -179,11 +179,11 @@ function Shotgun:GetClipSize()
 end
 
 local function LoadBullet(self)
-		if self.ammo > 0 and self.clip < gShotgunClipSize then
-			self.clip = self.clip + 1
-			self.ammo = self.ammo - 1
-			self.lastreloaded = Shared.GetTime()
-		end
+	if self.ammo > 0 and self.clip < gShotgunClipSize then
+		self.clip = self.clip + 1
+		self.ammo = self.ammo - 1
+		self.lastreloaded = Shared.GetTime()
+	end
 end
 
 local function GetLastReloaded(self)
@@ -206,29 +206,31 @@ function Shotgun:OnUpdateAnimationInput(modelMixin)
 		activity = "primary"
 		modelMixin:SetAnimationInput("activity", activity)
 	elseif self:GetIsReloading() then
-		if self.clip <= gShotgunClipSize then
-			if GetReloadSpeed() + GetLastReloaded(self) <= Shared.GetTime() then
-				--self.reloading = true
+		if self.clip < gShotgunClipSize then
+			--if GetReloadSpeed() + GetLastReloaded(self) <= Shared.GetTime() then
+				self.reloading = true
 				self:TriggerEffects("reload")
 				--self.lastreloaded = Shared.GetTime()
 				activity = "reload"
 				modelMixin:SetAnimationInput("activity", activity)
 				--LoadBullet(self)
 				--player.Reload()
-			end
+			--end
 		else
 			
-			--self.reloading = false
-			--activity = "none"
-			--modelMixin:SetAnimationInput("activity", activity)
-			--self:TriggerEffects("end")
-			--CancelReload(self)
-		end
-	else
 			self.reloading = false
 			activity = "none"
+			modelMixin:SetAnimationInput("activity", activity)
 			self:TriggerEffects("end")
+			CancelReload(self)
+		end
+	else
+	/*
+		self.reloading = false
+		activity = "none"
+		self:TriggerEffects("end")
 		modelMixin:SetAnimationInput("activity", activity)
+	*/
 	end
 	
 end
@@ -239,10 +241,14 @@ function Shotgun:OnTag(tagName)
     
     local continueReloading = false
     if self:GetIsReloading() and tagName == "reload_end" then
-    
-        continueReloading = true
-        self.reloading = false
-        
+		self.reloading = false
+		if self.clip < gShotgunClipSize then
+			local player = self:GetParent()
+			if player then
+				player:Reload()
+			end
+			--continueReloading = true
+        end
     end
     
     ClipWeapon.OnTag(self, tagName)
@@ -256,13 +262,14 @@ function Shotgun:OnTag(tagName)
     elseif tagName == "reload_shotgun_end" then
         self:TriggerEffects("shotgun_reload_end")
     end
-    
+    /*
     if continueReloading then
         local player = self:GetParent()
         if player then
             player:Reload()
         end
     end
+	*/
 end
 
 -- used for last effect

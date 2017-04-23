@@ -1,6 +1,10 @@
 JetpackMarine.kFuelReplenishDelay = kJetpackFuelReplenishDelay -- 30% deduction of .4
 
 
+/*
+3.24 untested
+*/
+/*
 function JetpackMarine:OnProcessMove(input)
      Marine.OnProcessMove(self, input)
      if Server then
@@ -9,6 +13,7 @@ function JetpackMarine:OnProcessMove(input)
         end
      end
 end
+*/
 
 
 function JetpackMarine:GetFuel()

@@ -23,12 +23,12 @@ end
 end
 
 function Lerk:OnAdjustModelCoords(modelCoords)
-    local scale = gLerkModelSizeScaler
+    local scale = .75
     local coords = modelCoords
     coords.xAxis = coords.xAxis * scale
     coords.yAxis = coords.yAxis * scale
     coords.zAxis = coords.zAxis * scale
-    
+      
     return coords
     
 end
@@ -37,10 +37,10 @@ function Lerk:GetBallFlagAttatchPoint(player)
 end
 
 function Lerk:GetRebirthLength()
-	return gLerkRebirthLength
+	return 4
 end
 function Lerk:GetRedemptionCoolDown()
-	return gLerkRedemptionCooldown
+	return 15
 end
 
 local origspeed = Lerk.GetMaxSpeed

@@ -1,6 +1,6 @@
 --[[
 	Shine stalemate vote plugin.
-]]
+
 
 local Shine = Shine
 
@@ -171,7 +171,7 @@ function Plugin:Stalemate( Team )
 	local Gamerules = GetGamerules()
 	if not Gamerules then return end
 
-	Shine.SendNetworkMessage("TeamStalemate", { teamNumber = Team } )
+	Shine.SendNetworkMessage("TeamsStalemate", { teamNumber = Team } )
 
 	local WinningTeam = Gamerules:GetTeam( Team == 4 )--1 and 2 or 1 )
 	local StalemateTeam = Gamerules:GetTeam( Team == 1 and 2)
@@ -270,3 +270,4 @@ function Plugin:CreateCommands()
 		{ "stalemate", "votestalemate", "stalematevote" }, VoteStalemate, true )
 	VoteStalemateCommand:Help("Votes to stalemate the round.")
 end
+]]--

@@ -70,7 +70,7 @@ function Welder:OnPrimaryAttack(player)
         
     end
     
-    if not self.timeLastWeldEffect or self.timeLastWeldEffect + gWelderFireDelay < Shared.GetTime() then
+    if not self.timeLastWeldEffect or self.timeLastWeldEffect + kWelderFireDelay < Shared.GetTime() then
     
         self:TriggerEffects("welder_muzzle")
         self.timeLastWeldEffect = Shared.GetTime()

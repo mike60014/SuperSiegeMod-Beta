@@ -23,7 +23,7 @@ local kAttackDurationSmash = Shared.GetAnimationLength("models/alien/onos/onos_v
 
 Gore.kAttackType = enum({ "Gore", "Smash", "None" })
 -- when hitting marine his aim is interrupted
-Gore.kAimInterruptDuration = 0.7
+Gore.kAimInterruptDuration = kGoreAimInterruptForMarineDuration
 
 local networkVars =
 {
@@ -33,8 +33,8 @@ local networkVars =
 
 AddMixinNetworkVars(StompMixin, networkVars)
 
-local kAttackRange = 1.7
-local kFloorAttackRage = 0.9
+local kAttackRange = kGoreAttackRange
+local kFloorAttackRage = kGoreFloorAttackRange
 
 local kGoreSmashKnockbackForce = 590 -- mass of a marine: 90
 local kGoreSmashMinimumUpwardsVelocity = 9

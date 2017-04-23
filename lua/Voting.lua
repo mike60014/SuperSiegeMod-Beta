@@ -189,8 +189,12 @@ if Server then
         
     local function GetVotePassed(yesVotes, noVotes)
         return yesVotes > (GetNumVotingPlayers() / 2)
+    end        
+	/*
+    local function GetStalemateVotePassed(yesVotes, noVotes)
+        return yesVotes > (GetNumVotingPlayers() * kPercentAllPlayersNeededForStalemate)
     end
-    
+		*/
     local function OnUpdateVoting(dt)
     
         if activeVoteName then
@@ -198,6 +202,7 @@ if Server then
             local yes, no = CountVotes(activeVoteResults)
             local required = math.floor(GetNumVotingPlayers() / 2) + 1
             local voteSuccessful = GetVotePassed(yes, no)
+            --local voteStalemateSuccessful = GetStalemateVotePassed(yes, no)
             local voteFailed = no >= math.floor(GetNumVotingPlayers() / 2) + 1
         
             if Shared.GetTime() - lastTimeVoteResultsSent > 1 then

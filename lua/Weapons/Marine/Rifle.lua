@@ -25,21 +25,24 @@ local kViewModels = GenerateMarineViewModelPaths("rifle")
 local kAnimationGraph = PrecacheAsset("models/marine/rifle/rifle_view.animation_graph")
 local kButtRange = 1.1
 local kNumberOfVariants = 3
+local gRifleRandomSpread = math.random(30,40)
 
-local kPrimaryRange = gRiflePrimaryRange --100
--- 4 degrees in NS1
-local kPrimarySpread = gRiflePrimarySpreadDistance --Math.Radians(2.8)
-local kPrimaryBulletSize = gRiflePrimaryBulletSize
-
-local kSecondaryRange = gRifleSecondaryRange
-local kSecondarySpread = gRifleSecondarySpreadDistance 
-local kSecondarySpreadDistance = gRifleSecondarySpreadDistance
-local kSecondaryBulletSize = gRifleSecondaryBulletSize
 
 Rifle.kStartOffset = 0 --  0.01
 --Print(meth.random())
 --DebugPrint(math.random(0,100))
 
+local kPrimaryRange = gRiflePrimaryRange --100
+-- 4 degrees in NS1
+local kPrimarySpread = gRiflePrimarySpreadDistance --Math.Radians(2.8)
+local kPrimaryBulletSize = gRiflePrimaryBulletSize
+local kSecondaryBulletSize = gRifleSecondaryBulletSize
+
+local kSecondaryRange = gRifleSecondaryRange
+
+/*
+local kSecondarySpread = Math.Radians(gRifleRandomSpread) * gRifleSecondaryPrecisionRatio
+local kSecondarySpreadDistance = Math.Radians(gRifleRandomSpread) * gRifleSecondaryPrecisionRatio
 
 Rifle.kSecondarySpreadVectors = --Sven-Coop !
 {
@@ -62,6 +65,7 @@ Rifle.kSecondarySpreadVectors = --Sven-Coop !
     --GetNormalizedVector(Vector(-2, 0.01, kSecondarySpreadDistance)),
     --GetNormalizedVector(Vector(2, 0.01, kSecondarySpreadDistance)),
 }
+*/
 
 local kSingleShotSounds = { "sound/NS2.fev/marine/rifle/fire_single", "sound/NS2.fev/marine/rifle/fire_single_2", "sound/NS2.fev/marine/rifle/fire_single_3" }
 for k, v in ipairs(kSingleShotSounds) do PrecacheAsset(v) end
@@ -250,12 +254,11 @@ end
 
 function Rifle:UpdateViewModelPoseParameters(viewModel)
 
-	/*
     local attacking = self:GetPrimaryAttacking()
     local sign = (attacking and 1) or 0
     
     self:SetGunLoopParam(viewModel, "arm_loop", sign)
-    */
+	
 end
 
 function Rifle:OnUpdateAnimationInput(modelMixin)
@@ -265,7 +268,7 @@ function Rifle:OnUpdateAnimationInput(modelMixin)
     ClipWeapon.OnUpdateAnimationInput(self, modelMixin)
     
     modelMixin:SetAnimationInput("gl", false)
-    modelMixin:SetAnimationInput("reload_speed", 0.5) --1)
+    modelMixin:SetAnimationInput("reload_speed", 1) --Reload speed?
     modelMixin:SetAnimationInput("skip_draw", self.skipDraw)
 
 end
@@ -433,23 +436,25 @@ function Rifle:OnPrimaryAttack(player)
     elseif attackAllowed and self.GetPrimaryMinFireDelay and (self.clip > 0) then
 		primaryattackAllowed = (Shared.GetTime() - self.secondaryattackLastRequested) >= self:GetSecondaryMinFireDelay()
 		secondaryattackAllowed = (Shared.GetTime() - self.primaryattackLastRequested) >= self:GetPrimaryMinFireDelay()
-        
+		
         if not attackAllowed and self.OnMaxFireRateExceeded then
             --self:OnMaxFireRateExceeded()
         else
+				if Server then UpdateSoundType(self, player) end
 		if self:GetIsDeployed() and primaryattackAllowed and secondaryattackAllowed and not self.secondaryAttacking and not self:GetIsReloading() then
 		
+        
 				self.primaryAttacking = true
-				self.primaryattackLastRequested = Shared.GetTime()
 				CancelReload(self)
-				if Server then UpdateSoundType(self, player) end
+				ClipWeapon.OnPrimaryAttack(self, player)
 				self:FirePrimary(player)
+				self.primaryattackLastRequested = Shared.GetTime()
 				self.clip = self.clip - gRiflePrimaryBulletsPerShot
 			else
-				self:OnPrimaryAttackEnd(player)
 			end
 		end
 	end
+	self:OnPrimaryAttackEnd(player)
 	
 	attackAllowed = attackAllowed and primaryattackAllowed and secondaryattackAllowed
     return self:GetIsDeployed() and not sprintedRecently and attackAllowed
@@ -474,18 +479,20 @@ function Rifle:OnSecondaryAttack(player)
 			--self:OnMaxFireRateExceeded()
 		else
 			if self:GetIsDeployed() and primaryattackAllowed and secondaryattackAllowed and not self.primaryAttacking and not self:GetIsReloading() then
-				self.secondaryAttacking = true
-				self.secondaryattackLastRequested = Shared.GetTime()
+				
 				if Server then UpdateSoundType(self, player) end
+				self.secondaryAttacking = true
+				--ClipWeapon.OnPrimaryAttack(self, player)
 				CancelReload(self)
+				ClipWeapon.OnPrimaryAttack(self, player)
 				self:FireSecondary(player)
+				self.secondaryattackLastRequested = Shared.GetTime()
 				self.clip = self.clip - gRifleSecondaryBulletsPerShot
 				
-			else
-				self:OnSecondaryAttackEnd(player)
 			end
 		end
 	end
+	self:OnSecondaryAttackEnd(player)
 	
 	attackAllowed = attackAllowed and secondaryattackAllowed and primaryattackAllowed
     return self:GetIsDeployed() and not sprintedRecently and attackAllowed
@@ -498,12 +505,12 @@ function Rifle:FirePrimary(player)
     self:TriggerEffects("rifle_attack")
 	local viewAngles = player:GetViewAngles()
     viewAngles.roll = NetworkRandom() * math.pi * 2
-local kRifleRandomX = math.random(-100,100) * 0.01 --0.0 thru 3.0
-local kRifleRandomY = math.random(-75,75) * 0.01 --0.0 thru 3.0
-local kRifleRandomSpread = math.random(30,40)
-local kRiflePrimarySpreadDistance = Math.Radians(kRifleRandomSpread)
-local kRiflePrimarySpreadDistanceX = Math.Radians(kRifleRandomX) --20
-local kRiflePrimarySpreadDistanceY = Math.Radians(kRifleRandomY) --20
+	local kRifleRandomX = math.random(-100,100) * 0.01 --0.0 thru 3.0
+	local kRifleRandomY = math.random(-75,75) * 0.01 --0.0 thru 3.0
+	local kRifleRandomSpread = math.random(30,40)
+	local kRiflePrimarySpreadDistance = Math.Radians(kRifleRandomSpread)
+	local kRiflePrimarySpreadDistanceX = Math.Radians(kRifleRandomX) --20
+	local kRiflePrimarySpreadDistanceY = Math.Radians(kRifleRandomY) --20
 
     local shootCoords = viewAngles:GetCoords()
 
@@ -565,19 +572,19 @@ end
 
 function Rifle:FireSecondary(player)
 
+    self:TriggerEffects("Rifle_attack")
     self:TriggerEffects("Rifle_attack_sound")
-    --self:TriggerEffects("Rifle_attack")
     --self:TriggerEffects("spikes_attack")
 	--if self.secondaryattackLastRequested + gRifleSecondaryAttackSpeed <= Shared.GetTime() then return end
 	local viewAngles = player:GetViewAngles()
     viewAngles.roll = NetworkRandom() * math.pi * 2
 	
-local kRifleRandomX = math.random(-100,100) * 0.01 --0.0 thru 3.0
-local kRifleRandomY = math.random(-75,75) * 0.01 --0.0 thru 3.0
-local kRifleRandomSpread = math.random(30,40)
-local kRifleSecondarySpreadDistance = Math.Radians(kRifleRandomSpread)
-local kRifleSecondarySpreadDistanceX = Math.Radians(kRifleRandomX) --20
-local kRifleSecondarySpreadDistanceY = Math.Radians(kRifleRandomY) --20
+	local kRifleRandomX = math.random(-100,100) * 0.01 --0.0 thru 3.0
+	local kRifleRandomY = math.random(-75,75) * 0.01 --0.0 thru 3.0
+	local kRifleRandomSpread = math.random(30,40)
+	local kRifleSecondarySpreadDistance = Math.Radians(kRifleRandomSpread)
+	local kRifleSecondarySpreadDistanceX = Math.Radians(kRifleRandomX) --20
+	local kRifleSecondarySpreadDistanceY = Math.Radians(kRifleRandomY) --20
 
     local shootCoords = viewAngles:GetCoords()
 
@@ -648,7 +655,13 @@ if Client then
 
     function Rifle:OnClientPrimaryAttackStart()
         
+        CheckForDestroyedEffects(self)
+        
+        -- TODO re-enable the single shot, see why it was removed at all :/
+        StartSoundEffectAtOrigin(kSingleShotSounds[math.ceil(self.soundType / 3)], self:GetOrigin())
+        
         Shared.PlaySound(self, kLoopingSounds[self.soundType])
+        self.clientSoundTypePlaying = self.soundType
         
         local player = self:GetParent()
         
@@ -734,7 +747,7 @@ if Client then
         end
         
     end
-	
+    
     --Seconday Attack
     function Rifle:OnClientSecondaryAttackStart()
         
@@ -829,6 +842,7 @@ if Client then
         return not self:GetIsReloading() and self.shooting
     end
 	
+    
     function Rifle:GetBarrelPoint()
     
         local player = self:GetParent()
@@ -848,7 +862,6 @@ if Client then
     function Rifle:GetUIDisplaySettings()
         return { xSize = 256, ySize = 417, script = "lua/GUIRifleDisplay.lua", variant = self:GetRifleVariant() }
     end
-    
 end
 
 function Rifle:ModifyDamageTaken(damageTable, attacker, doer, damageType)

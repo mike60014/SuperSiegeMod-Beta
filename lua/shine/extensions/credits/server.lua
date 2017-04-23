@@ -27,7 +27,7 @@ Shine.Hook.SetupClassHook("Player", "HookWithShineToBuyMist", "CommDropAlienMist
 Shine.Hook.SetupClassHook("Player", "HookWithShineToBuyMed", "CommDropMedPack", "Replace")
 Shine.Hook.SetupClassHook("Player", "HookWithShineToBuyAmmo", "CommDropAmmoPack", "Replace")
 Shine.Hook.SetupClassHook("DoConcedeSequence", "OnConcede", "SaveAllCredits", "pre")
-Shine.Hook.SetupClassHook("DoStalemateSequence", "OnStalemate", "SaveAllCredits", "pre")
+--Shine.Hook.SetupClassHook("DoStalemateSequence", "OnStalemate", "SaveAllCredits", "pre")
 
 function Plugin:OnoEggFilled(player)
   self:NotifySalt( player:GetClient(), "You farted.", true )

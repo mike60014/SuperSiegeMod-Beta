@@ -38,6 +38,7 @@ Shine.VoteMenu:AddPage ("SpendStructures", function( self )
 
         self:AddBottomButton("Back", function()self:SetPage("SpendCredits")end) 
 end)
+
 Shine.VoteMenu:AddPage ("SpendExpenive", function( self )
        local player = Client.GetLocalPlayer()
     if player:GetTeamNumber() == 1 then 
@@ -57,9 +58,9 @@ Shine.VoteMenu:AddPage ("SpendWeapons", function( self )
         self:AddSideButton("FlameThrower(30)", function() Shared.ConsoleCommand ("sh_buywp FlameThrower")  end)
         self:AddSideButton("GrenadeLauncher(30)", function() Shared.ConsoleCommand ("sh_buywp GrenadeLauncher")  end)
 	    self:AddSideButton("Welder(1)", function() Shared.ConsoleCommand ("sh_buywp Welder")  end)
-	    self:AddSideButton("Cluster(1)", function() Shared.ConsoleCommand ("sh_buywp Welder")  end)
-	    self:AddSideButton("Stun(1)", function() Shared.ConsoleCommand ("sh_give ^ StunGrenade")  end)
-	    self:AddSideButton("NerveGas(1)", function() Shared.ConsoleCommand ("sh_give ^ NerveGas")  end)
+	    self:AddSideButton("Cluster(1)", function() Shared.ConsoleCommand ("sh_buywp clustergrenade")  end)
+	    self:AddSideButton("Stun(1)", function() Shared.ConsoleCommand ("sh_buywp pulseGrenade")  end)
+	    self:AddSideButton("NerveGas(1)", function() Shared.ConsoleCommand ("sh_buywp gasgrenade")  end)
         self:AddBottomButton("Back", function()self:SetPage("SpendCredits")end) 
 end)
 Shine.VoteMenu:AddPage ("SpendClasses", function( self )
@@ -100,7 +101,7 @@ Shine.VoteMenu:AddPage ("SpendCommAbilities", function( self )
                   self:AddSideButton ("Scan(10)", function()Shared.ConsoleCommand ("sh_buy Scan")end)
                   self:AddSideButton ("Medpack(5)", function()Shared.ConsoleCommand ("sh_buy Medpack")end)
            else
-       self:AddSideButton ("NutrientMist(1)", function()Shared.ConsoleCommand ("sh_buy NutrientMist")end)
+       self:AddSideButton("NutrientMist(1)", function()Shared.ConsoleCommand ("sh_buy NutrientMist")end)
        self:AddSideButton("EnzymeCloud(15)", function() Shared.ConsoleCommand ("sh_buy EnzymeCloud")  end)
        self:AddSideButton("Ink(500)", function() Shared.ConsoleCommand ("sh_tbuy Ink")  end)
        self:AddSideButton("Hallucination(17)", function() Shared.ConsoleCommand ("sh_buy Hallucination")  end)
@@ -109,6 +110,55 @@ Shine.VoteMenu:AddPage ("SpendCommAbilities", function( self )
      self:AddBottomButton("Back", function()self:SetPage("SpendCredits")end) 
 end)
 */
+
+Shine.VoteMenu:AddPage ("Quick Salt", function( self )
+       local player = Client.GetLocalPlayer()
+
+	self:AddTopButton("Classes", function()self:SetPage("SpendClasses") end)
+	if player:GetTeamNumber() == 1 then 
+		
+		self:AddSideButton("Welder: "..gCreditWeaponCostWelder, function() Shared.ConsoleCommand ("sh_buywp Welder")  end)
+		self:AddSideButton("Scan: "..gCreditAbilityCostScan, function()Shared.ConsoleCommand ("sh_buy Scan")end)
+		self:AddSideButton("Pulse Grenade: "..gCreditWeaponCostGrenadePulse, function() Shared.ConsoleCommand ("sh_buywp pulseGrenade")  end)
+		self:AddSideButton("Gas Grenade: "..gCreditWeaponCostGrenadeGas, function() Shared.ConsoleCommand ("sh_buywp gasgrenade")  end)
+		
+		self:AddSideButton("HeavyMachineGun: "..gCreditWeaponCostHMG, function() Shared.ConsoleCommand ("sh_buywp HeavyMachineGun")  end)
+		self:AddSideButton("Shotgun: "..gCreditWeaponCostShotGun, function() Shared.ConsoleCommand ("sh_buywp Shotgun")  end)
+		self:AddSideButton("GrenadeLauncher: "..gCreditWeaponCostGrenadeLauncher, function() Shared.ConsoleCommand ("sh_buywp GrenadeLauncher")  end)
+
+		self:AddSideButton("JetPack: "..gCreditClassCostJetPack, function() Shared.ConsoleCommand ("sh_buyclass JetPack")  end)
+		self:AddSideButton("MiniGunExo: "..gCreditClassCostMiniGun, function() Shared.ConsoleCommand ("sh_buyclass MiniGun")  end)
+		self:AddSideButton("RailGunExo: "..gCreditClassCostRailGun, function() Shared.ConsoleCommand ("sh_buyclass RailGun")  end)
+		self:AddSideButton("WelderExo: "..gCreditClassCostWelder, function() Shared.ConsoleCommand ("sh_buyclass Welder")  end)
+		
+	elseif player:GetTeamNumber() == 2 then
+	if player:isa("Gorge") then
+	self:AddSideButton("Tunnel@Hive: "..gCreditStructureCostTunnelToHive, function() Shared.ConsoleCommand ("sh_buycustom TunnelEntrance")  end)
+	end
+		
+	self:AddSideButton("EnzymeCloud: "..gCreditAbilityCostEnzymeCloud, function() Shared.ConsoleCommand ("sh_buy EnzymeCloud")  end)
+	self:AddSideButton("Ink: "..gCreditAbilityCostInk, function() Shared.ConsoleCommand ("sh_tbuy Ink")  end)
+	self:AddSideButton("Hallucination: "..gCreditAbilityCostHallucination, function() Shared.ConsoleCommand ("sh_buy Hallucination")  end)
+	self:AddSideButton("Contamination: "..gCreditAbilityCostContamination, function() Shared.ConsoleCommand ("sh_buy Contamination")  end)
+	
+	self:AddSideButton("Gorge: "..gCreditClassCostGorge, function() Shared.ConsoleCommand ("sh_buyclass Gorge")  end)
+	self:AddSideButton("Lerk: "..gCreditClassCostLerk, function() Shared.ConsoleCommand ("sh_buyclass Lerk")  end)
+	self:AddSideButton("Fade: "..gCreditClassCostFade, function() Shared.ConsoleCommand ("sh_buyclass Fade")  end)
+	self:AddSideButton("Onos: "..gCreditClassCostOnos, function() Shared.ConsoleCommand ("sh_buyclass Onos")  end)
+	
+    self:AddSideButton("Shade: "..gCreditStructureCostShade, function() Shared.ConsoleCommand ("sh_buy Shade")  end)
+    self:AddSideButton("Crag: "..gCreditStructureCostCrag, function() Shared.ConsoleCommand ("sh_buy Crag")  end)
+    self:AddSideButton("Whip: "..gCreditStructureCostWhip, function() Shared.ConsoleCommand ("sh_buy Whip")  end)
+    self:AddSideButton("Shift: "..gCreditStructureCostShift, function() Shared.ConsoleCommand ("sh_buy Shift")  end)
+	
+	
+	else
+		
+	
+	end
+	self:AddBottomButton("Back", function()self:SetPage("SpendCredits")end) 
+end)
+
 
 Shine.VoteMenu:AddPage ("SpendCredits", function( self )
 	local player = Client.GetLocalPlayer()
@@ -132,6 +182,7 @@ Shine.VoteMenu:AddPage ("SpendCredits", function( self )
 
 Shine.VoteMenu:EditPage("Main", function( self ) 
 self:AddSideButton("Salt", function() self:SetPage("SpendCredits") end)
+self:AddSideButton("Quick Salt", function() self:SetPage("Quick Salt") end)
 end)
 
 

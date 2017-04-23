@@ -11,9 +11,8 @@
 Script.Load("lua/Weapons/Alien/Ability.lua")
 Script.Load("lua/Weapons/Alien/BiteLeap.lua")
 
-local kRange = gSkulkXenocideRadiusRange
-kXenocideRange = gSkulkXenocideRadiusRange
-kXenocideDamage = gSkulkXenocidePlayerDamage
+local kRange = kXenocideRange
+--kXenocideDamage = gSkulkXenocidePlayerDamage
 class 'XenocideLeap' (BiteLeap)
 
 XenocideLeap.kMapName = "xenocide"

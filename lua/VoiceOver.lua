@@ -36,7 +36,7 @@ local function VoteEjectCommander(player)
     end    
     
 end
-
+/*
 local function VoteStalemate(player)
 
     if player then
@@ -44,7 +44,7 @@ local function VoteStalemate(player)
     end
     
 end
-
+*/
 local function VoteConcedeRound(player)
 
     if player then
@@ -129,7 +129,7 @@ local kSoundData =
     -- always part of the menu
     [kVoiceId.VoteEject] = { Function = VoteEjectCommander },
     [kVoiceId.VoteConcede] = { Function = VoteConcedeRound },
-    --[kVoiceId.VoteStalemateRound] = { Function = VoteStalemateRound },
+    --[kVoiceId.VoteStalemate] = { Function = VoteStalemate },
 
     [kVoiceId.Ping] = { Function = PingInViewDirection, Description = "REQUEST_PING", KeyBind = "PingLocation" },
 

@@ -1,47 +1,55 @@
 
-Onos.kJumpForce = gOnosJumpForce
-Onos.kJumpVerticalVelocity = gOnosJumpVerticalVelocity
+Onos.kJumpForce = kOnosJumpForce
+Onos.kJumpVerticalVelocity = kOnosJumpVerticalVelocity
 
-Onos.kJumpRepeatTime = gOnosJumpRepeatTime
-Onos.kViewOffsetHeight = gOnosViewOffsetHeight
-Onos.XExtents = gOnosXExtents
-Onos.YExtents = gOnosYExtents
-Onos.ZExtents = gOnosZExtents
-Onos.kMass = gOnosMass --453 -- Half a ton
-Onos.kJumpHeight = gOnosJumpHeight
+Onos.kJumpRepeatTime = kOnosJumpRepeatTime
+Onos.kViewOffsetHeight = kOnosViewOffsetHeight
+Onos.XExtents = kOnosXExtents
+Onos.YExtents = kOnosYExtents
+Onos.ZExtents = kOnosZExtents
+Onos.kMass = kOnosMass
+Onos.kJumpHeight = kOnosJumpHeight
 
 -- triggered when the momentum value has changed by this amount (negative because we trigger the effect when the onos stops, not accelerates)
-Onos.kMomentumEffectTriggerDiff = gOnosMomentumEffectTriggerDiff
+Onos.kMomentumEffectTriggerDiff = kOnosMomentumEffectTriggerDiff
 
-Onos.kGroundFrictionForce = gOnosGroundFrictionForce
+Onos.kGroundFrictionForce = kOnosGroundFrictionForce
 
 -- used for animations and sound effects
-Onos.kMaxSpeed = gOnosMaxSpeed
-Onos.kChargeSpeed = gOnosMaxChargeSpeed
+Onos.kMaxSpeed = kOnosMaxSpeed --7.5
+Onos.kChargeSpeed = kOnosChargeSpeed --11.5
 
-Onos.kHealth = gOnosHealth
-Onos.kArmor = gOnosArmor
-Onos.kChargeEnergyCost = gOnosChargeEnergyCost
+Onos.kHealth = kOnosHealth
+Onos.kArmor = kOnosArmor
+Onos.kChargeEnergyCost = kChargeEnergyCost
 
-Onos.kChargeUpDuration = gOnosChargeUpDuration
-Onos.kChargeDelay = gOnosChargeDelay
+Onos.kChargeUpDuration = kOnosChargeUpDuration
+Onos.kChargeDelay = kOnosChargeDelay
 
 -- mouse sensitivity scalar during charging
-Onos.kChargingSensScalar = gOnosChargingSensScalar
+Onos.kChargingSensScalar = kOnosChargingSensScalar
 
-Onos.kStoopingCheckInterval = gOnosStoopingCheckInterval
-Onos.kStoopingAnimationSpeed = gOnosStoopingAnimationSpeed
-Onos.kYHeadExtents = gOnosYHeadExtents
-Onos.kYHeadExtentsLowered = gOnosYHeadExtentsLowered
+Onos.kStoopingCheckInterval = kOnosStoopingCheckInterval
+Onos.kStoopingAnimationSpeed = kOnosStoopingAnimationSpeed
+Onos.kYHeadExtents = kOnosYHeadExtents
+Onos.kYHeadExtentsLowered = kOnosYHeadExtentsLowered
 
 
 function Onos:GetRebirthLength()
-return 5
-end
-function Onos:GetRedemptionCoolDown()
-return 25
+return kOnosRebirthLength
 end
 
+function Onos:GetRedemptionCoolDown()
+return kOnosRedemptionCooldown
+end
+
+
+function Onos:GetRebirthLength()
+	return kOnosRebirthLength
+end
+function Onos:GetRedemptionCoolDown()
+	return kOnosRedemptionCooldown
+end
 
 function Onos:PreUpdateMove(input, runningPrediction)
 
@@ -59,22 +67,31 @@ function Onos:PreUpdateMove(input, runningPrediction)
     end
 end
 
+/*
+function Onos:PreUpdateMove(input, runningPrediction)
+end
+*/
+
+--local origspeed = Onos.GetMaxSpeed
+--Onos.kMaxSpeed = 8
+--Onos.kChargeSpeed = 13.7
+
 function Onos:GetMaxSpeed(possible)
-	local speed = gOnosMaxSpeed
-    if possible then return speed end
-	if self:GetIsPoopGrowing() then return 0 end
-	if self:GetIsOnFire() then speed = speed * gOnosOnFireMoveSpeedFraction end
-	if self:GetIsOnFire() then speed = speed * gOnosOnFireMoveSpeedFraction end
-	--if not self:GetIsOnFire() then speed = 9.375 end
-	if self:GetIsXenociding() then speed = speed * gOnocideMoveSpeedFraction end
-	if self:GetIsBoneShieldActive() then speed = speed * gBoneShieldMoveSpeedFraction end
-	local chargeExtra = self:GetChargeFraction() * (gOnosMaxChargeSpeed - speed)
+     local speed = kOnosMaxSpeed
+  
+    if possible then
+        return speed
+    end
+   if not self:GetIsOnFire() then speed = kOnosCelerityMoveSpeed end
+    if self:GetIsPoopGrowing() then speed = 0 end
+    local boneShieldSlowdown = self:GetIsBoneShieldActive() and kBoneShieldMoveFraction or 1
+    local chargeExtra = self:GetChargeFraction() * (12 - speed)
     
-    return ( speed + chargeExtra )
+    return ( speed + chargeExtra ) * boneShieldSlowdown
     
     
 end
-
+--ugh
 local kBlockDoers =
 {
     "Minigun",
@@ -84,9 +101,10 @@ local kBlockDoers =
     "HeavyMachineGun",
     "Shotgun",
     "Axe",
-    --"Welder",
+    "Welder",
     "Sentry",
-    "Claw"
+    "Claw",
+    "Fist",
 }
 local function GetHitsBoneShield(self, doer, hitPoint)
 
@@ -110,12 +128,10 @@ function Onos:ModifyDamageTaken(damageTable, attacker, doer, damageType, hitPoin
        
         if self:GetIsBoneShieldActive() then
           if GetHitsBoneShield(self, doer, hitPoint) then
-           damageReduct = gBoneShieldDamageReduction
+           damageReduct = kBoneShieldDamageReduction
            end
-        elseif self:GetIsCharging() then  
-        damageReduct = gOnosChargeDamageReduction
-        elseif self:GetIsXenociding() then  
-        damageReduct = gOnocideDamageReduction
+        elseif self:GetIsCharging()  then  
+        damageReduct =  0.7
         end
         
         if damageReduct ~= 1 then
@@ -135,16 +151,6 @@ function Onos:GetIsPoopGrowing()
 
     local activeWeapon = self:GetActiveWeapon()
     if activeWeapon and activeWeapon:isa("OnoGrow") and activeWeapon.primaryAttacking then
-        return true
-    end    
-    return false
-    
-end
-
-function Onos:GetIsXenociding()
-
-    local activeWeapon = self:GetActiveWeapon()
-    if activeWeapon and activeWeapon:isa("Onocide") and activeWeapon.primaryAttacking then
         return true
     end    
     return false

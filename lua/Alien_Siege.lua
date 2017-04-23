@@ -1,15 +1,17 @@
 local networkVars = {lastredeemorrebirthtime = "time", canredeemorrebirth = "boolean",  primaled = "boolean",  primaledID = "entityid",} 
 local orig_Alien_OnCreate = Alien.OnCreate
 
---Alien.kEnergyRecuperationRate = gAlienEnergyRecuperationRate
---Alien.kWalkBackwardSpeedScalar = gAlienWalkBackwardSpeedScalar
---Alien.kEnergyAdrenalineRecuperationRate = gAlienEnergyAdrenalineRecuperationRate
+Alien.kEnergyRecuperationRate = kAlienEnergyRecuperationRate
+Alien.kWalkBackwardSpeedScalar = kAlienWalkBackwardSpeedScalar
+Alien.kEnergyAdrenalineRecuperationRate = kAlienEnergyAdrenalineRecuperationRate
 
---Babbler.kMass = gBabblerMass
---Babbler.kRadius = gBabblerRadius
---Babbler.kLinearDamping = gBabblerLinearDamping
---Babbler.kRestitution = gBabblerRestitution
---Babbler.kFov = gBabblerFov
+
+
+Babbler.kMass = gBabblerMass
+Babbler.kRadius = gBabblerRadius
+Babbler.kLinearDamping = gBabblerLinearDamping
+Babbler.kRestitution = gBabblerRestitution
+Babbler.kFov = gBabblerFov
 kBabblerHealth = gBabblerHealth
 kTargetSearchRange = gBabblerTargetSearchRange
 kAttackRate = gBabblerAttackRate
@@ -23,6 +25,9 @@ kMaxJumpForce = gBabblerMaxJumpForce
 kMinJumpForce = gBabblerMinJumpForce
 kTurnSpeed = gBabblerTurnSpeed
 kBabblerClingDuration = gBabblerClingDuration
+
+local knewMaxHealthMultipler = gAlienBiomassAddHealthMultipler --1.10
+
 
 function Alien:SlapPlayer()
  self:SetVelocity(  self:GetVelocity() + Vector(math.random(100,900),math.random(100,900),math.random(100,900)  ) )
@@ -123,79 +128,113 @@ function Alien:CheckRedemptionTimer()
 end
 
 function Alien:GetRebirthLength()
-	return 0
+return 0
 end
 
 function Alien:GetRedemptionCoolDown()
-	return 0
+return 0
+end
+
+/*
+function Alien:UpdateArmorAmount(carapaceLevel)
+return
+end
+function Alien:UpdateHealthAmount(bioMassLevel, maxLevel)
+return
+end
+*/
+
+
+function Alien:UpdateArmorAmount(carapaceLevel)
+    local teamInfo = GetTeamInfoEntity(2)
+	if teamInfo then
+	if GetHasCarapaceUpgrade(self) then
+		local bioMassLevel = teamInfo:GetBioMassLevel()
+		local bioMassPlusPercent = self:GetHealthPerBioMass() * bioMassLevel
+		local newMaxHealth = self:GetBaseHealth() + (bioMassPlusPercent * self:GetBaseHealth())
+		local level = carapaceLevel or 0
+		local AddArmorFromHP = ((level * gCarapaceArmorPerLevelPercent) * newMaxHealth) + self:GetBaseArmor()
+		local newMaxArmor = Clamp(AddArmorFromHP , self:GetBaseArmor(), self:GetArmorFullyUpgradedAmount())
+		self.maxArmor = newMaxArmor
+		--self:SetMaxArmor(newMaxArmor)
+		self:AdjustMaxArmor(newMaxArmor)
+		--self:AddArmor(newMaxArmor - self:GetBaseArmor(), false, false, self)
+	elseif not GetHasCarapaceUpgrade(self) then
+	
+		--self:SetMaxArmor(self:GetBaseArmor())
+		self:AdjustMaxArmor(self:GetBaseArmor())
+	
+    end
+	end
+	return false
 end
 
 function Alien:UpdateHealthAmount(bioMassLevel, maxLevel)
     local teamInfo = GetTeamInfoEntity(2)
 	if teamInfo then
-		local bioMassLevel = teamInfo:GetBioMassLevel()
+	if self:GetHasUpgrade(kTechId.ThickenedSkin) then 
+		local bioMassLevel = teamInfo:GetBioMassLevel() or 0
 		local bioMassPlusPercent = self:GetHealthPerBioMass() * bioMassLevel
 		local newMaxHealth = self:GetBaseHealth() + (bioMassPlusPercent * self:GetBaseHealth())
-		--newMaxHealth =  ConditionalValue(self:GetHasUpgrade(kTechId.ThickenedSkin), newMaxHealth * bioMassPlusPercent, newMaxHealth)
-		
+		self.maxHealth = newMaxHealth
+		--self:SetMaxHealth(newMaxHealth)
 		self:AdjustMaxHealth(newMaxHealth)
-		self:SetMaxHealth(newMaxHealth)
+		--self:AddHealth(newMaxHealth - self:GetBaseHealth(), playSound, noArmor, hideEffect, healer)
+	else
+		local newMaxHealth = self:GetBaseHealth()
+		self.maxHealth = newMaxHealth
+		--self:SetMaxHealth(newMaxHealth)
+		self:AdjustMaxHealth(newMaxHealth)
+	end
     end
    return false
-end
-
-/*
-function Alien:UpdateArmorAmount(carapaceLevel)
-    local teamInfo = GetTeamInfoEntity(2)
-	if teamInfo then
-		local bioMassLevel = teamInfo:GetBioMassLevel()
-		local bioMassPlusPercent = self:GetHealthPerBioMass() * bioMassLevel
-		local newMaxHealth = self:GetBaseHealth() + (bioMassPlusPercent * self:GetBaseHealth())
-		local level = carapaceLevel or 0
-	if GetHasCarapaceUpgrade(self) then
-		local AddArmorFromHP = ((level * gCarapaceArmorPerLevelPercent) * newMaxHealth) + self:GetBaseArmor()
-		local maxArmorPossible = (3 * gCarapaceArmorPerLevelPercent) * newMaxHealth + self:GetBaseArmor()
-		local AddNewArmor = AddArmorFromHP - self:GetArmor()
-		local newMaxArmor = Clamp(AddNewArmor , self:GetBaseArmor(), maxArmorPossible)
-        self.maxArmor = maxArmorPossible
-        self:SetArmor(newMaxArmor)
-    end
-	end
-	return false
-end
-*/
-
-function Alien:UpdateArmorAmountManual(carapaceLevel)
-    local teamInfo = GetTeamInfoEntity(2)
-	if teamInfo then
-		local bioMassLevel = teamInfo:GetBioMassLevel()
-		local bioMassPlusPercent = self:GetHealthPerBioMass() * bioMassLevel
-		local newMaxHealth = self:GetBaseHealth() + (bioMassPlusPercent * self:GetBaseHealth())
-		local level = carapaceLevel or 0
-	if GetHasCarapaceUpgrade(self) then
-		local AddArmorFromHP = ((level * gCarapaceArmorPerLevelPercent) * newMaxHealth) + self:GetBaseArmor()
-		local maxArmorPossible = (3 * gCarapaceArmorPerLevelPercent) * newMaxHealth + self:GetBaseArmor()
-		local AddNewArmor = AddArmorFromHP - self:GetArmor()
-		local newMaxArmor = Clamp(AddNewArmor , self:GetBaseArmor(), maxArmorPossible)
-        self.maxArmor = maxArmorPossible
-        self:SetArmor(newMaxArmor)
-    end
-	end
-	return false
 end
 
 function Alien:UpdateHealthAmountManual(bioMassLevel, maxLevel)
     local teamInfo = GetTeamInfoEntity(2)
 	if teamInfo then
+	if self:GetHasUpgrade(kTechId.ThickenedSkin) then 
+		local bioMassLevel = teamInfo:GetBioMassLevel() or 0
+		local bioMassPlusPercent = self:GetHealthPerBioMass() * bioMassLevel
+		local newMaxHealth = self:GetBaseHealth() + (bioMassPlusPercent * self:GetBaseHealth())
+		self.maxHealth = newMaxHealth
+		--self:SetMaxHealth(newMaxHealth)
+		self:AdjustMaxHealth(newMaxHealth)
+		--self:SetHealth(newMaxHealth)
+	else
+		local newMaxHealth = self:GetBaseHealth()
+		self.maxHealth = newMaxHealth
+		--self:SetMaxHealth(newMaxHealth)
+		self:AdjustMaxHealth(newMaxHealth)
+    end
+	end
+   return false
+end
+
+function Alien:UpdateArmorAmountManual(carapaceLevel)
+    local teamInfo = GetTeamInfoEntity(2)
+	if teamInfo then
+	if GetHasCarapaceUpgrade(self) then
 		local bioMassLevel = teamInfo:GetBioMassLevel()
 		local bioMassPlusPercent = self:GetHealthPerBioMass() * bioMassLevel
 		local newMaxHealth = self:GetBaseHealth() + (bioMassPlusPercent * self:GetBaseHealth())
-		--newMaxHealth =  ConditionalValue(self:GetHasUpgrade(kTechId.ThickenedSkin), newMaxHealth * bioMassPlusPercent, newMaxHealth)
-		self:AdjustMaxHealth(newMaxHealth)
-		self:SetMaxHealth(newMaxHealth)
+		local level = carapaceLevel or 0
+		local AddArmorFromHP = ((level * gCarapaceArmorPerLevelPercent) * newMaxHealth) + self:GetBaseArmor()
+		local newMaxArmor = Clamp(AddArmorFromHP , self:GetBaseArmor(), self:GetArmorFullyUpgradedAmount())
+		self.maxArmor = newMaxArmor
+		--self:SetMaxArmor(newMaxArmor)
+		self:AdjustMaxArmor(newMaxArmor)
+		--self:SetArmor(newMaxArmor, false)
+	elseif not GetHasCarapaceUpgrade(self) then
+	
+		--self:SetMaxArmor(self:GetBaseArmor())
+		self:AdjustMaxArmor(self:GetBaseArmor())
+	
     end
-   return false
+	end
+	return false
 end
+
 
 if Server then
 
