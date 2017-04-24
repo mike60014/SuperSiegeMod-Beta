@@ -186,7 +186,7 @@ kMaxTeamResources = 200
 kMaxPersonalResources = 100
 
 kKillTeamReward = 0
-kPersonalResPerKill = 5 --0
+kPersonalResPerKill = 2 --0
 
 
 
@@ -226,9 +226,9 @@ kOnFireEnergyRecuperationScalar = 0.75
 
 
 --Regeneration
-kAlienRegenerationPercentage = 0.10 --0.06
-kAlienMinRegeneration = 8 --6
-kAlienMaxRegeneration = 120 --80
+kAlienRegenerationPercentage = 0.06
+kAlienMinRegeneration = 6
+kAlienMaxRegeneration = 80
 
 
 
@@ -645,14 +645,15 @@ kParasiteDamage = 10
 kParasiteDamageType = kDamageType.Normal
 kParasiteEnergyCost = 30
 
-kXenocideDamage = 200
+kXenocideDamage = 160 --Start at 2x skulk HP
 gSkulkXenocidePlayerDamage = kXenocideDamage / 2
 gSkulkXenocideStructureDamage = kXenocideDamage
 kXenocideDamageType = kDamageType.Normal
+kXenocidekRange = 1.4 --Unused local var
 kXenocideRange = 7 --14
 kXenocideEnergyCost = 30
-
-
+kXenocideDentonateTime = 2.0
+kXenocideHUDSlot = 3
 
 gSkulkXenocideLeapGetHUDSlot = 3
 gSkulkXenocideDetonateTime = 2.0
@@ -800,9 +801,10 @@ kSpikesRange = 50
 kSpikesPerShot = 1
 
 kSporesDamageType = kDamageType.Gas
-kSporesDustDamagePerSecond = 5 --15
+kSporesDustDamagePerSecond = 6 --15
 kSporesDustFireDelay = 0.36
 kSporesMaxRange = 12 --17
+kLerkSporeShootRange = 10
 kSporesDustEnergyCost = 27
 kSporesDustCloudRadius = 4
 kSporesDustCloudLifetime = 4
@@ -894,7 +896,7 @@ kRocketRadius = 0.15
 kRocketLifeTime = 5 --0.5
 
 kAcidRocketDamage = 20 --25
-kAcidRocketDamageType = kDamageType.ArmorOnly --kDamageType.Structural
+kAcidRocketDamageType = kDamageType.Corrode --kDamageType.Structural
 kAcidRocketEnergyCost = 15 --10
 kAcidRocketFireDelay = 0.5
 kAcidRocketRadius = 4 --6
@@ -997,7 +999,7 @@ kOnocideDetonateTime = 2.0
 kOnocideDetonateRange = 10
 kOnocideInitialEnergyCost = 20
 kOnocideHUDSlot = 4
-gOnocideDamage = gOnosHealth --Clamp(player:GetHealthScalar(), gOnocideDamageHealthMinRatio, gOnocideDamageHealthMaxRatio)
+gOnocideDamage = kOnosHealth --Clamp(player:GetHealthScalar(), gOnocideDamageHealthMinRatio, gOnocideDamageHealthMaxRatio)
 gOnocideDamageType = kDamageType.Structural --Clamp(player:GetHealthScalar(), gOnocideDamageHealthMinRatio, gOnocideDamageHealthMaxRatio)
 kOnocideDamageHealthMinRatio = 0.00--0.3
 kOnocideDamageHealthMaxRatio = 0.40 --1 
@@ -1179,6 +1181,22 @@ kMarineRegenerationHeal = 25 --Amount of hp per second
 
 --Grenades
 
+kPulseGrenadeDamageRadius = 6
+kPulseGrenadeEnergyDamageRadius = 10
+kPulseGrenadeDamage = 110
+kPulseGrenadeEnergyDamage = 0
+kPulseGrenadeDamageType = kDamageType.Normal
+
+kClusterGrenadeDamageRadius = 10
+kClusterGrenadeDamage = 55
+kClusterFragmentDamageRadius = 6
+kClusterFragmentDamage = 20
+kClusterGrenadeDamageType = kDamageType.Flame
+
+kNerveGasDamagePerSecond = 50
+kNerveGasDamageType = kDamageType.NerveGas
+
+
 -- Mines
 kNumMines = 2
 kMineActiveTime = 4
@@ -1283,7 +1301,7 @@ gRifleToHMGReloadSpeed = 4 --rifleReloadTime / hmgReloadTime
 kHeavyMachineGunTechResearchTime = 20 --30
 kHeavyMachineGunWeight = 0.20 --0.26
 kHeavyMachineGunCost = 25
-kHeavyMachineGunDamage = 10 --6
+kHeavyMachineGunDamage = 7 --6
 kHeavyMachineGunDamageType = kDamageType.Puncture
 kHeavyMachineGunClipSize = 125
 kHeavyMachineGunClipNum = 8 --4
@@ -1298,15 +1316,15 @@ kHeavyMachineGunDropCost = 25 --default = 40
 
 
 --Axe
-gAxePrimarySwingAmount = 60 --40
-gAxeDamage = 40 --25
-gAxePrimaryDamage = 40 --25
+gAxePrimarySwingAmount = 40
+gAxeDamage = 30 --25
+gAxePrimaryDamage = 30 --25
 gAxeDamageType = kDamageType.Structural
 
 gAxeHUDSlot = 3 --6
 gAxeRange = 1.5 --1.5 --1
 gAxePrimaryRange = 1.5 --1.5 --1
-gAxeFloorRange = 1.5 --0.8
+gAxeFloorRange = 0.8
 --gAxePrimaryAttackDelay =
 gAxeSecondarySwingAmount = 15
 gAxeSecondaryAttackDelay = 1.5
@@ -1329,7 +1347,7 @@ kNadeLauncherClipSize = 4
 
 kGrenadeLauncherTechResearchTime = 20
 kGrenadeLauncherPointValue = gGrenadeLauncherPointValue
-kGrenadeLauncherGrenadeDamage = 125 --165
+kGrenadeLauncherGrenadeDamage = 165
 kGrenadeLauncherGrenadeDamageType = kDamageType.GrenadeLauncher
 kGrenadeLauncherClipSize = 4
 kGrenadeLauncherGrenadeDamageRadius = 4.8
@@ -1520,11 +1538,12 @@ kPowerSurgeElectrifiedDuration = 6
 kJetpackHealth = 125 --100
 kJetpackArmor = 50 --0
 kJetpackPointValue = 10
-kJetpackingAccel = 1 --0.8
-kUpgradedJetpackUseFuelRate = 0.1 --0.19
-kJetpackReplenishFuelRate = 0.45 --0.14 -- .11 to .14 %30 increase
-kJetpackUseFuelRate = 0.17 --.21
-kJetpackFuelReplenishDelay = 1
+kUpgradedJetpackUseFuelRate = .19
+kJetpackingAccel = 0.8
+kJetpackUseFuelRate = .21
+kJetpackReplenishFuelRate = .11
+kJetpackUseFuelRate = 0.21
+kJetpackFuelReplenishDelay = 0
 
 kJetpackWeightLiftForce = 0.5 --0.13 --How much weight the jetpack lifts
 kMinWeightJetpackFuelFactor = 0.45 --0.8 --Min factor that gets applied on fuel usage of jetpack
@@ -1826,10 +1845,10 @@ kExoFlamerTrailnumFlameSegments = 30
 kExoFlamerUseCatPackCooldown = 6 -- 6
 kExoFlamerXZExtents = 0.55 -- 0.55
 kExoFlamerYExtents = 1.2 -- 1.20
-kExoFlamerThrustersCooldownTime = 2.0 -- 2.5
+kExoFlamerThrustersCooldownTime = 2.5
 
-gExoFlamerThrustersDuration = 2.0 -- 1.5
-gExoFlamerThrustersMinimumFuel = 0.50 -- 0.99
+gExoFlamerThrustersDuration =  1.5
+gExoFlamerThrustersMinimumFuel =  0.99
 gExoFlamerCrouchShrinkAmount = 0 -- 0
 gExoFlamerExtentsCrouchShrinkAmount = 0 -- 0
 
@@ -1840,6 +1859,7 @@ gExoWelderDamagePerAttack = 20
 gExoWelderPlayerWeldAmount = 20 --15
 gExoWelderStructureWeldAmount = 75 --65
 gExoWelderStructureWeldRateBreakableDoor = 90
+gExoWelderWeldRange = 3 --4
 kExoWelderWeldRange = 3 --4
 gExoWelderEffectRate = 0.45 --0.45
 gExoWelderFireDelay = 0.2
@@ -1855,10 +1875,10 @@ gExoWelderExtentsCrouchShrinkAmount = 0 -- 0
 gExoWelderMoveSpeedWhileFiringMultipler = 1  --1 = no change in speed. 1.25 = slow by 25% still need to implement
 gExoWelderThrusterHorizontalAcceleration = 23 --23
 gExoWelderAcceleration = 30 --20
-gExoWelderThrustersMinimumFuel = 0.35 -- 0.99
-gExoWelderThrustersDuration = 2.0 -- 1.5
-gExoWelderThrustersCooldownTime = 2.0 -- 2.5
-gExoWelderThrustersDuration = 2.0 -- 1.5
+gExoWelderThrustersMinimumFuel = 0.99
+gExoWelderThrustersDuration = 1.5
+gExoWelderThrustersCooldownTime = 2.5
+gExoWelderThrustersDuration =  1.5
 gExoWelderXZExtents = 0.35 -- 0.55
 gExoWelderYExtents = 1.0 -- 1.2
 gExoWelderUseCatPackCooldown = 6 -- 6
@@ -1896,9 +1916,9 @@ gExoMinigunThrusterHorizontalAcceleration = 23
 gExoMinigunMoveSpeedWhileFiringMultipler = 1  --1 = no change in speed. 1.25 = slow by 25%
 gExoMinigunXZExtents = 0.55 -- 0.55
 gExoMinigunYExtents = 1.2 -- 1.20
-gExoMinigunThrustersCooldownTime = 2.0 -- 2.5
-gExoMinigunThrustersDuration = 2.0 -- 1.5
-gExoMinigunThrustersMinimumFuel = 0.50 -- 0.99
+gExoMinigunThrustersCooldownTime = 2.5
+gExoMinigunThrustersDuration = 1.5
+gExoMinigunThrustersMinimumFuel = 0.99
 gExoMinigunCrouchShrinkAmount = 0 -- 0
 gExoMinigunExtentsCrouchShrinkAmount = 0 -- 0
 gExoMinigunUseCatPackCooldown = 6 -- 6
@@ -1922,9 +1942,9 @@ gExoRailgunThrusterHorizontalAcceleration = 23
 gExoRailgunMoveSpeedWhileFiringMultipler = 1  --1 = no change in speed. 1.25 = slow by 25%
 gExoRailgunXZExtents = 0.55 -- 0.55
 gExoRailgunYExtents = 1.2 -- 1.20
-gExoRailgunThrustersCooldownTime = 2.0 -- 2.5
-gExoRailgunThrustersDuration = 2.0 -- 1.5
-gExoRailgunThrustersMinimumFuel = 0.50 -- 0.99
+gExoRailgunThrustersCooldownTime = 2.5
+gExoRailgunThrustersDuration = 1.5
+gExoRailgunThrustersMinimumFuel = 0.99
 gExoRailgunCrouchShrinkAmount = 0 -- 0
 gExoRailgunExtentsCrouchShrinkAmount = 0 -- 0
 gExoRailgunUseCatPackCooldown = 6 -- 6
@@ -1965,7 +1985,7 @@ gAllExoSmashEggRange = 1.5
 gAllExoThrusterUpwardsAcceleration = 2
 gAllExoViewOffsetHeight = 2.3
 gAllExoWalkMaxSpeed = 3.7
-gExosuitHealth = 100
+gExosuitHealth = 1
 gExosuitArmor = 360 --360
 gAllExosuitArmorPerUpgradeLevel = 35 --20
 gHorizontalThrusterAddSpeed = 2.5
@@ -2303,21 +2323,6 @@ kWelderTechResearchCost = 0
 kWelderCost = 3
 kWelderDropCost = 5
 
-kPulseGrenadeDamageRadius = 6
-kPulseGrenadeEnergyDamageRadius = 10
-kPulseGrenadeDamage = 110
-kPulseGrenadeEnergyDamage = 0
-kPulseGrenadeDamageType = kDamageType.Normal
-
-kClusterGrenadeDamageRadius = 10
-kClusterGrenadeDamage = 55
-kClusterFragmentDamageRadius = 6
-kClusterFragmentDamage = 20
-kClusterGrenadeDamageType = kDamageType.Flame
-
-kNerveGasDamagePerSecond = 50
-kNerveGasDamageType = kDamageType.NerveGas
-
 kJetpackCost = 10 -- default 15
 kJetpackDropCost = 10 -- default 15
 kJetpackTechResearchCost = 10 -- default 25
@@ -2499,7 +2504,6 @@ kSentryEngagementDistance = 2
 kPlayerEngagementDistance = 1
 kExoEngagementDistance = 1.5
 kOnosEngagementDistance = 2
-kLerkSporeShootRange = 10
 
 -- entrance and exit
 kNumGorgeTunnels = 2
@@ -2570,11 +2574,6 @@ kCystRedeployRange = 7 -- distance from existing Cysts that will cause redeploym
 -- Damage over time that all cysts take when not connected
 kCystUnconnectedDamage = 12
 
--- Jetpack
-kUpgradedJetpackUseFuelRate = .19
-kJetpackingAccel = 0.8
-kJetpackUseFuelRate = .21
-kJetpackReplenishFuelRate = .11
 
 -- Mines
 kNumMines = 2
