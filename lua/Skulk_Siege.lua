@@ -9,11 +9,11 @@ function Skulk:GetMaxSpeed(possible)
 end
 
 function Skulk:GetRedemptionCoolDown()
-return 20
+	return 20
 end
 
 function Skulk:GetRebirthLength()
-return 2
+	return 2
 end
 
 function Skulk:GetBallFlagAttatchPoint(player)
@@ -30,3 +30,5 @@ function Skulk:GetTierFiveTechId()
 end
 
 end
+
+--kXenocideDamage = player.GetHealth() * 2

@@ -34,7 +34,6 @@ Onos.kStoopingAnimationSpeed = kOnosStoopingAnimationSpeed
 Onos.kYHeadExtents = kOnosYHeadExtents
 Onos.kYHeadExtentsLowered = kOnosYHeadExtentsLowered
 
-
 function Onos:GetRebirthLength()
 return kOnosRebirthLength
 end
@@ -43,13 +42,6 @@ function Onos:GetRedemptionCoolDown()
 return kOnosRedemptionCooldown
 end
 
-
-function Onos:GetRebirthLength()
-	return kOnosRebirthLength
-end
-function Onos:GetRedemptionCoolDown()
-	return kOnosRedemptionCooldown
-end
 
 function Onos:PreUpdateMove(input, runningPrediction)
 
@@ -131,7 +123,7 @@ function Onos:ModifyDamageTaken(damageTable, attacker, doer, damageType, hitPoin
            damageReduct = kBoneShieldDamageReduction
            end
         elseif self:GetIsCharging()  then  
-        damageReduct =  0.7
+			damageReduct =  0.7
         end
         
         if damageReduct ~= 1 then
@@ -174,12 +166,12 @@ end
 
 if Server then
 
-function Onos:GetTierFourTechId()
-    return kTechId.OnoGrow
-end
+	function Onos:GetTierFourTechId()
+		return kTechId.OnoGrow
+	end
 
-function Onos:GetTierFiveTechId()
-    return kTechId.Onocide
-end
+	function Onos:GetTierFiveTechId()
+		return kTechId.Onocide
+	end
 
 end

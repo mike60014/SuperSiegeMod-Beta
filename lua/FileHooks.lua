@@ -1,7 +1,5 @@
 ModLoader.SetupFileHook( "lua/NS2Utility.lua", "lua/NS2Utility_Siege.lua", "post" )
 ModLoader.SetupFileHook( "lua/NS2ConsoleCommands_Server.lua", "lua/NS2ConsoleCommands_Siege_Server.lua", "post" )
-ModLoader.SetupFileHook( "lua/Balance.lua", "lua/Balance_Siege.lua", "post" )
-ModLoader.SetupFileHook( "lua/BalanceHealth.lua", "lua/BalanceHealth_Siege.lua", "post" )
 ModLoader.SetupFileHook( "lua/TargetCache.lua", "lua/TargetCache_Siege.lua", "post" )
 
 ModLoader.SetupFileHook( "lua/Gamerules.lua", "lua/Gamerules_Siege.lua", "post" )
@@ -60,6 +58,7 @@ ModLoader.SetupFileHook( "lua/Alien_Upgrade.lua", "lua/Alien_Upgrade_Siege.lua",
 
 ModLoader.SetupFileHook( "lua/Weapons/Alien/Shockwave.lua", "lua/Weapons/Alien/Shockwave_Siege.lua", "post" )
 ModLoader.SetupFileHook( "lua/Weapons/Alien/HydraAbility.lua", "lua/Weapons/Alien/HydraAbility_Siege.lua", "post" )
+ModLoader.SetupFileHook("lua/Weapons/Alien/XenocideLeap.lua", "lua/Weapons/Alien/XenocideLeap_Siege.lua", "post")
 ModLoader.SetupFileHook( "lua/Alien.lua", "lua/Alien_Siege.lua", "post" ) --includes server
 ModLoader.SetupFileHook( "lua/Hive.lua", "lua/Hive_Siege.lua", "post" )
 ModLoader.SetupFileHook( "lua/Skulk.lua", "lua/Skulk_Siege.lua", "post" )
@@ -83,9 +82,13 @@ ModLoader.SetupFileHook( "lua/CommAbilities/Alien/Contamination.lua", "lua/CommA
 
 
 
+--[[
+ModLoader.SetupFileHook( "lua/Balance.lua", "lua/Balance_Siege.lua", "post" )
+ModLoader.SetupFileHook( "lua/BalanceHealth.lua", "lua/BalanceHealth_Siege.lua", "post" )
+ModLoader.SetupFileHook( "lua/Weapons/Marine/Axe.lua", "lua/Weapons/Marine/Axe_Siege.lua", "post" )
+ModLoader.SetupFileHook( "lua/Weapons/Marine/Shotgun.lua", "lua/Additions/AvocaShotgun.lua", "post" )
+ModLoader.SetupFileHook( "lua/Weapons/Marine/Shotgun.lua", "lua/Weapons/Marine/Shotgun_Siege.lua", "post" )
+ModLoader.SetupFileHook( "lua/Weapons/Marine/Rifle.lua", "lua/Weapons/Marine/Rifle_Siege.lua", "post" )
+ModLoader.SetupFileHook( "lua/Weapons/Alien/BileBomb.lua", "lua/Weapons/Alien/BileBomb_Siege.lua", "post" )
 
---ModLoader.SetupFileHook( "lua/Weapons/Marine/Axe.lua", "lua/Weapons/Marine/Axe_Siege.lua", "post" )
---ModLoader.SetupFileHook( "lua/Weapons/Marine/Shotgun.lua", "lua/Additions/AvocaShotgun.lua", "post" )
---ModLoader.SetupFileHook( "lua/Weapons/Marine/Shotgun.lua", "lua/Weapons/Marine/Shotgun_Siege.lua", "post" )
---ModLoader.SetupFileHook( "lua/Weapons/Marine/Rifle.lua", "lua/Weapons/Marine/Rifle_Siege.lua", "post" )
---ModLoader.SetupFileHook( "lua/Weapons/Alien/BileBomb.lua", "lua/Weapons/Alien/BileBomb_Siege.lua", "post" )
+]]--

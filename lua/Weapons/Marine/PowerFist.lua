@@ -1,13 +1,16 @@
 --PowerFist
 
+Script.Load("lua/DamageMixin.lua")
 Script.Load("lua/Weapons/Weapon.lua")
 Script.Load("lua/Weapons/Marine/Grenade.lua")
 Script.Load("lua/LiveMixin.lua")
+Script.Load("lua/TechMixin.lua")
+Script.Load("lua/TeamMixin.lua")
 
 class 'Fist' (Weapon)
 class 'PowerFist' (Grenade)
 
-Fist.kMapName = "fist"
+Fist.kMapName = "Fist"
 PowerFist.kMapName = "PowerFist"
 
 Fist.kModelName = PrecacheAsset("models/marine/grenades/gr_pulse_world.model")
@@ -18,9 +21,63 @@ PowerFist.kRange = 2
 PowerFist.kFloorRange = 1
 
 local networkVars =
-{
+{	
+	firstAttacking = "private boolean",
     sprintAllowed = "boolean",
 }
+
+function PowerFist:OnCreate()
+
+    Weapon.OnCreate(self)
+    
+    self.sprintAllowed = true
+    
+    InitMixin(self, BaseModelMixin)
+    InitMixin(self, ModelMixin)
+    InitMixin(self, TeamMixin)
+    InitMixin(self, DamageMixin)
+    
+    if Server then
+	
+        --self:AddTimedCallback(PowerFist.TimedDetonateCallback, kLifeTime)
+        self:Detonate()
+    end
+end
+
+function PowerFist:OnInitialized()
+
+    Weapon.OnInitialized(self)
+	
+    self:SetModel(Fist.kModelName)
+    
+end
+
+
+function Fist:OnCreate()
+
+    Weapon.OnCreate(self)
+    
+    self.sprintAllowed = true
+    
+    InitMixin(self, BaseModelMixin)
+    InitMixin(self, ModelMixin)
+    InitMixin(self, TeamMixin)
+    InitMixin(self, DamageMixin)
+    
+    if Server then
+	
+        --self:AddTimedCallback(PowerFist.TimedDetonateCallback, kLifeTime)
+        
+    end
+end
+
+function Fist:OnInitialized()
+
+    Weapon.OnInitialized(self)
+	
+    self:SetModel(Fist.kModelName)
+    
+end
 
 local function EnergyDamage(hitEntities, origin, radius, damage)
 
@@ -125,59 +182,6 @@ if Server then
 
 end
 
-function PowerFist:OnCreate()
-
-    Weapon.OnCreate(self)
-    
-    self.sprintAllowed = true
-    
-    InitMixin(self, BaseModelMixin)
-    InitMixin(self, ModelMixin)
-    InitMixin(self, TeamMixin)
-    InitMixin(self, DamageMixin)
-    
-    if Server then
-	
-        --self:AddTimedCallback(PowerFist.TimedDetonateCallback, kLifeTime)
-        self:Detonate()
-    end
-end
-
-function PowerFist:OnInitialized()
-
-    Weapon.OnInitialized(self)
-	
-    self:SetModel(Fist.kModelName)
-    
-end
-
-
-function Fist:OnCreate()
-
-    Weapon.OnCreate(self)
-    
-    self.sprintAllowed = true
-    
-    InitMixin(self, BaseModelMixin)
-    InitMixin(self, ModelMixin)
-    InitMixin(self, TeamMixin)
-    InitMixin(self, DamageMixin)
-    
-    if Server then
-	
-        --self:AddTimedCallback(PowerFist.TimedDetonateCallback, kLifeTime)
-        
-    end
-end
-
-function Fist:OnInitialized()
-
-    Weapon.OnInitialized(self)
-	
-    self:SetModel(Fist.kModelName)
-    
-end
-
 function Fist:GetViewModelName(sex, variant)
     return kViewModels[sex][variant]
 end
@@ -258,6 +262,7 @@ function Fist:OnHolster(player)
     
     self.sprintAllowed = true
     self.primaryAttacking = false
+	self.fistAttacking = false
     
 end
 
@@ -279,6 +284,7 @@ function Fist:OnPrimaryAttack(player)
         
         self.sprintAllowed = false
         self.primaryAttacking = true
+        self.fistAttacking = true
         
     end
 
@@ -286,6 +292,7 @@ end
 
 function Fist:OnPrimaryAttackEnd(player)
     self.primaryAttacking = false
+    self.fistAttacking = false
     idleTime = Shared.GetTime()
 end
 
@@ -345,6 +352,9 @@ function Fist:OnUpdateAnimationInput(modelMixin)
     end
     
     local activity = "none"
+    if self.fistAttacking then
+        activity = "primary"
+    end
     if self.primaryAttacking then
         activity = "primary"
     end

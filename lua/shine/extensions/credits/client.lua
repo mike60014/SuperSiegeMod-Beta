@@ -66,11 +66,11 @@ end)
 Shine.VoteMenu:AddPage ("SpendClasses", function( self )
        local player = Client.GetLocalPlayer()
     if player:GetTeamNumber() == 1 then 
-    self:AddSideButton("JetPack(80)", function() Shared.ConsoleCommand ("sh_buyclass JetPack")  end)
-    self:AddSideButton("MiniGunExo(300)", function() Shared.ConsoleCommand ("sh_buyclass MiniGun")  end)
-    self:AddSideButton("RailGunExo(290)", function() Shared.ConsoleCommand ("sh_buyclass RailGun")  end)
-    self:AddSideButton("WelderExo(250)", function() Shared.ConsoleCommand ("sh_buyclass Welder")  end)
-    self:AddSideButton("FlamerExo(270)", function() Shared.ConsoleCommand ("sh_buyclass Flamer")  end)
+		self:AddSideButton("JetPack: "..gCreditClassCostJetPack, function() Shared.ConsoleCommand ("sh_buyclass JetPack")  end)
+		self:AddSideButton("MiniGunExo: "..gCreditClassCostMiniGun, function() Shared.ConsoleCommand ("sh_buyclass MiniGun")  end)
+		self:AddSideButton("RailGunExo: "..gCreditClassCostRailGun, function() Shared.ConsoleCommand ("sh_buyclass RailGun")  end)
+		self:AddSideButton("WelderExo: "..gCreditClassCostWelder, function() Shared.ConsoleCommand ("sh_buyclass Welder")  end)
+		self:AddSideButton("FlamerExo(270)", function() Shared.ConsoleCommand ("sh_buyclass Flamer")  end)
         elseif player:GetTeamNumber() == 2 then
       self:AddSideButton("Gorge(90)", function() Shared.ConsoleCommand ("sh_buyclass Gorge")  end)
       self:AddSideButton("Lerk(120)", function() Shared.ConsoleCommand ("sh_buyclass Lerk")  end)
@@ -101,11 +101,11 @@ Shine.VoteMenu:AddPage ("SpendCommAbilities", function( self )
                   self:AddSideButton ("Scan(10)", function()Shared.ConsoleCommand ("sh_buy Scan")end)
                   self:AddSideButton ("Medpack(5)", function()Shared.ConsoleCommand ("sh_buy Medpack")end)
            else
-       self:AddSideButton("NutrientMist(1)", function()Shared.ConsoleCommand ("sh_buy NutrientMist")end)
-       self:AddSideButton("EnzymeCloud(15)", function() Shared.ConsoleCommand ("sh_buy EnzymeCloud")  end)
-       self:AddSideButton("Ink(500)", function() Shared.ConsoleCommand ("sh_tbuy Ink")  end)
-       self:AddSideButton("Hallucination(17)", function() Shared.ConsoleCommand ("sh_buy Hallucination")  end)
-       self:AddSideButton("Contamination(10)", function() Shared.ConsoleCommand ("sh_buy Contamination")  end)
+       self:AddSideButton("NutrientMist: 1", function()Shared.ConsoleCommand ("sh_buy NutrientMist")end)
+	self:AddSideButton("EnzymeCloud: "..gCreditAbilityCostEnzymeCloud, function() Shared.ConsoleCommand ("sh_buy EnzymeCloud")  end)
+	self:AddSideButton("Ink: "..gCreditAbilityCostInk, function() Shared.ConsoleCommand ("sh_tbuy Ink")  end)
+	self:AddSideButton("Hallucination: "..gCreditAbilityCostHallucination, function() Shared.ConsoleCommand ("sh_buy Hallucination")  end)
+	self:AddSideButton("Contamination: "..gCreditAbilityCostContamination, function() Shared.ConsoleCommand ("sh_buy Contamination")  end)
      end
      self:AddBottomButton("Back", function()self:SetPage("SpendCredits")end) 
 end)
@@ -141,15 +141,17 @@ Shine.VoteMenu:AddPage ("Quick Salt", function( self )
 	self:AddSideButton("Hallucination: "..gCreditAbilityCostHallucination, function() Shared.ConsoleCommand ("sh_buy Hallucination")  end)
 	self:AddSideButton("Contamination: "..gCreditAbilityCostContamination, function() Shared.ConsoleCommand ("sh_buy Contamination")  end)
 	
+    self:AddSideButton("Whip: "..gCreditStructureCostWhip, function() Shared.ConsoleCommand ("sh_buy Whip")  end)
+    self:AddSideButton("Shift: "..gCreditStructureCostShift, function() Shared.ConsoleCommand ("sh_buy Shift")  end)
+
+    self:AddSideButton("Shade: "..gCreditStructureCostShade, function() Shared.ConsoleCommand ("sh_buy Shade")  end)
+    self:AddSideButton("Crag: "..gCreditStructureCostCrag, function() Shared.ConsoleCommand ("sh_buy Crag")  end)
+	
 	self:AddSideButton("Gorge: "..gCreditClassCostGorge, function() Shared.ConsoleCommand ("sh_buyclass Gorge")  end)
 	self:AddSideButton("Lerk: "..gCreditClassCostLerk, function() Shared.ConsoleCommand ("sh_buyclass Lerk")  end)
 	self:AddSideButton("Fade: "..gCreditClassCostFade, function() Shared.ConsoleCommand ("sh_buyclass Fade")  end)
 	self:AddSideButton("Onos: "..gCreditClassCostOnos, function() Shared.ConsoleCommand ("sh_buyclass Onos")  end)
 	
-    self:AddSideButton("Shade: "..gCreditStructureCostShade, function() Shared.ConsoleCommand ("sh_buy Shade")  end)
-    self:AddSideButton("Crag: "..gCreditStructureCostCrag, function() Shared.ConsoleCommand ("sh_buy Crag")  end)
-    self:AddSideButton("Whip: "..gCreditStructureCostWhip, function() Shared.ConsoleCommand ("sh_buy Whip")  end)
-    self:AddSideButton("Shift: "..gCreditStructureCostShift, function() Shared.ConsoleCommand ("sh_buy Shift")  end)
 	
 	
 	else

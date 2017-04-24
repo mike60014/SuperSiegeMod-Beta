@@ -591,7 +591,7 @@ local kEnzymeEffectInterval = 0.2
 
 
 function Alien:UpdateOnocideEffect(isLocal)
-    local weapon = self:GetWeaponInHUDSlot(4)
+    local weapon = self:GetWeaponInHUDSlot(kOnocideHUDSlot) --4)
     local boolean = false
       if weapon then
          boolean = weapon.primaryAttacking
