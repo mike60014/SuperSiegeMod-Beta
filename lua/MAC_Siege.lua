@@ -7,6 +7,49 @@ Script.Load("lua/RecycleMixin.lua")
 class 'MACSiege' (MAC)
 MACSiege.kMapName = "macsiege"
 
+MAC.kConstructRate = 0.4
+MAC.kWeldRate = 0.5
+MAC.kOrderScanRadius = 10
+MAC.kRepairHealthPerSecond = 50
+MAC.kHealth = kMACHealth
+MAC.kArmor = kMACArmor
+MAC.kMoveSpeed = 6
+MAC.kHoverHeight = .5
+MAC.kStartDistance = 3
+MAC.kWeldDistance = 2
+MAC.kBuildDistance = 2     -- Distance at which bot can start building a structure.
+MAC.kSpeedUpgradePercent = (1 + kMACSpeedAmount)
+MAC.kRolloutSpeed = 2
+MAC.kCapsuleHeight = .2
+MAC.kCapsuleRadius = .5
+MAC.kGreetingUpdateInterval = 1
+MAC.kGreetingInterval = 10
+MAC.kGreetingDistance = 5
+MAC.kUseTime = 2.0
+
+
+kMacMaxAmount = gMacMaxAmount
+kMacMaxLevel = kMacMaxLevel
+MACSiege.kConstructRate = 0.4
+MACSiege.kWeldRate = 0.5
+MACSiege.kOrderScanRadius = 10
+MACSiege.kRepairHealthPerSecond = 50
+MACSiege.kHealth = kMACHealth
+MACSiege.kArmor = kMACArmor
+MACSiege.kMoveSpeed = 6
+MACSiege.kHoverHeight = .5
+MACSiege.kStartDistance = 3
+MACSiege.kWeldDistance = 2
+MACSiege.kBuildDistance = 2     -- Distance at which bot can start building a structure.
+MACSiege.kSpeedUpgradePercent = (1 + kMACSpeedAmount)
+MACSiege.kRolloutSpeed = 2
+MACSiege.kCapsuleHeight = .2
+MACSiege.kCapsuleRadius = .5
+MACSiege.kGreetingUpdateInterval = 1
+MACSiege.kGreetingInterval = 10
+MACSiege.kGreetingDistance = 5
+MACSiege.kUseTime = 2.0
+
 local networkVars = 
 
 {
@@ -18,29 +61,33 @@ MAC.kWeldRate = 1
 
 AddMixinNetworkVars(ResearchMixin, networkVars)
 AddMixinNetworkVars(RecycleMixin, networkVars)
+
 function MACSiege:OnCreate()
-MAC.OnCreate(self)
+	MAC.OnCreate(self)
     InitMixin(self, ResearchMixin)
     InitMixin(self, RecycleMixin)
 end
+
 function MAC:GetIsBuilt()
- return self:GetIsAlive()
+	return self:GetIsAlive()
 end
+
 function MACSiege:OnInitialized()
-self:SetTechId(kTechId.MAC)
-InitMixin(self, LevelsMixin)
-if Server then ExploitCheck(self) end
-MAC.OnInitialized(self)
+	self:SetTechId(kTechId.MAC)
+	InitMixin(self, LevelsMixin)
+	if Server then ExploitCheck(self) end
+	MAC.OnInitialized(self)
 end
-        function MACSiege:GetTechId()
-         return kTechId.MAC
+
+function MACSiege:GetTechId()
+return kTechId.MAC
 end
-    function MACSiege:GetMaxLevel()
-    return kMacMaxLevel
-    end
-    function MACSiege:GetAddXPAmount()
-    return 0.05 * 0.05
-    end
+function MACSiege:GetMaxLevel()
+return kMacMaxLevel
+end
+function MACSiege:GetAddXPAmount()
+return 0.05 * 0.05
+end
 
 function MACSiege:OnGetMapBlipInfo()
     local success = false
@@ -79,20 +126,23 @@ MAC.OnCreate(self)
 end
 
 function DropMAC:OnInitialized()
-MAC.OnInitialized(self)
-self:SetTechId(kTechId.MAC)
-InitMixin(self, LevelsMixin)
-if Server then ExploitCheck(self) end
+	MAC.OnInitialized(self)
+	self:SetTechId(kTechId.MAC)
+	InitMixin(self, LevelsMixin)
+	if Server then ExploitCheck(self) end
 end
-        function DropMAC:GetTechId()
-         return kTechId.MAC
+
+function DropMAC:GetTechId()
+	return kTechId.MAC
 end
-    function DropMAC:GetMaxLevel()
-    return kMacMaxLevel
-    end
-    function DropMAC:GetAddXPAmount()
-    return 0.05 * 0.05
-    end
+
+function DropMAC:GetMaxLevel()
+	return kMacMaxLevel
+end
+
+function DropMAC:GetAddXPAmount()
+	return 1 --0.05 * 0.05
+end
 
 function DropMAC:OnGetMapBlipInfo()
     local success = false

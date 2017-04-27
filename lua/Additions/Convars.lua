@@ -43,6 +43,21 @@ gCreditStructureArcLimit = 1
 gCreditStructureExtractorCost = 5000
 gCreditStructureExtractorLimit = 1
 
+
+--Credits Marine Structure
+gCreditStructurePhaseGateCost = 150
+gCreditStructurePhaseGateLimit = 2
+gCreditStructureInfantryPortalCost = 150
+gCreditStructureInfantryPortalLimit = 50
+gCreditStructureRoboticsFactoryCost = 100
+gCreditStructureRoboticsFactoryLimit = 50
+gCreditStructureMacCost = 4
+gCreditStructureMacLimit = 2
+gCreditStructureArcCost = 200
+gCreditStructureArcLimit = 1
+gCreditStructureExtractorCost = 5000
+gCreditStructureExtractorLimit = 1
+
 --Classes Credits Cost
 gCreditClassCostJetPack = 80
 gCreditClassCostRailGun = 290
@@ -61,11 +76,14 @@ gCreditWeaponCostMines = 15
 gCreditWeaponCostWelder = 10
 gCreditWeaponCostHMG = 50
 gCreditWeaponCostShotGun = 20
+gCreditWeaponCostHeavyRifle = 20
 gCreditWeaponCostFlameThrower = 30
 gCreditWeaponCostGrenadeLauncher = 30
 gCreditWeaponCostGrenadeGas = 1
 gCreditWeaponCostGrenadeCluster = 1
 gCreditWeaponCostGrenadePulse = 1
+gCreditWeaponCostGrenadeOffensiveConc = 100
+gCreditWeaponCostGrenadeJediConc = 500
 
 
 --Alien Abilities  Credits Cost
@@ -75,7 +93,14 @@ gCreditAbilityCostHallucination = 17
 gCreditAbilityCostEnzymeCloud = 1.5
 gCreditAbilityCostContamination = 10
 
-gCreditAbilityCostScan = 10
+
+--Alien Abilities  Credits Delay
+gCreditAbilityDelayInk = 50 --1.5
+gCreditAbilityDelayNutrientMist = 0
+gCreditAbilityDelayHallucination = 10
+gCreditAbilityDelayEnzymeCloud = 10
+gCreditAbilityDelayContamination = 10
+
 
 --Alien Structures Credits Cost
 gCreditStructureCostHydra = 1
@@ -87,9 +112,29 @@ gCreditStructureCostWhip = 100
 gCreditStructureCostShift = 100
 gCreditStructureCostTunnelToHive = 10
 gCreditStructureCost = 10
---gCreditStructureCost =
 gCreditStructureCostHarvesterExtractor = 5000
 gCreditStructureLimitHarvesterExtractor = 1
+--gCreditStructureCost =
+
+--Alien Structures Credits Delay After Purchasing
+gCreditStructureDelayHydra = 1
+gCreditStructureDelaySaltyEgg = 10
+gCreditStructureDelayShade = 5
+gCreditStructureDelayCrag = 5
+gCreditStructureDelayWhip = 5
+gCreditStructureDelayShift = 8
+gCreditStructureDelayTunnelToHive = 10
+gCreditStructureDelay = 5
+gCreditStructureDelayHarvesterExtractor = 15
+--gCreditStructureDelay =
+
+--Credit Mariners Tech
+
+
+gCreditAbilityCostScan = 10
+gCreditAbilityDelayScan = 10
+
+
 
 
 --General Player Credit Settings 
@@ -1122,7 +1167,7 @@ gMarineDefAddXp = 0.5
 gMarineDefLvl = 25
 
 gMarineStunImmuneTime = 2
-gMaxTimeToSprintAfterAttack = 0.02 --0.2
+gMaxTimeToSprintAfterAttack = 0.08 --0.2
 
 gMarineHealth = 100
 gMarineArmor = 30 --30
@@ -1196,6 +1241,15 @@ kClusterGrenadeDamageType = kDamageType.Flame
 kNerveGasDamagePerSecond = 50
 kNerveGasDamageType = kDamageType.NerveGas
 
+--OffensiveConcGrenade
+
+
+
+--JediConcGrenade
+
+
+
+
 
 -- Mines
 kNumMines = 2
@@ -1222,11 +1276,11 @@ gRifleMaxAmmo = 750
 
 --gRiflePrimary
 gRiflePrimaryBulletSize = 0.018
-gRiflePrimaryRange = 65 --100
-gRiflePrimaryTracerEffectRate = 0.5 --0.5
-gRiflePrimaryEffectRate = 0.05 --0.08 0.0367
-gRiflePrimaryFireRate = 0.05 --0.08
-gRiflePrimaryBulletsPerShot = 1
+gRiflePrimaryRange = 75 --100
+gRiflePrimaryTracerEffectRate = 0.25 --0.5
+gRiflePrimaryEffectRate = 0.08--0.08 0.0367
+gRiflePrimaryFireRate = 0.08 --0.08
+gRiflePrimaryBulletsPerShot = 2
 gRiflePrimaryDamageType = kDamageType.Normal
 gRiflePrimaryDamagePerShot = 10
 gRiflePrimaryRangeWhileVortexed = 75
@@ -1462,14 +1516,14 @@ kShotgunTechResearchTime = 30
 
 
 kShotgunPointValue = gShotgunPointValue
-/*
+
 kShotgunWeight = gShotgunWeight
 kShotgunFireRate = gShotgunPrimaryAttackSpeed
 kShotgunDamage = gShotgunPrimaryDamage
 kShotgunDamageType = gShotgunPrimaryDamageType
 kShotgunClipSize = gShotgunClipSize
 kShotgunBulletsPerShot = gShotgunPrimaryBulletsPerShot
-*/
+
 kPrimarySpreadDistance = gShotgunPrimarySpreadDistance
 kSecondarySpreadDistance = gShotgunSecondarySpreadDistance
 

@@ -24,7 +24,7 @@ local kHeavyRifleBulletSize = 0.22
 
 local kRange = 250
 -- 4 degrees in NS1
-local kSpread = Math.Radians(5)
+local kSpread = Math.Radians(2)
 local kMinSpread = Math.Radians(0.2)
 
 local kButtRange = 1.1

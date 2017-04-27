@@ -123,7 +123,6 @@ function Shotgun:GetHUDSlot()
     return kPrimaryWeaponSlot
 end
 
-/*
 function Shotgun:GetBulletsPerShot()
     return kShotgunBulletsPerShot
 end
@@ -131,7 +130,7 @@ end
 function Shotgun:GetSecondaryBulletsPerShot()
     return kShotgunSecondaryBulletsPerShot
 end
-*/
+
 function Shotgun:GetSecondaryCanInterruptReload()
     return true
 end
@@ -197,6 +196,9 @@ end
 function Shotgun:OnUpdateAnimationInput(modelMixin)
     PROFILE("Shotgun:OnUpdateAnimationInput")
 	local activity = "none"
+		self:TriggerEffects("end")
+		modelMixin:SetAnimationInput("activity", activity)
+	
 	if self.secondaryAttacking then
 		if self.clip == 0 then self:TriggerEffects("reload") end
 		activity = "primary"
@@ -225,12 +227,12 @@ function Shotgun:OnUpdateAnimationInput(modelMixin)
 			CancelReload(self)
 		end
 	else
-	/*
+	
 		self.reloading = false
 		activity = "none"
 		self:TriggerEffects("end")
 		modelMixin:SetAnimationInput("activity", activity)
-	*/
+	
 	end
 	
 end

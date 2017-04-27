@@ -6,6 +6,7 @@
 --    Created by:   Charlie Cleveland (charlie@unknownworlds.com)
 --
 -- ========= For more information, visit us at http://www.unknownworlds.com =====================
+
 Script.Load("lua/Weapons/Alien/Ability.lua")
 Script.Load("lua/Additions/LerkBomb.lua")
 Script.Load("lua/Additions/LerkSprayMixin.lua")

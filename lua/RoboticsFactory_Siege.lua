@@ -5,6 +5,8 @@ class 'RoboSiege' (RoboticsFactory)
 RoboSiege.kMapName = "robosiege"
 
 
+kMacMaxAmount = gMacMaxAmount
+kMacMaxLevel = kMacMaxLevel
 
 RoboticsFactory.kRolloutLength = 1
 
@@ -49,9 +51,9 @@ function RoboSiege:GetTechButtons(techId)
     local techButtons = {  kTechId.None, kTechId.None, kTechId.DropMAC, kTechId.None, 
                kTechId.None, kTechId.None, kTechId.None, kTechId.None }
          
-       if self:GetMacsAmount() <= gMacMaxAmount then
+       --if self:GetMacsAmount() <= kMacMaxAmount then
        techButtons[2] = kTechId.MAC
-       end
+       --end
       
     if self:GetTechId() ~= kTechId.ARCRoboticsFactory then
         techButtons[5] = kTechId.UpgradeRoboticsFactory

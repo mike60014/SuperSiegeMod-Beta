@@ -479,7 +479,8 @@ function Rifle:OnSecondaryAttack(player)
 			--self:OnMaxFireRateExceeded()
 		else
 			if self:GetIsDeployed() and primaryattackAllowed and secondaryattackAllowed and not self.primaryAttacking and not self:GetIsReloading() then
-				
+				return self:GetIsDeployed() and not sprintedRecently and attackAllowed
+				/*
 				if Server then UpdateSoundType(self, player) end
 				self.secondaryAttacking = true
 				--ClipWeapon.OnPrimaryAttack(self, player)
@@ -488,7 +489,7 @@ function Rifle:OnSecondaryAttack(player)
 				self:FireSecondary(player)
 				self.secondaryattackLastRequested = Shared.GetTime()
 				self.clip = self.clip - gRifleSecondaryBulletsPerShot
-				
+				*/
 			end
 		end
 	end
@@ -500,70 +501,74 @@ end
 
 function Rifle:FirePrimary(player)
 
-    --self:TriggerEffects("spikes_attack")
+    local numberBullets = gRiflePrimaryBulletsPerShot
+
+    for bullet = 1, numberBullets do
+    /*
+        if not self.kSecondarySpreadVectors[bullet] then
+            break
+        end
+		*/    
+	--self:TriggerEffects("spikes_attack")
     --self:TriggerEffects("rifle_attack_sound")
     self:TriggerEffects("rifle_attack")
 	local viewAngles = player:GetViewAngles()
     viewAngles.roll = NetworkRandom() * math.pi * 2
-	local kRifleRandomX = math.random(-100,100) * 0.01 --0.0 thru 3.0
-	local kRifleRandomY = math.random(-75,75) * 0.01 --0.0 thru 3.0
-	local kRifleRandomSpread = math.random(30,40)
+	local kRifleRandomX = math.random(-10,10) * 0.1 --3.0 thru 3.0
+	local kRifleRandomY = math.random(-20,20) * 0.1 --5.0 thru 5.0
+	local kRifleRandomSpread = math.random(55,65)
 	local kRiflePrimarySpreadDistance = Math.Radians(kRifleRandomSpread)
 	local kRiflePrimarySpreadDistanceX = Math.Radians(kRifleRandomX) --20
 	local kRiflePrimarySpreadDistanceY = Math.Radians(kRifleRandomY) --20
-
     local shootCoords = viewAngles:GetCoords()
-
-    -- Filter ourself out of the trace so that we don't hit ourselves.
     local filter = EntityFilterTwo(player, self)
     local range = gRiflePrimaryRange --self:GetRange()
-    --local numberBullets = gRiflePrimaryBulletsPerShot
     local startPoint = player:GetEyePos()
     local bulletSize = gRiflePrimaryBulletSize
-    
-	
-	--local spreadDirection = shootCoords:TransformVector(gRiflePrimarySpreadDistance)
 	local spreadDirection = shootCoords:TransformVector(Vector(kRiflePrimarySpreadDistanceX,kRiflePrimarySpreadDistanceY,kRiflePrimarySpreadDistance))
-    --local spreadDirection = CalculateSpread(shootCoords, gRiflePrimarySpreadDistance * (ConditionalValue(player and player.GetIsInterrupted and player:GetIsInterrupted(), 8, 1)), NetworkRandom)
-	
+
+
 	local endPoint = startPoint + spreadDirection * range
 	startPoint = player:GetEyePos() + shootCoords.xAxis * kRiflePrimarySpreadDistanceX * self.kStartOffset + shootCoords.yAxis * kRiflePrimarySpreadDistanceY * self.kStartOffset
 	
 	local targets, trace, hitPoints = GetBulletTargets(startPoint, endPoint, spreadDirection, bulletSize, filter)
-	bullet = 1
-	--local damage = gRiflePrimaryDamagePerShot
-	
-	HandleHitregAnalysis(player, startPoint, endPoint, trace)        
-	
-	local direction = (trace.endPoint - startPoint):GetUnit()
-	local hitOffset = direction * kHitEffectOffset
-	local impactPoint = trace.endPoint - hitOffset
-	local effectFrequency = self:GetTracerEffectFrequency()
-	local showTracer = bullet % effectFrequency == 0
-	
-	local numTargets = #targets
-	
-	if numTargets == 0 then
-		self:ApplyBulletGameplayEffects(player, nil, impactPoint, direction, 0, trace.surface, showTracer)
-	end
-	
-	if Client and showTracer then
-		TriggerFirstPersonTracer(self, impactPoint)
-	end
-	
-	for i = 1, numTargets do
 
-		local target = targets[i]
-		local hitPoint = hitPoints[i]
+		    -- Filter ourself out of the trace so that we don't hit ourselves.
 
-		self:ApplyBulletGameplayEffects(player, target, hitPoint - hitOffset, direction, gRiflePrimaryDamagePerShot, "", showTracer and i == numTargets)
-		player.primaryAttackLastFrame = Shared.GetTime()
-		local client = Server and player:GetClient() or Client
-		if not Shared.GetIsRunningPrediction() and client.hitRegEnabled then
-			RegisterHitEvent(player, bullet, startPoint, trace, gRiflePrimaryDamagePerShot)
+		HandleHitregAnalysis(player, startPoint, endPoint, trace)        
+		
+		local direction = (trace.endPoint - startPoint):GetUnit()
+		local hitOffset = direction * kHitEffectOffset
+		local impactPoint = trace.endPoint - hitOffset
+		local effectFrequency = self:GetTracerEffectFrequency()
+		local showTracer = bullet % effectFrequency == 0
+	
+        local numTargets = #targets
+	
+		if numTargets == 0 then
+			self:ApplyBulletGameplayEffects(player, nil, impactPoint, direction, 0, trace.surface, showTracer)
 		end
+		
+		if Client and showTracer then
+			TriggerFirstPersonTracer(self, impactPoint)
+		end
+		
+		for i = 1, numTargets do
+
+			local target = targets[i]
+			local hitPoint = hitPoints[i]
+
+			self:ApplyBulletGameplayEffects(player, target, hitPoint - hitOffset, direction, gRiflePrimaryDamagePerShot, "", showTracer and i == numTargets)
+			player.primaryAttackLastFrame = Shared.GetTime()
+			local client = Server and player:GetClient() or Client
+			if not Shared.GetIsRunningPrediction() and client.hitRegEnabled then
+				RegisterHitEvent(player, bullet, startPoint, trace, gRiflePrimaryDamagePerShot)
+			end
+		
+		end
+        
+    end
 	
-	end
     
     --end
 

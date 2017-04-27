@@ -718,66 +718,66 @@ local limit = gCreditPlayerTeamOneLimit
 local techid = nil
 
 if String == "Scan" then
-mapnameof = Scan.kMapName
-techid = kTechId.Scan
-delay = 5
+	mapnameof = Scan.kMapName
+	techid = kTechId.Scan
+	delay = 5
 elseif String == "Medpack" then
-mapnameof = MedPack.kMapName
-techid = kTechId.MedPack
-delay = 5
+	mapnameof = MedPack.kMapName
+	techid = kTechId.MedPack
+	delay = 5
 elseif String == "Observatory"  then
-mapnameof = ObservatorySiege.kMapName
-techid = kTechId.Observatory
-CreditCost = gCreditStructureObservatoryCost
+	mapnameof = ObservatorySiege.kMapName
+	techid = kTechId.Observatory
+	CreditCost = gCreditStructureObservatoryCost
 elseif String == "Armory"  then
-CreditCost = gCreditStructureArmoryCost
-mapnameof = Armory.kMapName
-techid = kTechId.Armory
+	CreditCost = gCreditStructureArmoryCost
+	mapnameof = Armory.kMapName
+	techid = kTechId.Armory
 elseif String == "Sentry"  then
-mapnameof = Sentry.kMapName
-techid = kTechId.Sentry
-limit = gCreditStructureSentryLimit
-CreditCost = gCreditStructureSentryCost
+	mapnameof = Sentry.kMapName
+	techid = kTechId.Sentry
+	limit = gCreditStructureSentryLimit
+	CreditCost = gCreditStructureSentryCost
 elseif String == "BackupBattery"  then
-mapnameof = SentryBattery.kMapName
-techid = kTechId.SentryBattery
-limit = gCreditStructureBackUpBatteryLimit
-CreditCost = gCreditStructureBackUpBatteryCost
+	mapnameof = SentryBattery.kMapName
+	techid = kTechId.SentryBattery
+	limit = gCreditStructureBackUpBatteryLimit
+	CreditCost = gCreditStructureBackUpBatteryCost
 elseif String == "BackupLight"  then
-mapnameof = BackupLight.kMapName
-techid = kTechId.BackupLight
-limit = gCreditStructureBackupLightLimit
-CreditCost = gCreditStructureBackupLightCost
+	mapnameof = BackupLight.kMapName
+	techid = kTechId.BackupLight
+	limit = gCreditStructureBackupLightLimit
+	CreditCost = gCreditStructureBackupLightCost
 elseif String == "PhaseGate" then
-CreditCost = gCreditStructurePhaseGateCost
-limit = gCreditStructurePhaseGateLimit
-mapnameof = PhaseGate.kMapName
-techid = kTechId.PhaseGate
+	CreditCost = gCreditStructurePhaseGateCost
+	limit = gCreditStructurePhaseGateLimit
+	mapnameof = PhaseGate.kMapName
+	techid = kTechId.PhaseGate
 elseif String == "InfantryPortal" then
-mapnameof = InfantryPortal.kMapName
-techid = kTechId.InfantryPortal
-CreditCost = gCreditStructureInfantryPortalCost
-limit = gCreditStructureInfantryPortalLimit
+	mapnameof = InfantryPortal.kMapName
+	techid = kTechId.InfantryPortal
+	CreditCost = gCreditStructureInfantryPortalCost
+	limit = gCreditStructureInfantryPortalLimit
 elseif  String == "RoboticsFactory" then
-mapnameof = RoboSiege.kMapName
-techid = kTechId.RoboticsFactory
-CreditCost = gCreditStructureRoboticsFactoryCost
-limit = gCreditStructureRoboticsFactoryLimit
+	mapnameof = RoboSiege.kMapName
+	techid = kTechId.RoboticsFactory
+	CreditCost = gCreditStructureRoboticsFactoryCost
+	limit = gCreditStructureRoboticsFactoryLimit
 elseif String == "Mac" then
-techid = kTechId.MAC
-CreditCost = gCreditStructureMacCost
-mapnameof = MACCredit.kMapName
-limit = gCreditStructureMacLimit
+	techid = kTechId.MAC
+	CreditCost = gCreditStructureMacCost
+	mapnameof = MACCredit.kMapName
+	limit = gCreditStructureMacLimit
 elseif String == "Arc" then
-techid = kTechId.ARC
-CreditCost = gCreditStructureArcCost
-mapnameof = ARCCredit.kMapName
-limit = gCreditStructureArcLimit
+	techid = kTechId.ARC
+	CreditCost = gCreditStructureArcCost
+	mapnameof = ARCCredit.kMapName
+	limit = gCreditStructureArcLimit
 elseif String == "Extractor" then
-techid = kTechId.Extractor
-CreditCost = gCreditStructureExtractorCost
-mapnameof = Extractor.kMapName
-limit = gCreditStructureExtractorLimit
+	techid = kTechId.Extractor
+	CreditCost = gCreditStructureExtractorCost
+	mapnameof = Extractor.kMapName
+	limit = gCreditStructureExtractorLimit
 elseif string == nil then
 end
 
@@ -797,51 +797,62 @@ local techid = nil
 
 
 if String == "NutrientMist" then
-CreditCost = gCreditAbilityCostNutrientMist
-mapnameof = NutrientMist.kMapName
-reqground = true
+	CreditCost = gCreditAbilityCostNutrientMist
+	mapnameof = NutrientMist.kMapName
+	delay = 0
+	reqground = true
 elseif String == "Contamination"  then
-CreditCost = gCreditAbilityCostContamination
-mapnameof = Contamination.kMapName
-techid = kTechId.Contamination
+	CreditCost = gCreditAbilityCostContamination
+	mapnameof = Contamination.kMapName
+	techid = kTechId.Contamination
+	delay = gCreditPlayerTeamTwoBuyDelay
 elseif String == "EnzymeCloud" then
-CreditCost = gCreditAbilityCostEnzymeCloud
-mapnameof = EnzymeCloud.kMapName
+	CreditCost = gCreditAbilityCostEnzymeCloud
+	mapnameof = EnzymeCloud.kMapName
+	delay = gCreditPlayerTeamTwoBuyDelay
 elseif String == "Hallucination" then
-CreditCost = gCreditAbilityCostHallucination
-reqpathing = false
- mapnameof = HallucinationCloud.kMapName
+	CreditCost = gCreditAbilityCostHallucination
+	reqpathing = false
+	mapnameof = HallucinationCloud.kMapName
+	delay = gCreditPlayerTeamTwoBuyDelay
 
 elseif String == "Shade" then
-CreditCost = gCreditStructureCostShade
-mapnameof = Shade.kMapName
-techid = kTechId.Shade
+	CreditCost = gCreditStructureCostShade
+	mapnameof = Shade.kMapName
+	techid = kTechId.Shade
+	delay = 0
 elseif String == "Crag" then
-CreditCost = gCreditStructureCostCrag
-mapnameof = Crag.kMapName
-techid = kTechId.Crag
+	CreditCost = gCreditStructureCostCrag
+	mapnameof = Crag.kMapName
+	techid = kTechId.Crag
+	delay = 0
 elseif String == "Whip" then
-CreditCost = gCreditStructureCostWhip
-mapnameof = Whip_Salty_Infestation.kMapName
-techid = kTechId.Whip
+	CreditCost = gCreditStructureCostWhip
+	mapnameof = Whip_Salty_Infestation.kMapName
+	techid = kTechId.Whip
+	delay = 0
 elseif String == "Shift" then
-CreditCost = gCreditStructureCostShift
-mapnameof = Shift.kMapName
-techid = kTechId.Shift
+	CreditCost = gCreditStructureCostShift
+	mapnameof = Shift.kMapName
+	techid = kTechId.Shift
+	delay = 0
 elseif String == "Hydra" then
-CreditCost = gCreditStructureCostHydra
-mapnameof = HydraSiege.kMapName
-techid = kTechId.Hydra
+	CreditCost = gCreditStructureCostHydra
+	mapnameof = HydraSiege.kMapName
+	techid = kTechId.Hydra
+	delay = gCreditStructureDelayHydra
 elseif String == "SaltyEgg" then
-CreditCost = gCreditStructureCostSaltyEgg
-mapnameof = SaltyEgg.kMapName
-techid = kTechId.Egg
+	CreditCost = gCreditStructureCostSaltyEgg
+	mapnameof = SaltyEgg.kMapName
+	techid = kTechId.Egg
+	delay = 0
 limit = gCreditStructureLimitSaltyEgg
 elseif String == "Harvester" then
-CreditCost = gCreditStructureCostHarvesterExtractor
-mapnameof = Harvester.kMapName
-techid = kTechId.Harvester
-limit = gCreditStructureLimitHarvesterExtractor
+	CreditCost = gCreditStructureCostHarvesterExtractor
+	mapnameof = Harvester.kMapName
+	techid = kTechId.Harvester
+	limit = gCreditStructureLimitHarvesterExtractor
+	delay = 0
 end
 
 return mapnameof, delay, reqground, reqpathing, CreditCost, limit, techid
@@ -907,11 +918,12 @@ if not Player then return end
     if String  == "Mines" then cost = gCreditWeaponCostMines mapname = LayMines.kMapName
    elseif String == "Welder" then cost = gCreditWeaponCostWelder mapname = Welder.kMapName
    elseif String == "HeavyMachineGun" then cost = gCreditWeaponCostHMG mapname = HeavyMachineGun.kMapName
-    elseif String  == "Shotgun" then cost = gCreditWeaponCostShotGun mapname = Shotgun.kMapName
+   elseif String == "HeavyRifle" then cost = gCreditWeaponCostHeavyRifle mapname = HeavyRifle.kMapName
+   elseif String == "Shotgun" then cost = gCreditWeaponCostShotGun mapname = Shotgun.kMapName
    elseif String == "FlameThrower" then mapname = Flamethrower.kMapName cost = gCreditWeaponCostFlameThrower
    elseif String == "GrenadeLauncher" then mapname =  GrenadeLauncher.kMapName cost = gCreditWeaponCostGrenadeLauncher
-   elseif String == "OffensiveConcGrenade" then cost = 100 mapname = ConcGrenadeThrower.kMapName
-   elseif String == "JediConcGrenade" then cost = 5 mapname = JediConcGrenadeThrower.kMapName
+   elseif String == "OffensiveConcGrenade" then cost = gCreditWeaponCostGrenadeOffensiveConc mapname = ConcGrenadeThrower.kMapName
+   elseif String == "JediConcGrenade" then cost = gCreditWeaponCostGrenadeJediConc mapname = JediConcGrenadeThrower.kMapName
    end
 
     if FirstCheckRulesHere(self, Client, Player, String, cost, false ) == true then return end
