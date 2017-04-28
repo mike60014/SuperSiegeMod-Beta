@@ -60,7 +60,7 @@ end
 
 function Plugin:CommDropAlienMist(player)
 	if not GetGamerules():GetGameStarted() then return end
-	local CreditCost = 1
+	local CreditCost = gCreditAbilityCostNutrientMist
 	local client = player:GetClient()
 	local controlling = client:GetControllingPlayer()
 	local Client = controlling:GetClient()
@@ -69,32 +69,49 @@ function Plugin:CommDropAlienMist(player)
 		return
 	end
 	self.CreditUsers[ Client ] = self:GetPlayerSaltInfo(Client) - CreditCost
-	//self:NotifySalt( nil, "%s purchased a %s with %s credit(s)", true, Player:GetName(), String, CreditCost)
 	player:GiveItem(NutrientMist.kMapName)
+	self.BuyUsersTimer[Client] = Shared.GetTime() + gCreditAbilityCostNutrientMist --3
+	self.PlayerSpentAmount[Client] = self.PlayerSpentAmount[Client] + CreditCost
+	self:NotifySalt( nil, "%s purchased a %s with %s credit(s)", true, Player:GetName(), String, CreditCost)
 	Shine.ScreenText.SetText("Salt", string.format("%s Salt", self:GetPlayerSaltInfo(Client) ), Client)
-	self.BuyUsersTimer[Client] = Shared.GetTime() + 3
-	self.PlayerSpentAmount[Client] = self.PlayerSpentAmount[Client]  + CreditCost
 	return
 end
 
 function Plugin:CommDropMedPack(player)
 if not GetGamerules():GetGameStarted() then return end
- self:SimpleTimer(4, function() self:SpawnIt(player, MedPack.kMapName)  end)
+--self:SimpleTimer(4, function() self:SpawnIt(player, MedPack.kMapName)  end)
 
-end
-
-function Plugin:SpawnIt(player, entity)
-	if not player or not player:GetIsAlive() then return end
-	local CreditCost = 1
+	local CreditCost = gCreditAbilityCostMedpack
 	local client = player:GetClient()
 	local controlling = client:GetControllingPlayer()
 	local Client = controlling:GetClient()
-
 	if self:GetPlayerSaltInfo(Client) < CreditCost then
 		self:NotifySalt( Client, "%s costs %s salt, you have %s salt. Purchase invalid.", true, String, CreditCost, self:GetPlayerSaltInfo(Client))
 		return
 	end
+	self.CreditUsers[ Client ] = self:GetPlayerSaltInfo(Client) - CreditCost
+	player:GiveItem(MedPack.kMapName)
+	--self:SpawnIt(player, MedPack.kMapName)
+	self.BuyUsersTimer[Client] = Shared.GetTime() + gCreditAbilityCostNutrientMist --3
+	self.PlayerSpentAmount[Client] = self.PlayerSpentAmount[Client] + CreditCost
+	self:NotifySalt( nil, "%s purchased a %s with %s credit(s)", true, Player:GetName(), String, CreditCost)
+	Shine.ScreenText.SetText("Salt", string.format("%s Salt", self:GetPlayerSaltInfo(Client) ), Client)
+	return
+	
+end
 
+function Plugin:SpawnIt(player, entity)
+	if not player or not player:GetIsAlive() then return end
+	local CreditCost = 0
+	local client = player:GetClient()
+	local controlling = client:GetControllingPlayer()
+	local Client = controlling:GetClient()
+/*
+	if self:GetPlayerSaltInfo(Client) < CreditCost then
+		self:NotifySalt( Client, "%s costs %s salt, you have %s salt. Purchase invalid.", true, String, CreditCost, self:GetPlayerSaltInfo(Client))
+		return
+	end
+*/
 	self.CreditUsers[ Client ] = self:GetPlayerSaltInfo(Client) - CreditCost
 	Shine.ScreenText.SetText("Salt", string.format("%s Salt", self:GetPlayerSaltInfo(Client) ), Client)
 	self.BuyUsersTimer[Client] = Shared.GetTime() + 3
@@ -106,7 +123,21 @@ end
 function Plugin:CommDropAmmoPack(player)
 	if not player or not player:GetIsAlive() then return end
 	if not GetGamerules():GetGameStarted() then return end
-	self:SimpleTimer(4, function() self:SpawnIt(player, AmmoPack.kMapName)end)
+	local CreditCost = 0
+	local client = player:GetClient()
+	local controlling = client:GetControllingPlayer()
+	local Client = controlling:GetClient()
+	if self:GetPlayerSaltInfo(Client) < CreditCost then
+		self:NotifySalt( Client, "%s costs %s salt, you have %s salt. Purchase invalid.", true, String, CreditCost, self:GetPlayerSaltInfo(Client))
+		return
+	end
+	self.CreditUsers[ Client ] = self:GetPlayerSaltInfo(Client) - CreditCost
+	Shine.ScreenText.SetText("Salt", string.format("%s Salt", self:GetPlayerSaltInfo(Client) ), Client)
+	self.BuyUsersTimer[Client] = Shared.GetTime() + 3
+	self.PlayerSpentAmount[Client] = self.PlayerSpentAmount[Client]  + CreditCost
+	return
+	
+	self:SimpleTimer(4, CreateEntity( entity, FindFreeSpace(player:GetOrigin(), 1, 4), 1))
 end
 
 function Plugin:GenereateTotalCreditAmount()
@@ -210,7 +241,7 @@ local function AddOneScore(Player,Points,Res, WasKill)
             local wasKill = WasKill
             local displayRes = ConditionalValue(type(res) == "number", res, 0)
             Server.SendNetworkMessage(Server.GetOwner(Player), "ScoreUpdate", { points = points, res = displayRes, wasKill = wasKill == true }, true)
-            Player.score = Clamp(Player.score + points, 0, 100)
+            Player.score = Clamp(Player.score + points, 0, 3000)
 
             if not Player.scoreGainedCurrentLife then
                 Player.scoreGainedCurrentLife = 0
@@ -302,11 +333,9 @@ self.CreditData = CreditsFile
 
 end
 
- function Plugin:CommCredits()
-
- self:GiveCommCredits()
-
- end
+function Plugin:CommCredits()
+	self:GiveCommCredits()
+end
 
  function Plugin:GiveCommCredits()
  local salt = kCreditCommReward * self.Config.kCreditMultiplier
@@ -356,30 +385,59 @@ function Plugin:JoinTeam( Gamerules, Player, NewTeam, Force )
 
 end
 
+
 /*
+function DestroyAllSaltStructFor(Client)
+local Player = Client:GetControllingPlayer()
+	for index, entity in ipairs(GetEntitiesWithMixinForTeam("Live", Player:GetTeamNumber())) do
+		if entity:GetOwner() == Player and entity:GetIsACreditStructure() then entity:Kill() end
+	end
+end
+
+
+function Plugin:DestroyAllSaltStructFor(Client)
+local Player = Client:GetControllingPlayer()
+	for index, entity in ipairs(GetEntitiesWithMixinForTeam("Live", Player:GetTeamNumber())) do
+		if entity:GetOwner() == Player and entity:GetIsACreditStructure() then entity:Kill() end
+	end
+end
+
+function DestroyAllSaltStructForPlayer(Player)
+//Intention: Kill Salt Structures if client f4s, otherwise 'limit' becomes nil and infinite
+--local Player = Client:GetControllingPlayer()
+
+ if not self.CreditData then return nil end
+  if not self.CreditData.Users then return nil end
+  local ID = GetIDFromClient( Client )
+  if not ID then return nil end
+  local User = self.CreditData.Users[ tostring( ID ) ]
+  if not User then
+     local SteamID = Shine.NS2ToSteamID( ID )
+	 
+	for index, entity in ipairs(GetEntitiesWithMixinForTeam("Live", Player:GetTeamNumber())) do
+
+		--if entity:GetOwner() == Player and entity:GetIsACreditStructure() then entity:Kill() end
+	end
+
+end
+
+
+function Plugin:DestroyAllSaltStructForPlayer(Player)
+//Intention: Kill Salt Structures if client f4s, otherwise 'limit' becomes nil and infinite
+--local Player = Client:GetControllingPlayer()
+
+
+	for index, entity in ipairs(GetEntitiesWithMixinForTeam("Live", Player:GetTeamNumber())) do
+		--if entity:GetOwner() == Player and entity:GetIsACreditStructure() then entity:Kill() end
+	end
+
+end
 local PresCommand = self:BindCommand("sh_pbkill", "sh_pbkill", DestroyAllSaltStructFor)
 PresCommand:AddParam{ Type = "clients" }
 --PresCommand:AddParam{ Type = "number" }
 PresCommand:Help("sh_pbkill <player> kills all of a players spawned buildings.")
 
-function DestroyAllSaltStructFor(Client)
-//Intention: Kill Salt Structures if client f4s, otherwise 'limit' becomes nil and infinite
-local Player = Client:GetControllingPlayer()
-	for index, entity in ipairs(GetEntitiesWithMixinForTeam("Live", Player:GetTeamNumber())) do
-		if entity:GetOwner() == Player and entity:GetIsACreditStructure() then entity:Kill() end
-	end
-
-end
 */
-function Plugin:DestroyAllSaltStructFor(Client)
-//Intention: Kill Salt Structures if client f4s, otherwise 'limit' becomes nil and infinite
-local Player = Client:GetControllingPlayer()
-	for index, entity in ipairs(GetEntitiesWithMixinForTeam("Live", Player:GetTeamNumber())) do
-		if entity:GetOwner() == Player and entity:GetIsACreditStructure() then entity:Kill() end
-	end
-
-end
-
 
 function Plugin:ClientDisconnect(Client)
 self:SaveCredits(Client, true)
@@ -982,7 +1040,7 @@ if not Player then return end
   elseif String == "Fade" then cost = gCreditClassCostFade delayafter = 15
   elseif String == "Onos" then cost = gCreditClassCostOnos delayafter = 20
   end
-
+--playerCreditBuyDelay = delayafter + Shared.GetTime()
  if FirstCheckRulesHere(self, Client, Player, String, cost, false ) == true then return end
 
             --Messy, could be re-written to only require activation once of string = X then call DeductBuy @ end

@@ -11,10 +11,11 @@ kStartHealthScalar = 1 --0.3
 
 --Credits Start
 
+gCreditLowerSupplyLimit = 1000
 gCreditStructuredefHUDSlot = 5
 gCreditStructurePlacementDistance = 4
 
---Structures
+--Credits Structures Marine
 gCreditStructureObservatoryCost = 100
 gCreditStructureArmoryCost = 120
 gCreditStructureSentryCost = 80
@@ -44,19 +45,6 @@ gCreditStructureExtractorCost = 5000
 gCreditStructureExtractorLimit = 1
 
 
---Credits Marine Structure
-gCreditStructurePhaseGateCost = 150
-gCreditStructurePhaseGateLimit = 2
-gCreditStructureInfantryPortalCost = 150
-gCreditStructureInfantryPortalLimit = 50
-gCreditStructureRoboticsFactoryCost = 100
-gCreditStructureRoboticsFactoryLimit = 50
-gCreditStructureMacCost = 4
-gCreditStructureMacLimit = 2
-gCreditStructureArcCost = 200
-gCreditStructureArcLimit = 1
-gCreditStructureExtractorCost = 5000
-gCreditStructureExtractorLimit = 1
 
 --Classes Credits Cost
 gCreditClassCostJetPack = 80
@@ -111,6 +99,8 @@ gCreditStructureCostCrag = 100
 gCreditStructureCostWhip = 100
 gCreditStructureCostShift = 100
 gCreditStructureCostTunnelToHive = 10
+gCreditStructureCostDrifter = 10
+gCreditStructureCostClog = 10
 gCreditStructureCost = 10
 gCreditStructureCostHarvesterExtractor = 5000
 gCreditStructureLimitHarvesterExtractor = 1
@@ -130,9 +120,13 @@ gCreditStructureDelayHarvesterExtractor = 15
 
 --Credit Mariners Tech
 
+gCreditAbilityCostBlank = 0
 
 gCreditAbilityCostScan = 10
 gCreditAbilityDelayScan = 10
+
+gCreditAbilityCostMedpack = 10
+gCreditAbilityDelayMedpack = 5
 
 
 
@@ -1064,7 +1058,7 @@ kOnosChargeDamageReduction = 0.7
 kGoreDamage = 100 --90
 kGoreDamageType = kDamageType.Structural
 kGoreEnergyCost = 10
-kGoreAimInterruptForMarineDuration = 0.7
+kGoreAimInterruptForMarineDuration = 0 --0.7
 kGoreAttackRange = 1.7
 kGoreFloorAttackRange = 0.9
 
@@ -1277,10 +1271,10 @@ gRifleMaxAmmo = 750
 --gRiflePrimary
 gRiflePrimaryBulletSize = 0.018
 gRiflePrimaryRange = 75 --100
-gRiflePrimaryTracerEffectRate = 0.25 --0.5
-gRiflePrimaryEffectRate = 0.08--0.08 0.0367
-gRiflePrimaryFireRate = 0.08 --0.08
-gRiflePrimaryBulletsPerShot = 2
+gRiflePrimaryTracerEffectRate = 0.5 --0.5
+gRiflePrimaryEffectRate = 0.04--0.08 0.0367
+gRiflePrimaryFireRate = 0.04 --0.08
+gRiflePrimaryBulletsPerShot = 1
 gRiflePrimaryDamageType = kDamageType.Normal
 gRiflePrimaryDamagePerShot = 10
 gRiflePrimaryRangeWhileVortexed = 75
@@ -1916,7 +1910,7 @@ gExoWelderStructureWeldRateBreakableDoor = 90
 gExoWelderWeldRange = 3 --4
 kExoWelderWeldRange = 3 --4
 gExoWelderEffectRate = 0.45 --0.45
-gExoWelderFireDelay = 0.2
+gExoWelderFireDelay = 0.45 --0.2 ?
 kExoWelderHealScoreAdded = 1
 kExoWelderAmountHealedForPoints = 200
 gExoWelderSelfWeldAmount = 10 --5
@@ -2041,7 +2035,7 @@ gAllExoViewOffsetHeight = 2.3
 gAllExoWalkMaxSpeed = 3.7
 gExosuitHealth = 1
 gExosuitArmor = 360 --360
-gAllExosuitArmorPerUpgradeLevel = 35 --20
+gAllExosuitArmorPerUpgradeLevel = 20 --20
 gHorizontalThrusterAddSpeed = 2.5
 
 gThrusterHorizontalAcceleration = 23
@@ -2053,7 +2047,7 @@ gExosuitPointValue = 20
 
 
 
-gPrototypeLabBonusHealAuraRange = 1 --def 4
+gPrototypeLabBonusHealAuraRange = 3 --def 4
 gPrototypeLabBonusHealAuraAmount = 15
 
 
