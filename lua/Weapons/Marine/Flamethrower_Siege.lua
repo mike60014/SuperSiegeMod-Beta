@@ -17,8 +17,9 @@ end
 
 
 function Flamethrower:GetSecondaryCanInterruptReload()
-return true
+	return true
 end
+
 function Flamethrower:BurnSporesAndUmbra(startPoint, endPoint)
 
     local toTarget = endPoint - startPoint

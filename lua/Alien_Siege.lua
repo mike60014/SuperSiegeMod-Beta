@@ -179,7 +179,7 @@ function Alien:UpdateHealthAmount(bioMassLevel, maxLevel)
 		self.maxHealth = newMaxHealth
 		--self:SetMaxHealth(newMaxHealth)
 		self:AdjustMaxHealth(newMaxHealth)
-		--self:AddHealth(newMaxHealth - self:GetBaseHealth(), playSound, noArmor, hideEffect, healer)
+		self:AddHealth(newMaxHealth - self:GetBaseHealth(), playSound, noArmor, hideEffect, healer)
 	else
 		local newMaxHealth = self:GetBaseHealth()
 		self.maxHealth = newMaxHealth

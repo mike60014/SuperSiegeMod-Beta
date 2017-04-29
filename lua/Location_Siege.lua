@@ -8,6 +8,7 @@ local locorig = Location.OnTriggerEntered
          if string.find(self.name, "siege") or string.find(self.name, "Siege") then
          ExploitCheck(entity)
          end
+		 
          if GetGameStarted() then return end
                  local powerPoint = GetPowerPointForLocation(self.name)
             if powerPoint ~= nil then
@@ -20,11 +21,11 @@ local locorig = Location.OnTriggerEntered
                 
 end
 
-function Location:BuffFadesInSiegeRoom()
+function Location:AliensInSiegeRoom()
 
     for _, entity in ipairs(self:GetEntitiesInTrigger()) do
           if entity:isa("Fade") then
-          entity:AddEnergy(.1)
+          entity:AddEnergy(-0.1) --.1)
           --  Print("Buffing fade in siege room")
           end
     end

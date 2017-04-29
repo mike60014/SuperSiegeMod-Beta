@@ -139,7 +139,7 @@ function GUIUpgradeChamberDisplay:Update(deltaTime)
         
             local category = self.upgradeIcons[i]
             local level = kUpgradeLevelFunc[i](player:GetTeamNumber())
-            local techId, upgraded = GetTechIdToUse(upgrades, kIndexToUpgrades[i])    
+            local techId, upgraded = GetTechIdToUse(upgrades, kIndexToUpgrades[i])
             local alpha = (upgraded or player:isa("Commander")) and 1 or (0.25 + (1 + math.sin(Shared.GetTime() * 5)) * 0.5) * 0.75
             
             for upgradeLevel = 1, 3 do

@@ -341,7 +341,8 @@ kLifeformVampirismScalars["Onos"] = 40  --Stomp?
 
 --Crush
 
-kAlienCrushDamagePercentByLevel = 0.07  --Max 21%
+kAlienCrushDamagePercentByLevel = 0.15 --0.07  --Max 21%
+
 
 --Focus
 kAlienFocusUpgradeAttackDelay = 1 --FIXME Does not account for variable attack-rates
@@ -1349,10 +1350,10 @@ gRifleToHMGReloadSpeed = 4 --rifleReloadTime / hmgReloadTime
 kHeavyMachineGunTechResearchTime = 20 --30
 kHeavyMachineGunWeight = 0.20 --0.26
 kHeavyMachineGunCost = 25
-kHeavyMachineGunDamage = 7 --6
+kHeavyMachineGunDamage = 6
 kHeavyMachineGunDamageType = kDamageType.Puncture
 kHeavyMachineGunClipSize = 125
-kHeavyMachineGunClipNum = 8 --4
+kHeavyMachineGunClipNum = 4
 kHeavyMachineGunRange = 65 --100
 
 kHeavyMachineGunSpread = Math.Radians(4)
@@ -1473,13 +1474,13 @@ kFlamethrowerStackRate = gFlamethrowerStackRate
 
 --gShotgunBulletSize = 0.05 --0.016
 gShotgunClipSize = 8 --default 6
-gShotgunAmmoSize = 66 --default 6
+gShotgunAmmoSize = 32 --default 6
 gShotgunWeight = 0.14
 gShotgunReloadSpeed = 0.1
 
 gShotgunPrimaryBulletSize = 0.016
 gShotgunPrimaryDamage = 10
-gShotgunPrimaryAttackSpeed = 0.88
+gShotgunPrimaryAttackSpeed = 0.78 --0.88
 gShotgunPrimaryBulletsClipCost = 1
 gShotgunPrimaryBulletsPerShot = 19 --17
 gShotgunPrimaryDamageType = kDamageType.Normal
@@ -1489,9 +1490,10 @@ gShotgunPrimaryRangeWhileVortexed = 35  --5
 -- higher numbers reduces the spread
 gShotgunPrimarySpreadDistance = 10 --8.5
 
-gShotgunSecondaryBulletSize = 0.5 --0.016
+--19 bullets .016 in 1 shot size = 0.304
+gShotgunSecondaryBulletSize = 0.304 --0.016
 gShotgunSecondaryDamage = 80 
-gShotgunSecondaryAttackSpeed = 0.66 --0.88
+gShotgunSecondaryAttackSpeed = 0.78 --0.88
 gShotgunSecondaryBulletsClipCost = 1
 gShotgunSecondaryBulletsPerShot = 1 --10
 gShotgunSecondaryDamageType = kDamageType.Puncture --kDamageType.Normal
@@ -1527,7 +1529,7 @@ gWelderPointsPerScore = 175
 gWelderScoreAddedPerPoints = 2
 gWelderDamagePerSecond = 30
 gWelderDamageType = kDamageType.Flame
-kWelderFireDelay = 0.2 --0.20
+kWelderFireDelay = 0.45 --0.20 --0.45 ?
 gWelderSelfWeldAmount = 5
 gWelderPlayerArmorRate = 30
 gWelderStructureWeldRateBreakableDoor = gWelderPlayerArmorRate * 1.8 --1.2
@@ -1770,7 +1772,6 @@ kARCRoboticsFactoryPointValue = 7
 --Extractor
 kExtractorBuildTime = 11
 
-
 --Mac Settings
 kMACAttackDamage = 5
 kMACAttackDamageType = kDamageType.Normal
@@ -1781,9 +1782,10 @@ kMACBuildTime = 5
 gMACMaxAmount = 12
 gMACMaxLevel = 50
 gMACConstructRate = 0.4
-gMACWeldRate = 0.5
+gMACWeldRate = 0.5 --1
 gMACOrderScanRadius = 10
 gMACRepairHealthPerSecond = 50
+kMACHealth = 300    kMACArmor = 50 
 gMACHealth = kMACHealth
 gMACArmor = kMACArmor
 gMACMoveSpeed = 6
@@ -1791,7 +1793,7 @@ gMACHoverHeight = .5
 gMACStartDistance = 3
 gMACWeldDistance = 2
 gMACBuildDistance = 2     -- Distance at which bot can start building a structure.
-gMACSpeedUpgradePercent = (1 + kMACSpeedAmount)
+--gMACSpeedUpgradePercent = (1 + kMACSpeedAmount)
 gMACRolloutSpeed = 2
 gMACCapsuleHeight = .2
 gMACCapsuleRadius = .5

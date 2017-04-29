@@ -10,6 +10,9 @@ class 'AcidRocket' (Blink)
 
 AcidRocket.kMapName = "acidrocket"
 
+AcidRocket.kModelName = PrecacheAsset("models/alien/babbler/babbler.model")
+AcidRocket.kModelNameShadow = PrecacheAsset("models/alien/babbler/babbler_shadow.model")
+
 local kPlayerVelocityFraction = kAcidRocketPlayerVelocityFraction
 local kRocketVelocity = kAcidRocketVelocity
 

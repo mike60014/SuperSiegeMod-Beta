@@ -70,7 +70,6 @@ Shotgun.kStartOffset = 0
 function Shotgun:OnCreate()
 
     ClipWeapon.OnCreate(self)
-     
 	Shotgun.primaryattackLastRequested = 0
 	Shotgun.secondaryattackLastRequested = 0
 	Shotgun.ammo = gShotgunAmmoSize
@@ -82,17 +81,12 @@ function Shotgun:OnCreate()
     InitMixin(self, ShotgunVariantMixin)
     self.lastreloaded = 0
     self.emptyPoseParam = 0
-
 end
 
 if Client then
-
     function Shotgun:OnInitialized()
-    
         ClipWeapon.OnInitialized(self)
-    
     end
-
 end
 
 function Shotgun:GetPrimaryMinFireDelay()
@@ -153,15 +147,11 @@ function Shotgun:GetWeight()
 end
 
 function Shotgun:UpdateViewModelPoseParameters(viewModel)
-
     viewModel:SetPoseParam("empty", self.emptyPoseParam)
-    
 end
 
 local function CancelReload(self)
-
     if self:GetIsReloading() then
-    
         self.reloading = false
         if Client then
             self:TriggerEffects("reload_cancel_shotgun")
@@ -196,8 +186,8 @@ end
 function Shotgun:OnUpdateAnimationInput(modelMixin)
     PROFILE("Shotgun:OnUpdateAnimationInput")
 	local activity = "none"
-		self:TriggerEffects("end")
-		modelMixin:SetAnimationInput("activity", activity)
+		--self:TriggerEffects("end")
+		--modelMixin:SetAnimationInput("activity", activity)
 	
 	if self.secondaryAttacking then
 		if self.clip == 0 then self:TriggerEffects("reload") end
@@ -210,21 +200,14 @@ function Shotgun:OnUpdateAnimationInput(modelMixin)
 	elseif self:GetIsReloading() then
 		if self.clip < gShotgunClipSize then
 			--if GetReloadSpeed() + GetLastReloaded(self) <= Shared.GetTime() then
-				self.reloading = true
-				self:TriggerEffects("reload")
+				--self.reloading = true
+				--self:TriggerEffects("reload")
 				--self.lastreloaded = Shared.GetTime()
 				activity = "reload"
 				modelMixin:SetAnimationInput("activity", activity)
 				--LoadBullet(self)
 				--player.Reload()
 			--end
-		else
-			
-			self.reloading = false
-			activity = "none"
-			modelMixin:SetAnimationInput("activity", activity)
-			self:TriggerEffects("end")
-			CancelReload(self)
 		end
 	else
 	
@@ -235,6 +218,7 @@ function Shotgun:OnUpdateAnimationInput(modelMixin)
 	
 	end
 	
+		modelMixin:SetAnimationInput("activity", activity)
 end
 
 function Shotgun:OnTag(tagName)
@@ -249,7 +233,7 @@ function Shotgun:OnTag(tagName)
 			if player then
 				player:Reload()
 			end
-			--continueReloading = true
+			continueReloading = true
         end
     end
     
@@ -264,19 +248,19 @@ function Shotgun:OnTag(tagName)
     elseif tagName == "reload_shotgun_end" then
         self:TriggerEffects("shotgun_reload_end")
     end
-    /*
+    
     if continueReloading then
         local player = self:GetParent()
         if player then
             player:Reload()
         end
     end
-	*/
+	
 end
 
 -- used for last effect
 function Shotgun:GetEffectParams(tableParams)
-    tableParams[kEffectFilterEmpty] = self.clip == 0
+    tableParams[kEffectFilterEmpty] = self.clip == 1
 end
 
 function Shotgun:GetIsReloading()
@@ -321,7 +305,7 @@ function Shotgun:OnSecondaryAttackEnd(player)
     self.primaryAttacking = false
     self.timesecondaryAttackEnded = Shared.GetTime()
     ClipWeapon.OnSecondaryAttackEnd(self, player)
-
+	
 end
 
 function Shotgun:ModifyDamageTaken(damageTable, attacker, doer, damageType)
@@ -359,6 +343,7 @@ function Shotgun:OnPrimaryAttack(player)
     
 	if attackAllowed and (self.clip == 0) then
 	
+        self:TriggerEffects("reload")
         --self:TriggerEffects("load_shell")
 		--self:TriggerEffects("reload_shotgun_start")
 		--self.reloading = true
@@ -396,7 +381,7 @@ function Shotgun:OnSecondaryAttack(player)
     
 	if attackAllowed and (self.clip == 0) then
 	
-        --self:TriggerEffects("load_shell")
+        self:TriggerEffects("reload")
 		--self.reloading = true
 		
 	

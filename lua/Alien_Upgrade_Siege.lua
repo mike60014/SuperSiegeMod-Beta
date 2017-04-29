@@ -24,9 +24,9 @@ end
 
 
 function GetHasThickenedSkinUpgrade(callingEntity)
-    return HasUpgrade(callingEntity, kTechId.ThickenedSkin) //or callingEntity.RTDRedemption
+    return HasUpgrade(callingEntity, kTechId.ThickenedSkin)
 end
 
 function GetHasHungerUpgrade(callingEntity)
-    return HasUpgrade(callingEntity, kTechId.Hunger) //or callingEntity.RTDRedemption
+    return HasUpgrade(callingEntity, kTechId.Hunger)
 end

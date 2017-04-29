@@ -17,6 +17,7 @@ local kSound = PrecacheAsset("sound/NS2.fev/alien/lerk/taunt")
 class 'Primal' (Ability)
 
 Primal.kMapName = "primal"
+--Primal.kModelName = 
 
 local kAnimationGraph = PrecacheAsset("models/alien/lerk/lerk_view.animation_graph")
 local attackEffectMaterial = nil
@@ -188,7 +189,7 @@ function Primal:OnUpdateAnimationInput(modelMixin)
         activityString = "primary"
         
     end
-   
+	
     modelMixin:SetAnimationInput("ability", abilityString) 
     modelMixin:SetAnimationInput("activity", activityString)
     

@@ -173,7 +173,7 @@ function SandCastle:ForAllSiegeLocationsAct()
               
               for i = 1, #siegelocations do
                 local loc = siegelocations[i]
-                  loc:BuffFadesInSiegeRoom()
+                  loc:AliensInSiegeRoom()
                    -- Print("Buffing fades in siege room")
               end
 

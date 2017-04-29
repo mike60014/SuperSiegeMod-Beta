@@ -4,6 +4,7 @@ Script.Load("lua/ConstructMixin.lua")
 
 class 'MACCredit' (MAC)
 MACCredit.kMapName = "maccredit"
+MACCredit.kModelName = PrecacheAsset("models/marine/mac/mac.model")
 
 
 local networkVars = {} --fuckbitchz

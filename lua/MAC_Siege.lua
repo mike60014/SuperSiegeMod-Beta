@@ -7,48 +7,48 @@ Script.Load("lua/RecycleMixin.lua")
 class 'MACSiege' (MAC)
 MACSiege.kMapName = "macsiege"
 
-MAC.kConstructRate = 0.4
-MAC.kWeldRate = 0.5
-MAC.kOrderScanRadius = 10
-MAC.kRepairHealthPerSecond = 50
+MAC.kConstructRate = gMACConstructRate
+MAC.kWeldRate = gMACWeldRate
+MAC.kOrderScanRadius = gMACOrderScanRadius
+MAC.kRepairHealthPerSecond = gMACRepairHealthPerSecond
 MAC.kHealth = kMACHealth
 MAC.kArmor = kMACArmor
-MAC.kMoveSpeed = 6
-MAC.kHoverHeight = .5
-MAC.kStartDistance = 3
-MAC.kWeldDistance = 2
-MAC.kBuildDistance = 2     -- Distance at which bot can start building a structure.
+MAC.kMoveSpeed = gMACMoveSpeed
+MAC.kHoverHeight = gMACHoverHeight
+MAC.kStartDistance = gMACStartDistance
+MAC.kWeldDistance = gMACWeldDistance
+MAC.kBuildDistance = gMACBuildDistance     -- Distance at which bot can start building a structure.
 MAC.kSpeedUpgradePercent = (1 + kMACSpeedAmount)
-MAC.kRolloutSpeed = 2
-MAC.kCapsuleHeight = .2
-MAC.kCapsuleRadius = .5
-MAC.kGreetingUpdateInterval = 1
-MAC.kGreetingInterval = 10
-MAC.kGreetingDistance = 5
-MAC.kUseTime = 2.0
+MAC.kRolloutSpeed = gMACRolloutSpeed
+MAC.kCapsuleHeight = gMACCapsuleHeight
+MAC.kCapsuleRadius = gMACCapsuleRadius
+MAC.kGreetingUpdateInterval = gMACGreetingUpdateInterval
+MAC.kGreetingInterval = gMACGreetingInterval
+MAC.kGreetingDistance = gMACGreetingDistance
+MAC.kUseTime = gMACUseTime
 
 
 kMacMaxAmount = gMacMaxAmount
 kMacMaxLevel = kMacMaxLevel
-MACSiege.kConstructRate = 0.4
-MACSiege.kWeldRate = 0.5
-MACSiege.kOrderScanRadius = 10
-MACSiege.kRepairHealthPerSecond = 50
+MACSiege.kConstructRate = gMACConstructRate
+MACSiege.kWeldRate = gMACWeldRate
+MACSiege.kOrderScanRadius = gMACOrderScanRadius
+MACSiege.kRepairHealthPerSecond = gMACRepairHealthPerSecond
 MACSiege.kHealth = kMACHealth
 MACSiege.kArmor = kMACArmor
-MACSiege.kMoveSpeed = 6
-MACSiege.kHoverHeight = .5
-MACSiege.kStartDistance = 3
-MACSiege.kWeldDistance = 2
-MACSiege.kBuildDistance = 2     -- Distance at which bot can start building a structure.
+MACSiege.kMoveSpeed = gMACMoveSpeed
+MACSiege.kHoverHeight = gMACHoverHeight
+MACSiege.kStartDistance = gMACStartDistance
+MACSiege.kWeldDistance = gMACWeldDistance
+MACSiege.kBuildDistance = gMACBuildDistance     -- Distance at which bot can start building a structure.
 MACSiege.kSpeedUpgradePercent = (1 + kMACSpeedAmount)
-MACSiege.kRolloutSpeed = 2
-MACSiege.kCapsuleHeight = .2
-MACSiege.kCapsuleRadius = .5
-MACSiege.kGreetingUpdateInterval = 1
-MACSiege.kGreetingInterval = 10
-MACSiege.kGreetingDistance = 5
-MACSiege.kUseTime = 2.0
+MACSiege.kRolloutSpeed = gMACRolloutSpeed
+MACSiege.kCapsuleHeight = gMACCapsuleHeight
+MACSiege.kCapsuleRadius = gMACCapsuleRadius
+MACSiege.kGreetingUpdateInterval = gMACGreetingUpdateInterval
+MACSiege.kGreetingInterval = gMACGreetingInterval
+MACSiege.kGreetingDistance = gMACGreetingDistance
+MACSiege.kUseTime = gMACUseTime
 
 local networkVars = 
 
@@ -57,7 +57,7 @@ local networkVars =
 
 }
 
-MAC.kWeldRate = 1
+MAC.kWeldRate = gMACWeldRate
 
 AddMixinNetworkVars(ResearchMixin, networkVars)
 AddMixinNetworkVars(RecycleMixin, networkVars)
@@ -82,9 +82,11 @@ end
 function MACSiege:GetTechId()
 return kTechId.MAC
 end
+
 function MACSiege:GetMaxLevel()
 return kMacMaxLevel
 end
+
 function MACSiege:GetAddXPAmount()
 return 0.05 * 0.05
 end

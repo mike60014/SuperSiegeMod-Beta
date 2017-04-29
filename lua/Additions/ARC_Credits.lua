@@ -3,7 +3,7 @@ Script.Load("lua/ConstructMixin.lua")
 
 class 'ARCCredit' (ARC)
 ARCCredit.kMapName = "arccredit"
-
+ARCCredit.kModelName = PrecacheAsset("models/marine/arc/arc.model")
 
 local networkVars = {} --fuckbitchz
 AddMixinNetworkVars(ConstructMixin, networkVars)

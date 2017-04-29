@@ -8,7 +8,7 @@ class 'CommTunnel' (TunnelEntrance)
 
 CommTunnel.kMapName = "commtunnel"
 
-
+CommTunnel.kModelName = PrecacheAsset("models/alien/tunnel/tunnel.model")
 
 
 local networkVars = { }

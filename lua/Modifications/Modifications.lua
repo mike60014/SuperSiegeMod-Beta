@@ -435,8 +435,8 @@ local function CorrodeOnInfestation(self)
         end
         
         if not self:isa("CommandStation") and not self:isa("PowerPoint") and self:GetArmor() == 0 and not self:isa("ARC")  and GetIsRoomPowerDown(self) then
-           local damage = kInfestationCommandCenterCorrodeDamagePerSecond --kInfestationCorrodeDamagePerSecond * 4
-                    self:DeductHealth(damage, nil, nil, true, false, true)
+           --local damage = kInfestationCommandCenterCorrodeDamagePerSecond
+                    self:DeductHealth(kInfestationCorrodeDamagePerSecond, nil, nil, true, false, true)
         end
         
     end

@@ -270,9 +270,9 @@ if Points ~= nil and Points ~= 0 and Player and not Shared.GetCheatsEnabled() th
 	if WasKill and Player:isa("Alien") then self:PrimalScreamPointBonus(Player, Points) end
 	local client = Player:GetClient()
 	if not client then return end
-	Points = Points * self.Config.kCreditMultiplier
+	Points = Points * gCreditPlayerMultiplier
 
-	--local addamount = Points/(10/self.Config.kCreditMultiplier)
+	--local addamount = Points/(10/gCreditPlayerMultiplier)
 	local controlling = client:GetControllingPlayer()
 
 	if Player:GetTeamNumber() == 1 then
@@ -338,7 +338,7 @@ function Plugin:CommCredits()
 end
 
  function Plugin:GiveCommCredits()
- local salt = kCreditCommReward * self.Config.kCreditMultiplier
+ local salt = kCreditCommReward * gCreditPlayerMultiplier --self.Config.kCreditMultiplier
  self:NotifySalt( nil, "%s Salt for each commander", true, salt)
 
   local Players = Shine.GetAllPlayers()
@@ -1136,7 +1136,7 @@ CreditsCommand:AddParam{ Type = "clients" }
 local function AddSalt(Client, Targets, Number, Display, Double)
 for i = 1, #Targets do
 local Player = Targets[ i ]:GetControllingPlayer()
-if Double == true then Number = Number * self.Config.kCreditMultiplier end
+if Double == true then Number = Number * gCreditPlayerMultiplier end
 self.CreditUsers[ Player:GetClient() ] = self:GetPlayerSaltInfo(Player:GetClient()) + Number
 Shine.ScreenText.SetText("Salt", string.format("%s Salt", self:GetPlayerSaltInfo(Player:GetClient()) ), Player:GetClient())
    if Display == true then
@@ -1149,7 +1149,7 @@ end
 local function SetSalt(Client, Targets, Number, Display, Double)
 for i = 1, #Targets do
 local Player = Targets[ i ]:GetControllingPlayer()
-if Double == true then Number = Number * self.Config.kCreditMultiplier end
+if Double == true then Number = Number * gCreditPlayerMultiplier end
 self.CreditUsers[ Player:GetClient() ] = Number
 Shine.ScreenText.SetText("Salt", string.format("%s Salt", self:GetPlayerSaltInfo(Player:GetClient()) ), Player:GetClient())
    if Display == true then

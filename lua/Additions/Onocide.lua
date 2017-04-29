@@ -8,6 +8,7 @@ class 'Onocide' (Ability)
 
 Onocide.kMapName = "onocide"
 
+
 -- after kDetonateTime seconds the skulk goes 'boom!'
 local kDetonateTime = kOnocideDetonateTime
 local kXenocideSoundName = PrecacheAsset("sound/NS2.fev/alien/common/xenocide_start")
