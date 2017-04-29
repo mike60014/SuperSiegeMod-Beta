@@ -23,12 +23,32 @@ end
 
 function Location:AliensInSiegeRoom()
 
-    for _, entity in ipairs(self:GetEntitiesInTrigger()) do
-          if entity:isa("Fade") then
-          entity:AddEnergy(-0.1) --.1)
-          --  Print("Buffing fade in siege room")
-          end
-    end
+for _, entity in ipairs(self:GetEntitiesInTrigger()) do
+	if entity:isa("Skulk") then
+		entity:AddHealth(kAliensInSiegeRoomAddSkulkHealth)
+		entity:AddArmor(kAliensInSiegeRoomAddSkulkArmor)
+		entity:AddEnergy(kAliensInSiegeRoomAddSkulkEnergy)
+	elseif entity:isa("Gorge") then
+		entity:AddHealth(kAliensInSiegeRoomAddGorgeHealth)
+		entity:AddArmor(kAliensInSiegeRoomAddGorgeArmor)
+		entity:AddEnergy(kAliensInSiegeRoomAddGorgeEnergy)
+	elseif entity:isa("Lerk") then
+		entity:AddHealth(kAliensInSiegeRoomAddLerkHealth)
+		entity:AddArmor(kAliensInSiegeRoomAddLerkArmor)
+		entity:AddEnergy(kAliensInSiegeRoomAddLerkEnergy)
+	elseif entity:isa("Fade") then
+		entity:AddHealth(kAliensInSiegeRoomAddFadeHealth)
+		entity:AddArmor(kAliensInSiegeRoomAddFadeArmor)
+		entity:AddEnergy(kAliensInSiegeRoomAddFadeEnergy)
+	elseif entity:isa("Onos") then
+		entity:AddHealth(kAliensInSiegeRoomAddOnosHealth)
+		entity:AddArmor(kAliensInSiegeRoomAddOnosArmor)
+		entity:AddEnergy(kAliensInSiegeRoomAddOnosEnergy)
+
+
+
+	end
+end
 
 end
 

@@ -182,7 +182,7 @@ end
 local function GetReloadSpeed()
 	return gShotgunReloadSpeed
 end
-
+/*
 function Shotgun:OnUpdateAnimationInput(modelMixin)
     PROFILE("Shotgun:OnUpdateAnimationInput")
 	local activity = "none"
@@ -257,6 +257,46 @@ function Shotgun:OnTag(tagName)
     end
 	
 end
+*/
+
+
+
+
+function Shotgun:OnTag(tagName)
+
+    PROFILE("Shotgun:OnTag")
+    
+    local continueReloading = false
+    if self:GetIsReloading() and tagName == "reload_end" then
+    
+        continueReloading = true
+        self.reloading = false
+        
+    end
+    
+    ClipWeapon.OnTag(self, tagName)
+    
+    if tagName == "load_shell" then
+        LoadBullet(self)
+    elseif tagName == "reload_shotgun_start" then
+        self:TriggerEffects("shotgun_reload_start")
+    elseif tagName == "reload_shotgun_shell" then
+        self:TriggerEffects("shotgun_reload_shell")
+    elseif tagName == "reload_shotgun_end" then
+        self:TriggerEffects("shotgun_reload_end")
+    end
+    
+    if continueReloading then
+    
+        local player = self:GetParent()
+        if player then
+            player:Reload()
+        end
+        
+    end
+    
+end
+
 
 -- used for last effect
 function Shotgun:GetEffectParams(tableParams)

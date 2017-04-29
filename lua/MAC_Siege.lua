@@ -50,12 +50,7 @@ MACSiege.kGreetingInterval = gMACGreetingInterval
 MACSiege.kGreetingDistance = gMACGreetingDistance
 MACSiege.kUseTime = gMACUseTime
 
-local networkVars = 
-
-{
-
-
-}
+local networkVars = {}
 
 MAC.kWeldRate = gMACWeldRate
 

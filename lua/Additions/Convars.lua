@@ -228,8 +228,8 @@ kKillTeamReward = 0
 kPersonalResPerKill = 2 --0
 
 
-
---Alien Settings
+//Alien Settings Start
+--Alien Settings Start
 
 kAlienSpawnTime = 9 --default 10
 
@@ -238,6 +238,30 @@ kAlienEggsPerHive = 4 --default 3
 
 
 kAbilityMaxEnergy = 120 --100
+
+-- AliensInSiegeRoom Effects
+
+kAliensInSiegeRoomAddSkulkHealth = -0.1 --default 0.1
+kAliensInSiegeRoomAddSkulkArmor = -0.1 --default 0.1
+kAliensInSiegeRoomAddSkulkEnergy = -0.1 --default 0.1
+
+kAliensInSiegeRoomAddGorgeHealth = -0.1 --default 0.1
+kAliensInSiegeRoomAddGorgeArmor = -0.1 --default 0.1
+kAliensInSiegeRoomAddGorgeEnergy = -0.1 --default 0.1
+
+kAliensInSiegeRoomAddLerkHealth = -0.1 --default 0.1
+kAliensInSiegeRoomAddLerkArmor = -0.1 --default 0.1
+kAliensInSiegeRoomAddLerkEnergy = -0.1 --default 0.1
+
+kAliensInSiegeRoomAddFadeHealth = -0.1 --default 0.1
+kAliensInSiegeRoomAddFadeArmor = -0.1 --default 0.1
+kAliensInSiegeRoomAddFadeEnergy = -0.1 --default 0.1
+
+kAliensInSiegeRoomAddOnosHealth = -0.1 --default 0.1
+kAliensInSiegeRoomAddOnosArmor = -0.1 --default 0.1
+kAliensInSiegeRoomAddOnosEnergy = -0.1 --default 0.1
+
+
 
 --Supply
 kWhipSupply = 5
@@ -950,7 +974,10 @@ kAcidRocketignoreLOS = false
 
 kSwipeDamageType = kDamageType.StructuresOnlyLight
 kSwipeDamage = 75
+kSwipeRange = 1.2 -- 1.6
 kSwipeEnergyCost = 7
+SwipeBlink.kRange = 1.6
+
 kMetabolizeEnergyCost = 25
 
 kStabDamage = 200 --160
@@ -1113,8 +1140,8 @@ kGorgeRebirthLength = 3
 
 --Gorge End
 
-
---////////////Marines Settings Start
+///Alien Settings End
+////////////Marines Settings Start
 --Marine Settings
 kMarineRespawnTime = 9
 

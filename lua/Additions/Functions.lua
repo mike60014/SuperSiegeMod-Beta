@@ -1,4 +1,5 @@
 --Kyle 'Avoca' Abent
+/*
 function GetBallForPlayerOwner(who)
             for _, ball in ientitylist(Shared.GetEntitiesWithClassname("Ball")) do
                  if ball:GetParent() == who then --not owner
@@ -7,13 +8,15 @@ function GetBallForPlayerOwner(who)
     end    
     return nil
 end
+*/
 function GetIsTimeUp(timeof, timelimitof)
- local time = Shared.GetTime()
- local boolean = (timeof + timelimitof) <= time
- --Print("timeof is %s, timelimitof is %s, time is %s", timeof, timelimitof, time)
- -- if boolean == true then Print("GetTimeIsUp boolean is %s, timelimitof is %s", boolean, timelimitof) end
- return boolean
+	 local time = Shared.GetTime()
+	 local boolean = (timeof + timelimitof) <= time
+	 --Print("timeof is %s, timelimitof is %s, time is %s", timeof, timelimitof, time)
+	 -- if boolean == true then Print("GetTimeIsUp boolean is %s, timelimitof is %s", boolean, timelimitof) end
+	 return boolean
 end
+
 function GetLocationWithMostMixedPlayers()
 
 local team1avgorigin = Vector(0, 0, 0)
@@ -41,28 +44,28 @@ local neutralavgorigin = Vector(0, 0, 0)
 
 end
 function GetIsRoomPowerDown(who)
- local location = GetLocationForPoint(who:GetOrigin())
-  if not location then return false end
- local powernode = GetPowerPointForLocation(location.name)
- if powernode and powernode:GetIsDisabled()  then return true end
- return false
+	local location = GetLocationForPoint(who:GetOrigin())
+	if not location then return false end
+	local powernode = GetPowerPointForLocation(location.name)
+	if powernode and powernode:GetIsDisabled()  then return true end
+	return false
 end
 
 function GetIsOriginInHiveRoom(point)  
- local location = GetLocationForPoint(point)
- local hivelocation = nil
-     local hives = GetEntitiesWithinRange("Hive", point, 999)
-     if not hives then return false end
-     
-     for i = 1, #hives do  --better way to do this i know
-     local hive = hives[i]
-     hivelocation = GetLocationForPoint(hive:GetOrigin())
-     break
-     end
-     
-     if location == hivelocation then return true end
-     
-     return false
+	local location = GetLocationForPoint(point)
+	local hivelocation = nil
+	local hives = GetEntitiesWithinRange("Hive", point, 999)
+	if not hives then return false end
+
+	for i = 1, #hives do  --better way to do this i know
+	local hive = hives[i]
+	hivelocation = GetLocationForPoint(hive:GetOrigin())
+	break
+	end
+
+	if location == hivelocation then return true end
+
+	return false
      
 end
 
@@ -143,10 +146,11 @@ if GetSiegeDoorOpen() then return end
       
   end
    
-  if GetIsInSiege(who)  then
-    Print("in Siege")
-   who:Kill() 
-  end
+	if GetIsInSiege(who) then
+		Print("in Siege")
+		who:Kill() 
+		if who:isa("Cyst") then who:Kill() end
+	end
 
 end
 

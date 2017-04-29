@@ -1,16 +1,21 @@
 Script.Load("lua/PointGiverMixin.lua")
+
 local networkVars = {}
+
 local function TimeUp(self)
     self:Kill()
     return false
 end
+
 local function GetLifeSpan(self)
 local default = kContaminationLifeSpan
 return ConditionalValue(not GetIsInSiege(self), default * math.random(.10, .30) + default, default)
 end
+
 function Contamination:GetPointValue()
     return 3
 end
+
 function Contamination:GetInfestationGrowthRate()
     return ConditionalValue(not GetIsInSiege(self), 0.625, 0.5)
 end

@@ -430,7 +430,7 @@ function Rifle:OnPrimaryAttack(player)
 	
         self:TriggerEffects("reload")
 		--self:TriggerEffects("rifle_reload_start")
-		--self.reloading = true
+		self.reloading = true
 		--player.Reload()
 	
     elseif attackAllowed and self.GetPrimaryMinFireDelay and (self.clip > 0) then
@@ -440,18 +440,18 @@ function Rifle:OnPrimaryAttack(player)
         if not attackAllowed and self.OnMaxFireRateExceeded then
             --self:OnMaxFireRateExceeded()
         else
-				if Server then UpdateSoundType(self, player) end
+			if Server then UpdateSoundType(self, player) end
 		if self:GetIsDeployed() and primaryattackAllowed and secondaryattackAllowed and not self.secondaryAttacking and not self:GetIsReloading() then
 		
-        
-				self.primaryAttacking = true
-				CancelReload(self)
-				ClipWeapon.OnPrimaryAttack(self, player)
-				self:FirePrimary(player)
-				self.primaryattackLastRequested = Shared.GetTime()
-				self.clip = self.clip - gRiflePrimaryBulletsPerShot
-			else
-			end
+			if Server then UpdateSoundType(self, player) end
+			self.primaryAttacking = true
+			CancelReload(self)
+			ClipWeapon.OnPrimaryAttack(self, player)
+			self:FirePrimary(player)
+			self.primaryattackLastRequested = Shared.GetTime()
+			self.clip = self.clip - gRiflePrimaryBulletsPerShot
+		else
+		end
 		end
 	end
 	self:OnPrimaryAttackEnd(player)
@@ -467,7 +467,7 @@ function Rifle:OnSecondaryAttack(player)
 	 
         self:TriggerEffects("reload")
 		--self:TriggerEffects("rifle_reload_start")
-		--self.reloading = true
+		self.reloading = true
 		--player.Reload()
 	
     elseif attackAllowed and self.GetSecondaryMinFireDelay and (self.clip > 0) then
@@ -479,8 +479,8 @@ function Rifle:OnSecondaryAttack(player)
 			--self:OnMaxFireRateExceeded()
 		else
 			if self:GetIsDeployed() and primaryattackAllowed and secondaryattackAllowed and not self.primaryAttacking and not self:GetIsReloading() then
-				return self:GetIsDeployed() and not sprintedRecently and attackAllowed
-				/*
+				--return self:GetIsDeployed() and not sprintedRecently and attackAllowed
+				
 				if Server then UpdateSoundType(self, player) end
 				self.secondaryAttacking = true
 				--ClipWeapon.OnPrimaryAttack(self, player)
@@ -489,7 +489,7 @@ function Rifle:OnSecondaryAttack(player)
 				self:FireSecondary(player)
 				self.secondaryattackLastRequested = Shared.GetTime()
 				self.clip = self.clip - gRifleSecondaryBulletsPerShot
-				*/
+				
 			end
 		end
 	end

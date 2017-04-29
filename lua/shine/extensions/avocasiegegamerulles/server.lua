@@ -299,9 +299,9 @@ Shine.Hook.SetupClassHook("Player", "NotifyShineBallGiven", "OnBallGiven", "Pass
 Plugin.Version = "1.0"
 
 function Plugin:Initialise()
-self.Enabled = true
-self:CreateCommands()
-return true
+	self.Enabled = true
+	self:CreateCommands()
+	return true
 end
 
 function Plugin:MapPostLoad()
@@ -323,6 +323,7 @@ local function AddFrontTimer(who)
     local FrontLength =  math.ceil( Shared.GetTime() + NowToFront - Shared.GetTime() )
     Shine.ScreenText.Add( 1, {X = 0.40, Y = 0.75,Text = "FrontDoor: %s",Duration = FrontLength,R = 255, G = 255, B = 255,Alignment = 0,Size = 3,FadeIn = 0,}, Client )
 end
+
 local function AddPayLoadPercent(who)
     local Client = who
     local time, speed, isReverse = GetPayloadPercent()
@@ -490,6 +491,7 @@ end
 function Plugin:CreateCommands()
 
 
+
 local function Pres( Client, Targets, Number )
     for i = 1, #Targets do
     local Player = Targets[ i ]:GetControllingPlayer()
@@ -507,7 +509,7 @@ PresCommand:AddParam{ Type = "number" }
 PresCommand:Help("sh_pres <player> <number> sets player's pres to the number desired.")
 
 
-local function  AddScore( Client, Targets, Number )
+local function AddScore( Client, Targets, Number )
     for i = 1, #Targets do
     local Player = Targets[ i ]:GetControllingPlayer()
             if HasMixin(Player, "Scoring") then
@@ -523,10 +525,6 @@ AddScoreCommand:AddParam{ Type = "clients" }
 AddScoreCommand:AddParam{ Type = "number" }
 AddScoreCommand:Help("sh_addscore <player> <number> adds number to players score")
 
-
-
-
-
 local function RandomRR( Client )
         local rrPlayers = GetGamerules():GetTeam(kTeamReadyRoom):GetPlayers()
         for p = #rrPlayers, 1, -1 do
@@ -537,24 +535,18 @@ end
 local RandomRRCommand = self:BindCommand("sh_randomrr", "randomrr", RandomRR )
 RandomRRCommand:Help("randomize's the ready room.") 
 
-
 local function Stalemate( Client )
 	local Gamerules = GetGamerules()
 	if not Gamerules then return end
 	Gamerules:DrawGame()
 end 
 
-
 local StalemateCommand = self:BindCommand("sh_stalemate", "stalemate", Stalemate )
 StalemateCommand:Help("declares the round a draw.")
 
 
-
-
 local function Slap( Client, Targets, Number )
 //local Giver = Client:GetControllingPlayer()
-
-
   
 for i = 1, #Targets do
 local Player = Targets[ i ]:GetControllingPlayer()
@@ -625,6 +617,7 @@ local function SHealth( Client, String, Number  )
              end--
          end--
 end--
+
 local SHealthCommand = self:BindCommand("sh_shealth", "shealth", SHealth )
 SHealthCommand:AddParam{ Type = "string" }
 SHealthCommand:AddParam{ Type = "number", Min = 1, Max = 8191, Error = "1 min 8191 max" }
@@ -829,23 +822,23 @@ local GbdCommand = self:BindCommand("sh_gbd", "gbd", Gbd )
 GbdCommand:Help("gives self laystructure breakabledoor placeable anywhere without limit - aboos")
 
 local function Give( Client, Targets, String, Number )
-for i = 1, #Targets do
-local Player = Targets[ i ]:GetControllingPlayer()
-if Player and Player:GetIsAlive() and String ~= "alien" and not (Player:isa("Alien") and String == "armory") and not (Player:isa"ReadyRoomTeam" and String == "CommandStation" or String == "Hive") and not Player:isa("Commander") then
-/*
-Player:GiveItem(String)
-        for index, target in ipairs(GetEntitiesWithMixinWithinRangeAreVisible("Construct", Player:GetOrigin(), 3, true )) do
-              if not target:GetIsBuilt() then target:SetConstructionComplete() end
-          end
- */
-           
- local teamnum = Number and Number or Player:GetTeamNumber()
- local ent = CreateEntity(String, Player:GetOrigin(), teamnum)  
-if HasMixin(ent, "Construct") then  ent:SetConstructionComplete() end
-             Shine:CommandNotify( Client, "gave %s an %s", true,
-			 Player:GetName() or "<unknown>", String )  
-end
-end
+	for i = 1, #Targets do
+		local Player = Targets[ i ]:GetControllingPlayer()
+		if Player and Player:GetIsAlive() and String ~= "alien" and not (Player:isa("Alien") and String == "armory") and not (Player:isa"ReadyRoomTeam" and String == "CommandStation" or String == "Hive") and not Player:isa("Commander") then
+		/*
+			Player:GiveItem(String)
+			for index, target in ipairs(GetEntitiesWithMixinWithinRangeAreVisible("Construct", Player:GetOrigin(), 3, true )) do
+				if not target:GetIsBuilt() then target:SetConstructionComplete() end
+			end
+		 */
+		 
+			local teamnum = Number and Number or Player:GetTeamNumber()
+			local ent = CreateEntity(String, Player:GetOrigin(), teamnum)  
+			if HasMixin(ent, "Construct") then  ent:SetConstructionComplete() end
+			Shine:CommandNotify( Client, "gave %s an %s", true,
+			Player:GetName() or "<unknown>", String )  
+		end
+	end
 end
 local GiveCommand = self:BindCommand("sh_give", "give", Give )
 GiveCommand:AddParam{ Type = "clients" }
@@ -855,19 +848,12 @@ GiveCommand:Help("<player> Give item to player(s)")
 
 
 local function Chat( Client, String )
-           
-      self:SendMessageToMods(String)
+	self:SendMessageToMods(String)
 end
 local ChatCommand = self:BindCommand("sh_chat", "chat", Chat )
 ChatCommand:AddParam{ Type = "string" }
 ChatCommand:Help("for mods to talk in private. Only mods can see and use this chat.")
 
-
-local function OpenSiegeDoors()
-   for index, sandcastle in ientitylist(Shared.GetEntitiesWithClassname("SandCastle")) do
-              sandcastle:OpenSiegeDoors(true)
-      end 
-end
 local function Cyst( Client, Targets )
      for i = 1, #Targets do
      local Player = Targets[ i ]:GetControllingPlayer()
@@ -880,6 +866,13 @@ end
 local CystCommand = self:BindCommand("sh_cyst", "cyst", Cyst )
 CystCommand:AddParam{ Type = "clients" }
 CystCommand:Help("<player> Give cyst to player(s)")
+
+local function OpenSiegeDoors()
+   for index, sandcastle in ientitylist(Shared.GetEntitiesWithClassname("SandCastle")) do
+              sandcastle:OpenSiegeDoors(true)
+      end 
+end
+
 local function OpenFrontDoors()
            for index, sandcastle in ientitylist(Shared.GetEntitiesWithClassname("SandCastle")) do
                 sandcastle:OpenFrontDoors() 
